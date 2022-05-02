@@ -1,11 +1,15 @@
 #include "./SceneManager.h"
 #include "../Scene/TitleScene.h"
+#include "../Scene/TitleCut.h"
+#include "../Scene/TitleCutMenu.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
 
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
+	scenes[(int)SceneType::TITLECUT] = new TitleCut(*this);
+	scenes[(int)SceneType::TITLEMEMU] = new TitleCutMenu(*this);
 
 	scenes[(int)currScene]->Init();
 }

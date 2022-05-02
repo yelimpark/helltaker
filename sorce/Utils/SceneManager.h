@@ -9,6 +9,8 @@ class Scene;
 
 enum class SceneType {
 	TITLE,
+	TITLECUT,
+	TITLEMEMU,
 	COUNT
 };
 
