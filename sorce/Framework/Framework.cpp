@@ -2,7 +2,7 @@
 #include "../Utils/InputManager.h"
 
 Vector2i Framework::resolution(VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height);
-RenderWindow Framework::window(VideoMode(resolution.x, resolution.y), "Template", Style::Default);
+RenderWindow Framework::window(VideoMode(resolution.x, resolution.y), "Helltaker", Style::Default);
 
 RenderWindow& Framework::Getwindow()
 {

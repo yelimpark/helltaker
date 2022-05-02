@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="sorce\Framework\Framework.cpp" />
     <ClCompile Include="sorce\main.cpp" />
+    <ClCompile Include="sorce\Resource\AnimationClip.cpp" />
+    <ClCompile Include="sorce\Resource\AnimationController.cpp" />
     <ClCompile Include="sorce\Resource\FontHolder.cpp" />
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
@@ -31,8 +33,9 @@
     <ClCompile Include="sorce\Utils\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="sorce\Framework\Framework.h" />
+    <ClInclude Include="sorce\Resource\AnimationClip.h" />
+    <ClInclude Include="sorce\Resource\AnimationController.h" />
     <ClInclude Include="sorce\Resource\FontHolder.h" />
     <ClInclude Include="sorce\Resource\ResorceHolder.h" />
     <ClInclude Include="sorce\Resource\SoundHolder.h" />
@@ -44,7 +47,7 @@
     <ClInclude Include="sorce\Utils\rapidcsv.h" />
     <ClInclude Include="sorce\Utils\SceneManager.h" />
     <ClInclude Include="sorce\Utils\Singleton.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="sorce\Utils\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
