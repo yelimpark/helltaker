@@ -31,6 +31,7 @@
     <ClCompile Include="sorce\Utils\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="sorce\Framework\Framework.h" />
     <ClInclude Include="sorce\Resource\FontHolder.h" />
     <ClInclude Include="sorce\Resource\ResorceHolder.h" />
@@ -40,8 +41,10 @@
     <ClInclude Include="sorce\Scene\TitleScene.h" />
     <ClInclude Include="sorce\Utils\GameVal.h" />
     <ClInclude Include="sorce\Utils\InputManager.h" />
+    <ClInclude Include="sorce\Utils\rapidcsv.h" />
     <ClInclude Include="sorce\Utils\SceneManager.h" />
     <ClInclude Include="sorce\Utils\Singleton.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
