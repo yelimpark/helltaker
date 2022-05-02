@@ -13,6 +13,7 @@ void TitleScene::Init()
 
 void TitleScene::Update(Time& dt)
 {
+	
 }
 
 void TitleScene::Render()
