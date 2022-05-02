@@ -1,11 +1,13 @@
 #include "./SceneManager.h"
 #include "../Scene/TitleScene.h"
+#include "../Scene/StageScene.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
 
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
+	scenes[(int)SceneType::STAGE] = new StageScene(*this);
 
 	scenes[(int)currScene]->Init();
 }

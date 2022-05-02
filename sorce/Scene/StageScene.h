@@ -4,11 +4,14 @@
 class StageScene : public Scene
 {
 private:
+	Sprite sprite;
 
 public:
 	StageScene(SceneManager& sceneManager);
-	void Init();
-	void Update();
-	void Render();
+	virtual void Init();
+	virtual void Update(Time& dt);
+	virtual void Render();
+	virtual void Release();
+	virtual ~StageScene();
 };
 
