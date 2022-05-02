@@ -1,7 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <list>
+#include <map>
 #include "./Singleton.h"
+
+#define DURATION 0.5f;
 
 using namespace sf;
 using namespace std;
@@ -10,7 +13,7 @@ class InputManager : public Singleton<InputManager>
 {
 private:
 	static list<Keyboard::Key> downKeys;
-	static list<Keyboard::Key> ingKeys;
+	static map<Keyboard::Key, float> ingKeys;
 	static list<Keyboard::Key> upKeys;
 
 	static list<Mouse::Button> downButtons;
