@@ -26,15 +26,13 @@
     <ClCompile Include="sorce\Resource\FontHolder.cpp" />
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
-    <ClCompile Include="sorce\Scene\EndingCutScene.cpp" />
     <ClCompile Include="sorce\Scene\Scene.cpp" />
-    <ClCompile Include="sorce\Scene\TitleCut.cpp" />
-    <ClCompile Include="sorce\Scene\TitleCutMenu.cpp" />
     <ClCompile Include="sorce\Scene\TitleScene.cpp" />
     <ClCompile Include="sorce\Scene\TitleScriptScene.cpp" />
     <ClCompile Include="sorce\Utils\GameVal.cpp" />
     <ClCompile Include="sorce\Utils\InputManager.cpp" />
     <ClCompile Include="sorce\Utils\SceneManager.cpp" />
+    <ClCompile Include="sorce\Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Framework\Framework.h" />
@@ -44,10 +42,7 @@
     <ClInclude Include="sorce\Resource\ResorceHolder.h" />
     <ClInclude Include="sorce\Resource\SoundHolder.h" />
     <ClInclude Include="sorce\Resource\TextureHolder.h" />
-    <ClInclude Include="sorce\Scene\EndingCutScene.h" />
     <ClInclude Include="sorce\Scene\Scene.h" />
-    <ClInclude Include="sorce\Scene\TitleCut.h" />
-    <ClInclude Include="sorce\Scene\TitleCutMenu.h" />
     <ClInclude Include="sorce\Scene\TitleScene.h" />
     <ClInclude Include="sorce\Scene\TitleScriptScene.h" />
     <ClInclude Include="sorce\Utils\GameVal.h" />
