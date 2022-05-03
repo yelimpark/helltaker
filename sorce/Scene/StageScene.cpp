@@ -8,7 +8,7 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(100)
+	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(0)
 {
 
 }
@@ -50,7 +50,7 @@ void StageScene::Update(Time& dt)
 
 	if (transeScene)
 	{
-		TranseScene(dt.asSeconds());
+		TranseScene(dt.asMilliseconds());
 	}
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
@@ -80,9 +80,19 @@ void StageScene::Release()
 
 void StageScene::TranseScene(float dt)
 {
-	transition.setPosition(0, 306);
-	transition.setTextureRect( { 0, (int)(544 * 0.5f), resolution.x, (int)transHeight });
-	transHeight += dt*100;
+	transition.setTextureRect( { 0, (int)((544.f-transHeight)*0.5f), resolution.x, (int)transHeight});
+	FloatRect transRect = transition.getLocalBounds();
+	transition.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	transition.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
+
+
+	if (transHeight > 544)
+		return;
+	else
+	{
+		transHeight += dt*2;
+	}
+		
 }
 
 StageScene::~StageScene()
