@@ -51,7 +51,7 @@
     <ClInclude Include="sorce\Utils\rapidcsv.h" />
     <ClInclude Include="sorce\Utils\SceneManager.h" />
     <ClInclude Include="sorce\Utils\Singleton.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="sorce\Utils\Utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
