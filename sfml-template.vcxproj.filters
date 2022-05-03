@@ -24,9 +24,6 @@
     <Filter Include="소스 파일\GameObj">
       <UniqueIdentifier>{42e6f0f7-0443-48da-943b-00c3af0d795b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\UIObj">
-      <UniqueIdentifier>{7435b8e0-1463-4aa2-b818-90eb318aaaf7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\UI">
       <UniqueIdentifier>{8685a669-3847-4bfe-bb7f-7ba42de77b04}</UniqueIdentifier>
     </Filter>

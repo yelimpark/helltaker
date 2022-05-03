@@ -11,7 +11,7 @@ public:
 template<typename T>
 inline void Utills::CsvToStruct(std::list<T>& structList, const char* filename)
 {
-    rapidcsv::Document csvData(filename, rapidcsv::LabelParams(-1, 0));
+    rapidcsv::Document csvData(filename, rapidcsv::LabelParams(0, -2));
 
     for (int i = 1; i < csvData.GetRowCount(); ++i) {
         std::vector<std::string> row = csvData.GetRow<std::string>(i);
