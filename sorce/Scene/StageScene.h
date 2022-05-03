@@ -31,8 +31,12 @@ private:
 	Sprite flameBase2;
 	Sprite transition;
 
+	RectangleShape transBack;
+
 	int lastTurn;
+	int opacity;
 	float transHeight;
+
 
 	bool transeScene;
 
