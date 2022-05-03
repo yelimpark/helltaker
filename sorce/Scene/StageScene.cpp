@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Framework/Framework.h"
 #include "../Utils/rapidcsv.h"
+#include "../Utils/InputManager.h"
 
 using namespace sf;
 
@@ -18,9 +19,12 @@ void StageScene::Init()
 	spriteSide2.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	flameBase1.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
 	flameBase2.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
+	transition.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_hell.png"));
 
 	//rapidcsv::Document background("data_tables/stage_background_texture.csv");
 	//std::vector<std::string>colId = background.GetColumn<std::string>("TEXTURE PATH");
+
+	transeScene = false;
 
 }
 
@@ -34,13 +38,19 @@ void StageScene::Update(Time& dt)
 	flameBase2.setPosition(1225, 515);
 
 	ui.Update(lastTurn, resolution);
+
+	if (InputManager::GetKeyDown(Keyboard::Enter))
+	{
+		transeScene = true;
+		TranseScene(dt);
+
+	}
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
 
 void StageScene::Render()
 {
 	window.setView(mainView);
-
 
 	window.draw(spriteBackground);
 	window.draw(spriteSide1);
@@ -49,12 +59,22 @@ void StageScene::Render()
 	window.draw(flameBase2);
 
 	window.setView(uiView);
+	if (transeScene)
+	{
+		window.draw(transition);
+	}
 	ui.Draw(window);
 	
 }
 
 void StageScene::Release()
 {
+}
+
+void StageScene::TranseScene(Time dt)
+{
+	transition.setPosition(0, 204);
+
 }
 
 StageScene::~StageScene()

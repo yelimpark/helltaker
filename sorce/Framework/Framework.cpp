@@ -48,6 +48,12 @@ int Framework::Run()
             if (event.type == Event::Closed)
                 window.close();
 
+            if (event.type == Event::Resized)
+            {
+                FloatRect visibleArea(0, 0, event.size.width, (event.size.width*9)/16);
+                window.setView(View(visibleArea));
+            }
+
             InputManager::ProcessInput(event);
         }
 

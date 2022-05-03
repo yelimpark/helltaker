@@ -12,8 +12,11 @@ private:
 	Sprite spriteSide2;
 	Sprite flameBase1;
 	Sprite flameBase2;
+	Sprite transition;
 
 	int lastTurn;
+
+	bool transeScene;
 
 	View uiView;
 
@@ -23,6 +26,7 @@ public:
 	virtual void Update(Time& dt);
 	virtual void Render();
 	virtual void Release();
+	void TranseScene(Time dt);
 	virtual ~StageScene();
 };
 
