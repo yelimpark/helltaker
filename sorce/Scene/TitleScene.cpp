@@ -29,11 +29,6 @@ void TitleScene::Init()
 		Utils::SetOrigin(textOpen[i], Pivots::Center);
 	}
 
-	Sprite* img = new Sprite[3];
-	img[0].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
-	img[1].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
-	img[2].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
-
 
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
@@ -42,6 +37,8 @@ void TitleScene::Init()
 		menu[i].setCharacterSize(40);
 		menu[i].setOrigin(menu[i].getGlobalBounds().width / 2, menu[i].getGlobalBounds().height / 2);
 		menu[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 9 * i +1));
+
+		img[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5 * i + 1));
 	}
 
 	
@@ -60,7 +57,9 @@ void TitleScene::Init()
 	mainView.setCenter(resolution.x * 0.5f, resolution.y * 0.5f);
 
 	textOpen[0].setString("You find yourself surrounded by the\nPress[ENTER or A]to continue.");
-	textOpen[1].setString(" ");
+	Utils::SetOrigin(textintro, Pivots::Center);
+
+
 
 	
 }
@@ -74,28 +73,41 @@ void TitleScene::Update(Time& dt)
 		if (enterCount == 0)
 		{
 			textOpen[0].setString("");
-			textOpen[1].setString("");
 
 			textintro.setString("Beelzebub,The Great Fly");
-			Utils::SetOrigin(textintro, Pivots::Center);
+			textOpen[1].setString("Greethings little one, Please don't mind me.\nIt is just I, good old Beelzebub.");
 
 			beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
 			enterCount++;
 		}
 		else if (enterCount == 1)
 		{
+			textOpen[1].setString("");
 			menu[0].setString("NEW GAME");
 			menu[1].setString("CHAPTER SELECT");
 			menu[2].setString("EXIT");
 			for(int i = 0; i < 3; i++)
 			{
-				imgMenu.setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
+				img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
 				Utils::SetOrigin(menu[i], Pivots::Center);
 			}
 			enterCount++;
 		}
+	/*	else if (enterCount == 2)
+		{
+			menu[0].setString("NEW GAME");
+			menu[1].setString("CHAPTER SELECT");
+			menu[2].setString("EXIT");
+			for (int i = 0; i < 3; i++)
+			{
+				img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
+				Utils::SetOrigin(menu[i], Pivots::Center);
+			}
+			enterCount++;
+		}*/
+
 	}
-	if (enterCount == 2)
+	if (enterCount ==2)
 	{
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{
@@ -110,7 +122,7 @@ void TitleScene::Update(Time& dt)
 			switch (GetPressedMenu())
 			{
 			case 0:
-				
+				//sceneManager.ChangeScene(SceneType::TITLESCRIPT);
 				// NEW GAME -> stage (intro script)
 				//sceneManager.ChangeScene(SceneType::TITLESCRIPT);
 				break;
@@ -121,7 +133,7 @@ void TitleScene::Update(Time& dt)
 				// EXIT -> finish game
 				break;
 			}
-			delete img;
+		
 			
 
 		}
@@ -133,11 +145,11 @@ void TitleScene::Render()
 	window.setView(mainView);
 	window.draw(bg);
 	window.draw(cloud);
+	
+	window.draw(beel);
 
 	window.draw(textOpen[0]);
 	window.draw(textOpen[1]);
-	
-	window.draw(beel);
 
 	window.draw(textintro);
 	window.draw(bu);
@@ -145,9 +157,8 @@ void TitleScene::Render()
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
 		window.draw(menu[i]);
+		window.draw(img[i]);
 	}
-	window.draw(imgMenu);
-	
 }
 
 void TitleScene::MoveUp()
@@ -176,6 +187,9 @@ void TitleScene::MoveDown()
 }
 
 int TitleScene::GetPressedMenu()
+
+
+
 {
 	return selectIndex;
 }

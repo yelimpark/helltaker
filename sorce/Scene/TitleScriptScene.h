@@ -6,18 +6,22 @@ class TitleScriptScene : public Scene
 {
 private:
 	Text textintro;
-	Text textTop;
+	
 
 	Vector2f position;
 
 	Sprite bg;
 	Sprite bu;
 
+	std::string script[50];
+	Sprite* img;
+	Sprite imgMenu;
+
 	const Vector2i& resolution;
 	RenderWindow& window;
 	View& mainView;
 
-
+	int textselectIndex;
 
 public:
 	TitleScriptScene(SceneManager& sceneManager);
