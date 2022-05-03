@@ -4,22 +4,24 @@
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
+#include <sstream>
 
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(100)
+	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(1), transHeight(100)
 {
-
+	Utills::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
+	Utills::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameBase.csv");
 }
 
 void StageScene::Init()
 {
-	Utills::CsvToStruct<LevelData>(levelDataList, "./LevelInfo/LevelInfo.csv");
-	list<LevelData>::iterator iter = levelDataList.begin();
-	std::advance(iter, level);
+	stringstream ss;
+	ss << level;
+	LevelData leveldata = levelDatas[ss.str()];
 
-	spriteBackground.setTexture(TextureHolder::GetTexture((*iter).BgFilename));
+	spriteBackground.setTexture(TextureHolder::GetTexture(leveldata.BgFilename));
 	spriteSide1.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	spriteSide2.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	flameBase1.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
@@ -28,12 +30,14 @@ void StageScene::Init()
 	FloatRect transRect = transition.getLocalBounds();
 	transition.setOrigin(transRect.left+transRect.width*0.5, transRect.top + transRect.height * 0.5f);
 
-	spriteBackground.setPosition((*iter).BgPosX, (*iter).BgPosY);
+	//spriteBackground.setPosition((*iter).BgPosX, (*iter).BgPosY);
 	spriteSide1.setPosition(0, 0);
 	spriteSide2.setPosition(resolution.x, 0);
 	spriteSide2.setScale(-1.f, 1.f);
 	flameBase1.setPosition(625, 268);
 	flameBase2.setPosition(1225, 515);
+
+
 
 	transeScene = false;
 }
