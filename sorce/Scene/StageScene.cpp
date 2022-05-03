@@ -8,7 +8,7 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0)
+	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(100)
 {
 
 }
@@ -25,6 +25,8 @@ void StageScene::Init()
 	flameBase1.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
 	flameBase2.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
 	transition.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_hell.png"));
+	FloatRect transRect = transition.getLocalBounds();
+	transition.setOrigin(transRect.left+transRect.width*0.5, transRect.top + transRect.height * 0.5f);
 
 	spriteBackground.setPosition((*iter).BgPosX, (*iter).BgPosY);
 	spriteSide1.setPosition(0, 0);
@@ -43,8 +45,12 @@ void StageScene::Update(Time& dt)
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		transeScene = true;
-		TranseScene(dt);
 
+	}
+
+	if (transeScene)
+	{
+		TranseScene(dt.asSeconds());
 	}
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
@@ -72,10 +78,11 @@ void StageScene::Release()
 {
 }
 
-void StageScene::TranseScene(Time dt)
+void StageScene::TranseScene(float dt)
 {
-	transition.setPosition(0, 204);
-
+	transition.setPosition(0, 306);
+	transition.setTextureRect( { 0, (int)(544 * 0.5f), resolution.x, (int)transHeight });
+	transHeight += dt*100;
 }
 
 StageScene::~StageScene()
