@@ -38,12 +38,15 @@ void StageScene::Init()
 	flameBase2.setPosition(1225, 515);
 	transBack.setPosition((*iter).BgPosX, (*iter).BgPosY);
 
+	ui.Init();
+
 	transeScene = false;
+	StageUI::isMovedSide = false;
 }
 
 void StageScene::Update(Time& dt)
 {
-	ui.Update(lastTurn, resolution);
+	ui.Update(lastTurn);
 
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
@@ -52,7 +55,9 @@ void StageScene::Update(Time& dt)
 
 	if (transeScene)
 	{
+		StageUI::isMovedSide = true;
 		TranseScene(dt.asMilliseconds());
+		ui.MoveSide(dt.asMilliseconds());
 	}
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
@@ -73,7 +78,7 @@ void StageScene::Render()
 		window.draw(transBack);
 		window.draw(transition);
 	}
-	ui.Draw(window);
+	ui.Render(window);
 	
 }
 
@@ -92,6 +97,7 @@ void StageScene::TranseScene(float dt)
 
 	if (transHeight >= 544)
 	{
+		transBack.setFillColor(Color::Black);
 		return;
 	}
 	else
@@ -105,7 +111,7 @@ void StageScene::TranseScene(float dt)
 			transBack.setFillColor(Color::Black);
 		}
 
-		transHeight += dt*2.5f;
+		transHeight += dt*2.0f;
 	}
 
 }
