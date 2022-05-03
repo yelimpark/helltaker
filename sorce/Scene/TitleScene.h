@@ -6,6 +6,7 @@ class TitleScene : public Scene
 {
 private:
 	Text textintro;
+	Text textintro2;
 
 	Vector2f position;
 

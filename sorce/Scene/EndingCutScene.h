@@ -2,24 +2,17 @@
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
 
-#define MAX_NUMBER_OF_ITEMS 3
-
-class TitleCutMenu : public Scene
+class EndingCutScene : public Scene
 {
 private:
-	Text textTop;
-	Text menu[MAX_NUMBER_OF_ITEMS];
+	Text textintro;
+	Text textintro2;
 
 	Vector2f position;
 
 	Sprite bg;
 	Sprite cloud;
-	Sprite beel;
-
-	Sprite munuwhite[MAX_NUMBER_OF_ITEMS];
-	Sprite munured[MAX_NUMBER_OF_ITEMS];
-	int selectIndex;
-
+	Sprite bu;
 
 	AnimationController animation;
 	AnimationClip clip;
@@ -31,7 +24,7 @@ private:
 
 
 public:
-	TitleCutMenu(SceneManager& sceneManager);
+	EndingCutScene(SceneManager& sceneManager);
 
 	virtual void Init();
 
@@ -39,13 +32,8 @@ public:
 
 	virtual void Render();
 
-	virtual void MoveUp();
-
-	virtual void MoveDown();
-
-	virtual int GetPressedMenu();
-
 	virtual void Release();
 
-	virtual ~TitleCutMenu();
+	virtual ~EndingCutScene();
 };
+

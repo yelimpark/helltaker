@@ -11,6 +11,8 @@ enum class SceneType {
 	TITLE,
 	TITLECUT,
 	TITLEMEMU,
+	TITLESCRIPT,
+	ENDINGCUTSCENE,
 	COUNT
 };
 

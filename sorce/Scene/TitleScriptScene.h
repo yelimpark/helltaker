@@ -2,8 +2,7 @@
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
 
-
-class TitleCut : public Scene
+class TitleScriptScene : public Scene
 {
 private:
 	Text textintro;
@@ -12,12 +11,7 @@ private:
 	Vector2f position;
 
 	Sprite bg;
-	Sprite cloud;
-	Sprite beel;
 	Sprite bu;
-
-	AnimationController animation;
-	AnimationClip clip;
 
 	const Vector2i& resolution;
 	RenderWindow& window;
@@ -26,7 +20,7 @@ private:
 
 
 public:
-	TitleCut(SceneManager& sceneManager);
+	TitleScriptScene(SceneManager& sceneManager);
 
 	virtual void Init();
 
@@ -36,5 +30,6 @@ public:
 
 	virtual void Release();
 
-	virtual ~TitleCut();
+	virtual ~TitleScriptScene();
 };
+

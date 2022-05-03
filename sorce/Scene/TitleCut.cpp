@@ -17,33 +17,42 @@ void TitleCut::Init()
 	cloud.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_abyss.png"));
 	beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
 
-	Texture texture;
-	texture.loadFromFile("Sprite/title_bu_sprites.png");
-	animation.SetTarget(&bu);
+	cloud.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
+	bu.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
+	beel.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
+
+	textintro.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
+	textTop.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
 	
 	textintro.setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
-	textintro.setString("Greetings little one.Please don't mind me.\n       It is just I, good old Breelzebub.");
+	textintro.setString("Greetings little one.Please don't mind me.\n It is just I, good old Breelzebub.");
 
 	textTop.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
 	textTop.setString("Breelzebub, The Great Fly");
-
-	textintro.setPosition(resolution.x * 0.4f, resolution.y * 0.65);
+	
+	//text 가운데 정렬 필요
+	
+	//textintro.setPosition(Vector2f(resolution.x / 1.5, resolution.y)); 
+	textintro.setPosition(Vector2f(resolution.x / 2, resolution.y));
 	textintro.setCharacterSize(25);
 	textintro.setFillColor(Color::White);
 
-	textTop.setPosition(resolution.x * 0.41f, resolution.y * 0.6);
+	textTop.setPosition(Vector2f(resolution.x, resolution.y));
 	textTop.setCharacterSize(35);
 	textTop.setFillColor(Color{ 230,77,81 }); 
 
 
-	bu.setPosition((resolution.x * 0.5f) + 5, resolution.y * 0.75);
-	beel.setPosition(resolution.x * 0.15, resolution.y * 0.13);
-	cloud.setPosition(resolution.x * 0.0001, resolution.y * 0.13);
+	beel.setPosition(Vector2f(resolution.x /1.5, resolution.y / 2.5));
+	bu.setPosition(Vector2f(resolution.x, resolution.y));
+	cloud.setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5));
 	
+	Texture texture;
+	texture.loadFromFile("Sprite/title_bu_sprites.png");
+	animation.SetTarget(&bu);
 
 	clip.id = "Idle";
 	clip.fps = 5;
-	clip.loopTypes = AnimationLoopTypes::Loop;
+	clip.loopType = AmimationLoopTypes::Loop;
 
 	clip.frames.push_back(AnimationFrame(texture, IntRect(0, 0, 50, 50)));
 	clip.frames.push_back(AnimationFrame(texture, IntRect(120, 0, 50, 50)));

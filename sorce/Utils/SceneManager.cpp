@@ -2,6 +2,8 @@
 #include "../Scene/TitleScene.h"
 #include "../Scene/TitleCut.h"
 #include "../Scene/TitleCutMenu.h"
+#include "../Scene/TitleScriptScene.h"
+#include "../Scene/EndingCutScene.h"
 
 void SceneManager::Init()
 {
@@ -10,6 +12,8 @@ void SceneManager::Init()
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
 	scenes[(int)SceneType::TITLECUT] = new TitleCut(*this);
 	scenes[(int)SceneType::TITLEMEMU] = new TitleCutMenu(*this);
+	scenes[(int)SceneType::TITLESCRIPT] = new TitleScriptScene(*this);
+	scenes[(int)SceneType::ENDINGCUTSCENE] = new EndingCutScene(*this);
 
 	scenes[(int)currScene]->Init();
 }
