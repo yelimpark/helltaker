@@ -62,6 +62,12 @@
     <ClCompile Include="sorce\Scene\TitleScene.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\Resource\AnimationClip.cpp">
+      <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Resource\AnimationController.cpp">
+      <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
     <ClCompile Include="sorce\Scene\StageScene.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
@@ -103,13 +109,16 @@
     <ClInclude Include="sorce\Scene\TitleScene.h">
       <Filter>소스 파일\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationClip.h">
-      <Filter>소스 파일\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
+    <ClInclude Include="sorce\Utils\rapidcsv.h">
       <Filter>소스 파일\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\Utils\rapidcsv.h">
+    <ClInclude Include="sorce\Resource\AnimationClip.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationController.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Utils\Utils.h">
       <Filter>소스 파일\Utils</Filter>
     </ClInclude>
     <ClInclude Include="sorce\Scene\StageScene.h">
