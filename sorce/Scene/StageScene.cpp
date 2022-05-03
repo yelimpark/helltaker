@@ -90,18 +90,22 @@ void StageScene::TranseScene(float dt)
 	transition.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
 
 
-	if (opacity < 255)
-	{
-		opacity += dt * 0.5f;
-	}
-
 	if (transHeight >= 544)
 	{
 		return;
 	}
 	else
 	{
-		transHeight += dt*0.2f;
+		if (opacity < 255)
+		{
+			opacity += dt;
+		}
+		else
+		{
+			transBack.setFillColor(Color::Black);
+		}
+
+		transHeight += dt*2.5f;
 	}
 
 }
