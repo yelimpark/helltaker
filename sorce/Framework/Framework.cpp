@@ -50,8 +50,8 @@ int Framework::Run()
 
             if (event.type == Event::Resized)
             {
-                FloatRect visibleArea(0, 0, event.size.width, (event.size.width*9)/16);
-                window.setView(View(visibleArea));
+                int x = VideoMode::getDesktopMode().width;
+                window.setSize(Vector2u(event.size.width, event.size.width*9/16));
             }
 
             InputManager::ProcessInput(event);

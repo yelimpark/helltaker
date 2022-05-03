@@ -15,6 +15,7 @@ private:
 	Sprite transition;
 
 	int lastTurn;
+	float transHeight;
 
 	bool transeScene;
 
@@ -26,7 +27,7 @@ public:
 	virtual void Update(Time& dt);
 	virtual void Render();
 	virtual void Release();
-	void TranseScene(Time dt);
+	void TranseScene(float dt);
 	virtual ~StageScene();
 };
 
