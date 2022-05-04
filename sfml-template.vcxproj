@@ -24,6 +24,7 @@
     <ClCompile Include="sorce\main.cpp" />
     <ClCompile Include="sorce\Resource\AnimationClip.cpp" />
     <ClCompile Include="sorce\Resource\AnimationController.cpp" />
+    <ClCompile Include="sorce\Resource\AnimationHolder.cpp" />
     <ClCompile Include="sorce\Resource\FontHolder.cpp" />
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="sorce\GameObj\FlameBase.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
     <ClInclude Include="sorce\Resource\AnimationController.h" />
+    <ClInclude Include="sorce\Resource\AnimationHolder.h" />
     <ClInclude Include="sorce\Resource\FontHolder.h" />
     <ClInclude Include="sorce\Resource\ResorceHolder.h" />
     <ClInclude Include="sorce\Resource\SoundHolder.h" />

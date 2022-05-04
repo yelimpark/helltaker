@@ -2,24 +2,26 @@
 #include <list>
 #include <vector>
 #include <map>
+#include <vector>
 #include "rapidcsv.h"
 
 class Utills {
 
 public:
-	template < typename T > static void CsvToStruct(std::list<T>& structList, const char* filename);
+    template < typename T > static void CsvToStruct(std::vector<T>& structVector, const char* filename);
     template < typename T > static void CsvToStruct(std::map<std::string, T>& structMap, const char* filename);
     template < typename T> static void CsvToStructVectorMap(std::map<std::string, std::vector<T>>& structVectorMap, const char* filename);
 };
 
 template<typename T>
-inline void Utills::CsvToStruct(std::list<T>& structList, const char* filename)
+inline void Utills::CsvToStruct(std::vector<T>& structVector, const char* filename)
 {
-    rapidcsv::Document csvData(filename, rapidcsv::LabelParams(0, 0));
+    rapidcsv::Document csvData(filename);
 
     for (int i = 1; i < csvData.GetRowCount(); ++i) {
         std::vector<std::string> row = csvData.GetRow<std::string>(i);
-        structList.push_back(T(row));
+        T myStruct(row);
+        structVector.push_back(myStruct);
     }
 }
 

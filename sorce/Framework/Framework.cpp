@@ -24,6 +24,7 @@ void Framework::Init()
     mainView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 
     InputManager::Init();
+    AnimationHolder::Init();
     sceneManager.Init();
 }
 

@@ -77,6 +77,9 @@
     <ClCompile Include="sorce\GameObj\FlameBase.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\Resource\AnimationHolder.cpp">
+      <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -135,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\FlameBase.h">
       <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationHolder.h">
+      <Filter>소스 파일\Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

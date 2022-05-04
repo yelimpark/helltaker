@@ -53,6 +53,10 @@ void StageScene::Init()
 
 void StageScene::Update(Time& dt)
 {
+	for (auto flameBase : flameBases) {
+		flameBase->Update(dt.asSeconds());
+	}
+
 	ui.Update(lastTurn, resolution);
 
 	if (InputManager::GetKeyDown(Keyboard::Enter))

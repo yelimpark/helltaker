@@ -17,6 +17,7 @@ private:
     FontHolder fontHolder;
     SoundHolder soundHolder;
     SceneManager sceneManager;
+    AnimationHolder animationholder;
 
     Clock clock;
 
