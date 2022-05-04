@@ -2,6 +2,7 @@
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
 
+
 #define MAX_NUMBER_OF_ITEMS 2
 class LevelEndingScene : public Scene
 {
@@ -28,6 +29,8 @@ private:
 	const Vector2i& resolution;
 	RenderWindow& window;
 	View& mainView;
+
+	
 
 public:
 	LevelEndingScene(SceneManager& sceneManager);

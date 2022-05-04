@@ -27,6 +27,7 @@
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
     <ClCompile Include="sorce\Scene\LevelEndingScene.cpp" />
+    <ClCompile Include="sorce\Scene\PauseMenu.cpp" />
     <ClCompile Include="sorce\Scene\Scene.cpp" />
     <ClCompile Include="sorce\Scene\TitleScene.cpp" />
     <ClCompile Include="sorce\Scene\TitleScriptScene.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="sorce\Resource\SoundHolder.h" />
     <ClInclude Include="sorce\Resource\TextureHolder.h" />
     <ClInclude Include="sorce\Scene\LevelEndingScene.h" />
+    <ClInclude Include="sorce\Scene\PauseMenu.h" />
     <ClInclude Include="sorce\Scene\Scene.h" />
     <ClInclude Include="sorce\Scene\TitleScene.h" />
     <ClInclude Include="sorce\Scene\TitleScriptScene.h" />

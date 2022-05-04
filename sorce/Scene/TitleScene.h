@@ -21,16 +21,16 @@ private:
 	Vector2f position;
 
 	Sprite bg;
-	Sprite cloud;
+	Sprite cloud[3];
+	float speed;
+	float cloudTimer;
+	Vector2f cloudPosition[3];
 
 	Sprite bu;
 	Sprite beel;
 
 	int selectIndex;
 	int enterCount;
-
-	/*std::string script[50];
-	Sprite img[50];*/
 
 	const Vector2i& resolution;
 	RenderWindow& window;

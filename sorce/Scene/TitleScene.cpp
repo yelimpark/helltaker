@@ -16,7 +16,12 @@ TitleScene::TitleScene(SceneManager& sceneManager)
 
 void TitleScene::Init()
 {	
-	cloud.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_abyss.png"));
+	for (int i = 0; i < 3; i++) {
+		cloud[i].setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_abyss.png"));
+		//cloud[i].setOrigin(cloud[i].getGlobalBounds().width, cloud[i].getGlobalBounds().height);
+		cloudPosition[i] = Vector2f((-i) * cloud[1].getGlobalBounds().width, resolution.y / 7);
+		//beel.setOrigin(cloud[i].getGlobalBounds().width / 2, cloud[i].getGlobalBounds().height / 2);
+	}
 	bg.setTexture(TextureHolder::GetTexture("Sprite/background.png"));
 	
 	for (int i = 0; i < 2; i++)
@@ -38,90 +43,102 @@ void TitleScene::Init()
 
 		img[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5 * i + 1));
 	}
-
-	cloud.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
-	beel.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
-
 	textintro.setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 	textintro.setCharacterSize(25);
 	textintro.setFillColor(Color::White);
 	textintro.setPosition(resolution.x * 0.5, resolution.y * 0.5);
+
+	for (int i = 0; i < 3; i++) {
+		cloud[i].setPosition(cloudPosition[i]);
+	}
 	
-	cloud.setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5));
-	beel.setPosition(Vector2f(resolution.x / 1.5, resolution.y / 2.5));
+	beel.setPosition(resolution.x * 0.18f, resolution.y / 7.f);
 
 	mainView.setCenter(resolution.x * 0.5f, resolution.y * 0.5f);
 
 	textOpen[0].setString("You find yourself surrounded by the\nPress[ENTER or A]to continue.");
 	Utils::SetOrigin(textintro, Pivots::Center);
 
+	speed = 80.f;
 }
 
 void TitleScene::Update(Time& dt)
 {
-	
-	if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
-	{
-		if (enterCount == 0)
-		{
-			textOpen[0].setString("");
 
-			textintro.setString("Beelzebub,The Great Fly");
-			textOpen[1].setString("Greethings little one, Please don't mind me.\nIt is just I, good old Beelzebub.");
+	for (int i = 0; i < 3; i++) {
+		cloudPosition[i].x += dt.asSeconds() * speed;
+		cloud[i].setPosition(cloudPosition[i]);
 
-			beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
-			enterCount++;
-		}
-		else if (enterCount == 1)
-		{
-			textOpen[1].setString("");
-			menu[0].setString("NEW GAME");
-			menu[1].setString("CHAPTER SELECT");
-			menu[2].setString("EXIT");
-			for(int i = 0; i < 3; i++)
-			{
-				img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
-				Utils::SetOrigin(menu[i], Pivots::Center);
-			}
-			enterCount++;
-		}
-
-	}
-	if (enterCount ==2)
-	{
-		if (InputManager::GetKeyDown(Keyboard::Up))
-		{
-			MoveUp();
-		}
-		if (InputManager::GetKeyDown(Keyboard::Down))
-		{
-			MoveDown();
-		}
-		if (InputManager::GetKeyDown(Keyboard::Enter))
-		{
-			switch (GetPressedMenu())
-			{
-			case 0:
-				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
-				// NEW GAME -> stage (intro script)
-				break;
-			case 1:
-				// CHAPTER SELECT -> level select scene
-				break;
-			case 2:
-				// EXIT -> finish game
-				break;
-			}
 		
-		}
 	}
+	
+		if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
+		{
+			if (enterCount == 0)
+			{
+				textOpen[0].setString("");
+
+				textintro.setString("Beelzebub,The Great Fly");
+				textOpen[1].setString("Greethings little one, Please don't mind me.\nIt is just I, good old Beelzebub.");
+
+				beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
+				enterCount++;
+			}
+			else if (enterCount == 1)
+			{
+				textOpen[1].setString("");
+				menu[0].setString("NEW GAME");
+				menu[1].setString("CHAPTER SELECT");
+				menu[2].setString("EXIT");
+				for (int i = 0; i < 3; i++)
+				{
+					img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
+					Utils::SetOrigin(menu[i], Pivots::Center);
+				}
+				enterCount++;
+			}
+
+		}
+		if (enterCount == 2)
+		{
+			if (InputManager::GetKeyDown(Keyboard::Up))
+			{
+				MoveUp();
+			}
+			if (InputManager::GetKeyDown(Keyboard::Down))
+			{
+				MoveDown();
+			}
+			if (InputManager::GetKeyDown(Keyboard::Enter))
+			{
+				switch (GetPressedMenu())
+				{
+				case 0:
+					sceneManager.ChangeScene(SceneType::TITLESCRIPT);
+					// NEW GAME -> stage (intro script)
+					break;
+				case 1:
+					// CHAPTER SELECT -> level select scene
+					break;
+				case 2:
+					// EXIT -> finish game
+					break;
+				}
+
+			}
+		}
+	
 }
 
 void TitleScene::Render()
 {
 	window.setView(mainView);
 	window.draw(bg);
-	window.draw(cloud);
+	for (int i = 0; i < 3; i++)
+	{
+		window.draw(cloud[i]);
+	}
+
 	
 	window.draw(beel);
 

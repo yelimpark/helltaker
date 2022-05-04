@@ -24,7 +24,7 @@ void LevelEndingScene::Init()
 
 
 
-	interimg = new Texture[5]; //idle[2],menu[2] imgarray
+	interimg = new Texture[6]; //idle[2],menu[2] imgarray
 	//button [2]
 	interimg[0] = (TextureHolder::GetTexture("Sprite/button0004.png"));
 	interimg[1] = (TextureHolder::GetTexture("Sprite/button0003.png"));
@@ -32,9 +32,9 @@ void LevelEndingScene::Init()
 	//idle [2]
 	interimg[2] = (TextureHolder::GetTexture("Sprite/pand_idle.png")); //normal
 	interimg[3] = (TextureHolder::GetTexture("Sprite/pand_flust.png"));//die
-	interimg[4] = (TextureHolder::GetTexture("Sprite/success0008.png"));//die
+	interimg[4] = (TextureHolder::GetTexture("Sprite/success0008.png"));//succ situation
+	interimg[5] = (TextureHolder::GetTexture("Sprite/dialogueDeathExport0009.png"));//die situation
 
-	
 	textMain.setCharacterSize(20);
 	textMain.setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 	textMain.setPosition(resolution.x * 0.5, resolution.y * 0.5);
@@ -49,11 +49,13 @@ void LevelEndingScene::Init()
 	//answer
 	script[3] = "You thought you're leaving hell alive? How delesional."; //1 -> die(change die scene)
 	script[4] = "Sweet of you to offer. I could really use some coffee.\nI'm noy myself wirhout it."; //2 -> success 
-	
+
+
 }
 
 void LevelEndingScene::Update(Time& dt)
 {
+
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		textselectIndex++;
@@ -61,7 +63,6 @@ void LevelEndingScene::Update(Time& dt)
 	}
 	textMain.setString(script[textselectIndex]);
 	img.setTexture(interimg[textureselectIndex]);
-
 }
 
 void LevelEndingScene::Render()
