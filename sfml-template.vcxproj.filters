@@ -71,6 +71,9 @@
     <ClCompile Include="sorce\UI\StageUI.cpp">
       <Filter>소스 파일\UI</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\Box.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -123,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="sorce\UI\StageUI.h">
       <Filter>소스 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Box.h">
+      <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

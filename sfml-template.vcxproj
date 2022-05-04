@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sorce\Framework\Framework.cpp" />
+    <ClCompile Include="sorce\GameObj\Box.cpp" />
     <ClCompile Include="sorce\main.cpp" />
     <ClCompile Include="sorce\Resource\AnimationClip.cpp" />
     <ClCompile Include="sorce\Resource\AnimationController.cpp" />
@@ -36,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Framework\Framework.h" />
+    <ClInclude Include="sorce\GameObj\Box.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
     <ClInclude Include="sorce\Resource\AnimationController.h" />
     <ClInclude Include="sorce\Resource\FontHolder.h" />
