@@ -22,6 +22,7 @@ private:
 	View& mainView;
 
 	int textselectIndex;
+	int enterCounter;
 
 public:
 	TitleScriptScene(SceneManager& sceneManager);

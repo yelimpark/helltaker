@@ -3,11 +3,15 @@
 #include "../Scene/Scene.h"
 #include "../Utils/SceneManager.h"
 #include "../Utils/InputManager.h"
+#include "../Utils/Utils.h"
+
+using namespace std;
+using namespace sf;
 
 TitleScriptScene::TitleScriptScene(SceneManager& sceneManager)
 	:Scene(sceneManager), window(Framework::Getwindow()),
 	resolution(Framework::GetResolution()),
-	mainView(Framework::GetMainView()), textselectIndex(0)
+	mainView(Framework::GetMainView()), textselectIndex(0),enterCounter(0)
 {
 
 }
@@ -15,6 +19,7 @@ TitleScriptScene::TitleScriptScene(SceneManager& sceneManager)
 void TitleScriptScene::Init()
 {
 	bg.setTexture(TextureHolder::GetTexture("Sprite/background.png"));
+	textintro.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
 
 	script[0] = "Story of the HELLTAKER again ? Interesting...";
 
@@ -29,7 +34,13 @@ void TitleScriptScene::Init()
 	script[6] = "It could cost you your life";
 	////screen9 showup man
 	script[7] = """It could cost you your life""";
-	script[8] = "Ypu said,as you ventured down to hell.";
+	script[8] = "You said,as you ventured down to hell.";
+
+	for (int i = 0; i <9; i++)
+	{
+		textintro.setString(script[i]);
+		textintro.setPosition(resolution.x * 0.5, resolution.y * 0.5);
+	}
 
 	//Sprite* img = new Sprite[3];
 	//img[0].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
@@ -44,10 +55,10 @@ void TitleScriptScene::Update(Time& dt)
 {
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
-		textselectIndex++;
-		/*sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);*/
+		//textselectIndex++;
+		sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
 	}
-	textintro.setString(script[textselectIndex]);
+	
 
 }
 

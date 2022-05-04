@@ -4,7 +4,6 @@
 #include "../Utils/SceneManager.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
-#include <iostream>
 
 using namespace std;
 
@@ -29,7 +28,6 @@ void TitleScene::Init()
 		Utils::SetOrigin(textOpen[i], Pivots::Center);
 	}
 
-
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
 		menu[i].setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
@@ -41,10 +39,8 @@ void TitleScene::Init()
 		img[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5 * i + 1));
 	}
 
-	
 	cloud.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
 	beel.setOrigin(cloud.getGlobalBounds().width / 2, cloud.getGlobalBounds().height / 2);
-
 
 	textintro.setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 	textintro.setCharacterSize(25);
@@ -59,14 +55,10 @@ void TitleScene::Init()
 	textOpen[0].setString("You find yourself surrounded by the\nPress[ENTER or A]to continue.");
 	Utils::SetOrigin(textintro, Pivots::Center);
 
-
-
-	
 }
 
 void TitleScene::Update(Time& dt)
 {
-	
 	
 	if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
 	{
@@ -93,18 +85,6 @@ void TitleScene::Update(Time& dt)
 			}
 			enterCount++;
 		}
-	/*	else if (enterCount == 2)
-		{
-			menu[0].setString("NEW GAME");
-			menu[1].setString("CHAPTER SELECT");
-			menu[2].setString("EXIT");
-			for (int i = 0; i < 3; i++)
-			{
-				img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
-				Utils::SetOrigin(menu[i], Pivots::Center);
-			}
-			enterCount++;
-		}*/
 
 	}
 	if (enterCount ==2)
@@ -122,9 +102,8 @@ void TitleScene::Update(Time& dt)
 			switch (GetPressedMenu())
 			{
 			case 0:
-				//sceneManager.ChangeScene(SceneType::TITLESCRIPT);
+				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
 				// NEW GAME -> stage (intro script)
-				//sceneManager.ChangeScene(SceneType::TITLESCRIPT);
 				break;
 			case 1:
 				// CHAPTER SELECT -> level select scene
@@ -134,8 +113,6 @@ void TitleScene::Update(Time& dt)
 				break;
 			}
 		
-			
-
 		}
 	}
 }
@@ -187,9 +164,6 @@ void TitleScene::MoveDown()
 }
 
 int TitleScene::GetPressedMenu()
-
-
-
 {
 	return selectIndex;
 }
