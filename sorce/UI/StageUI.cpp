@@ -41,11 +41,13 @@ void StageUI::Init()
 		//FloatRect side2Rect = side2.getLocalBounds();
 		//side2.setOrigin(0, side2Rect.top + side2Rect.height);
 
+		side1.setPosition(0, 392);
+		side2.setPosition(1920, 392);
+		side2.setScale(-1.f, 1.f);
 
-
-		side1SpeedX = -2000;
-		side2SpeedX = 2000;
-		sideSpeedY = 2000;
+		side1SpeedX = -2;
+		side2SpeedX = 2;
+		sideSpeedY = 3;
 
 		isInitUIFontInfo = true;
 		isMovedSide = false;
@@ -54,10 +56,6 @@ void StageUI::Init()
 
 void StageUI::Update(int turnTimes)
 {
-
-	side1.setPosition(0, 392);
-	side2.setPosition(1920, 392);
-	side2.setScale(-1.f, 1.f);
 
 	//----------еое╦юс
 	stringstream st;
@@ -74,8 +72,6 @@ void StageUI::Update(int turnTimes)
 
 void StageUI::MoveSide(float dt)
 {
-	if (isMovedSide)
-	{
 		Vector2f side1Pos = side1.getPosition();
 		side1Pos.x += side1SpeedX * dt;
 		side1Pos.y += sideSpeedY * dt;
@@ -86,16 +82,15 @@ void StageUI::MoveSide(float dt)
 		side2Pos.y += sideSpeedY * dt;
 		side2.setPosition(side2Pos);
 
-		if (side1Pos.x < -100 && side2Pos.x >2000)
+		if (side1Pos.x < -100)
 		{
 			isMovedSide = false;
-			side1.setPosition(-100, 1500);
-			side2.setPosition(2200, 1500);
+			side1.setPosition(-200, 1500);
 		}
-	}
-	
 
-
+		if (side2Pos.x > 2000) {
+			side2.setPosition(2300, 1500);
+		}
 }
 
 void StageUI::Render(RenderWindow& window)

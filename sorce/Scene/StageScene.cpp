@@ -1,6 +1,8 @@
 #include "StageScene.h"
 #include <SFML/Graphics.hpp>
 #include "../Framework/Framework.h"
+
+#include "../UI/StageUI.h"
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
@@ -46,7 +48,6 @@ void StageScene::Init()
 
 void StageScene::Update(Time& dt)
 {
-	ui.Update(lastTurn);
 
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
@@ -55,9 +56,8 @@ void StageScene::Update(Time& dt)
 
 	if (transeScene)
 	{
-		StageUI::isMovedSide = true;
-		TranseScene(dt.asMilliseconds());
 		ui.MoveSide(dt.asMilliseconds());
+		TranseScene(dt.asMilliseconds());
 	}
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
@@ -111,7 +111,7 @@ void StageScene::TranseScene(float dt)
 			transBack.setFillColor(Color::Black);
 		}
 
-		transHeight += dt*2.0f;
+		transHeight += dt*2.5f;
 	}
 
 }
