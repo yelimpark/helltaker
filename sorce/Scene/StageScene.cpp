@@ -48,6 +48,8 @@ void StageScene::Init()
 		++idx;
 	}
 
+	player.Init(1150, 300);
+
 	transeScene = false;
 }
 
@@ -56,6 +58,8 @@ void StageScene::Update(Time& dt)
 	for (auto flameBase : flameBases) {
 		flameBase->Update(dt.asSeconds());
 	}
+
+	player.Update(dt.asSeconds());
 
 	ui.Update(lastTurn, resolution);
 
@@ -82,6 +86,8 @@ void StageScene::Render()
 	for (auto flameBase : flameBases) {
 		flameBase->Draw(window);
 	}
+
+	player.Draw(window);
 
 	if (transeScene)
 	{

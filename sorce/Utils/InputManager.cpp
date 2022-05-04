@@ -1,4 +1,5 @@
 #include "./InputManager.h"
+#include <iostream>
 
 list<Keyboard::Key> InputManager::downKeys;
 map<Keyboard::Key, float> InputManager::ingKeys;
@@ -24,7 +25,7 @@ void InputManager::ProcessInput(const Event& event)
     switch (event.type)
     {
     case Event::KeyPressed:
-        if (!GetKey(event.key.code))
+        if (ingKeys.find(event.key.code) == ingKeys.end())
         {
             downKeys.push_back(event.key.code);
             ingKeys[event.key.code] = DURATION;
@@ -55,6 +56,10 @@ void InputManager::Update(float dt)
 {
     for (auto key : ingKeys) {
         key.second -= dt;
+        std::cout << key.second << std::endl;
+        if (key.second < 0) {
+            key.second = 0;
+        }
     }
 }
 
@@ -67,7 +72,11 @@ bool InputManager::GetKeyDown(Keyboard::Key key)
 bool InputManager::GetKey(Keyboard::Key key)
 {
     auto it = ingKeys.find(key);
-    return it != ingKeys.end() && ingKeys[key] <= 0.f;
+    if (it != ingKeys.end() && ingKeys[key] <= 0.f) {
+  //      ingKeys[key] = DURATION;
+        return true;
+    }
+    return false;
 }
 
 bool InputManager::GetKeyUp(Keyboard::Key key)

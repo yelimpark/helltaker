@@ -14,7 +14,7 @@ FlameBase::FlameBase()
 void FlameBase::Init(float x, float y)
 {
 	baseSprite.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
-
+	  
 	position.x = x;
 	position.y = y;
 	baseSprite.setPosition(position);

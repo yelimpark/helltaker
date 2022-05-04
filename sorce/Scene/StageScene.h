@@ -2,6 +2,7 @@
 #include "./Scene.h"
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
+#include "../GameObj/Player.h"
 #include <list>
 #include <iostream>
 
@@ -21,6 +22,7 @@ private:
 	Sprite spriteSide1;
 	Sprite spriteSide2;
 	Sprite transition;
+	Player player;
 
 	int lastTurn;
 	float transHeight;

@@ -14,5 +14,5 @@ private:
 public:
 	static void Init();
 
-	static AnimationClip& GetAnimation(std::string filename);
+	static AnimationClip& GetAnimation(std::string id);
 };

@@ -37,7 +37,7 @@ public:
 
 	bool IsPlaying();
 
-	void changeSpeed(float speed);
+	void changePlayTime(float time);
 
 	bool IsAnimationEnd();
 

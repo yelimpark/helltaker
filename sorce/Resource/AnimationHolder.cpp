@@ -6,12 +6,12 @@ void AnimationHolder::Init()
 	Utills::CsvToStruct<AnimationClip>(Instance()->mapClip, "./AnimationInfo/AnmationInfo.csv");
 }
 
-AnimationClip& AnimationHolder::GetAnimation(std::string filename)
+AnimationClip& AnimationHolder::GetAnimation(std::string id)
 {
 	auto& map = Instance()->mapClip;
-	auto it = map.find(filename);
+	auto it = map.find(id);
 	if (it != map.end() && (*it).second.frames.empty()) {
-		Utills::CsvToStruct<AnimationFrame>((*it).second.frames, "./AnimationInfo/fire.csv");
+		Utills::CsvToStruct<AnimationFrame>((*it).second.frames, (*it).second.path.c_str());
 	}
-	return map[filename];
+	return map[id];
 }

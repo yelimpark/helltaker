@@ -34,6 +34,7 @@ void AnimationController::Update(float dt)
 
 	if (currentFrame >= totalFrame) {
 		if (!que.empty()) {
+			changePlayTime(1.f);
 			currentClip = &clips[que.front()];
 			que.pop_front();
 			currentFrame = 0;
@@ -90,10 +91,9 @@ bool AnimationController::IsPlaying()
 	return isPlaying;
 }
 
-void AnimationController::changeSpeed(float speed)
+void AnimationController::changePlayTime(float time)
 {
-	speed = 1.f / speed;
-	frameDuration = speed / currentClip->fps;
+	frameDuration = time / currentClip->fps;
 }
 
 bool AnimationController::IsAnimationEnd()
