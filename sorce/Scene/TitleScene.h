@@ -36,6 +36,8 @@ private:
 	RenderWindow& window;
 	View& mainView;
 
+	Sprite testSprite;
+
 public:
 	TitleScene(SceneManager& sceneManager);
 

@@ -16,6 +16,10 @@ TitleScene::TitleScene(SceneManager& sceneManager)
 
 void TitleScene::Init()
 {	
+	Texture& tex = TextureHolder::GetTexture("Sprite/dialogueBG_hell.png");
+	tex.setRepeated(true);
+	testSprite.setTexture(tex);
+	testSprite.setPosition(0, 0);
 	for (int i = 0; i < 3; i++) {
 		cloud[i].setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_abyss.png"));
 		//cloud[i].setOrigin(cloud[i].getGlobalBounds().width, cloud[i].getGlobalBounds().height);
@@ -64,69 +68,70 @@ void TitleScene::Init()
 
 void TitleScene::Update(Time& dt)
 {
+	IntRect bound = testSprite.getTextureRect();
+	bound.left += 10;
+	testSprite.setTextureRect(bound);
+
 
 	for (int i = 0; i < 3; i++) {
 		cloudPosition[i].x += dt.asSeconds() * speed;
 		cloud[i].setPosition(cloudPosition[i]);
-
-		
 	}
-	
-		if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
+
+
+	if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
+	{
+		enterCount++;
+	}
+
+	if (enterCount == 1)
+	{
+		textOpen[0].setString("");
+
+		textintro.setString("Beelzebub,The Great Fly");
+		textOpen[1].setString("Greethings little one, Please don't mind me.\nIt is just I, good old Beelzebub.");
+
+		beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
+	}
+	else if (enterCount >= 2)
+	{
+		textOpen[1].setString("");
+		menu[0].setString("NEW GAME");
+		menu[1].setString("CHAPTER SELECT");
+		menu[2].setString("EXIT");
+
+		for (int i = 0; i < 3; i++)
 		{
-			if (enterCount == 0)
-			{
-				textOpen[0].setString("");
+			img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
+			Utils::SetOrigin(menu[i], Pivots::Center);
+		}
+		if (InputManager::GetKeyDown(Keyboard::Up))
+		{
+			MoveUp();
+		}
+		if (InputManager::GetKeyDown(Keyboard::Down))
+		{
+			MoveDown();
+		}
 
-				textintro.setString("Beelzebub,The Great Fly");
-				textOpen[1].setString("Greethings little one, Please don't mind me.\nIt is just I, good old Beelzebub.");
-
-				beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
-				enterCount++;
-			}
-			else if (enterCount == 1)
+		if (enterCount > 2 && InputManager::GetKeyDown(Keyboard::Enter))
+		{
+			switch (GetPressedMenu())
 			{
-				textOpen[1].setString("");
-				menu[0].setString("NEW GAME");
-				menu[1].setString("CHAPTER SELECT");
-				menu[2].setString("EXIT");
-				for (int i = 0; i < 3; i++)
-				{
-					img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
-					Utils::SetOrigin(menu[i], Pivots::Center);
-				}
-				enterCount++;
+			case 0:
+				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
+				// NEW GAME -> stage (intro script)
+				break;
+			case 1:
+				// CHAPTER SELECT -> level select scene
+				break;
+			case 2:
+				// EXIT -> finish game
+				break;
 			}
 
 		}
-		if (enterCount == 2)
-		{
-			if (InputManager::GetKeyDown(Keyboard::Up))
-			{
-				MoveUp();
-			}
-			if (InputManager::GetKeyDown(Keyboard::Down))
-			{
-				MoveDown();
-			}
-			if (InputManager::GetKeyDown(Keyboard::Enter))
-			{
-				switch (GetPressedMenu())
-				{
-				case 0:
-					sceneManager.ChangeScene(SceneType::TITLESCRIPT);
-					// NEW GAME -> stage (intro script)
-					break;
-				case 1:
-					// CHAPTER SELECT -> level select scene
-					break;
-				case 2:
-					// EXIT -> finish game
-					break;
-				}
-
-			}
-		}
+	}
 	
 }
 
@@ -138,6 +143,7 @@ void TitleScene::Render()
 	{
 		window.draw(cloud[i]);
 	}
+	window.draw(testSprite);
 
 	
 	window.draw(beel);
@@ -153,6 +159,7 @@ void TitleScene::Render()
 		window.draw(menu[i]);
 		window.draw(img[i]);
 	}
+
 }
 
 void TitleScene::MoveUp()

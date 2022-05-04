@@ -19,8 +19,8 @@ void LevelEndingScene::Init()
 	hellbackground.setOrigin(hellbackground.getGlobalBounds().width / 2, hellbackground.getGlobalBounds().height / 2);
 	hellbackground.setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5));
 
-	img.setOrigin(hellbackground.getGlobalBounds().width / 2, hellbackground.getGlobalBounds().height / 2);
-	img.setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5));
+	//img.setOrigin(hellbackground.getGlobalBounds().width / 2, hellbackground.getGlobalBounds().height / 2);
+	//img.setPosition(Vector2f(resolution.x / 2, resolution.y / 2.5));
 
 
 
@@ -55,14 +55,17 @@ void LevelEndingScene::Init()
 
 void LevelEndingScene::Update(Time& dt)
 {
-
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		textselectIndex++;
 		textureselectIndex++;
+
+		textMain.setString(script[textselectIndex]);
+		img.setTexture(interimg[textureselectIndex]);
+		auto size = interimg[textureselectIndex].getSize();
+		img.setTextureRect(IntRect(0, 0, size.x, size.y));
 	}
-	textMain.setString(script[textselectIndex]);
-	img.setTexture(interimg[textureselectIndex]);
+
 }
 
 void LevelEndingScene::Render()
