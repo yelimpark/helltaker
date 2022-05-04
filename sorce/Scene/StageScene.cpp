@@ -40,7 +40,27 @@ void StageScene::Init()
 	flameBase2.setPosition(1225, 515);
 	transBack.setPosition((*iter).BgPosX, (*iter).BgPosY);
 
+	boxInfo boxInfos;
+	boxInfos.position = Vector2f(644, 577);
+	boxInfos.textureFilename = "Sprite/boxExport0001.png";
+	boxdatas.push_back(boxInfos);
+	boxInfos.position = Vector2f(800, 577);
+	boxInfos.textureFilename = "Sprite/boxExport0003.png";
+	boxdatas.push_back(boxInfos);
+	boxInfos.position = Vector2f(900, 407);
+	boxInfos.textureFilename = "Sprite/boxExport0004.png";
+	boxdatas.push_back(boxInfos);
+	boxInfos.position = Vector2f(1200, 607);
+	boxInfos.textureFilename = "Sprite/boxExport0008.png";
+	boxdatas.push_back(boxInfos);
+
+	vector<Box*>boxes(boxdatas.begin(), boxdatas.end());
+	for (int i = 0; i < boxdatas.size(); i++)
+	{
+		boxes[i]->Init();
+	}
 	ui.Init();
+	
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
@@ -48,7 +68,7 @@ void StageScene::Init()
 
 void StageScene::Update(Time& dt)
 {
-
+	
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		transeScene = true;
@@ -64,6 +84,7 @@ void StageScene::Update(Time& dt)
 
 void StageScene::Render()
 {
+
 	window.setView(mainView);
 
 	window.draw(spriteBackground);
@@ -71,6 +92,11 @@ void StageScene::Render()
 	window.draw(spriteSide2);
 	window.draw(flameBase1);
 	window.draw(flameBase2);
+
+	for (auto& boxdatas : boxes)
+	{
+		boxdatas->Draw(window);
+	}
 
 	window.setView(uiView);
 	if (transeScene)

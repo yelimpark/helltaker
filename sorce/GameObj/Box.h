@@ -11,31 +11,17 @@ enum class Direction
 	Down,
 };
 
-enum class box
-{
-	box001,
-	box003,
-	box004,
-	box008,
-};
-
-struct boxInfo
-{
-	box type;
-	std::string textureFilename;
-};
-
 class Box
 {
 private:
-	Sprite sprite;
+	Sprite box;
 	Direction dir;
 	bool isMoving;
 
 	float speedX;
 	float speedY;
 
-	static std::vector<boxInfo> boxes;
+
 
 public:
 	Box();

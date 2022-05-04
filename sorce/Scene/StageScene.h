@@ -1,8 +1,17 @@
 #pragma once
-#include "./Scene.h"
-#include "../UI/StageUI.h"
 #include <list>
 #include <iostream>
+
+#include "./Scene.h"
+#include "../UI/StageUI.h"
+#include "../GameObj/Box.h"
+
+struct boxInfo
+{
+	std::string textureFilename;
+	Vector2f position;
+};
+
 
 struct LevelData {
 	std::string BgFilename;
@@ -24,6 +33,8 @@ private:
 	std::list<LevelData> levelDataList;
 	int level;
 
+	std::vector<boxInfo> boxdatas;
+
 	Sprite spriteBackground;
 	Sprite spriteSide1;
 	Sprite spriteSide2;
@@ -36,6 +47,8 @@ private:
 	int lastTurn;
 	int opacity;
 	float transHeight;
+	
+	std::vector<Box*> boxes;
 
 
 	bool transeScene;
