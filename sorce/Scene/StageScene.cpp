@@ -4,40 +4,49 @@
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
+#include "../GameObj/FlameBase.h"
+
 #include <sstream>
 
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(1), transHeight(100)
+	: Scene(sceneManager), lastTurn(0), level(1), transHeight(100)
 {
 	Utills::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
-	Utills::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameBase.csv");
+	Utills::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 }
 
 void StageScene::Init()
 {
 	stringstream ss;
 	ss << level;
-	LevelData leveldata = levelDatas[ss.str()];
+	LevelData levelData = levelDatas[ss.str()];
 
-	spriteBackground.setTexture(TextureHolder::GetTexture(leveldata.BgFilename));
+	lastTurn = levelData.lastTurn;
+
+	for (int i = 0; i < flameBaseDatas[ss.str()].size(); ++i) {
+		FlameBase* flameBase = new FlameBase();
+		flameBases.push_back(flameBase);
+	}
+
+	spriteBackground.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
 	spriteSide1.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	spriteSide2.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	flameBase1.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
-	flameBase2.setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
 	transition.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_hell.png"));
 	FloatRect transRect = transition.getLocalBounds();
 	transition.setOrigin(transRect.left+transRect.width*0.5, transRect.top + transRect.height * 0.5f);
 
-	//spriteBackground.setPosition((*iter).BgPosX, (*iter).BgPosY);
+	spriteBackground.setPosition(levelData.BgPosX, levelData.BgPosY);
 	spriteSide1.setPosition(0, 0);
 	spriteSide2.setPosition(resolution.x, 0);
 	spriteSide2.setScale(-1.f, 1.f);
-	flameBase1.setPosition(625, 268);
-	flameBase2.setPosition(1225, 515);
 
-
+	int idx = 0;
+	for (auto flameBase : flameBases) {
+		flameBase->Init(flameBaseDatas[ss.str()][idx].x, flameBaseDatas[ss.str()][idx].y);
+		++idx;
+	}
 
 	transeScene = false;
 }
@@ -62,14 +71,14 @@ void StageScene::Update(Time& dt)
 void StageScene::Render()
 {
 	window.setView(mainView);
-
 	window.draw(spriteBackground);
 	window.draw(spriteSide1);
 	window.draw(spriteSide2);
-	window.draw(flameBase1);
-	window.draw(flameBase2);
 
-	window.setView(uiView);
+	for (auto flameBase : flameBases) {
+		flameBase->Draw(window);
+	}
+
 	if (transeScene)
 	{
 		window.draw(transition);
@@ -80,6 +89,9 @@ void StageScene::Render()
 
 void StageScene::Release()
 {
+	for (auto flameBase : flameBases) {
+		delete flameBase;
+	}
 }
 
 void StageScene::TranseScene(float dt)
@@ -91,4 +103,5 @@ void StageScene::TranseScene(float dt)
 
 StageScene::~StageScene()
 {
+	Release();
 }

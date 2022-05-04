@@ -19,15 +19,9 @@ const View& Framework::GetMainView()
     return Instance()->mainView;
 }
 
-const View& Framework::GetUIView()
-{
-    return Instance()->uiView;
-}
-
 void Framework::Init()
 {
     mainView.reset(FloatRect(0, 0, resolution.x, resolution.y));
-    uiView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 
     InputManager::Init();
     sceneManager.Init();
