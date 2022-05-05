@@ -14,8 +14,6 @@ private:
 	StageUI ui;
 
 	int level;
-	std::map<std::string, LevelData> levelDatas;
-	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
 	
 	std::list<FlameBase *> flameBases;
 	Sprite spriteBackground;
