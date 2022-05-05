@@ -1,6 +1,5 @@
 #include "AnimationController.h"
 #include "AnimationHolder.h"
-#include <iostream>
 
 AnimationController::AnimationController()
 	:clips(), currentClip(nullptr), isPlaying(false),
@@ -34,12 +33,8 @@ void AnimationController::Update(float dt)
 
 	if (currentFrame >= totalFrame) {
 		if (!que.empty()) {
-			changePlayTime(1.f);
-			currentClip = &clips[que.front()];
+			Play(que.front(), false);
 			que.pop_front();
-			currentFrame = 0;
-			totalFrame = currentClip->frames.size();
-			frameDuration = 1.f / currentClip->fps;
 			return;
 		}
 
@@ -89,11 +84,6 @@ void AnimationController::stop()
 bool AnimationController::IsPlaying()
 {
 	return isPlaying;
-}
-
-void AnimationController::changePlayTime(float time)
-{
-	frameDuration = time / currentClip->fps;
 }
 
 bool AnimationController::IsAnimationEnd()

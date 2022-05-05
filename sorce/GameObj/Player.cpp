@@ -3,19 +3,31 @@
 
 void Player::Move(float dt)
 {
-	movetime -= dt;
+	moveTime -= dt;
+
+	if (moveTime <= 0) {
+		moveDuration -= dt;
+		if (moveDuration <= 0) {
+			moveDuration = MOVE_DURATION;
+			moveTime = MOVE_SECOND;
+			isMoving = false;
+		}
+		return;
+	}
 
 	switch (dir)
 	{
 	case Direction::Left:
-		position.x -= (500 * movetime) * dt;
+		position.x -= MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 	case Direction::Right:
-		position.x += (500 * movetime) * dt;
+		position.x += MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 	case Direction::Down:
+		position.y += MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 	case Direction::Up:
+		position.y -= MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 	case Direction::None:
 		break;
@@ -23,11 +35,6 @@ void Player::Move(float dt)
 		break;
 	}
 	sprite.setPosition(position);
-
-	if (movetime <= 0) {
-		movetime = 0.5f;
-		isMoving = false;
-	}
 }
 
 void Player::Init(float x, float y)
@@ -36,6 +43,7 @@ void Player::Init(float x, float y)
 	position.y = y;
 
 	sprite.setPosition(position);
+	
 	animation.SetTarget(&sprite);
 
 	animation.AddClip("PlayerStand");
@@ -43,31 +51,41 @@ void Player::Init(float x, float y)
 
 	animation.Play("PlayerStand");
 
-	movetime = 0.5f;
+	moveTime = MOVE_SECOND;
+	moveDuration = MOVE_DURATION;
 	isMoving = false;
 }
 
 void Player::Update(float dt)
 {
-	if (isMoving) {
-		Move(dt);
-	}
+	if (isMoving) Move(dt);
 
 	animation.Update(dt);
 	sprite.setOrigin(sprite.getGlobalBounds().width * 0.5f, sprite.getGlobalBounds().height * 0.5f);
 
-	if (InputManager::GetKeyDown(Keyboard::Left) || InputManager::GetKey(Keyboard::Left)) {
+	if (!isMoving && InputManager::GetKey(Keyboard::Left)) {
 		isMoving = true;
 		dir = Direction::Left;
 		sprite.setScale(-1.f, 1.f);
 		animation.Play("PlayerMove");
-		animation.changePlayTime(0.5);
 		animation.PlayQue("PlayerStand");
 	}
-	if (InputManager::GetKeyDown(Keyboard::Right)) {
+	if (!isMoving && InputManager::GetKey(Keyboard::Right)) {
 		isMoving = true;
 		dir = Direction::Right;
 		sprite.setScale(1.f, 1.f);
+		animation.Play("PlayerMove");
+		animation.PlayQue("PlayerStand");
+	}
+	if (!isMoving && InputManager::GetKey(Keyboard::Up)) {
+		isMoving = true;
+		dir = Direction::Up;
+		animation.Play("PlayerMove");
+		animation.PlayQue("PlayerStand");
+	}
+	if (!isMoving && InputManager::GetKey(Keyboard::Down)) {
+		isMoving = true;
+		dir = Direction::Down;
 		animation.Play("PlayerMove");
 		animation.PlayQue("PlayerStand");
 	}

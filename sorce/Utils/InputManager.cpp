@@ -1,8 +1,7 @@
 #include "./InputManager.h"
-#include <iostream>
 
 list<Keyboard::Key> InputManager::downKeys;
-map<Keyboard::Key, float> InputManager::ingKeys;
+list<Keyboard::Key> InputManager::ingKeys;
 list<Keyboard::Key> InputManager::upKeys;
 
 list<Mouse::Button> InputManager::downButtons;
@@ -11,13 +10,6 @@ list<Mouse::Button> InputManager::upButtons;
 
 void InputManager::Init()
 {
-    downKeys.clear();
-    ingKeys.clear();
-    upKeys.clear();
-
-    downButtons.clear();
-    ingButtons.clear();
-    downKeys.clear();
 }
 
 void InputManager::ProcessInput(const Event& event)
@@ -25,15 +17,15 @@ void InputManager::ProcessInput(const Event& event)
     switch (event.type)
     {
     case Event::KeyPressed:
-        if (ingKeys.find(event.key.code) == ingKeys.end())
+        if (!GetKey(event.key.code))
         {
             downKeys.push_back(event.key.code);
-            ingKeys[event.key.code] = DURATION;
+            ingKeys.push_back(event.key.code);
         }
         break;
 
     case Event::KeyReleased:
-        ingKeys.erase(event.key.code);
+        ingKeys.remove(event.key.code);
         upKeys.push_back(event.key.code);
         break;
 
@@ -52,15 +44,9 @@ void InputManager::ProcessInput(const Event& event)
     }
 }
 
-void InputManager::Update(float dt)
+void InputManager::Update(Time& dt)
 {
-    for (auto key : ingKeys) {
-        key.second -= dt;
-        std::cout << key.second << std::endl;
-        if (key.second < 0) {
-            key.second = 0;
-        }
-    }
+
 }
 
 bool InputManager::GetKeyDown(Keyboard::Key key)
@@ -71,12 +57,8 @@ bool InputManager::GetKeyDown(Keyboard::Key key)
 
 bool InputManager::GetKey(Keyboard::Key key)
 {
-    auto it = ingKeys.find(key);
-    if (it != ingKeys.end() && ingKeys[key] <= 0.f) {
-  //      ingKeys[key] = DURATION;
-        return true;
-    }
-    return false;
+    auto it = find(ingKeys.begin(), ingKeys.end(), key);
+    return it != ingKeys.end();
 }
 
 bool InputManager::GetKeyUp(Keyboard::Key key)

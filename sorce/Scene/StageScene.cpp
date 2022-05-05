@@ -11,7 +11,7 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(1), transHeight(100)
+	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(100)
 {
 	Utills::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utills::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
@@ -48,7 +48,7 @@ void StageScene::Init()
 		++idx;
 	}
 
-	player.Init(1150, 300);
+	player.Init(1150, 290);
 
 	transeScene = false;
 }

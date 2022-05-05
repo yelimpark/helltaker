@@ -5,6 +5,7 @@
 void SceneManager::Init()
 {
 	GameVal::Init();
+	currScene = (SceneType)1;
 
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
