@@ -26,6 +26,7 @@ private:
 	int level;
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
+	std::vector<boxInfo> boxdatas;
 	
 	std::list<FlameBase *> flameBases;
 	Sprite spriteBackground;
@@ -34,6 +35,7 @@ private:
 	Sprite transition;
 
 	RectangleShape transBack;
+
 
 	int lastTurn;
 	int opacity;
