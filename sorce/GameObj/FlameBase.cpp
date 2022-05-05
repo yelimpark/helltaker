@@ -26,7 +26,7 @@ void FlameBase::Init(float x, float y)
 
 	animation.Play("Fire");
 	fireSprite.setScale(0.6f, 0.6f);
-	fireSprite.setColor(Color::Yellow);
+	fireSprite.setColor(Color(228, 193, 101));
 }
 
 void FlameBase::Update(float dt)

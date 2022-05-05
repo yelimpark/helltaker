@@ -71,10 +71,6 @@ void StageScene::Init()
 	boxInfos.textureFilename = "Sprite/boxExport0008.png";
 	boxdatas.push_back(boxInfos);
 
-	for (auto& boxdatas : boxes)
-	{
-		boxdatas->Init();
-	}
 	ui.Init();
 	
 
