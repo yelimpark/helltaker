@@ -10,6 +10,8 @@ class Scene;
 enum class SceneType {
 	TITLE,
 	STAGE,
+	TITLESCRIPT,
+	ENDINGCUTSCENE,
 	COUNT
 };
 

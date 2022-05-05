@@ -14,9 +14,10 @@ using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
 	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0)
+	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(0), opacity(0)
 {
-	Utills::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
-	Utills::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
+	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
+	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 }
 
 void StageScene::Init()
