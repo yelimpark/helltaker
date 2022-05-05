@@ -7,26 +7,21 @@
 class TitleScene : public Scene 
 {
 private:
-	Text textintro;
-	Text textOpen[2];
-
+	Text textFix;
+	Text textOpen1[2];
+	Text textOpen2[2];
+	Text textOpen3;
+	
+	Text menu[MAX_NUMBER_OF_ITEMS];
 
 	Sprite img[MAX_NUMBER_OF_ITEMS];
-	
-
-	Text menu[MAX_NUMBER_OF_ITEMS];
 	Sprite munuwhite[MAX_NUMBER_OF_ITEMS];
 	Sprite munured[MAX_NUMBER_OF_ITEMS];
 
+	std::string script[2];
 	Vector2f position;
 
 	Sprite bg;
-	Sprite cloud[3];
-	float speed;
-	float cloudTimer;
-	Vector2f cloudPosition[3];
-
-	Sprite bu;
 	Sprite beel;
 
 	int selectIndex;
@@ -36,7 +31,7 @@ private:
 	RenderWindow& window;
 	View& mainView;
 
-	Sprite testSprite;
+	Sprite cloudBackground;
 
 public:
 	TitleScene(SceneManager& sceneManager);

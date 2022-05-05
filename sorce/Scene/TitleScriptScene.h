@@ -2,6 +2,8 @@
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
 
+#define MAX_NUMBER_OF_SCRIPT 9
+
 class TitleScriptScene : public Scene
 {
 private:
@@ -11,9 +13,10 @@ private:
 	Vector2f position;
 
 	Sprite bg;
-	Sprite bu;
+	Sprite cloudBackground;
+	Sprite beelFire;
 
-	std::string script[50];
+	std::string script[MAX_NUMBER_OF_SCRIPT];
 	Sprite* img;
 	Sprite imgMenu;
 
