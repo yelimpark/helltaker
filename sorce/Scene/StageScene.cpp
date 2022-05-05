@@ -13,7 +13,8 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager),  level(1), transHeight(0),lastTurn(0)
+	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0)
+	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(0), opacity(0)
 {
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
@@ -83,7 +84,7 @@ void StageScene::Update(Time& dt)
 		flameBase->Update(dt.asSeconds());
 	}
 
-	ui.Update(lastTurn, resolution);
+	ui.Update(lastTurn);
 
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
@@ -115,7 +116,6 @@ void StageScene::Render()
 		boxdatas->Draw(window);
 	}
 
-	window.setView(uiView);
 	if (transeScene)
 	{
 		window.draw(transBack);
