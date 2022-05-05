@@ -1,9 +1,20 @@
 #pragma once
+#include <list>
+#include <iostream>
+
 #include "./Scene.h"
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include <list>
 #include <iostream>
+#include "../GameObj/Box.h"
+
+struct boxInfo
+{
+	std::string textureFilename;
+	Vector2f position;
+};
+
 
 class FlameBase;
 
@@ -22,8 +33,14 @@ private:
 	Sprite spriteSide2;
 	Sprite transition;
 
+	RectangleShape transBack;
+
 	int lastTurn;
+	int opacity;
 	float transHeight;
+	
+	std::vector<Box*> boxes;
+
 
 	bool transeScene;
 
