@@ -56,7 +56,6 @@ void InputManager::Update(float dt)
 {
     for (auto key : ingKeys) {
         key.second -= dt;
-        std::cout << key.second << std::endl;
         if (key.second < 0) {
             key.second = 0;
         }
@@ -73,7 +72,6 @@ bool InputManager::GetKey(Keyboard::Key key)
 {
     auto it = ingKeys.find(key);
     if (it != ingKeys.end() && ingKeys[key] <= 0.f) {
-  //      ingKeys[key] = DURATION;
         return true;
     }
     return false;

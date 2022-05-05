@@ -1,16 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include "Direction.h"
 
 using namespace sf;
-
-enum class Direction {
-	Left,
-	Right,
-	Down,
-	Up,
-	None
-};
 
 class Player {
 private:

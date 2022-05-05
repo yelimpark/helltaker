@@ -12,11 +12,20 @@ private:
 	Sprite side1;
 	Sprite side2;
 
-	static bool isInitUIFontInfo;
+	float side1SpeedX;
+	float side2SpeedX;
+	float sideSpeedY;
+
 
 public:
+	static bool isInitUIFontInfo;
+	static bool isMovedSide;
+
 	StageUI();
-	void Update(int turnTimes, Vector2i position);
-	void Draw(RenderWindow& window);
+	void Init();
+	void Update(int turnTimes);
+	void MoveSide(float dt);
+	void Render(RenderWindow& window);
+	~StageUI();
 };
 

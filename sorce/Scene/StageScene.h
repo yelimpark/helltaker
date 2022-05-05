@@ -1,10 +1,21 @@
 #pragma once
+#include <list>
+#include <iostream>
+
 #include "./Scene.h"
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
 #include <list>
 #include <iostream>
+#include "../GameObj/Box.h"
+
+struct boxInfo
+{
+	std::string textureFilename;
+	Vector2f position;
+};
+
 
 class FlameBase;
 
@@ -16,6 +27,7 @@ private:
 	int level;
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
+	std::vector<boxInfo> boxdatas;
 	
 	std::list<FlameBase *> flameBases;
 	Sprite spriteBackground;
@@ -24,8 +36,15 @@ private:
 	Sprite transition;
 	Player player;
 
+	RectangleShape transBack;
+
+
 	int lastTurn;
+	int opacity;
 	float transHeight;
+	
+	std::vector<Box*> boxes;
+
 
 	bool transeScene;
 

@@ -80,6 +80,21 @@
     <ClCompile Include="sorce\Resource\AnimationHolder.cpp">
       <Filter>소스 파일\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\Scene\TitleScriptScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Utils\Utils.cpp">
+      <Filter>소스 파일\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\LevelEndingScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\PauseMenu.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Box.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
     <ClCompile Include="sorce\GameObj\Player.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
@@ -130,6 +145,21 @@
     <ClInclude Include="sorce\Utils\Utils.h">
       <Filter>소스 파일\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationClip.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationController.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\TitleScriptScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\LevelEndingScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\PauseMenu.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="sorce\Scene\StageScene.h">
       <Filter>소스 파일\Scene</Filter>
     </ClInclude>
@@ -145,7 +175,13 @@
     <ClInclude Include="sorce\Resource\AnimationHolder.h">
       <Filter>소스 파일\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="sorce\GameObj\Box.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
     <ClInclude Include="sorce\GameObj\Player.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Direction.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
   </ItemGroup>

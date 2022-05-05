@@ -14,7 +14,7 @@ const Vector2i& Framework::GetResolution()
     return resolution;
 }
 
-const View& Framework::GetMainView()
+View& Framework::GetMainView()
 {
     return Instance()->mainView;
 }

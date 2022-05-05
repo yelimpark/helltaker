@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sorce\Framework\Framework.cpp" />
+    <ClCompile Include="sorce\GameObj\Box.cpp" />
     <ClCompile Include="sorce\GameObj\FlameBase.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
     <ClCompile Include="sorce\main.cpp" />
@@ -29,16 +30,22 @@
     <ClCompile Include="sorce\Resource\FontHolder.cpp" />
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
+    <ClCompile Include="sorce\Scene\LevelEndingScene.cpp" />
+    <ClCompile Include="sorce\Scene\PauseMenu.cpp" />
     <ClCompile Include="sorce\Scene\Scene.cpp" />
     <ClCompile Include="sorce\Scene\StageScene.cpp" />
     <ClCompile Include="sorce\Scene\TitleScene.cpp" />
     <ClCompile Include="sorce\UI\StageUI.cpp" />
+    <ClCompile Include="sorce\Scene\TitleScriptScene.cpp" />
     <ClCompile Include="sorce\Utils\GameVal.cpp" />
     <ClCompile Include="sorce\Utils\InputManager.cpp" />
     <ClCompile Include="sorce\Utils\SceneManager.cpp" />
+    <ClCompile Include="sorce\Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Framework\Framework.h" />
+    <ClInclude Include="sorce\GameObj\Box.h" />
+    <ClInclude Include="sorce\GameObj\Direction.h" />
     <ClInclude Include="sorce\GameObj\FlameBase.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
@@ -49,10 +56,13 @@
     <ClInclude Include="sorce\Resource\SoundHolder.h" />
     <ClInclude Include="sorce\Resource\TextureHolder.h" />
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h" />
+    <ClInclude Include="sorce\Scene\LevelEndingScene.h" />
+    <ClInclude Include="sorce\Scene\PauseMenu.h" />
     <ClInclude Include="sorce\Scene\Scene.h" />
     <ClInclude Include="sorce\Scene\StageScene.h" />
     <ClInclude Include="sorce\Scene\TitleScene.h" />
     <ClInclude Include="sorce\UI\StageUI.h" />
+    <ClInclude Include="sorce\Scene\TitleScriptScene.h" />
     <ClInclude Include="sorce\Utils\GameVal.h" />
     <ClInclude Include="sorce\Utils\InputManager.h" />
     <ClInclude Include="sorce\Utils\rapidcsv.h" />
