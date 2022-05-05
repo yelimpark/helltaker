@@ -54,10 +54,9 @@ void StageScene::Init()
 	boxInfos.textureFilename = "Sprite/boxExport0008.png";
 	boxdatas.push_back(boxInfos);
 
-	vector<Box*>boxes(boxdatas.begin(), boxdatas.end());
-	for (int i = 0; i < boxdatas.size(); i++)
+	for (auto& boxdatas : boxes)
 	{
-		boxes[i]->Init();
+		boxdatas->Init();
 	}
 	ui.Init();
 	
@@ -68,6 +67,10 @@ void StageScene::Init()
 
 void StageScene::Update(Time& dt)
 {
+	for(auto& boxdatas : boxes)
+	{
+		boxdatas->Update(dt.asSeconds());
+	}
 	
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
