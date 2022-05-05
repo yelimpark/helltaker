@@ -1,8 +1,9 @@
 #include "./GameVal.h"
 
-int GameVal::stageNum;
+int GameVal::level;
+
 
 void GameVal::Init()
 {
-	stageNum = 1;
+	level = 1;
 }

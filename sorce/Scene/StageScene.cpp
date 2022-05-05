@@ -13,14 +13,19 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0)
+	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(0), opacity(0)
 {
-	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
-	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
+
 }
 
 void StageScene::Init()
 {
+	std::map<std::string, LevelData> levelDatas;
+	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
+
+	Utills::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
+	Utills::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
+
 	stringstream ss;
 	ss << level;
 	LevelData levelData = levelDatas[ss.str()];
@@ -73,7 +78,7 @@ void StageScene::Init()
 	ui.Init();
 	
 
-	player.Init(1150, 300);
+	player.Init(1150, 290);
 
 	transeScene = false;
 	StageUI::isMovedSide = false;

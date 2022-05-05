@@ -1,7 +1,4 @@
 #pragma once
-#include <list>
-#include <iostream>
-
 #include "./Scene.h"
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
@@ -25,8 +22,7 @@ private:
 	StageUI ui;
 
 	int level;
-	std::map<std::string, LevelData> levelDatas;
-	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
+
 	std::vector<boxInfo> boxdatas;
 	
 	std::list<FlameBase *> flameBases;

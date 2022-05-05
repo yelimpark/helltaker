@@ -2,7 +2,6 @@
 #include <list>
 #include <vector>
 #include <map>
-#include <vector>
 #include "rapidcsv.h"
 #include <SFML/Graphics.hpp>
 #include <random>

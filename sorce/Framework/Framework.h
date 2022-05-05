@@ -16,8 +16,9 @@ private:
     TextureHolder textureHolder;
     FontHolder fontHolder;
     SoundHolder soundHolder;
-    SceneManager sceneManager;
     AnimationHolder animationholder;
+
+    SceneManager sceneManager;
 
     Clock clock;
 

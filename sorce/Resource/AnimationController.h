@@ -7,11 +7,11 @@ using namespace sf;
 class AnimationController {
 private:
 	std::map<std::string, AnimationClip> clips;
+
 	bool isPlaying;
 	int currentFrame;
 	int totalFrame;
 	float frameDuration;
-
 	float accumTime;
 
 	Sprite* sprite;
@@ -36,8 +36,6 @@ public:
 	void stop();
 
 	bool IsPlaying();
-
-	void changePlayTime(float time);
 
 	bool IsAnimationEnd();
 

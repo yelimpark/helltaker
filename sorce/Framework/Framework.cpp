@@ -45,14 +45,13 @@ int Framework::Run()
 
             if (event.type == Event::Resized)
             {
-                int x = VideoMode::getDesktopMode().width;
                 window.setSize(Vector2u(event.size.width, event.size.width*9/16));
             }
 
             InputManager::ProcessInput(event);
         }
 
-        InputManager::Update(dt.asSeconds());
+        InputManager::Update(dt);
         sceneManager.Update(dt);
 
         window.clear();

@@ -7,11 +7,16 @@ using namespace sf;
 
 class Player {
 private:
+	const float MOVE_SECOND = 0.2;
+	const float MOVE_DURATION = 0.2;
+	const float MOVE_DISTANCE = 100;
+
 	Sprite sprite;
 	Vector2f position;
 	Direction dir;
 
-	float movetime;
+	float moveTime;
+	float moveDuration;
 	bool isMoving;
 
 	AnimationController animation;
