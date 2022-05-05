@@ -23,8 +23,8 @@ void StageScene::Init()
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
 
-	Utills::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
-	Utills::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
+	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
+	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	stringstream ss;
 	ss << level;
@@ -109,7 +109,6 @@ void StageScene::Update(Time& dt)
 
 void StageScene::Render()
 {
-
 	window.setView(mainView);
 	window.draw(spriteBackground);
 	window.draw(spriteSide1);

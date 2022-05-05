@@ -8,9 +8,7 @@
 using namespace std;
 
 TitleScene::TitleScene(SceneManager& sceneManager)
-	:Scene(sceneManager),window(Framework::Getwindow()),
-	resolution(Framework::GetResolution()),
-	mainView(Framework::GetMainView()), enterCount(0), selectIndex(0)
+	:Scene(sceneManager), enterCount(0), selectIndex(0)
 {
 }
 
@@ -54,9 +52,6 @@ void TitleScene::Init()
 	
 	
 	beel.setPosition(resolution.x * 0.18f, resolution.y / 9); 
-
-	mainView.setCenter(resolution.x * 0.5f, resolution.y * 0.5f);
-	
 }
 
 void TitleScene::Update(Time& dt)

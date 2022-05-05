@@ -20,10 +20,6 @@ private:
 	Sprite* img;
 	Sprite imgMenu;
 
-	const Vector2i& resolution;
-	RenderWindow& window;
-	View& mainView;
-
 	int textselectIndex;
 	int enterCounter;
 

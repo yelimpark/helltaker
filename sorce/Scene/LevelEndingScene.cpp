@@ -7,9 +7,7 @@
 #include "TitleScene.h"
 
 LevelEndingScene::LevelEndingScene(SceneManager& sceneManager)
-	:Scene(sceneManager), window(Framework::Getwindow()),
-	resolution(Framework::GetResolution()),
-	mainView(Framework::GetMainView()), enterCount(0), selectIndex(0)
+	:Scene(sceneManager), enterCount(0), selectIndex(0)
 {
 	
 }

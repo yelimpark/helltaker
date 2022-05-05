@@ -26,8 +26,8 @@ public:
     static RenderWindow& Getwindow();
 
     static const Vector2i& GetResolution();
-    //const delete
-    static View& GetMainView();
+
+    const static View& GetMainView();
 
     void Init();
 

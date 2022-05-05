@@ -44,11 +44,6 @@ void InputManager::ProcessInput(const Event& event)
     }
 }
 
-void InputManager::Update(Time& dt)
-{
-
-}
-
 bool InputManager::GetKeyDown(Keyboard::Key key)
 {
     auto it = find(downKeys.begin(), downKeys.end(), key);

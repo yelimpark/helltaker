@@ -9,9 +9,7 @@ using namespace std;
 using namespace sf;
 
 TitleScriptScene::TitleScriptScene(SceneManager& sceneManager)
-	:Scene(sceneManager), window(Framework::Getwindow()),
-	resolution(Framework::GetResolution()),
-	mainView(Framework::GetMainView()), textselectIndex(0),enterCounter(0)
+	:Scene(sceneManager), textselectIndex(0),enterCounter(0)
 {
 
 }

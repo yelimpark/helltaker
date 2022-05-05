@@ -14,7 +14,7 @@ const Vector2i& Framework::GetResolution()
     return resolution;
 }
 
-View& Framework::GetMainView()
+const View& Framework::GetMainView()
 {
     return Instance()->mainView;
 }
@@ -51,7 +51,6 @@ int Framework::Run()
             InputManager::ProcessInput(event);
         }
 
-        InputManager::Update(dt);
         sceneManager.Update(dt);
 
         window.clear();

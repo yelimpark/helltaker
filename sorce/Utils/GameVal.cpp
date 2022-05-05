@@ -2,7 +2,6 @@
 
 int GameVal::level;
 
-
 void GameVal::Init()
 {
 	level = 1;

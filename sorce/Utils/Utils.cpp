@@ -1,8 +1,5 @@
 #include "Utils.h"
 
-std::random_device Utils::rd;
-std::mt19937 Utils::gen(rd());
-
 void Utils::SetOrigin(Sprite& sprite, Pivots preset)
 {
 	SetOrigin(sprite, sprite.getLocalBounds(), preset);
@@ -52,52 +49,4 @@ void Utils::SetOrigin(Transformable& tr, FloatRect bounds, Pivots preset)
 	default:
 		break;
 	}
-}
-
-int Utils::RandomRange(int min, int max)
-{
-	return gen() % (max - min) + min;
-}
-
-bool Utils::RandomBool()
-{
-	return (gen() % 2 == 1) ? true : false;
-}
-
-Vector2f Utils::NomalizeVector(Vector2f vector)
-{
-	float length = GetLength(vector);
-
-	if (length > 0) {
-		vector /= length;
-	}
-
-	return vector;
-}
-
-bool Utils::IsPointInArea(const Vector2f& point, float left, float top, float width, float height)
-{
-	FloatRect area;
-	area.left = left;
-	area.top = top;
-	area.width = width;
-	area.height = height;
-
-	return area.contains(point);
-}
-
-bool Utils::IsRectInArea(const FloatRect& rect, float left, float top, float width, float height)
-{
-	FloatRect area;
-	area.left = left;
-	area.top = top;
-	area.width = width;
-	area.height = height;
-
-	return area.intersects(rect);
-}
-
-float Utils::GetLength(const Vector2f& vector)
-{
-	return sqrt(vector.x * vector.x + vector.y * vector.y);
 }

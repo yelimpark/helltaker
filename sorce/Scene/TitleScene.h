@@ -27,10 +27,6 @@ private:
 	int selectIndex;
 	int enterCount;
 
-	const Vector2i& resolution;
-	RenderWindow& window;
-	View& mainView;
-
 	Sprite cloudBackground;
 
 public:

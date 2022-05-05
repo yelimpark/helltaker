@@ -22,8 +22,6 @@ public:
 
 	static void ProcessInput(const Event& event);
 
-	static void Update(Time& dt);
-
 	static bool GetKeyDown(Keyboard::Key key);
 	static bool GetKey(Keyboard::Key key);
 	static bool GetKeyUp(Keyboard::Key key);
