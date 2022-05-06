@@ -17,9 +17,6 @@ private:
 
 	bool isMoving;
 
-	float speedX;
-	float speedY;
-
 	float moveTime;
 
 public:

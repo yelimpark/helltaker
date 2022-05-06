@@ -6,7 +6,7 @@
 
 
 Box::Box()
-	: isMoving(false), speedX(800.f), speedY(800.f)
+	: isMoving(false)
 {
 }
 
@@ -24,24 +24,30 @@ void Box::Moved(float dt)
 {
 	moveTime -= dt;
 	
+	if (moveTime <= 0)
+	{
+		moveTime = MOVE_SECOND;
+		isMoving = false;
+		return;
+	}
 
 	switch (dir)
 	{
 	case Direction::Left:
-		position.x -= speedX * dt;
+		position.x -= MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 
 	case Direction::Right:
-		position.x += speedX * dt;
+		position.x += MOVE_DISTANCE * dt / MOVE_SECOND;
 
 		break;
 
 	case Direction::Up:
-		position.y -= speedY * dt;
+		position.y -= MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 
 	case Direction::Down:
-		position.y += speedY * dt;
+		position.y += MOVE_DISTANCE * dt / MOVE_SECOND;
 		break;
 
 	case Direction::None:
@@ -56,34 +62,33 @@ void Box::Moved(float dt)
 
 void Box::Update(float dt)
 {
-	Moved(dt);
-	if (InputManager::GetKey(Keyboard::Left))
+	if (isMoving)
+	{
+		Moved(dt);
+	}
+
+	if (InputManager::GetKeyDown(Keyboard::Left))
 	{
 		isMoving = true;
 		dir = Direction::Left;
 	}
 
-	else if (InputManager::GetKey(Keyboard::Right))
+	else if (InputManager::GetKeyDown(Keyboard::Right))
 	{
 		isMoving = true;
 		dir = Direction::Right;
 	}
 
-	else if (InputManager::GetKey(Keyboard::Up))
+	else if (InputManager::GetKeyDown(Keyboard::Up))
 	{
 		isMoving = true;
 		dir = Direction::Up;
 	}
 
-	else if (InputManager::GetKey(Keyboard::Down))
+	else if (InputManager::GetKeyDown(Keyboard::Down))
 	{
 		isMoving = true;
 		dir = Direction::Down;
-	}
-	else
-	{
-		isMoving = false;
-		dir = Direction::None;
 	}
 }
 
