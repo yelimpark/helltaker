@@ -3,7 +3,7 @@
 #include "../Resource/AnimationController.h"
 #include "TitleScene.h"
 
-#define MAX_NUMBER_OF_ITEMS 2
+#define MAX_NUMBER_OF_SCRIPT 2
 class LevelEndingScene : public Scene
 {
 private:

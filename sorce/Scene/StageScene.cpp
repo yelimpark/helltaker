@@ -14,7 +14,7 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0),pmenu(window)
+	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0)
 {
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
@@ -75,7 +75,10 @@ void StageScene::Init()
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
+	
+	this->InitPauseMenu();
 	pause = false; // for esc menu
+
 }
 
 void StageScene::UpdatePauseInput(Time& dt)
@@ -122,7 +125,7 @@ void StageScene::Update(Time& dt)
 	}
 	else //pause update
 	{
-		this->pmenu.Update();
+		this->pmenu->Update();
 	}
 	
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
@@ -154,8 +157,14 @@ void StageScene::Render()
 
 	if (this->pause) //pause menu render
 	{
-		this->pmenu.Render(window);
+		this->pmenu->Render(window);
 	}
+	
+}
+
+void StageScene::InitPauseMenu()
+{
+	this->pmenu = new PauseMenu(this->window);
 	
 }
 
@@ -172,8 +181,10 @@ void StageScene::UnPauseState()
 void StageScene::Release()
 {
 	for (auto flameBase : flameBases) {
-		delete flameBase;
+		if (flameBase != nullptr)
+			delete flameBase;
 	}
+	//vector,list 삭제코드 삽입
 }
 
 void StageScene::TranseScene(float dt)
@@ -208,5 +219,6 @@ void StageScene::TranseScene(float dt)
 
 StageScene::~StageScene()
 {
+	delete this->pmenu;
 	Release();
 }

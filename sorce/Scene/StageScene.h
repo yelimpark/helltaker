@@ -35,7 +35,7 @@ private:
 	Sprite spriteSide2;
 	Sprite transition;
 
-	PauseMenu pmenu;
+	PauseMenu *pmenu;
 
 	RectangleShape transBack;
 
@@ -56,6 +56,8 @@ public:
 	void UpdatePauseInput(Time& dt);
 	virtual void Update(Time& dt);
 	virtual void Render();
+	virtual void InitPauseMenu();
+
 	virtual void PauseState();
 	virtual void UnPauseState();
 	virtual void Release();

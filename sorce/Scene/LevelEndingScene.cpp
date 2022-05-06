@@ -29,6 +29,9 @@ void LevelEndingScene::Init()
 	Utils::SetOrigin(textFix1, Pivots::Center);
 	textFix1.setPosition(resolution.x * 0.5, (resolution.y * 0.5) + 160);
 
+	Texture& tex = TextureHolder::GetTexture("Sprite/pand_idle.png");
+	tex.setRepeated(true);
+	idle[0].setTexture(tex);
 
 	textFix2[0].setString("Name's Pandemonica, Hell's Cistomer Service.");
 	textFix2[1].setString("How may I serve you ?");
@@ -52,7 +55,7 @@ void LevelEndingScene::Init()
 	
 	}
 
-	idle[0].setTexture(TextureHolder::GetTexture("Sprite/pand_idle.png")); //normal
+	
 	
 	//interimg = new Texture[2]; //idle[2],menu[2] imgarray
 
@@ -73,6 +76,10 @@ void LevelEndingScene::Init()
 
 void LevelEndingScene::Update(Time& dt)
 {
+
+	IntRect bound = idle[0].getTextureRect();
+	bound.left += 1;
+	idle[0].setTextureRect(bound);
 	
 	/*Utils::SetOrigin(textMain, Pivots::Center);
 	textMain.setPosition(Vector2f(resolution.x / 2, resolution.y / 20 + 745));*/
@@ -80,14 +87,16 @@ void LevelEndingScene::Update(Time& dt)
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		enterCount++;
-
 	}
+
+	 //menu showup
 	if (enterCount == 1)
 	{
+		//enterCount++;
 		menu[0].setString("We can figure something out at my place.?");
 		menu[1].setString("Maybe I can serve YOU instread?");
 
-	
+		//menu init
 		for (int i = 0; i < 2; i++)
 		{
 			Utils::SetOrigin(menu[i], Pivots::Center);
@@ -98,9 +107,10 @@ void LevelEndingScene::Update(Time& dt)
 			Utils::SetOrigin(img[i], Pivots::Center);
 			img[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 16 * i + 860));
 		}
+
+		//menu select moving
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{
-
 			MoveUp();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Down))
@@ -108,23 +118,46 @@ void LevelEndingScene::Update(Time& dt)
 			MoveDown();
 		}
 
-		if (enterCount > 1 && InputManager::GetKeyDown(Keyboard::Enter))
-		{
-			switch (GetPressedMenu())
-			{
-			case 0:
-				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
-				// NEW GAME -> stage (intro script)
-				break;
-			case 1:
-
-				// CHAPTER SELECT -> level select scene
-				break;
-			}
-
-		}
-	
 	}
+
+
+	else if (enterCount >= 2 && InputManager::GetKeyDown(Keyboard::Enter))
+	{
+		switch (GetPressedMenu())
+		{
+		case 0:
+			cout << "11111ют╥б!!!!!!!!!";
+			idle[0].setTexture(TextureHolder::GetTexture("Sprite/pand_flust.png")); 
+			
+		
+			//sceneManager.ChangeScene(SceneType::TITLE);
+			// NEW GAME -> stage (intro script)
+			break;
+		case 1:
+			textFix2[0].setString("Sweet of you to offer.I could really use some coffee.");
+			textFix2[1].setString("I'm not myself without it.");
+
+			menu[0].setString(" ");
+			menu[1].setString(" ");
+
+			/*auto size = idle[0].getScale();
+			idle[0].setTextureRect(IntRect(0, 0, size.x, size.y));*/
+
+			idle[0].setTexture(TextureHolder::GetTexture("Sprite/pand_flust.png"));
+			img[0].setTexture(TextureHolder::GetTexture("Sprite/success0006.png "));
+			img[1].setTexture(TextureHolder::GetTexture("Sprite/success0006.png "));
+		
+			//sceneManager.ChangeScene(SceneType::STAGE);
+			// CHAPTER SELECT -> level select scene
+			break;
+		}
+		
+	}
+	else if (enterCount > 5)
+	{
+		return;
+	}
+	
 	//if (enterCount >= 2)
 	//{
 	//	textFix2[0].setString("");
@@ -175,7 +208,7 @@ void LevelEndingScene::MoveUp()
 
 void LevelEndingScene::MoveDown()
 {
-	if (selectIndex + 1 < MAX_NUMBER_OF_ITEMS)
+	if (selectIndex + 1 < MAX_NUMBER_OF_SCRIPT)
 	{
 		menu[selectIndex].setFillColor(Color::White);
 		menu[selectIndex].setCharacterSize(30);

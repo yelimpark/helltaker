@@ -71,12 +71,13 @@ void TitleScene::Update(Time& dt)
 	bound.left += 1;
 	cloudBackground.setTextureRect(bound);
 
-
+	
 	if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
 	{
 		enterCount++;
 	}
 
+	//enterCount 1->textFix showup
 	if (enterCount == 1)
 	{
 		textOpen1[0].setString("");
@@ -96,6 +97,8 @@ void TitleScene::Update(Time& dt)
 		
 		beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
 	}
+
+	//enterCount 2 ->menu showup
 	else if (enterCount >= 2)
 	{
 		textOpen2[0].setString("");
