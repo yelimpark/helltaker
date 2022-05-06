@@ -1,5 +1,6 @@
 #include "Box.h"
 #include "../Resource/TextureHolder.h"
+#include "../Utils/InputManager.h"
 #include <sstream>
 #include <vector>
 
@@ -18,38 +19,64 @@ void Box::Init(boxInfo info)
 	isMoving = false;
 }
 
-void Box::Moved(Direction dir)
+void Box::Moved(float dt)
 {
+	Vector2f boxPos = sprite.getPosition();
+	switch (dir)
+	{
+	case Direction::Left:
+		boxPos.x -= speedX * dt;
+		break;
+
+	case Direction::Right:
+		boxPos.x += speedX * dt;
+
+		break;
+
+	case Direction::Up:
+		boxPos.y -= speedY * dt;
+		break;
+
+	case Direction::Down:
+		boxPos.y += speedY * dt;
+		break;
+
+	case Direction::None:
+		break;
+
+	default:
+		break;
+	}
+
+	sprite.setPosition(position);
 	isMoving = true;
 }
 
 void Box::Update(float dt)
 {
-	if (isMoving)
+	Moved(dt);
+	if (InputManager::GetKey(Keyboard::Left))
 	{
-		Vector2f boxPos = sprite.getPosition();
-		switch (dir)
-		{
-		case Direction::Left:
-			boxPos.x = speedX * dt * -1;
-			sprite.setPosition(boxPos);
-			break;
+		isMoving = true;
+		dir = Direction::Left;
+		sprite.setScale(-1.f, 1.f);
+	}
 
-		case Direction::Right:
-			boxPos.x = speedX * dt;
-			sprite.setPosition(boxPos);
-			break;
+	if (InputManager::GetKey(Keyboard::Right))
+	{
+		isMoving = true;
+		dir = Direction::Right;
+		Vector2f movePos = Vector2f(position.x , position.y);
+		sprite.setPosition(movePos);
+		position = movePos;
+		sprite.getPosition();
 
-		case Direction::Up:
-			boxPos.y = speedY * dt;
-			sprite.setPosition(boxPos);
-			break;
+	}
 
-		case Direction::Down:
-			boxPos.y = speedY * dt;
-			sprite.setPosition(boxPos);
-			break;
-		}
+	if (InputManager::GetKey(Keyboard::Up))
+	{
+		isMoving = true;
+		dir = Direction::Up;
 	}
 }
 

@@ -14,15 +14,15 @@ private:
 
 	bool isMoving;
 
-	float speedX;
-	float speedY;
+	float speedX = 0.2f;
+	float speedY = 0.2f;
 
 
 
 public:
 	Box();
 	void Init(boxInfo info);
-	void Moved(Direction dir);
+	void Moved(float dt);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
 };

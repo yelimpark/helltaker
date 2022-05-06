@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="sorce\Framework\Framework.cpp" />
     <ClCompile Include="sorce\GameObj\Box.cpp" />
+    <ClCompile Include="sorce\GameObj\Demon.cpp" />
     <ClCompile Include="sorce\GameObj\FlameBase.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
     <ClCompile Include="sorce\main.cpp" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <ClInclude Include="sorce\Framework\Framework.h" />
     <ClInclude Include="sorce\GameObj\Box.h" />
+    <ClInclude Include="sorce\GameObj\Demon.h" />
     <ClInclude Include="sorce\GameObj\Direction.h" />
     <ClInclude Include="sorce\GameObj\FlameBase.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />

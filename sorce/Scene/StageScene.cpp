@@ -82,6 +82,7 @@ void StageScene::Init()
 	
 
 	player.Init(1150, 290);
+	demon.Init(1260, 766);
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
@@ -98,6 +99,7 @@ void StageScene::Update(Time& dt)
 		boxesInfo->Update(dt.asSeconds());
 	}
 	player.Update(dt.asSeconds());
+	demon.Update(dt.asSeconds());
 
 	ui.Update(lastTurn);
 
@@ -131,6 +133,7 @@ void StageScene::Render()
 	}
 
 	player.Draw(window);
+	demon.Draw(window);
 
 	if (transeScene)
 	{

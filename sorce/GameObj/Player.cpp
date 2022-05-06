@@ -61,7 +61,7 @@ void Player::Update(float dt)
 	if (isMoving) Move(dt);
 
 	animation.Update(dt);
-	sprite.setOrigin(sprite.getGlobalBounds().width * 0.5f, sprite.getGlobalBounds().height * 0.5f);
+
 
 	if (!isMoving && InputManager::GetKey(Keyboard::Left)) {
 		isMoving = true;

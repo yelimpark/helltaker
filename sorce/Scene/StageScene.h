@@ -3,6 +3,7 @@
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
+#include "../GameObj/Demon.h"
 #include <list>
 #include <iostream>
 #include "../GameObj/Box.h"
@@ -27,6 +28,7 @@ private:
 	Sprite spriteSide2;
 	Sprite transition;
 	Player player;
+	Demon demon;
 
 	RectangleShape transBack;
 
