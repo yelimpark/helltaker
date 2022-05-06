@@ -163,9 +163,17 @@ void StageScene::Render()
 
 void StageScene::Release()
 {
-	for (auto flameBase : flames) {
-		delete flameBase;
+	for (auto flame : flames) {
+		if (flame != nullptr)
+			delete flame;
 	}
+	flames.clear();
+
+	for (auto flamebase : flameBases) {
+		if (flamebase != nullptr)
+			delete flamebase;
+	}
+	flameBases.clear();
 }
 
 void StageScene::TranseScene(float dt)
@@ -180,7 +188,7 @@ void StageScene::TranseScene(float dt)
 	if (transHeight >= 544)
 	{
 		transBack.setFillColor(Color::Black);
-		return;
+		sceneManager.ChangeScene(SceneType::TITLE);
 	}
 	else
 	{
