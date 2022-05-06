@@ -9,24 +9,29 @@ class Player {
 private:
 	const float MOVE_SECOND = 0.2;
 	const float MOVE_DURATION = 0.2;
-	const float MOVE_DISTANCE = 100;
+	float MOVE_DISTANCE;
 
 	Sprite sprite;
 	Vector2f position;
-	Direction dir;
 
+	Vector2f nextPosition;
+	Vector2f prevPosition;
 	float moveTime;
-	float moveDuration;
 	bool isMoving;
 
 	AnimationController animation;
 
 	void Move(float dt);
+
+	void Kick();
+
 public:
 
-	void Init(float x, float y);
+	void Init(float x, float y, int tileSize);
 
 	void Update(float dt);
+
+	void HanddleInput(char**& map);
 
 	void Draw(RenderWindow& window);
 };

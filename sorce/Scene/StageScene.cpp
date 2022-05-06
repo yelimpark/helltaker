@@ -12,8 +12,45 @@
 
 using namespace sf;
 
+void StageScene::InitMap(std::string filepath)
+{
+	rapidcsv::Document csvData(filepath);
+
+	int row = resolution.y / TILE_SIZE;
+	int col = resolution.x / TILE_SIZE;
+
+	map = new char*[row];
+	for (int i = 0; i < row; ++i) {
+		map[i] = new char[col];
+		for (int j = 0; j < col; ++j) {
+			map[i][j] = csvData.GetCell<char>(j+1, i+1);
+		}
+	}
+
+	player.Init(1150, 290, TILE_SIZE);
+
+	boxInfo boxInfos;
+	boxInfos.position = Vector2f(644, 577);
+	boxInfos.textureFilename = "Sprite/boxExport0001.png";
+	boxdatas.push_back(boxInfos);
+	boxInfos.position = Vector2f(800, 577);
+	boxInfos.textureFilename = "Sprite/boxExport0003.png";
+	boxdatas.push_back(boxInfos);
+	boxInfos.position = Vector2f(900, 407);
+	boxInfos.textureFilename = "Sprite/boxExport0004.png";
+	boxdatas.push_back(boxInfos);
+	boxInfos.position = Vector2f(1200, 607);
+	boxInfos.textureFilename = "Sprite/boxExport0008.png";
+	boxdatas.push_back(boxInfos);
+
+	for (auto& boxdatas : boxes)
+	{
+		boxdatas->Init();
+	}
+}
+
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(0), opacity(0)
+	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(0), opacity(0), transeScene(false)
 {
 
 }
@@ -29,6 +66,8 @@ void StageScene::Init()
 	stringstream ss;
 	ss << level;
 	LevelData levelData = levelDatas[ss.str()];
+
+	InitMap(levelData.MapFilePath);
 
 	lastTurn = levelData.lastTurn;
 
@@ -57,29 +96,8 @@ void StageScene::Init()
 		++idx;
 	}
 
-	boxInfo boxInfos;
-	boxInfos.position = Vector2f(644, 577);
-	boxInfos.textureFilename = "Sprite/boxExport0001.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(800, 577);
-	boxInfos.textureFilename = "Sprite/boxExport0003.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(900, 407);
-	boxInfos.textureFilename = "Sprite/boxExport0004.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(1200, 607);
-	boxInfos.textureFilename = "Sprite/boxExport0008.png";
-	boxdatas.push_back(boxInfos);
-
-	for (auto& boxdatas : boxes)
-	{
-		boxdatas->Init();
-	}
 	ui.Init();
 	
-
-	player.Init(1150, 290);
-
 	transeScene = false;
 	StageUI::isMovedSide = false;
 }
@@ -91,6 +109,7 @@ void StageScene::Update(Time& dt)
 	}
 
 	player.Update(dt.asSeconds());
+	player.HanddleInput(map);
 
 	ui.Update(lastTurn);
 

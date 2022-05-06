@@ -7,6 +7,7 @@ struct LevelData {
 	int BgPosX;
 	int BgPosY;
 	int lastTurn;
+	std::string MapFilePath;
 
 	LevelData() {
 		BgPosX = 0;
@@ -19,6 +20,7 @@ struct LevelData {
 		BgPosX = stoi(row[2]);
 		BgPosY = stoi(row[3]);
 		lastTurn = stoi(row[4]);
+		MapFilePath = row[5];
 	};
 };
 

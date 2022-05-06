@@ -13,7 +13,6 @@ struct boxInfo
 	Vector2f position;
 };
 
-
 class FlameBase;
 
 class StageScene : public Scene
@@ -22,6 +21,9 @@ private:
 	StageUI ui;
 
 	int level;
+	char ** map;
+
+	const int TILE_SIZE = 100; 
 
 	std::vector<boxInfo> boxdatas;
 	
@@ -34,23 +36,28 @@ private:
 
 	RectangleShape transBack;
 
-
 	int lastTurn;
 	int opacity;
 	float transHeight;
 	
 	std::vector<Box*> boxes;
 
-
 	bool transeScene;
 
+	void InitMap(std::string filepath);
 public:
 	StageScene(SceneManager& sceneManager);
+
 	virtual void Init();
+
 	virtual void Update(Time& dt);
+
 	virtual void Render();
+
 	virtual void Release();
+
 	void TranseScene(float dt);
+
 	virtual ~StageScene();
 };
 
