@@ -3,7 +3,7 @@
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
-#include <list>
+#include <vector>
 #include <iostream>
 #include "../GameObj/Box.h"
 
@@ -13,7 +13,7 @@ struct boxInfo
 	Vector2f position;
 };
 
-class FlameBase;
+class Flame;
 
 class StageScene : public Scene
 {
@@ -27,7 +27,9 @@ private:
 
 	std::vector<boxInfo> boxdatas;
 	
-	std::list<FlameBase *> flameBases;
+	std::vector<Flame *> flames;
+	std::vector<Sprite *> flameBases;
+
 	Sprite spriteBackground;
 	Sprite spriteSide1;
 	Sprite spriteSide2;

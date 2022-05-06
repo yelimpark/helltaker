@@ -14,10 +14,10 @@ void Player::Move(float dt)
 			sprite.setPosition(position);
 			isMoving = false;
 		}
-		return;
+		//return;
 	}
 
-	position += (nextPosition - prevPosition) * dt / MOVE_SECOND;
+	position += (nextPosition - prevPosition) * dt / (MOVE_SECOND + MOVE_DURATION);
 
 	sprite.setPosition(position);
 }
@@ -30,6 +30,8 @@ void Player::Kick()
 
 void Player::HanddleInput(char ** &map)
 {
+	if (animation.NowPlaying() != "PlayerStand") return;
+
 	bool isMoveTriggered = false;
 
 	if (!isMoving && InputManager::GetKey(Keyboard::Left)) {
@@ -97,7 +99,6 @@ void Player::Init(float x, float y, int tileSize)
 	MOVE_DISTANCE = tileSize;
 
 	moveTime = MOVE_SECOND + MOVE_DURATION;
-	isMoving = false;
 }
 
 void Player::Update(float dt)

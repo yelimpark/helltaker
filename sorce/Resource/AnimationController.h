@@ -39,4 +39,5 @@ public:
 
 	bool IsAnimationEnd();
 
+	std::string NowPlaying();
 };

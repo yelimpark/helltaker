@@ -6,7 +6,7 @@
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
-#include "../GameObj/FlameBase.h"
+#include "../GameObj/Flame.h"
 
 #include <sstream>
 
@@ -58,9 +58,11 @@ StageScene::StageScene(SceneManager& sceneManager)
 void StageScene::Init()
 {
 	std::map<std::string, LevelData> levelDatas;
+	std::map<std::string, std::vector<FlameData>> flameDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
 
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
+	Utils::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	stringstream ss;
@@ -71,8 +73,16 @@ void StageScene::Init()
 
 	lastTurn = levelData.lastTurn;
 
+	for (int i = 0; i < flameDatas[ss.str()].size(); ++i) {
+		Flame* flame = new Flame();
+		flame->Init(flameDatas[ss.str()][i].position);
+		flames.push_back(flame);
+	}
+
 	for (int i = 0; i < flameBaseDatas[ss.str()].size(); ++i) {
-		FlameBase* flameBase = new FlameBase();
+		Sprite * flameBase = new Sprite();
+		flameBase->setTexture(TextureHolder::GetTexture(flameBaseDatas[ss.str()][i].texturefile));
+		flameBase->setPosition(flameBaseDatas[ss.str()][i].position);
 		flameBases.push_back(flameBase);
 	}
 
@@ -85,16 +95,10 @@ void StageScene::Init()
 	transBack.setSize(Vector2f(resolution.x, resolution.y));
 	transBack.setFillColor(Color::Transparent);
 
-	spriteBackground.setPosition(levelData.BgPosX, levelData.BgPosY);
+	spriteBackground.setPosition(levelData.bgPos);
 	spriteSide1.setPosition(0, 0);
 	spriteSide2.setPosition(resolution.x, 0);
 	spriteSide2.setScale(-1.f, 1.f);
-
-	int idx = 0;
-	for (auto flameBase : flameBases) {
-		flameBase->Init(flameBaseDatas[ss.str()][idx].x, flameBaseDatas[ss.str()][idx].y);
-		++idx;
-	}
 
 	ui.Init();
 	
@@ -104,8 +108,8 @@ void StageScene::Init()
 
 void StageScene::Update(Time& dt)
 {
-	for (auto flameBase : flameBases) {
-		flameBase->Update(dt.asSeconds());
+	for (auto flame : flames) {
+		flame->Update(dt.asSeconds());
 	}
 
 	player.Update(dt.asSeconds());
@@ -133,8 +137,12 @@ void StageScene::Render()
 	window.draw(spriteSide1);
 	window.draw(spriteSide2);
 
-	for (auto flameBase : flameBases) {
-		flameBase->Draw(window);
+	for (auto flamebase : flameBases) {
+		window.draw(*flamebase);
+	}
+
+	for (auto flame : flames) {
+		flame->Draw(window);
 	}
 
 	for (auto& boxdatas : boxes)
@@ -155,7 +163,7 @@ void StageScene::Render()
 
 void StageScene::Release()
 {
-	for (auto flameBase : flameBases) {
+	for (auto flameBase : flames) {
 		delete flameBase;
 	}
 }

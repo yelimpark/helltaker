@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="sorce\Framework\Framework.cpp" />
     <ClCompile Include="sorce\GameObj\Box.cpp" />
-    <ClCompile Include="sorce\GameObj\FlameBase.cpp" />
+    <ClCompile Include="sorce\GameObj\Flame.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
     <ClCompile Include="sorce\main.cpp" />
     <ClCompile Include="sorce\Resource\AnimationClip.cpp" />
@@ -46,8 +46,9 @@
     <ClInclude Include="sorce\Framework\Framework.h" />
     <ClInclude Include="sorce\GameObj\Box.h" />
     <ClInclude Include="sorce\GameObj\Direction.h" />
-    <ClInclude Include="sorce\GameObj\FlameBase.h" />
+    <ClInclude Include="sorce\GameObj\Flame.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
+    <ClInclude Include="sorce\GameObj\Skull.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
     <ClInclude Include="sorce\Resource\AnimationController.h" />
     <ClInclude Include="sorce\Resource\AnimationHolder.h" />
