@@ -19,12 +19,19 @@ TitleScriptScene::TitleScriptScene(SceneManager& sceneManager)
 void TitleScriptScene::Init()
 {
 	bg.setTexture(TextureHolder::GetTexture("Sprite/background.png"));
-	beelFire.setPosition(resolution.x /4, resolution.y / 9);
+
 
 	Texture& tex = TextureHolder::GetTexture("Sprite/dialogueBG_abyss_s.png");
 	tex.setRepeated(true);
 	cloudBackground.setTexture(tex);
-	cloudBackground.setPosition(resolution.x * 0.0001f, resolution.y / 9);
+	FloatRect transRect = cloudBackground.getLocalBounds();
+	cloudBackground.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	cloudBackground.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
+
+	beelFire.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	beelFire.setPosition(resolution.x / 1.3, resolution.y * 0.4f);
+	//beelFire.setPosition(resolution.x / 4, resolution.y / 9);
+
 
 	textintro.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
 	textintro.setCharacterSize(30);
@@ -66,7 +73,7 @@ void TitleScriptScene::Update(Time& dt)
 	}
 	else if(textselectIndex >= MAX_NUMBER_OF_SCRIPT)
 	{
-		sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
+		sceneManager.ChangeScene(SceneType::STAGE);
 	}
 	
 	

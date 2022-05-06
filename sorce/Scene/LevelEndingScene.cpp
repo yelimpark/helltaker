@@ -18,14 +18,16 @@ void LevelEndingScene::Init()
 {
 	bg.setTexture(TextureHolder::GetTexture("Sprite/background.png"));
 	hellbackground.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_hell.png"));
-	hellbackground.setPosition(resolution.x * 0.0001f, resolution.y / 9);
+	FloatRect transRect = hellbackground.getLocalBounds();
+	hellbackground.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	hellbackground.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
 
 	textFix1.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
 	textFix1.setCharacterSize(40);
 	textFix1.setFillColor(Color{ 230,77,81 });
 	textFix1.setString("Pandemonica, the Tired Demon");
 	Utils::SetOrigin(textFix1, Pivots::Center);
-	textFix1.setPosition(resolution.x * 0.5, (resolution.y * 0.5) + 150);
+	textFix1.setPosition(resolution.x * 0.5, (resolution.y * 0.5) + 160);
 
 
 	textFix2[0].setString("Name's Pandemonica, Hell's Cistomer Service.");
@@ -40,7 +42,7 @@ void LevelEndingScene::Init()
 		textFix2[i].setCharacterSize(30);
 		textFix2[i].setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 		Utils::SetOrigin(textFix2[i], Pivots::Center);
-		textFix2[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 20 * i + 745));
+		textFix2[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 22 * i + 745));
 		textFix2[i].setFillColor(Color::White);
 
 		idle[i].setPosition(resolution.x/2.5, resolution.y / 10);
@@ -89,12 +91,12 @@ void LevelEndingScene::Update(Time& dt)
 		for (int i = 0; i < 2; i++)
 		{
 			Utils::SetOrigin(menu[i], Pivots::Center);
-			menu[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 12 * i + 850));
+			menu[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 16 * i + 850));
 
 			img[i].setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
 			img[i].setColor({ 255, 255, 255, 150 });
 			Utils::SetOrigin(img[i], Pivots::Center);
-			img[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 12 * i + 860));
+			img[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 16 * i + 860));
 		}
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{

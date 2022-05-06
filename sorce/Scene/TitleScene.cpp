@@ -19,7 +19,11 @@ void TitleScene::Init()
 	Texture& tex = TextureHolder::GetTexture("Sprite/dialogueBG_abyss_s.png");
 	tex.setRepeated(true);
 	cloudBackground.setTexture(tex);
-	cloudBackground.setPosition(resolution.x * 0.0001f, resolution.y / 9);
+
+	FloatRect transRect = cloudBackground.getLocalBounds();
+	cloudBackground.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	cloudBackground.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
+	
 	bg.setTexture(TextureHolder::GetTexture("Sprite/background.png"));
 	
 	//first message 
@@ -53,7 +57,8 @@ void TitleScene::Init()
 	
 	
 	
-	beel.setPosition(resolution.x * 0.18f, resolution.y / 9); 
+	beel.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	beel.setPosition(resolution.x / 1.5, resolution.y * 0.4f);
 
 	mainView.setCenter(resolution.x * 0.5f, resolution.y * 0.5f);
 	

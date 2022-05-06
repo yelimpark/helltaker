@@ -89,4 +89,3 @@ inline void Utils::CsvToStructVectorMap(std::map<std::string, std::vector<T>>& s
     }
 }
 	static float GetAngle(const Vector2f& from, const Vector2f& to);
-};

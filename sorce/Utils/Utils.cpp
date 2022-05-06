@@ -102,9 +102,3 @@ float Utils::GetLength(const Vector2f& vector)
 	return sqrt(vector.x * vector.x + vector.y * vector.y);
 }
 
-float Utils::GetAngle(const Vector2f& from, const Vector2f& to)
-{
-	Vector2f dir = to - from;
-	float radian = atan2(dir.y, dir.x);
-	return radian * 180.f / 3.141592f;
-}

@@ -14,7 +14,6 @@ using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
 	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0)
-	: Scene(sceneManager), lastTurn(23), uiView(Framework::GetUIView()), level(0), transHeight(0), opacity(0)
 {
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
@@ -72,7 +71,6 @@ void StageScene::Init()
 		boxdatas->Init();
 	}
 	ui.Init();
-	
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
@@ -89,13 +87,16 @@ void StageScene::Update(Time& dt)
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		transeScene = true;
+		
 	}
 
 	if (transeScene)
 	{
 		ui.MoveSide(dt.asMilliseconds());
 		TranseScene(dt.asMilliseconds());
+
 	}
+	
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
 
@@ -141,20 +142,20 @@ void StageScene::TranseScene(float dt)
 	transition.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
 
 
-	if (transHeight >= 544)
+	if (transHeight >= 544) // 다채워지면
 	{
 		transBack.setFillColor(Color::Black);
-		return;
+		sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE); //씬이 바뀔수있도록
 	}
 	else
 	{
-		if (opacity < 255)
+		if (opacity < 255) 
 		{
 			opacity += dt;
 		}
 		else
 		{
-			transBack.setFillColor(Color::Black);
+			transBack.setFillColor(Color::Black);   
 		}
 
 		transHeight += dt*2.5f;
