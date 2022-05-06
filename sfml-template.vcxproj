@@ -24,6 +24,7 @@
     <ClCompile Include="sorce\GameObj\Demon.cpp" />
     <ClCompile Include="sorce\GameObj\FlameBase.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
+    <ClCompile Include="sorce\GameObj\Skull.cpp" />
     <ClCompile Include="sorce\main.cpp" />
     <ClCompile Include="sorce\Resource\AnimationClip.cpp" />
     <ClCompile Include="sorce\Resource\AnimationController.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="sorce\GameObj\Direction.h" />
     <ClInclude Include="sorce\GameObj\FlameBase.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
+    <ClInclude Include="sorce\GameObj\Skull.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
     <ClInclude Include="sorce\Resource\AnimationController.h" />
     <ClInclude Include="sorce\Resource\AnimationHolder.h" />

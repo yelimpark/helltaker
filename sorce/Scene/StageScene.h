@@ -4,6 +4,7 @@
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
 #include "../GameObj/Demon.h"
+#include "../GameObj/Skull.h"
 #include <list>
 #include <iostream>
 #include "../GameObj/Box.h"
@@ -29,6 +30,7 @@ private:
 	Sprite transition;
 	Player player;
 	Demon demon;
+	Skull skull;
 
 	RectangleShape transBack;
 

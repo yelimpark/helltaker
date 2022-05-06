@@ -83,6 +83,7 @@ void StageScene::Init()
 
 	player.Init(1150, 290);
 	demon.Init(1260, 766);
+	skull.Init(923, 333);
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
@@ -100,6 +101,7 @@ void StageScene::Update(Time& dt)
 	}
 	player.Update(dt.asSeconds());
 	demon.Update(dt.asSeconds());
+	skull.Update(dt.asSeconds());
 
 	ui.Update(lastTurn);
 
@@ -134,6 +136,7 @@ void StageScene::Render()
 
 	player.Draw(window);
 	demon.Draw(window);
+	skull.Draw(window);
 
 	if (transeScene)
 	{

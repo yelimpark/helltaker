@@ -4,14 +4,12 @@
 
 using namespace sf;
 
-class Demon
+class Skull
 {
 private:
 	Sprite sprite;
-	Sprite heart;
 	Vector2f position;
-	
-	float heartYPos;
+
 	AnimationController animation;
 
 public:
