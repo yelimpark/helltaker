@@ -58,18 +58,25 @@ void StageScene::Init()
 	}
 
 	boxInfo boxInfos;
-	boxInfos.position = Vector2f(644, 577);
+	boxInfos.position = Vector2f(718, 626);
 	boxInfos.textureFilename = "Sprite/boxExport0001.png";
 	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(800, 577);
+	boxInfos.position = Vector2f(718, 722);
 	boxInfos.textureFilename = "Sprite/boxExport0003.png";
 	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(900, 407);
+	boxInfos.position = Vector2f(916, 722);
 	boxInfos.textureFilename = "Sprite/boxExport0004.png";
 	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(1200, 607);
+	boxInfos.position = Vector2f(1018, 626);
 	boxInfos.textureFilename = "Sprite/boxExport0008.png";
 	boxdatas.push_back(boxInfos);
+
+	for (auto& boxdata : boxdatas)
+	{
+		Box* box = new Box();
+		box->Init(boxdata);
+		boxes.push_back(box);
+	}
 
 	ui.Init();
 	
@@ -86,6 +93,10 @@ void StageScene::Update(Time& dt)
 		flameBase->Update(dt.asSeconds());
 	}
 
+	for (auto& boxesInfo : boxes)
+	{
+		boxesInfo->Update(dt.asSeconds());
+	}
 	player.Update(dt.asSeconds());
 
 	ui.Update(lastTurn);
@@ -114,9 +125,9 @@ void StageScene::Render()
 		flameBase->Draw(window);
 	}
 
-	for (auto& boxdatas : boxes)
+	for (auto& boxesInfo : boxes)
 	{
-		boxdatas->Draw(window);
+		boxesInfo->Draw(window);
 	}
 
 	player.Draw(window);

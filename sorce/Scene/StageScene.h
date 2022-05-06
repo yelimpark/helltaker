@@ -7,11 +7,7 @@
 #include <iostream>
 #include "../GameObj/Box.h"
 
-struct boxInfo
-{
-	std::string textureFilename;
-	Vector2f position;
-};
+
 
 
 class FlameBase;

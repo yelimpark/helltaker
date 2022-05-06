@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
 
 struct LevelData {
 	std::string BgFilename;
@@ -30,5 +33,11 @@ struct FlameBaseData {
 		x = stoi(row[1]);
 		y = stoi(row[2]);
 	};
+};
+
+struct boxInfo
+{
+	std::string textureFilename;
+	Vector2f position;
 };
 

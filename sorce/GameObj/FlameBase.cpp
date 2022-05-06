@@ -19,7 +19,7 @@ void FlameBase::Init(float x, float y)
 	position.y = y;
 	baseSprite.setPosition(position);
 
-	fireSprite.setPosition(Vector2f(position.x+8, position.y+6));
+	fireSprite.setPosition(Vector2f(position.x+10, position.y+6));
 	animation.SetTarget(&fireSprite);
 
 	animation.AddClip("Fire");

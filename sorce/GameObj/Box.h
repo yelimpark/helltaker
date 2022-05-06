@@ -1,14 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Direction.h"
+#include "../SceneInitializer/StageSceneInitializer.h"
 
 using namespace sf;
 
 class Box
 {
 private:
-	Sprite box;
+	Sprite sprite;
 	Direction dir;
+	Vector2f position;
+
 	bool isMoving;
 
 	float speedX;
@@ -18,7 +21,7 @@ private:
 
 public:
 	Box();
-	void Init();
+	void Init(boxInfo info);
 	void Moved(Direction dir);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
