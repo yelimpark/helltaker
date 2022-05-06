@@ -9,6 +9,7 @@ class Scene;
 
 enum class SceneType {
 	TITLE,
+	STAGE,
 	TITLESCRIPT,
 	ENDINGCUTSCENE,
 	COUNT
@@ -17,7 +18,7 @@ enum class SceneType {
 class SceneManager : public Singleton<SceneManager> 
 {
 private:
-	SceneType currScene = (SceneType)0;
+	SceneType currScene = (SceneType)1;
 	Scene* scenes[(int)SceneType::COUNT];
 
 	GameVal gameVal;
