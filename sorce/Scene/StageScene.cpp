@@ -8,12 +8,13 @@
 #include "../Utils/Utils.h"
 #include "../GameObj/FlameBase.h"
 
+
 #include <sstream>
 
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0)
+	: Scene(sceneManager), lastTurn(0), level(1), transHeight(0), opacity(0),pmenu(window)
 {
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
@@ -74,27 +75,54 @@ void StageScene::Init()
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
+	pause = false; // for esc menu
+}
+
+void StageScene::UpdatePauseInput(Time& dt)
+{
+
+	if (InputManager::GetKeyDown(Keyboard::Tab))
+	{
+		if (!this->pause)
+		{
+			this->PauseState();
+		}
+		else
+		{
+			this->UnPauseState();
+		}
+	}
 }
 
 void StageScene::Update(Time& dt)
 {
-	for (auto flameBase : flameBases) {
-		flameBase->Update(dt.asSeconds());
-	}
+	this->UpdatePauseInput(dt);
 
-	ui.Update(lastTurn);
-
-	if (InputManager::GetKeyDown(Keyboard::Enter))
+	if (!this->pause) //unpause update
 	{
-		transeScene = true;
-		
+		for (auto flameBase : flameBases) {
+			flameBase->Update(dt.asSeconds());
+		}
+
+		ui.Update(lastTurn);
+
+		if (InputManager::GetKeyDown(Keyboard::Enter))
+		{
+			transeScene = true;
+
+		}
+
+		if (transeScene)
+		{
+			ui.MoveSide(dt.asMilliseconds());
+			TranseScene(dt.asMilliseconds());
+
+		}
+
 	}
-
-	if (transeScene)
+	else //pause update
 	{
-		ui.MoveSide(dt.asMilliseconds());
-		TranseScene(dt.asMilliseconds());
-
+		this->pmenu.Update();
 	}
 	
 	//csv 파일로 끌어와서 작업 할 수 있도록!!!
@@ -123,7 +151,22 @@ void StageScene::Render()
 		window.draw(transition);
 	}
 	ui.Render(window);
+
+	if (this->pause) //pause menu render
+	{
+		this->pmenu.Render(window);
+	}
 	
+}
+
+void StageScene::PauseState()
+{
+	this->pause = true;
+}
+
+void StageScene::UnPauseState()
+{
+	this->pause = false;
 }
 
 void StageScene::Release()
@@ -155,7 +198,7 @@ void StageScene::TranseScene(float dt)
 		}
 		else
 		{
-			transBack.setFillColor(Color::Black);   
+			transBack.setFillColor(Color::Black);    // color 배경에 맞춰서 바꿔주기
 		}
 
 		transHeight += dt*2.5f;

@@ -8,6 +8,7 @@
 #include <list>
 #include <iostream>
 #include "../GameObj/Box.h"
+#include "PauseMenu.h"
 
 struct boxInfo
 {
@@ -34,6 +35,8 @@ private:
 	Sprite spriteSide2;
 	Sprite transition;
 
+	PauseMenu pmenu;
+
 	RectangleShape transBack;
 
 
@@ -43,14 +46,18 @@ private:
 	
 	std::vector<Box*> boxes;
 
-
+	bool pause; //for esc menu 
 	bool transeScene;
 
 public:
 	StageScene(SceneManager& sceneManager);
 	virtual void Init();
+
+	void UpdatePauseInput(Time& dt);
 	virtual void Update(Time& dt);
 	virtual void Render();
+	virtual void PauseState();
+	virtual void UnPauseState();
 	virtual void Release();
 	void TranseScene(float dt);
 	virtual ~StageScene();

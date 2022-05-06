@@ -1,23 +1,27 @@
-//#pragma once
-//#include "../Utils/SceneManager.h"
-//
-//using namespace sf;
-//using namespace std;
-//
-//class PauseMenu
-//{
-//
-//private:
-//	RectangleShape background;
-//	RectangleShape container;
-//
-//	map<string*>
-//
-//public:
-//	PauseMenu(RenderWindow& window);
-//	virtual ~PauseMenu();
-//
-//	void Update();
-//	void Render(RenderTarget& target);
-//};
-//
+#pragma once
+#include "./Scene.h"
+#include "../Utils/SceneManager.h"
+
+using namespace sf;
+using namespace std;
+#include <map>
+
+class PauseMenu 
+{
+
+private:
+	Text menuText;
+
+	RectangleShape background;
+	RectangleShape container;
+	//RectangleShape button;
+
+public:
+	PauseMenu(RenderWindow& window);
+	virtual ~PauseMenu();
+
+	//functions
+	void Update();
+	void Render(RenderWindow& window); 
+};
+
