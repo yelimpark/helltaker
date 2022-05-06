@@ -1,9 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
-#include "Direction.h"
 
 using namespace sf;
+
+class Box;
 
 class Player {
 private:
@@ -31,7 +32,7 @@ public:
 
 	void Update(float dt);
 
-	void HanddleInput(char**& map);
+	void HanddleInput(char**& map, std::vector<Box*> &boxes);
 
 	void Draw(RenderWindow& window);
 };

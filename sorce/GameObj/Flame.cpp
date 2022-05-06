@@ -16,7 +16,7 @@ void Flame::Init(Vector2f pos)
 	position = pos;
 	sprite.setPosition(position);
 	sprite.setScale(0.6f, 0.6f);
-	sprite.setColor(Color::Yellow);
+	sprite.setColor(Color(228, 193, 101));
 
 	animation.SetTarget(&sprite);
 	animation.AddClip("Fire");

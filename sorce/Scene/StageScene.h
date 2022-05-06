@@ -21,8 +21,6 @@ private:
 	const int LEFT_MARGINE = 10;
 	const int TOP_MARGINE = 40;
 
-	std::vector<BoxData> boxdatas;
-	
 	std::vector<Flame *> flames;
 	std::vector<Sprite *> flameBases;
 	std::vector<Box *> boxes;

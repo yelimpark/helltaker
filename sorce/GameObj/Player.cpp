@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Utils/InputManager.h"
+#include "./Box.h"
 
 #include <iostream>
 
@@ -28,7 +29,7 @@ void Player::Kick()
 	animation.PlayQue("PlayerStand");
 }
 
-void Player::HanddleInput(char ** &map)
+void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 {
 	if (animation.NowPlaying() != "PlayerStand") return;
 
@@ -65,6 +66,13 @@ void Player::HanddleInput(char ** &map)
 
 		case 'B':
 			isMoveTriggered = false;
+			for(auto& box : boxes) {
+				if (box->IsBoxHere(nextPosition)) {
+					box->Moved(Direction::Right);
+					map[(int)nextPosition.y / 100][(int)nextPosition.x / 100] = 'E';
+					map[(int)nextPosition.y / 100][(int)nextPosition.x / 100 + 1] = 'B';
+				}
+			}
 			Kick();
 			return;
 

@@ -22,8 +22,11 @@ private:
 public:
 	Box();
 	void Init(BoxData info, int tileSize);
-	void Moved(float dt);
+	void Moved(Direction dir);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
+
+	const Vector2f& GetPos();
+	const bool IsBoxHere(Vector2f pos);
 };
 

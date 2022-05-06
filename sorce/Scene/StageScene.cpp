@@ -14,6 +14,12 @@
 
 using namespace sf;
 
+StageScene::StageScene(SceneManager& sceneManager)
+	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(0), opacity(0), transeScene(false)
+{
+
+}
+
 void StageScene::InitMap(std::string filepath, std::string levelStr)
 {
 	std::map<std::string, std::vector<BoxData>> boxDatas;
@@ -27,11 +33,11 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	int row = resolution.y / TILE_SIZE;
 	int col = resolution.x / TILE_SIZE;
 
-	map = new char*[row];
+	map = new char* [row];
 	for (int i = 0; i < row; ++i) {
 		map[i] = new char[col];
 		for (int j = 0; j < col; ++j) {
-			map[i][j] = csvData.GetCell<char>(j+1, i+1);
+			map[i][j] = csvData.GetCell<char>(j + 1, i + 1);
 
 			switch (map[i][j]) {
 			case 'B':
@@ -59,12 +65,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 		box->Init(boxdata, TILE_SIZE);
 		boxes.push_back(box);
 	}
-}
-
-StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(0), opacity(0), transeScene(false)
-{
-
 }
 
 void StageScene::Init()
@@ -131,7 +131,7 @@ void StageScene::Update(Time& dt)
 		boxesInfo->Update(dt.asSeconds());
 	}
 	player.Update(dt.asSeconds());
-	player.HanddleInput(map);
+	player.HanddleInput(map, boxes);
 	demon.Update(dt.asSeconds());
 
 	ui.Update(lastTurn);
