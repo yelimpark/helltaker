@@ -4,11 +4,10 @@
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
 #include "../GameObj/Demon.h"
-#include "../GameObj/Box.h"
-
 #include <vector>
 
 class Flame;
+class Box;
 
 class StageScene : public Scene
 {
@@ -19,13 +18,16 @@ private:
 	char ** map;
 
 	const int TILE_SIZE = 100; 
+	const int LEFT_MARGINE = 10;
+	const int TOP_MARGINE = 40;
 
-	std::vector<boxInfo> boxdatas;
+	std::vector<BoxData> boxdatas;
 	
 	std::vector<Flame *> flames;
 	std::vector<Sprite *> flameBases;
+	std::vector<Box *> boxes;
 
-	Sprite spriteBackground;
+	Sprite Background;
 	Sprite spriteSide1;
 	Sprite spriteSide2;
 	Sprite transition;
@@ -37,12 +39,10 @@ private:
 	int lastTurn;
 	int opacity;
 	float transHeight;
-	
-	std::vector<Box*> boxes;
 
 	bool transeScene;
 
-	void InitMap(std::string filepath);
+	void InitMap(std::string filepath, std::string level);
 public:
 	StageScene(SceneManager& sceneManager);
 

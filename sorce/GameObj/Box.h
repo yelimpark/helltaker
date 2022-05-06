@@ -9,7 +9,7 @@ class Box
 {
 private:
 	const float MOVE_SECOND = 0.2;
-	const float MOVE_DISTANCE = 100;
+	float MOVE_DISTANCE;
 
 	Sprite sprite;
 	Direction dir;
@@ -21,7 +21,7 @@ private:
 
 public:
 	Box();
-	void Init(boxInfo info);
+	void Init(BoxData info, int tileSize);
 	void Moved(float dt);
 	void Update(float dt);
 	void Draw(RenderWindow& window);

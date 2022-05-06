@@ -81,10 +81,9 @@ void Player::HanddleInput(char ** &map)
 	}
 }
 
-void Player::Init(float x, float y, int tileSize)
+void Player::Init(Vector2f pos, int tileSize)
 {
-	position.x = x;
-	position.y = y;
+	position = pos;
 
 	sprite.setPosition(position);
 	

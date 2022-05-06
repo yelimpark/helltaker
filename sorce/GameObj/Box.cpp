@@ -6,12 +6,13 @@
 
 
 Box::Box()
-	: isMoving(false)
+	: isMoving(false), MOVE_DISTANCE(0)
 {
 }
 
-void Box::Init(boxInfo info)
+void Box::Init(BoxData info, int tileSize)
 {
+	MOVE_DISTANCE = tileSize;
 	position = info.position;
 	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
 	sprite.setPosition(position);
@@ -22,8 +23,15 @@ void Box::Init(boxInfo info)
 
 void Box::Moved(float dt)
 {
+	isMoving = true;
+}
+
+void Box::Update(float dt)
+{
+	if (!isMoving) return;
+
 	moveTime -= dt;
-	
+
 	if (moveTime <= 0)
 	{
 		moveTime = MOVE_SECOND;
@@ -58,38 +66,6 @@ void Box::Moved(float dt)
 	}
 
 	sprite.setPosition(position);
-}
-
-void Box::Update(float dt)
-{
-	if (isMoving)
-	{
-		Moved(dt);
-	}
-
-	if (InputManager::GetKeyDown(Keyboard::Left))
-	{
-		isMoving = true;
-		dir = Direction::Left;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Right))
-	{
-		isMoving = true;
-		dir = Direction::Right;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Up))
-	{
-		isMoving = true;
-		dir = Direction::Up;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Down))
-	{
-		isMoving = true;
-		dir = Direction::Down;
-	}
 }
 
 void Box::Draw(RenderWindow& window)

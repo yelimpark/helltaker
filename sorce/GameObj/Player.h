@@ -27,7 +27,7 @@ private:
 
 public:
 
-	void Init(float x, float y, int tileSize);
+	void Init(Vector2f pos, int tileSize);
 
 	void Update(float dt);
 

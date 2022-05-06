@@ -44,9 +44,12 @@ struct FlameBaseData {
 	};
 };
 
-struct boxInfo
+struct BoxData
 {
 	std::string textureFilename;
 	Vector2f position;
-};
 
+	BoxData(std::vector<std::string>& row) {
+		textureFilename = row[1];
+	}
+};

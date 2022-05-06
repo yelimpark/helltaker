@@ -6,14 +6,22 @@
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
+
 #include "../GameObj/Flame.h"
+#include "../GameObj/Box.h"
 
 #include <sstream>
 
 using namespace sf;
 
-void StageScene::InitMap(std::string filepath)
+void StageScene::InitMap(std::string filepath, std::string levelStr)
 {
+	std::map<std::string, std::vector<BoxData>> boxDatas;
+	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
+	int boxIdx = 0;
+
+	Vector2f playerPos;
+
 	rapidcsv::Document csvData(filepath);
 
 	int row = resolution.y / TILE_SIZE;
@@ -24,29 +32,31 @@ void StageScene::InitMap(std::string filepath)
 		map[i] = new char[col];
 		for (int j = 0; j < col; ++j) {
 			map[i][j] = csvData.GetCell<char>(j+1, i+1);
+
+			switch (map[i][j]) {
+			case 'B':
+				boxDatas[levelStr][boxIdx].position.x = j * 100 + LEFT_MARGINE;
+				boxDatas[levelStr][boxIdx].position.y = i * 100 + TOP_MARGINE;
+				boxIdx++;
+				break;
+
+			case 'P':
+				playerPos.x = j * 100 + TILE_SIZE / 2 + LEFT_MARGINE;
+				playerPos.y = i * 100 + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+
+			default:
+				break;
+			}
 		}
 	}
 
-	player.Init(1150, 290, TILE_SIZE);
+	player.Init(playerPos, TILE_SIZE);
 
-	boxInfo boxInfos;
-	boxInfos.position = Vector2f(718, 626);
-	boxInfos.textureFilename = "Sprite/boxExport0001.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(718, 722);
-	boxInfos.textureFilename = "Sprite/boxExport0003.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(916, 722);
-	boxInfos.textureFilename = "Sprite/boxExport0004.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(1018, 626);
-	boxInfos.textureFilename = "Sprite/boxExport0008.png";
-	boxdatas.push_back(boxInfos);
-
-	for (auto& boxdata : boxdatas)
+	for (auto& boxdata : boxDatas[levelStr])
 	{
 		Box* box = new Box();
-		box->Init(boxdata);
+		box->Init(boxdata, TILE_SIZE);
 		boxes.push_back(box);
 	}
 }
@@ -71,7 +81,7 @@ void StageScene::Init()
 	ss << level;
 	LevelData levelData = levelDatas[ss.str()];
 
-	InitMap(levelData.MapFilePath);
+	InitMap(levelData.MapFilePath, ss.str());
 
 	lastTurn = levelData.lastTurn;
 
@@ -88,7 +98,7 @@ void StageScene::Init()
 		flameBases.push_back(flameBase);
 	}
 
-	spriteBackground.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
+	Background.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
 	spriteSide1.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	spriteSide2.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	transition.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_hell.png"));
@@ -97,7 +107,7 @@ void StageScene::Init()
 	transBack.setSize(Vector2f(resolution.x, resolution.y));
 	transBack.setFillColor(Color::Transparent);
 
-	spriteBackground.setPosition(levelData.bgPos);
+	Background.setPosition(levelData.bgPos);
 	spriteSide1.setPosition(0, 0);
 	spriteSide2.setPosition(resolution.x, 0);
 	spriteSide2.setScale(-1.f, 1.f);
@@ -142,7 +152,7 @@ void StageScene::Update(Time& dt)
 void StageScene::Render()
 {
 	window.setView(mainView);
-	window.draw(spriteBackground);
+	window.draw(Background);
 	window.draw(spriteSide1);
 	window.draw(spriteSide2);
 
