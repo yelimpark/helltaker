@@ -30,22 +30,24 @@ void StageScene::InitMap(std::string filepath)
 	player.Init(1150, 290, TILE_SIZE);
 
 	boxInfo boxInfos;
-	boxInfos.position = Vector2f(644, 577);
+	boxInfos.position = Vector2f(718, 626);
 	boxInfos.textureFilename = "Sprite/boxExport0001.png";
 	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(800, 577);
+	boxInfos.position = Vector2f(718, 722);
 	boxInfos.textureFilename = "Sprite/boxExport0003.png";
 	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(900, 407);
+	boxInfos.position = Vector2f(916, 722);
 	boxInfos.textureFilename = "Sprite/boxExport0004.png";
 	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(1200, 607);
+	boxInfos.position = Vector2f(1018, 626);
 	boxInfos.textureFilename = "Sprite/boxExport0008.png";
 	boxdatas.push_back(boxInfos);
 
-	for (auto& boxdatas : boxes)
+	for (auto& boxdata : boxdatas)
 	{
-		boxdatas->Init();
+		Box* box = new Box();
+		box->Init(boxdata);
+		boxes.push_back(box);
 	}
 }
 
@@ -101,7 +103,9 @@ void StageScene::Init()
 	spriteSide2.setScale(-1.f, 1.f);
 
 	ui.Init();
-	
+
+	demon.Init(1260, 766);
+
 	transeScene = false;
 	StageUI::isMovedSide = false;
 }
@@ -112,8 +116,13 @@ void StageScene::Update(Time& dt)
 		flame->Update(dt.asSeconds());
 	}
 
+	for (auto& boxesInfo : boxes)
+	{
+		boxesInfo->Update(dt.asSeconds());
+	}
 	player.Update(dt.asSeconds());
 	player.HanddleInput(map);
+	demon.Update(dt.asSeconds());
 
 	ui.Update(lastTurn);
 
@@ -145,12 +154,13 @@ void StageScene::Render()
 		flame->Draw(window);
 	}
 
-	for (auto& boxdatas : boxes)
+	for (auto& boxesInfo : boxes)
 	{
-		boxdatas->Draw(window);
+		boxesInfo->Draw(window);
 	}
 
 	player.Draw(window);
+	demon.Draw(window);
 
 	if (transeScene)
 	{

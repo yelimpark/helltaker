@@ -44,3 +44,9 @@ struct FlameBaseData {
 	};
 };
 
+struct boxInfo
+{
+	std::string textureFilename;
+	Vector2f position;
+};
+

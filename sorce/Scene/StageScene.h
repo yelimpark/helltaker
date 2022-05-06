@@ -3,15 +3,10 @@
 #include "../UI/StageUI.h"
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
-#include <vector>
-#include <iostream>
+#include "../GameObj/Demon.h"
 #include "../GameObj/Box.h"
 
-struct boxInfo
-{
-	std::string textureFilename;
-	Vector2f position;
-};
+#include <vector>
 
 class Flame;
 
@@ -35,6 +30,7 @@ private:
 	Sprite spriteSide2;
 	Sprite transition;
 	Player player;
+	Demon demon;
 
 	RectangleShape transBack;
 

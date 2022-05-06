@@ -1,55 +1,98 @@
 #include "Box.h"
 #include "../Resource/TextureHolder.h"
+#include "../Utils/InputManager.h"
 #include <sstream>
 #include <vector>
 
 
 Box::Box()
-	: isMoving(false), speedX(0), speedY(0)
+	: isMoving(false)
 {
 }
 
-void Box::Init()
+void Box::Init(boxInfo info)
 {
-	
+	position = info.position;
+	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
+	sprite.setPosition(position);
+
+	moveTime = MOVE_SECOND;
+	isMoving = false;
 }
 
-void Box::Moved(Direction dir)
+void Box::Moved(float dt)
 {
+	moveTime -= dt;
 	
+	if (moveTime <= 0)
+	{
+		moveTime = MOVE_SECOND;
+		isMoving = false;
+		return;
+	}
+
+	switch (dir)
+	{
+	case Direction::Left:
+		position.x -= MOVE_DISTANCE * dt / MOVE_SECOND;
+		break;
+
+	case Direction::Right:
+		position.x += MOVE_DISTANCE * dt / MOVE_SECOND;
+
+		break;
+
+	case Direction::Up:
+		position.y -= MOVE_DISTANCE * dt / MOVE_SECOND;
+		break;
+
+	case Direction::Down:
+		position.y += MOVE_DISTANCE * dt / MOVE_SECOND;
+		break;
+
+	case Direction::None:
+		break;
+
+	default:
+		break;
+	}
+
+	sprite.setPosition(position);
 }
 
 void Box::Update(float dt)
 {
 	if (isMoving)
 	{
-		Vector2f boxPos = box.getPosition();
-		switch (dir)
-		{
-		case Direction::Left:
-			boxPos.x = speedX * dt * -1;
-			box.setPosition(boxPos);
-			break;
+		Moved(dt);
+	}
 
-		case Direction::Right:
-			boxPos.x = speedX * dt;
-			box.setPosition(boxPos);
-			break;
+	if (InputManager::GetKeyDown(Keyboard::Left))
+	{
+		isMoving = true;
+		dir = Direction::Left;
+	}
 
-		case Direction::Up:
-			boxPos.y = speedY * dt;
-			box.setPosition(boxPos);
-			break;
+	else if (InputManager::GetKeyDown(Keyboard::Right))
+	{
+		isMoving = true;
+		dir = Direction::Right;
+	}
 
-		case Direction::Down:
-			boxPos.y = speedY * dt;
-			box.setPosition(boxPos);
-			break;
-		}
+	else if (InputManager::GetKeyDown(Keyboard::Up))
+	{
+		isMoving = true;
+		dir = Direction::Up;
+	}
+
+	else if (InputManager::GetKeyDown(Keyboard::Down))
+	{
+		isMoving = true;
+		dir = Direction::Down;
 	}
 }
 
 void Box::Draw(RenderWindow& window)
 {
-	window.draw(box);
+	window.draw(sprite);
 }
