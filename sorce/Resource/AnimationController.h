@@ -16,7 +16,7 @@ private:
 
 	Sprite* sprite;
 
-	AnimationClip* currentCltp;
+	AnimationClip* currentClip;
 
 	std::list<std::string> que;
 
@@ -25,7 +25,7 @@ public:
 
 	void SetTarget(Sprite* sprite);
 
-	void AddClip(const AnimationClip& newClip);
+	void AddClip(std::string);
 
 	void Update(float dt);
 

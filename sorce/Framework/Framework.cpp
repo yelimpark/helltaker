@@ -24,6 +24,7 @@ void Framework::Init()
     mainView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 
     InputManager::Init();
+    AnimationHolder::Init();
     sceneManager.Init();
 }
 
@@ -41,6 +42,12 @@ int Framework::Run()
         {
             if (event.type == Event::Closed)
                 window.close();
+
+            if (event.type == Event::Resized)
+            {
+                int x = VideoMode::getDesktopMode().width;
+                window.setSize(Vector2u(event.size.width, event.size.width*9/16));
+            }
 
             InputManager::ProcessInput(event);
         }

@@ -24,8 +24,11 @@
     <Filter Include="소스 파일\GameObj">
       <UniqueIdentifier>{42e6f0f7-0443-48da-943b-00c3af0d795b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\UIObj">
-      <UniqueIdentifier>{7435b8e0-1463-4aa2-b818-90eb318aaaf7}</UniqueIdentifier>
+    <Filter Include="소스 파일\UI">
+      <UniqueIdentifier>{8685a669-3847-4bfe-bb7f-7ba42de77b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\SceneInitializer">
+      <UniqueIdentifier>{a00ff761-244a-4a73-933f-86644944c5c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +68,18 @@
     <ClCompile Include="sorce\Resource\AnimationController.cpp">
       <Filter>소스 파일\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\Scene\StageScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\UI\StageUI.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\FlameBase.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Resource\AnimationHolder.cpp">
+      <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
     <ClCompile Include="sorce\Scene\TitleScriptScene.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
@@ -76,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="sorce\Scene\PauseMenu.cpp">
       <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Box.cpp">
+      <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +156,24 @@
     </ClInclude>
     <ClInclude Include="sorce\Scene\PauseMenu.h">
       <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\StageScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\UI\StageUI.h">
+      <Filter>소스 파일\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h">
+      <Filter>소스 파일\SceneInitializer</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\FlameBase.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationHolder.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Box.h">
+      <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
