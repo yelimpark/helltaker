@@ -6,7 +6,7 @@
 
 
 Box::Box()
-	: isMoving(false), speedX(0), speedY(0)
+	: isMoving(false), speedX(800.f), speedY(800.f)
 {
 }
 
@@ -16,11 +16,15 @@ void Box::Init(boxInfo info)
 	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
 	sprite.setPosition(position);
 
+	moveTime = MOVE_SECOND;
 	isMoving = false;
 }
 
 void Box::Moved(float dt)
 {
+	moveTime -= dt;
+	
+
 	switch (dir)
 	{
 	case Direction::Left:
@@ -59,17 +63,27 @@ void Box::Update(float dt)
 		dir = Direction::Left;
 	}
 
-	if (InputManager::GetKey(Keyboard::Right))
+	else if (InputManager::GetKey(Keyboard::Right))
 	{
 		isMoving = true;
 		dir = Direction::Right;
-
 	}
 
-	if (InputManager::GetKey(Keyboard::Up))
+	else if (InputManager::GetKey(Keyboard::Up))
 	{
 		isMoving = true;
 		dir = Direction::Up;
+	}
+
+	else if (InputManager::GetKey(Keyboard::Down))
+	{
+		isMoving = true;
+		dir = Direction::Down;
+	}
+	else
+	{
+		isMoving = false;
+		dir = Direction::None;
 	}
 }
 

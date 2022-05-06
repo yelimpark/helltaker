@@ -8,16 +8,19 @@ using namespace sf;
 class Box
 {
 private:
+	const float MOVE_SECOND = 0.2;
+	const float MOVE_DISTANCE = 100;
+
 	Sprite sprite;
 	Direction dir;
 	Vector2f position;
 
 	bool isMoving;
 
-	float speedX = 0.2f;
-	float speedY = 0.2f;
+	float speedX;
+	float speedY;
 
-
+	float moveTime;
 
 public:
 	Box();
