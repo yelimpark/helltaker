@@ -115,7 +115,6 @@ void StageScene::Init()
 		skulls.push_back(skull);
 	}
 
-	spriteBackground.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
 	Background.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
 	Background.setPosition(levelData.bgPos);
 

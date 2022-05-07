@@ -1,6 +1,7 @@
 #include "Demon.h"
 #include "./MapCode.h"
 #include "../Utils/Utils.h"
+#include "../Resource/TextureHolder.h"
 
 void Demon::Init(Vector2f pos)
 {
@@ -19,6 +20,20 @@ void Demon::Update(float dt)
 {
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
+
+	heart.setPosition(position.x - 55.f, position.y - heartYPos);
+
+	static float dir = 1.f;
+	if (heartYPos > 60)
+	{
+		dir = -1.f;
+	}
+
+	if (heartYPos <= 50)
+	{
+		dir = 1.f;
+	}
+	heartYPos += dir * dt * 50;
 }
 
 bool Demon::IsClear(char**& map, int tileSize)
@@ -37,15 +52,7 @@ bool Demon::IsClear(char**& map, int tileSize)
 	return false;
 }
 
-	if (heartYPos <= 50)
-	{
-		dir = 1.f;
-	}
-	heartYPos += dir * dt * 50;
 
-
-	
-}
 
 void Demon::Draw(RenderWindow& window)
 {

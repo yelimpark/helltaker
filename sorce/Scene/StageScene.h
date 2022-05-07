@@ -28,6 +28,7 @@ private:
 	std::vector<Flame *> flames;
 	std::vector<Sprite *> flameBases;
 	std::vector<Box *> boxes;
+	std::vector<Skull *> skulls;
 	
 	StageUI ui;
 

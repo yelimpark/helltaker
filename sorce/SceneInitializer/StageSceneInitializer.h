@@ -53,7 +53,6 @@ struct BoxData
 		textureFilename = row[1];
 	}
 };
-};
 
 struct SkullData
 {
