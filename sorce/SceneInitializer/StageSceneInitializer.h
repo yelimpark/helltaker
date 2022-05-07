@@ -41,3 +41,15 @@ struct boxInfo
 	Vector2f position;
 };
 
+struct SkullData
+{
+	int x;
+	int y;
+
+	SkullData(std::vector<std::string>& row)
+	{
+		x = stoi(row[1]);
+		y = stoi(row[2]);
+	}
+};
+

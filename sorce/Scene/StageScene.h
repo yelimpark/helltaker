@@ -24,13 +24,14 @@ private:
 	std::vector<boxInfo> boxdatas;
 	
 	std::list<FlameBase *> flameBases;
+	std::list<Skull*> skulls;
+
 	Sprite spriteBackground;
 	Sprite spriteSide1;
 	Sprite spriteSide2;
 	Sprite transition;
 	Player player;
 	Demon demon;
-	Skull skull;
 
 	RectangleShape transBack;
 

@@ -8,6 +8,7 @@
 #include "../Utils/Utils.h"
 #include "../GameObj/FlameBase.h"
 
+
 #include <sstream>
 
 using namespace sf;
@@ -22,9 +23,12 @@ void StageScene::Init()
 {
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
+	std::map<std::string, std::vector<SkullData>> skullDatas;
 
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
+	Utils::CsvToStructVectorMap<SkullData>(skullDatas, "./LevelInfo/SkullInfo.csv");
+
 
 	stringstream ss;
 	ss << level;
@@ -35,6 +39,12 @@ void StageScene::Init()
 	for (int i = 0; i < flameBaseDatas[ss.str()].size(); ++i) {
 		FlameBase* flameBase = new FlameBase();
 		flameBases.push_back(flameBase);
+	}
+
+	for (int i = 0; i < skullDatas[ss.str()].size(); ++i)
+	{
+		Skull* skull = new Skull();
+		skulls.push_back(skull);
 	}
 
 	spriteBackground.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
@@ -55,6 +65,13 @@ void StageScene::Init()
 	for (auto flameBase : flameBases) {
 		flameBase->Init(flameBaseDatas[ss.str()][idx].x, flameBaseDatas[ss.str()][idx].y);
 		++idx;
+	}
+	
+	int SkullIdx = 0;
+	for (auto& skull : skulls)
+	{
+		skull->Init(skullDatas[ss.str()][SkullIdx].x, skullDatas[ss.str()][SkullIdx].y);
+		++SkullIdx;
 	}
 
 	boxInfo boxInfos;
@@ -83,7 +100,6 @@ void StageScene::Init()
 
 	player.Init(1150, 290);
 	demon.Init(1260, 766);
-	skull.Init(923, 333);
 
 	transeScene = false;
 	StageUI::isMovedSide = false;
@@ -99,9 +115,14 @@ void StageScene::Update(Time& dt)
 	{
 		boxesInfo->Update(dt.asSeconds());
 	}
+
+	for (auto& skull : skulls)
+	{
+		skull->Update(dt.asSeconds());
+	}
+
 	player.Update(dt.asSeconds());
 	demon.Update(dt.asSeconds());
-	skull.Update(dt.asSeconds());
 
 	ui.Update(lastTurn);
 
@@ -134,9 +155,14 @@ void StageScene::Render()
 		boxesInfo->Draw(window);
 	}
 
+	for (auto& skull : skulls)
+	{
+		skull->Draw(window);
+	}
+
 	player.Draw(window);
 	demon.Draw(window);
-	skull.Draw(window);
+
 
 	if (transeScene)
 	{

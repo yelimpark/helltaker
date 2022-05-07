@@ -12,9 +12,13 @@ private:
 
 	AnimationController animation;
 
+	bool isDead;
+
 public:
 	void Init(float x, float y);
 	void Update(float dt);
+	void OnPushed();
+	void OnHitted();
 	void Draw(RenderWindow& window);
 
 };
