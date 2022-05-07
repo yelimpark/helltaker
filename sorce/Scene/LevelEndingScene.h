@@ -15,7 +15,8 @@ private:
 	Sprite hellbackground;
 
 	Sprite img[2];
-	Sprite idle[2];
+	Texture* texture;
+	Sprite idle;
 
 	//std::string script[50];
 	Texture *interimg;

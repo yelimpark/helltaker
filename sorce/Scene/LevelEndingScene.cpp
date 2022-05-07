@@ -11,7 +11,6 @@ LevelEndingScene::LevelEndingScene(SceneManager& sceneManager)
 	resolution(Framework::GetResolution()),
 	mainView(Framework::GetMainView()), enterCount(0), selectIndex(0)
 {
-	
 }
 
 void LevelEndingScene::Init()
@@ -29,15 +28,20 @@ void LevelEndingScene::Init()
 	Utils::SetOrigin(textFix1, Pivots::Center);
 	textFix1.setPosition(resolution.x * 0.5, (resolution.y * 0.5) + 160);
 
-	Texture& tex = TextureHolder::GetTexture("Sprite/pand_idle.png");
-	tex.setRepeated(true);
-	idle[0].setTexture(tex);
 
 	textFix2[0].setString("Name's Pandemonica, Hell's Cistomer Service.");
 	textFix2[1].setString("How may I serve you ?");
 
-	//menu text you can choice 1,2
+	//Texture& tex = TextureHolder::GetTexture("Sprite/pand_idle.png");
+	//tex.setRepeated(true);
+	//idle[0].setTexture(tex);
+	 
 
+	texture = new Texture[2];
+
+	texture[0] = (TextureHolder::GetTexture("Sprite/pand_idle.png"));
+	texture[1] = (TextureHolder::GetTexture("Sprite/pand_flust.png"));
+	idle.setPosition(Vector2f(resolution.x / 2, resolution.y / 22 + 745));
 
 
 	for (int i = 0; i < 2; i++)
@@ -45,18 +49,15 @@ void LevelEndingScene::Init()
 		textFix2[i].setCharacterSize(30);
 		textFix2[i].setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 		Utils::SetOrigin(textFix2[i], Pivots::Center);
-		textFix2[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 22 * i + 745));
+		textFix2[i].setPosition(Vector2f(resolution.x / 2, resolution.y / 20 * i + 745));
 		textFix2[i].setFillColor(Color::White);
-
-		idle[i].setPosition(resolution.x/2.5, resolution.y / 10);
 
 		menu[i].setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 		menu[i].setCharacterSize(30);
 	
 	}
+	
 
-	
-	
 	//interimg = new Texture[2]; //idle[2],menu[2] imgarray
 
 	//idle [2]
@@ -76,11 +77,10 @@ void LevelEndingScene::Init()
 
 void LevelEndingScene::Update(Time& dt)
 {
+	idle.setTexture(texture[1]);
+	auto size = texture[1].getSize();
+	idle.setTextureRect(IntRect(0, 0, size.x, size.y));
 
-	IntRect bound = idle[0].getTextureRect();
-	bound.left += 1;
-	idle[0].setTextureRect(bound);
-	
 	/*Utils::SetOrigin(textMain, Pivots::Center);
 	textMain.setPosition(Vector2f(resolution.x / 2, resolution.y / 20 + 745));*/
 
@@ -123,15 +123,15 @@ void LevelEndingScene::Update(Time& dt)
 
 	else if (enterCount >= 2 && InputManager::GetKeyDown(Keyboard::Enter))
 	{
+
+
 		switch (GetPressedMenu())
 		{
 		case 0:
 			cout << "11111ют╥б!!!!!!!!!";
-			idle[0].setTexture(TextureHolder::GetTexture("Sprite/pand_flust.png")); 
+			
 			
 		
-			//sceneManager.ChangeScene(SceneType::TITLE);
-			// NEW GAME -> stage (intro script)
 			break;
 		case 1:
 			textFix2[0].setString("Sweet of you to offer.I could really use some coffee.");
@@ -143,7 +143,7 @@ void LevelEndingScene::Update(Time& dt)
 			/*auto size = idle[0].getScale();
 			idle[0].setTextureRect(IntRect(0, 0, size.x, size.y));*/
 
-			idle[0].setTexture(TextureHolder::GetTexture("Sprite/pand_flust.png"));
+			//idle[0].setTexture(TextureHolder::GetTexture("Sprite/pand_flust.png"));
 			img[0].setTexture(TextureHolder::GetTexture("Sprite/success0006.png "));
 			img[1].setTexture(TextureHolder::GetTexture("Sprite/success0006.png "));
 		
@@ -155,7 +155,7 @@ void LevelEndingScene::Update(Time& dt)
 	}
 	else if (enterCount > 5)
 	{
-		return;
+		sceneManager.ChangeScene(SceneType::STAGE);
 	}
 	
 	//if (enterCount >= 2)
@@ -185,11 +185,11 @@ void LevelEndingScene::Render()
 
 	for (int i = 0; i < 2; i++)
 	{
-		window.draw(idle[i]);
 		window.draw(textFix2[i]);
 		window.draw(menu[i]);
 		window.draw(img[i]);
 	}
+	window.draw(idle);
 	window.draw(textFix1);
 	
 }

@@ -184,12 +184,14 @@ void StageScene::Release()
 		if (flameBase != nullptr)
 			delete flameBase;
 	}
-	//vector,list 삭제코드 삽입
+	 
+	//수정
+	
 }
 
 void StageScene::TranseScene(float dt)
 {
-	transBack.setFillColor(Color{ 0, 0, 0, (Uint8)opacity });
+	transBack.setFillColor(Color{ 4,6,25 , (Uint8)opacity });
 	transition.setTextureRect( { 0, (int)((544.f-transHeight)*0.5f), resolution.x, (int)transHeight});
 	FloatRect transRect = transition.getLocalBounds();
 	transition.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
@@ -198,7 +200,7 @@ void StageScene::TranseScene(float dt)
 
 	if (transHeight >= 544) // 다채워지면
 	{
-		transBack.setFillColor(Color::Black);
+		transBack.setFillColor(Color{ 4,6,25 });
 		sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE); //씬이 바뀔수있도록
 	}
 	else
@@ -209,7 +211,7 @@ void StageScene::TranseScene(float dt)
 		}
 		else
 		{
-			transBack.setFillColor(Color::Black);    // color 배경에 맞춰서 바꿔주기
+			transBack.setFillColor(Color{ 4,6,25 });  // color 배경에 맞춰서 바꿔주기
 		}
 
 		transHeight += dt*2.5f;
