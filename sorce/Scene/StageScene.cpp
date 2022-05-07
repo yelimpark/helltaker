@@ -16,7 +16,7 @@
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(GameVal::level), isClear(false)
+	: Scene(sceneManager), level(GameVal::level), isClear(false)
 {
 
 }
@@ -91,8 +91,6 @@ void StageScene::Init()
 
 	InitMap(levelData.MapFilePath, ss.str());
 
-	lastTurn = levelData.lastTurn;
-
 	for (int i = 0; i < flameDatas[ss.str()].size(); ++i) {
 		Flame* flame = new Flame();
 		flame->Init(flameDatas[ss.str()][i].position);
@@ -109,17 +107,15 @@ void StageScene::Init()
 	Background.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
 	Background.setPosition(levelData.bgPos);
 
-	spriteSide1.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	spriteSide2.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	spriteSide1.setPosition(0, 0);
-	spriteSide2.setPosition(resolution.x, 0);
-	spriteSide2.setScale(-1.f, 1.f);
+	sideLeft.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
+	sideRight.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
+	sideLeft.setPosition(0, 0);
+	sideRight.setPosition(resolution.x, 0);
+	sideRight.setScale(-1.f, 1.f);
 
-	ui.Init();
-
+	ui.Init(levelData.lastTurn);
 	transition.Init(resolution);
 
-	StageUI::isMovedSide = false;
 	isClear = false;
 }
 
@@ -135,21 +131,16 @@ void StageScene::Update(Time& dt)
 	}
 
 	player.Update(dt.asSeconds());
-	if (!isClear) {
-		player.HanddleInput(map, boxes);
+	if (!isClear && player.HanddleInput(map, boxes)) {
+		ui.UseTurn();
 	}
 	
 	demon.Update(dt.asSeconds());
 	isClear = demon.IsClear(map, TILE_SIZE);
 
-	//ui.Update(lastTurn);
-
-	//ui.MoveSide(dt.asMilliseconds());
-
-	transition.Update(dt.asSeconds());
-
 	if (isClear) {
-		transition.Avtivate();
+		transition.Update(dt.asSeconds());
+		ui.OnClear(dt.asSeconds());
 	}
 }
 
@@ -157,8 +148,8 @@ void StageScene::Render()
 {
 	window.setView(mainView);
 	window.draw(Background);
-	window.draw(spriteSide1);
-	window.draw(spriteSide2);
+	window.draw(sideLeft);
+	window.draw(sideRight);
 
 	for (auto flamebase : flameBases) {
 		window.draw(*flamebase);
@@ -176,9 +167,7 @@ void StageScene::Render()
 	player.Draw(window);
 	demon.Draw(window);
 	transition.Draw(window);
-
-	//ui.Render(window);
-	
+	ui.Draw(window);
 }
 
 void StageScene::Release()

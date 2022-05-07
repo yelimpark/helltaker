@@ -6,26 +6,24 @@ using namespace sf;
 class StageUI
 {
 private:
+	const float SIDE_WIDTH = 500.f;
+	const float SIDE_HEIGHT = 100.f;
+
 	Text turn;
 	Text stageNum;
 
-	Sprite side1;
-	Sprite side2;
+	int lastTurn;
 
-	float side1SpeedX;
-	float side2SpeedX;
-	float sideSpeedY;
+	Sprite sideLeft;
+	Sprite sideRight;
 
-
+	void MoveObj(float x, float y, Transformable& obj);
 public:
-	static bool isInitUIFontInfo;
-	static bool isMovedSide;
-
 	StageUI();
-	void Init();
-	void Update(int turnTimes);
-	void MoveSide(float dt);
-	void Render(RenderWindow& window);
+	void Init(int lastTurn);
+	void UseTurn();
+	void OnClear(float dt);
+	void Draw(RenderWindow& window);
 	~StageUI();
 };
 

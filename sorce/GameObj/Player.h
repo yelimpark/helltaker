@@ -33,9 +33,7 @@ public:
 
 	void Update(float dt);
 
-	void HanddleInput(char**& map, std::vector<Box*> &boxes);
+	bool HanddleInput(char**& map, std::vector<Box*> &boxes);
 
 	void Draw(RenderWindow& window);
-
-	const Vector2f GetPos();
 };

@@ -28,13 +28,11 @@ private:
 	StageUI ui;
 
 	Sprite Background;
-	Sprite spriteSide1;
-	Sprite spriteSide2;
+	Sprite sideLeft;
+	Sprite sideRight;
 	Player player;
 	Demon demon;
 	stageSceneTrasition transition;
-
-	int lastTurn;
 
 	bool isClear;
 

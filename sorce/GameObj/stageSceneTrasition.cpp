@@ -3,14 +3,13 @@
 #include "../Utils/Utils.h"
 
 stageSceneTrasition::stageSceneTrasition()
-	:height(0), opacity(0), active(false)
+	:height(0), opacity(0)
 {
 
 }
 
 void stageSceneTrasition::Init(Vector2i res)
 {
-	active = false;
 	height = 0;
 	opacity = 0;
 	resolution = res;
@@ -26,7 +25,6 @@ void stageSceneTrasition::Init(Vector2i res)
 
 void stageSceneTrasition::Update(float dt)
 {
-	if (!active) return;
 	if (height >= HEIGHT_MAX)
 	{
 		height = HEIGHT_MAX;
@@ -47,9 +45,4 @@ void stageSceneTrasition::Draw(RenderWindow& window)
 {
 	window.draw(bg);
 	window.draw(sprite);
-}
-
-void stageSceneTrasition::Avtivate()
-{
-	active = true;
 }

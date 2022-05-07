@@ -50,9 +50,11 @@ void Player::Kick()
 	animation.PlayQue("PlayerStand");
 }
 
-void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 {
-	if (animation.NowPlaying() != "PlayerStand" || dir != Direction::None) return;
+	bool useTurn = false;
+
+	if (animation.NowPlaying() != "PlayerStand" || dir != Direction::None) return useTurn;
 
 	if (InputManager::GetKey(Keyboard::Left)) {
 		sprite.setScale(-1.f, 1.f);
@@ -81,7 +83,7 @@ void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 		switch (map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize]) {
 		case (char)MapCode::WALL:
 			dir = Direction::None;
-			return;
+			return useTurn;
 
 		case (char)MapCode::BOX:
 			for(auto& box : boxes) {
@@ -91,7 +93,8 @@ void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 			}
 			Kick();
 			dir = Direction::None;
-			return;
+			useTurn = true;
+			return useTurn;
 
 		default:
 			break;
@@ -102,7 +105,10 @@ void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 		prevPosition = position;
 		animation.Play("PlayerMove");
 		animation.PlayQue("PlayerStand");
+		useTurn = true;
 	}
+
+	return useTurn;
 }
 
 void Player::Update(float dt)
@@ -116,9 +122,4 @@ void Player::Update(float dt)
 void Player::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
-}
-
-const Vector2f Player::GetPos()
-{
-	return position;
 }

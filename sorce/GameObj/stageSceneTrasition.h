@@ -12,7 +12,6 @@ private:
 	RectangleShape bg;
 	int opacity;
 	float height;
-	bool active;
 	Vector2i resolution;
 
 public:
@@ -23,6 +22,4 @@ public:
 	void Update(float dt);
 
 	void Draw(RenderWindow& window);
-
-	void Avtivate();
 };
