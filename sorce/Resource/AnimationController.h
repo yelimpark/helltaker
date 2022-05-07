@@ -1,6 +1,7 @@
 #pragma once
 #include "AnimationClip.h"
 #include <list>
+#include <string>
 
 using namespace sf;
 
@@ -39,4 +40,5 @@ public:
 
 	bool IsAnimationEnd();
 
+	std::string NowPlaying();
 };

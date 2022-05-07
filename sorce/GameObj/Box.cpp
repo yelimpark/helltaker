@@ -1,56 +1,101 @@
 #include "Box.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/InputManager.h"
+#include "./MapCode.h"
 #include <sstream>
 #include <vector>
 
 
 Box::Box()
-	: isMoving(false)
+	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond)
 {
 }
 
-void Box::Init(boxInfo info)
+void Box::Init(BoxData info, int tileSize, float moveSecond)
 {
 	position = info.position;
 	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
 	sprite.setPosition(position);
 
-	moveTime = MOVE_SECOND;
-	isMoving = false;
+	dir = Direction::None;
+	moveDistance = tileSize;
+	this->moveSecond = moveSecond;
+	moveTime = moveSecond;
 }
 
-void Box::Moved(float dt)
+void Box::Move(Direction dir, char**& map)
 {
+	this->dir = dir;
+
+	char* nextPos = &map[(int)position.y / 100][(int)position.x / 100];
+
+	switch (dir)
+	{
+	case Direction::Left:
+		nextPos = &map[(int)position.y / 100][(int)position.x / 100 - 1];
+		break;
+
+	case Direction::Right:
+		nextPos = &map[(int)position.y / 100][(int)position.x / 100 + 1];
+		break;
+
+	case Direction::Up:
+		nextPos = &map[(int)position.y / 100 - 1][(int)position.x / 100];
+		break;
+
+	case Direction::Down:
+		nextPos = &map[(int)position.y / 100 + 1][(int)position.x / 100];
+		break;
+
+	default:
+		break;
+	}
+
+	switch (*nextPos)
+	{
+	case (char)MapCode::WALL:
+	case (char)MapCode::BOX:
+		this->dir = Direction::None;
+		return;
+
+	default:
+		break;
+	}
+
+	map[(int)position.y / 100][(int)position.x / 100] = 'E';
+	*nextPos = 'B';
+
+}
+
+void Box::Update(float dt)
+{
+	if (dir == Direction::None) return;
+
 	moveTime -= dt;
-	
+
 	if (moveTime <= 0)
 	{
-		moveTime = MOVE_SECOND;
-		isMoving = false;
+		moveTime = moveSecond;
+		dir = Direction::None;
 		return;
 	}
 
 	switch (dir)
 	{
 	case Direction::Left:
-		position.x -= MOVE_DISTANCE * dt / MOVE_SECOND;
+		position.x -= moveDistance * dt / moveSecond;
 		break;
 
 	case Direction::Right:
-		position.x += MOVE_DISTANCE * dt / MOVE_SECOND;
-
+		position.x += moveDistance * dt / moveSecond;
 		break;
 
 	case Direction::Up:
-		position.y -= MOVE_DISTANCE * dt / MOVE_SECOND;
+		position.y -= moveDistance * dt / moveSecond;
 		break;
 
 	case Direction::Down:
-		position.y += MOVE_DISTANCE * dt / MOVE_SECOND;
-		break;
-
-	case Direction::None:
+		position.y += moveDistance * dt / moveSecond;
 		break;
 
 	default:
@@ -60,39 +105,18 @@ void Box::Moved(float dt)
 	sprite.setPosition(position);
 }
 
-void Box::Update(float dt)
-{
-	if (isMoving)
-	{
-		Moved(dt);
-	}
-
-	if (InputManager::GetKeyDown(Keyboard::Left))
-	{
-		isMoving = true;
-		dir = Direction::Left;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Right))
-	{
-		isMoving = true;
-		dir = Direction::Right;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Up))
-	{
-		isMoving = true;
-		dir = Direction::Up;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Down))
-	{
-		isMoving = true;
-		dir = Direction::Down;
-	}
-}
-
 void Box::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+const Vector2f& Box::GetPos()
+{
+	return position;
+}
+
+const bool Box::IsBoxHere(Vector2f pos)
+{
+	return (int)(pos.x / moveDistance) == (int)(position.x / moveDistance) &&
+		(int)(pos.y / moveDistance) == (int)(position.y / moveDistance);
 }

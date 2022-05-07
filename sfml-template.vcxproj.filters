@@ -74,7 +74,7 @@
     <ClCompile Include="sorce\UI\StageUI.cpp">
       <Filter>소스 파일\UI</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\GameObj\FlameBase.cpp">
+    <ClCompile Include="sorce\GameObj\Flame.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="sorce\Resource\AnimationHolder.cpp">
@@ -99,6 +99,9 @@
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\Demon.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\Skull.cpp">
@@ -178,7 +181,7 @@
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h">
       <Filter>소스 파일\SceneInitializer</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\FlameBase.h">
+    <ClInclude Include="sorce\GameObj\Flame.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="sorce\Resource\AnimationHolder.h">
@@ -193,7 +196,16 @@
     <ClInclude Include="sorce\GameObj\Direction.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
+    <ClInclude Include="sorce\GameObj\Skull.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
     <ClInclude Include="sorce\GameObj\Demon.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MapCode.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\stageSceneTrasition.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\Skull.h">

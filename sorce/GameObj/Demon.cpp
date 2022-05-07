@@ -1,11 +1,10 @@
 #include "Demon.h"
-#include "../Resource/TextureHolder.h"
+#include "./MapCode.h"
+#include "../Utils/Utils.h"
 
-void Demon::Init(float x, float y)
+void Demon::Init(Vector2f pos)
 {
-	position.x = x;
-	position.y = y;
-
+	position = pos;
 	sprite.setPosition(position);
 
 	animation.SetTarget(&sprite);
@@ -19,15 +18,24 @@ void Demon::Init(float x, float y)
 void Demon::Update(float dt)
 {
 	animation.Update(dt);
-	sprite.setOrigin(sprite.getGlobalBounds().width * 0.5f, sprite.getGlobalBounds().height * 0.5f);
+	Utils::SetOrigin(sprite, Pivots::Center);
+}
 
-	heart.setPosition(position.x - 55.f, position.y - heartYPos);
+bool Demon::IsClear(char**& map, int tileSize)
+{
+	int idxY = (int)position.y / tileSize;
+	int idxX = (int)position.x / tileSize;
 
-	static float dir = 1.f;
-	if (heartYPos > 60)
+	if (map[idxY + 1][idxX] == (char)MapCode::PLAYER ||
+		map[idxY - 1][idxX] == (char)MapCode::PLAYER ||
+		map[idxY][idxX + 1] == (char)MapCode::PLAYER ||
+		map[idxY][idxX - 1] == (char)MapCode::PLAYER ) 
 	{
-		dir = -1.f;
+		return true;
 	}
+
+	return false;
+}
 
 	if (heartYPos <= 50)
 	{

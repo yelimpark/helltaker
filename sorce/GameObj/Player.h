@@ -1,32 +1,41 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
-#include "Direction.h"
+#include "./Direction.h"
 
 using namespace sf;
 
+class Box;
+
 class Player {
 private:
-	const float MOVE_SECOND = 0.2;
-	const float MOVE_DURATION = 0.2;
-	const float MOVE_DISTANCE = 100;
+	float moveSecond;
+	float MOVE_DURATION = 0.2;
+	int tileSize;
 
 	Sprite sprite;
 	Vector2f position;
-	Direction dir;
 
+	Vector2f nextPosition;
+	Vector2f prevPosition;
 	float moveTime;
-	float moveDuration;
-	bool isMoving;
+	Direction dir;
 
 	AnimationController animation;
 
 	void Move(float dt);
+
+	void Kick();
+
 public:
 
-	void Init(float x, float y);
+	void Init(Vector2f pos, int tileSize, float moveSecond);
 
 	void Update(float dt);
 
+	void HanddleInput(char**& map, std::vector<Box*> &boxes);
+
 	void Draw(RenderWindow& window);
+
+	const Vector2f GetPos();
 };

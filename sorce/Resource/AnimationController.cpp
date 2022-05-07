@@ -35,20 +35,20 @@ void AnimationController::Update(float dt)
 		if (!que.empty()) {
 			Play(que.front(), false);
 			que.pop_front();
-			return;
 		}
+		else {
+			switch (currentClip->loopType)
+			{
+			case AmimationLoopTypes::Single:
+				currentFrame = totalFrame - 1;
+				break;
 
-		switch (currentClip->loopType)
-		{
-		case AmimationLoopTypes::Single:
-			currentFrame = totalFrame - 1;
-			break;
-
-		case AmimationLoopTypes::Loop:
-			currentFrame = 0;
-			break;
-		default:
-			break;
+			case AmimationLoopTypes::Loop:
+				currentFrame = 0;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -89,4 +89,9 @@ bool AnimationController::IsPlaying()
 bool AnimationController::IsAnimationEnd()
 {
 	return currentFrame == totalFrame;
+}
+
+std::string AnimationController::NowPlaying()
+{
+	return currentClip->id;
 }

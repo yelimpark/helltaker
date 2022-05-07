@@ -7,38 +7,52 @@ using namespace sf;
 
 struct LevelData {
 	std::string BgFilename;
-	int BgPosX;
-	int BgPosY;
+	Vector2f bgPos;
 	int lastTurn;
+	std::string MapFilePath;
 
 	LevelData() {
-		BgPosX = 0;
-		BgPosY = 0;
 		lastTurn = 0;
 	};
 
 	LevelData(std::vector<std::string>& row) {
 		BgFilename = row[1];
-		BgPosX = stoi(row[2]);
-		BgPosY = stoi(row[3]);
+		bgPos.x = stoi(row[2]);
+		bgPos.y = stoi(row[3]);
 		lastTurn = stoi(row[4]);
+		MapFilePath = row[5];
+	};
+};
+
+struct FlameData {
+	Vector2f position;
+
+	FlameData(std::vector<std::string>& row) {
+		position.x = stoi(row[1]);
+		position.y = stoi(row[2]);
 	};
 };
 
 struct FlameBaseData {
-	int x;
-	int y;
+	Vector2f position;
+	std::string texturefile;
 
 	FlameBaseData(std::vector<std::string>& row) {
-		x = stoi(row[1]);
-		y = stoi(row[2]);
+		position.x = stoi(row[1]);
+		position.y = stoi(row[2]);
+		texturefile = row[3];
 	};
 };
 
-struct boxInfo
+struct BoxData
 {
 	std::string textureFilename;
 	Vector2f position;
+
+	BoxData(std::vector<std::string>& row) {
+		textureFilename = row[1];
+	}
+};
 };
 
 struct SkullData

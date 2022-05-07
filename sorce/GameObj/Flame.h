@@ -4,18 +4,17 @@
 
 using namespace sf;
 
-class FlameBase {
+class Flame {
 private:
-	Sprite baseSprite;
 	Vector2f position;
-	Sprite fireSprite;
+	Sprite sprite;
 
 	AnimationController animation;
 
 public:
-	FlameBase();
+	Flame();
 
-	void Init(float x, float y);
+	void Init(Vector2f pos);
 
 	void Update(float dt);
 

@@ -13,11 +13,13 @@ private:
 	
 	float heartYPos;
 	AnimationController animation;
-
 public:
-	void Init(float x, float y);
-	void Update(float dt);
-	void Draw(RenderWindow& window);
+	void Init(Vector2f pos);
 
+	void Update(float dt);
+	
+	bool IsClear(char**& map, int tileSize);
+
+	void Draw(RenderWindow& window);
 };
 

@@ -8,22 +8,23 @@ using namespace sf;
 class Box
 {
 private:
-	const float MOVE_SECOND = 0.2;
-	const float MOVE_DISTANCE = 100;
+	float moveSecond;
+	int moveDistance;
 
 	Sprite sprite;
-	Direction dir;
 	Vector2f position;
 
-	bool isMoving;
-
+	Direction dir;
 	float moveTime;
 
 public:
 	Box();
-	void Init(boxInfo info);
-	void Moved(float dt);
+	void Init(BoxData info, int tileSize, float moveSecond);
+	void Move(Direction dir, char**& map);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
+
+	const Vector2f& GetPos();
+	const bool IsBoxHere(Vector2f pos);
 };
 

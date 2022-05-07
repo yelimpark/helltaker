@@ -2,30 +2,88 @@
 #include <SFML/Graphics.hpp>
 #include "../Framework/Framework.h"
 
-#include "../UI/StageUI.h"
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
-#include "../GameObj/FlameBase.h"
 
+#include "../UI/StageUI.h"
+#include "../GameObj/Flame.h"
+#include "../GameObj/Box.h"
+#include "../GameObj/MapCode.h"
 
 #include <sstream>
 
 using namespace sf;
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), lastTurn(0), level(GameVal::level), transHeight(0), opacity(0)
+	: Scene(sceneManager), lastTurn(0), level(GameVal::level), isClear(false)
 {
 
+}
+
+void StageScene::InitMap(std::string filepath, std::string levelStr)
+{
+	std::map<std::string, std::vector<BoxData>> boxDatas;
+	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
+	int boxIdx = 0;
+
+	Vector2f playerPos;
+	Vector2f DemonPos;
+
+	rapidcsv::Document csvData(filepath);
+
+	int row = resolution.y / TILE_SIZE;
+	int col = resolution.x / TILE_SIZE;
+
+	map = new char* [row];
+	for (int i = 0; i < row; ++i) {
+		map[i] = new char[col];
+		for (int j = 0; j < col; ++j) {
+			map[i][j] = csvData.GetCell<char>(j + 1, i + 1);
+
+			switch (map[i][j]) {
+			case (char)MapCode::BOX:
+				boxDatas[levelStr][boxIdx].position.x = j * TILE_SIZE + LEFT_MARGINE;
+				boxDatas[levelStr][boxIdx].position.y = i * TILE_SIZE + TOP_MARGINE;
+				boxIdx++;
+				break;
+
+			case (char)MapCode::PLAYER:
+				playerPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				playerPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+
+			case (char)MapCode::DEMON:
+				DemonPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				DemonPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
+
+	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
+	demon.Init(DemonPos);
+
+	for (auto& boxdata : boxDatas[levelStr])
+	{
+		Box* box = new Box();
+		box->Init(boxdata, TILE_SIZE, MOVE_SECOND);
+		boxes.push_back(box);
+	}
 }
 
 void StageScene::Init()
 {
 	std::map<std::string, LevelData> levelDatas;
+	std::map<std::string, std::vector<FlameData>> flameDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
 	std::map<std::string, std::vector<SkullData>> skullDatas;
 
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
+	Utils::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 	Utils::CsvToStructVectorMap<SkullData>(skullDatas, "./LevelInfo/SkullInfo.csv");
 
@@ -34,10 +92,20 @@ void StageScene::Init()
 	ss << level;
 	LevelData levelData = levelDatas[ss.str()];
 
+	InitMap(levelData.MapFilePath, ss.str());
+
 	lastTurn = levelData.lastTurn;
 
+	for (int i = 0; i < flameDatas[ss.str()].size(); ++i) {
+		Flame* flame = new Flame();
+		flame->Init(flameDatas[ss.str()][i].position);
+		flames.push_back(flame);
+	}
+
 	for (int i = 0; i < flameBaseDatas[ss.str()].size(); ++i) {
-		FlameBase* flameBase = new FlameBase();
+		Sprite * flameBase = new Sprite();
+		flameBase->setTexture(TextureHolder::GetTexture(flameBaseDatas[ss.str()][i].texturefile));
+		flameBase->setPosition(flameBaseDatas[ss.str()][i].position);
 		flameBases.push_back(flameBase);
 	}
 
@@ -48,73 +116,34 @@ void StageScene::Init()
 	}
 
 	spriteBackground.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
+	Background.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
+	Background.setPosition(levelData.bgPos);
+
 	spriteSide1.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	spriteSide2.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	transition.setTexture(TextureHolder::GetTexture("Sprite/dialogueBG_hell.png"));
-	FloatRect transRect = transition.getLocalBounds();
-	transition.setOrigin(transRect.left+transRect.width*0.5, transRect.top + transRect.height * 0.5f);
-	transBack.setSize(Vector2f(resolution.x, resolution.y));
-	transBack.setFillColor(Color::Transparent);
-
-	spriteBackground.setPosition(levelData.BgPosX, levelData.BgPosY);
 	spriteSide1.setPosition(0, 0);
 	spriteSide2.setPosition(resolution.x, 0);
 	spriteSide2.setScale(-1.f, 1.f);
 
-	int idx = 0;
-	for (auto flameBase : flameBases) {
-		flameBase->Init(flameBaseDatas[ss.str()][idx].x, flameBaseDatas[ss.str()][idx].y);
-		++idx;
-	}
-	
-	int SkullIdx = 0;
-	for (auto& skull : skulls)
-	{
-		skull->Init(skullDatas[ss.str()][SkullIdx].x, skullDatas[ss.str()][SkullIdx].y);
-		++SkullIdx;
-	}
-
-	boxInfo boxInfos;
-	boxInfos.position = Vector2f(718, 626);
-	boxInfos.textureFilename = "Sprite/boxExport0001.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(718, 722);
-	boxInfos.textureFilename = "Sprite/boxExport0003.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(916, 722);
-	boxInfos.textureFilename = "Sprite/boxExport0004.png";
-	boxdatas.push_back(boxInfos);
-	boxInfos.position = Vector2f(1018, 626);
-	boxInfos.textureFilename = "Sprite/boxExport0008.png";
-	boxdatas.push_back(boxInfos);
-
-	for (auto& boxdata : boxdatas)
-	{
-		Box* box = new Box();
-		box->Init(boxdata);
-		boxes.push_back(box);
-	}
-
 	ui.Init();
-	
 
-	player.Init(1150, 290);
-	demon.Init(1260, 766);
+	transition.Init(resolution);
 
-	transeScene = false;
 	StageUI::isMovedSide = false;
+	isClear = false;
 }
 
 void StageScene::Update(Time& dt)
 {
-	for (auto flameBase : flameBases) {
-		flameBase->Update(dt.asSeconds());
+	for (auto flame : flames) {
+		flame->Update(dt.asSeconds());
 	}
 
-	for (auto& boxesInfo : boxes)
+	for (auto& box : boxes)
 	{
-		boxesInfo->Update(dt.asSeconds());
+		box->Update(dt.asSeconds());
 	}
+
 
 	for (auto& skull : skulls)
 	{
@@ -122,37 +151,42 @@ void StageScene::Update(Time& dt)
 	}
 
 	player.Update(dt.asSeconds());
+	if (!isClear) {
+		player.HanddleInput(map, boxes);
+	}
+	
 	demon.Update(dt.asSeconds());
+	isClear = demon.IsClear(map, TILE_SIZE);
 
-	ui.Update(lastTurn);
+	//ui.Update(lastTurn);
 
-	if (InputManager::GetKeyDown(Keyboard::Enter))
-	{
-		transeScene = true;
+	//ui.MoveSide(dt.asMilliseconds());
+
+	transition.Update(dt.asSeconds());
+
+	if (isClear) {
+		transition.Avtivate();
 	}
-
-	if (transeScene)
-	{
-		ui.MoveSide(dt.asMilliseconds());
-		TranseScene(dt.asMilliseconds());
-	}
-	//csv 파일로 끌어와서 작업 할 수 있도록!!!
 }
 
 void StageScene::Render()
 {
 	window.setView(mainView);
-	window.draw(spriteBackground);
+	window.draw(Background);
 	window.draw(spriteSide1);
 	window.draw(spriteSide2);
 
-	for (auto flameBase : flameBases) {
-		flameBase->Draw(window);
+	for (auto flamebase : flameBases) {
+		window.draw(*flamebase);
 	}
 
-	for (auto& boxesInfo : boxes)
+	for (auto flame : flames) {
+		flame->Draw(window);
+	}
+
+	for (auto& box : boxes)
 	{
-		boxesInfo->Draw(window);
+		box->Draw(window);
 	}
 
 	for (auto& skull : skulls)
@@ -162,55 +196,40 @@ void StageScene::Render()
 
 	player.Draw(window);
 	demon.Draw(window);
+	transition.Draw(window);
 
-
-	if (transeScene)
-	{
-		window.draw(transBack);
-		window.draw(transition);
-	}
-	ui.Render(window);
+	//ui.Render(window);
 	
 }
 
 void StageScene::Release()
 {
-	for (auto flameBase : flameBases) {
-		delete flameBase;
+	for (auto flame : flames) {
+		if (flame != nullptr)
+			delete flame;
 	}
-}
+	flames.clear();
 
-void StageScene::TranseScene(float dt)
-{
-	transBack.setFillColor(Color{ 0, 0, 0, (Uint8)opacity });
-	transition.setTextureRect( { 0, (int)((544.f-transHeight)*0.5f), resolution.x, (int)transHeight});
-	FloatRect transRect = transition.getLocalBounds();
-	transition.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
-	transition.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
+	for (auto flamebase : flameBases) {
+		if (flamebase != nullptr)
+			delete flamebase;
+	}
+	flameBases.clear();
 
-
-	if (transHeight >= 544)
+	for (auto& box : boxes)
 	{
-		transBack.setFillColor(Color::Black);
-		return;
+		if (box != nullptr)
+			delete box;
 	}
-	else
-	{
-		if (opacity < 255)
-		{
-			opacity += dt;
-		}
-		else
-		{
-			transBack.setFillColor(Color::Black);
-		}
-
-		transHeight += dt*2.5f;
-	}
-
+	boxes.clear();
 }
 
 StageScene::~StageScene()
 {
 	Release();
+}
+
+int StageScene::GetTileSize()
+{
+	return TILE_SIZE;
 }
