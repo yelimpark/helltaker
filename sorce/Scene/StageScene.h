@@ -5,6 +5,7 @@
 #include "../GameObj/Player.h"
 #include "../GameObj/Demon.h"
 #include "../GameObj/stageSceneTrasition.h"
+#include "../GameObj/GameOver.h"
 #include <vector>
 
 class Flame;
@@ -33,6 +34,7 @@ private:
 	Player player;
 	Demon demon;
 	stageSceneTrasition transition;
+	GameOver gameOver;
 
 	bool isClear;
 

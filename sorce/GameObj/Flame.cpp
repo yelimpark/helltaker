@@ -26,8 +26,7 @@ void Flame::Init(Vector2f pos)
 void Flame::Update(float dt)
 {
 	animation.Update(dt);
-	Utils::SetOrigin(sprite, Pivots::Center);
-	sprite.setOrigin(0, sprite.getGlobalBounds().height);
+	Utils::SetOrigin(sprite, Pivots::CenterBottom);
 }
 
 void Flame::Draw(RenderWindow& window)

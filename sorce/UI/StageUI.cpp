@@ -84,3 +84,8 @@ void StageUI::Draw(RenderWindow& window)
 StageUI::~StageUI()
 {
 }
+
+bool StageUI::IsGameOver()
+{
+	return lastTurn <= 0;
+}

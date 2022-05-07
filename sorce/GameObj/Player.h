@@ -36,4 +36,6 @@ public:
 	bool HanddleInput(char**& map, std::vector<Box*> &boxes);
 
 	void Draw(RenderWindow& window);
+
+	Vector2f GetPos();
 };

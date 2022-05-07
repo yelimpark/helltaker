@@ -9,7 +9,7 @@ private:
 	const int OPACITY_MAX = 255;
 
 	Sprite sprite;
-	RectangleShape bg;
+	RectangleShape fadeOut;
 	int opacity;
 	float height;
 	Vector2i resolution;
@@ -19,7 +19,7 @@ public:
 
 	void Init(Vector2i res);
 
-	void Update(float dt);
+	bool OnClear(float dt);
 
 	void Draw(RenderWindow& window);
 };

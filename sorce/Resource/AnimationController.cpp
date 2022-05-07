@@ -88,7 +88,7 @@ bool AnimationController::IsPlaying()
 
 bool AnimationController::IsAnimationEnd()
 {
-	return currentFrame == totalFrame;
+	return currentFrame == totalFrame-1;
 }
 
 std::string AnimationController::NowPlaying()

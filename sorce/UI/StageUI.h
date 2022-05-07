@@ -25,5 +25,7 @@ public:
 	void OnClear(float dt);
 	void Draw(RenderWindow& window);
 	~StageUI();
+
+	bool IsGameOver();
 };
 

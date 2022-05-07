@@ -35,8 +35,8 @@ void Player::Move(float dt)
 			position = nextPosition;
 			sprite.setPosition(position);
 			dir = Direction::None;
+			return;
 		}
-		//return;
 	}
 
 	position += (nextPosition - prevPosition) * dt / (moveSecond + MOVE_DURATION);
@@ -96,6 +96,17 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 			useTurn = true;
 			return useTurn;
 
+		case (char)MapCode::SKULL:
+			for (auto& box : boxes) {
+				if (box->IsBoxHere(nextPosition)) {
+					box->Move(dir, map);
+				}
+			}
+			Kick();
+			dir = Direction::None;
+			useTurn = true;
+			return useTurn;
+
 		default:
 			break;
 		}
@@ -122,4 +133,9 @@ void Player::Update(float dt)
 void Player::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+Vector2f Player::GetPos()
+{
+	return position;
 }

@@ -39,9 +39,7 @@ void SceneManager::Render()
 
 void SceneManager::ChangeScene(SceneType newScene)
 {
-	scenes[(int)currScene]->Release();
 	currScene = newScene;
-	scenes[(int)currScene]->Init();
 }
 
 SceneManager::~SceneManager()
