@@ -5,6 +5,9 @@ using namespace sf;
 
 class stageSceneTrasition {
 private:
+	const float HEIGHT_MAX = 544.f;
+	const int OPACITY_MAX = 255;
+
 	Sprite sprite;
 	RectangleShape bg;
 	int opacity;

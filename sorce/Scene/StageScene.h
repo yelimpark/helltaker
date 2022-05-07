@@ -4,6 +4,7 @@
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
 #include "../GameObj/Demon.h"
+#include "../GameObj/stageSceneTrasition.h"
 #include <vector>
 
 class Flame;
@@ -31,6 +32,7 @@ private:
 	Sprite spriteSide2;
 	Player player;
 	Demon demon;
+	stageSceneTrasition transition;
 
 	int lastTurn;
 

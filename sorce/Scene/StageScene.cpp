@@ -117,6 +117,8 @@ void StageScene::Init()
 
 	ui.Init();
 
+	transition.Init(resolution);
+
 	StageUI::isMovedSide = false;
 	isClear = false;
 }
@@ -144,8 +146,10 @@ void StageScene::Update(Time& dt)
 
 	//ui.MoveSide(dt.asMilliseconds());
 
-	if (isClear) {
+	transition.Update(dt.asSeconds());
 
+	if (isClear) {
+		transition.Avtivate();
 	}
 }
 
@@ -171,6 +175,7 @@ void StageScene::Render()
 
 	player.Draw(window);
 	demon.Draw(window);
+	transition.Draw(window);
 
 	//ui.Render(window);
 	
