@@ -1,8 +1,29 @@
 #include "Player.h"
 #include "../Utils/InputManager.h"
+#include "../Utils/Utils.h"
 #include "./Box.h"
+#include "./MapCode.h"
 
 #include <iostream>
+
+void Player::Init(Vector2f pos, int tileSize, float moveSecond)
+{
+	position = pos;
+	sprite.setPosition(position);
+
+	animation.SetTarget(&sprite);
+
+	animation.AddClip("PlayerStand");
+	animation.AddClip("PlayerMove");
+	animation.AddClip("PlayerKick");
+
+	animation.Play("PlayerStand");
+
+	moveDistance = tileSize;
+	this->moveSecond = moveSecond;
+	moveTime = moveSecond + MOVE_DURATION;
+	dir = Direction::None;
+}
 
 void Player::Move(float dt)
 {
@@ -10,15 +31,15 @@ void Player::Move(float dt)
 
 	if (moveTime <= MOVE_DURATION) {
 		if (moveTime <= 0) {
-			moveTime = MOVE_SECOND + MOVE_DURATION;
+			moveTime = moveSecond + MOVE_DURATION;
 			position = nextPosition;
 			sprite.setPosition(position);
-			isMoving = false;
+			dir = Direction::None;
 		}
 		//return;
 	}
 
-	position += (nextPosition - prevPosition) * dt / (MOVE_SECOND + MOVE_DURATION);
+	position += (nextPosition - prevPosition) * dt / (moveSecond + MOVE_DURATION);
 
 	sprite.setPosition(position);
 }
@@ -31,49 +52,45 @@ void Player::Kick()
 
 void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 {
-	if (animation.NowPlaying() != "PlayerStand") return;
+	if (animation.NowPlaying() != "PlayerStand" || dir != Direction::None) return;
 
-	bool isMoveTriggered = false;
-
-	if (!isMoving && InputManager::GetKey(Keyboard::Left)) {
-		isMoveTriggered = true;
+	if (InputManager::GetKey(Keyboard::Left)) {
 		sprite.setScale(-1.f, 1.f);
-		nextPosition.x = position.x - MOVE_DISTANCE;
+		nextPosition.x = position.x - moveDistance;
 		nextPosition.y = position.y;
+		dir = Direction::Left;
 	}
-	if (!isMoving && InputManager::GetKey(Keyboard::Right)) {
-		isMoveTriggered = true;
+	if (InputManager::GetKey(Keyboard::Right)) {
 		sprite.setScale(1.f, 1.f);
-		nextPosition.x = position.x + MOVE_DISTANCE;
+		nextPosition.x = position.x + moveDistance;
 		nextPosition.y = position.y;
+		dir = Direction::Right;
 	}
-	if (!isMoving && InputManager::GetKey(Keyboard::Up)) {
-		isMoveTriggered = true;
+	if (InputManager::GetKey(Keyboard::Up)) {
 		nextPosition.x = position.x;
-		nextPosition.y = position.y - MOVE_DISTANCE;
+		nextPosition.y = position.y - moveDistance;
+		dir = Direction::Up;
 	}
-	if (!isMoving && InputManager::GetKey(Keyboard::Down)) {
-		isMoveTriggered = true;
+	if (InputManager::GetKey(Keyboard::Down)) {
 		nextPosition.x = position.x;
-		nextPosition.y = position.y + MOVE_DISTANCE;
+		nextPosition.y = position.y + moveDistance;
+		dir = Direction::Down;
 	}
 
-	if (isMoveTriggered) {
+	if (dir != Direction::None) {
 		switch (map[(int)nextPosition.y / 100][(int)nextPosition.x / 100]) {
-		case 'W':
-			isMoveTriggered = false;
+		case (char)MapCode::WALL:
+			dir = Direction::None;
 			return;
 
-		case 'B':
-			isMoveTriggered = false;
+		case (char)MapCode::BOX:
 			for(auto& box : boxes) {
 				if (box->IsBoxHere(nextPosition)) {
-					box->Moved(Direction::Right);
-					map[(int)nextPosition.y / 100][(int)nextPosition.x / 100] = 'E';
-					map[(int)nextPosition.y / 100][(int)nextPosition.x / 100 + 1] = 'B';
+					box->Move(dir, map);
 				}
 			}
 			Kick();
+			dir = Direction::None;
 			return;
 
 		default:
@@ -83,37 +100,17 @@ void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 		map[(int)nextPosition.y / 100][(int)nextPosition.x / 100] = 'P';
 		map[(int)position.y / 100][(int)position.x / 100] = 'E';
 		prevPosition = position;
-		isMoving = true;
 		animation.Play("PlayerMove");
 		animation.PlayQue("PlayerStand");
 	}
 }
 
-void Player::Init(Vector2f pos, int tileSize)
-{
-	position = pos;
-
-	sprite.setPosition(position);
-	
-	animation.SetTarget(&sprite);
-
-	animation.AddClip("PlayerStand");
-	animation.AddClip("PlayerMove");
-	animation.AddClip("PlayerKick");
-
-	animation.Play("PlayerStand");
-
-	MOVE_DISTANCE = tileSize;
-
-	moveTime = MOVE_SECOND + MOVE_DURATION;
-}
-
 void Player::Update(float dt)
 {
-	if (isMoving) Move(dt);
+	if (dir != Direction::None) Move(dt);
 
 	animation.Update(dt);
-	sprite.setOrigin(sprite.getGlobalBounds().width * 0.5f, sprite.getGlobalBounds().height * 0.5f);
+	Utils::SetOrigin(sprite, Pivots::Center);
 }
 
 void Player::Draw(RenderWindow& window)

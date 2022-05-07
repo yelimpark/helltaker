@@ -1,65 +1,101 @@
 #include "Box.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/InputManager.h"
+#include "./MapCode.h"
 #include <sstream>
 #include <vector>
 
 
 Box::Box()
-	: isMoving(false), MOVE_DISTANCE(0), dir(Direction::None), moveTime(MOVE_SECOND)
+	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond)
 {
 }
 
-void Box::Init(BoxData info, int tileSize)
+void Box::Init(BoxData info, int tileSize, float moveSecond)
 {
-	MOVE_DISTANCE = tileSize;
 	position = info.position;
 	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
 	sprite.setPosition(position);
 
-	moveTime = MOVE_SECOND;
-	isMoving = false;
+	dir = Direction::None;
+	moveDistance = tileSize;
+	this->moveSecond = moveSecond;
+	moveTime = moveSecond;
 }
 
-void Box::Moved(Direction dir)
+void Box::Move(Direction dir, char**& map)
 {
-	isMoving = true;
 	this->dir = dir;
+
+	char* nextPos = &map[(int)position.y / 100][(int)position.x / 100];
+
+	switch (dir)
+	{
+	case Direction::Left:
+		nextPos = &map[(int)position.y / 100][(int)position.x / 100 - 1];
+		break;
+
+	case Direction::Right:
+		nextPos = &map[(int)position.y / 100][(int)position.x / 100 + 1];
+		break;
+
+	case Direction::Up:
+		nextPos = &map[(int)position.y / 100 - 1][(int)position.x / 100];
+		break;
+
+	case Direction::Down:
+		nextPos = &map[(int)position.y / 100 + 1][(int)position.x / 100];
+		break;
+
+	default:
+		break;
+	}
+
+	switch (*nextPos)
+	{
+	case (char)MapCode::WALL:
+	case (char)MapCode::BOX:
+		this->dir = Direction::None;
+		return;
+
+	default:
+		break;
+	}
+
+	map[(int)position.y / 100][(int)position.x / 100] = 'E';
+	*nextPos = 'B';
+
 }
 
 void Box::Update(float dt)
 {
-	if (!isMoving) return;
+	if (dir == Direction::None) return;
 
 	moveTime -= dt;
 
 	if (moveTime <= 0)
 	{
-		moveTime = MOVE_SECOND;
-		isMoving = false;
+		moveTime = moveSecond;
+		dir = Direction::None;
 		return;
 	}
 
 	switch (dir)
 	{
 	case Direction::Left:
-		position.x -= MOVE_DISTANCE * dt / MOVE_SECOND;
+		position.x -= moveDistance * dt / moveSecond;
 		break;
 
 	case Direction::Right:
-		position.x += MOVE_DISTANCE * dt / MOVE_SECOND;
-
+		position.x += moveDistance * dt / moveSecond;
 		break;
 
 	case Direction::Up:
-		position.y -= MOVE_DISTANCE * dt / MOVE_SECOND;
+		position.y -= moveDistance * dt / moveSecond;
 		break;
 
 	case Direction::Down:
-		position.y += MOVE_DISTANCE * dt / MOVE_SECOND;
-		break;
-
-	case Direction::None:
+		position.y += moveDistance * dt / moveSecond;
 		break;
 
 	default:
@@ -81,6 +117,6 @@ const Vector2f& Box::GetPos()
 
 const bool Box::IsBoxHere(Vector2f pos)
 {
-	return (int)(pos.x / MOVE_DISTANCE) == (int)(position.x / MOVE_DISTANCE) &&
-		(int)(pos.y / MOVE_DISTANCE) == (int)(position.y / MOVE_DISTANCE);
+	return (int)(pos.x / moveDistance) == (int)(position.x / moveDistance) &&
+		(int)(pos.y / moveDistance) == (int)(position.y / moveDistance);
 }

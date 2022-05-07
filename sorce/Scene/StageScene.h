@@ -12,18 +12,19 @@ class Box;
 class StageScene : public Scene
 {
 private:
-	StageUI ui;
-
 	int level;
 	char ** map;
 
 	const int TILE_SIZE = 100; 
 	const int LEFT_MARGINE = 10;
 	const int TOP_MARGINE = 40;
+	const float MOVE_SECOND = 0.1f;
 
 	std::vector<Flame *> flames;
 	std::vector<Sprite *> flameBases;
 	std::vector<Box *> boxes;
+	
+	StageUI ui;
 
 	Sprite Background;
 	Sprite spriteSide1;
@@ -41,6 +42,7 @@ private:
 	bool transeScene;
 
 	void InitMap(std::string filepath, std::string level);
+
 public:
 	StageScene(SceneManager& sceneManager);
 
@@ -55,5 +57,6 @@ public:
 	void TranseScene(float dt);
 
 	virtual ~StageScene();
-};
 
+	int GetTileSize();
+};

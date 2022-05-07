@@ -1,6 +1,7 @@
 #pragma once
 #include "AnimationClip.h"
 #include <list>
+#include <string>
 
 using namespace sf;
 

@@ -193,5 +193,8 @@
     <ClInclude Include="sorce\GameObj\Demon.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
+    <ClInclude Include="sorce\GameObj\MapCode.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

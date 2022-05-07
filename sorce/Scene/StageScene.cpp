@@ -2,13 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include "../Framework/Framework.h"
 
-#include "../UI/StageUI.h"
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
 
+#include "../UI/StageUI.h"
 #include "../GameObj/Flame.h"
 #include "../GameObj/Box.h"
+#include "../GameObj/MapCode.h"
 
 #include <sstream>
 
@@ -40,15 +41,15 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 			map[i][j] = csvData.GetCell<char>(j + 1, i + 1);
 
 			switch (map[i][j]) {
-			case 'B':
-				boxDatas[levelStr][boxIdx].position.x = j * 100 + LEFT_MARGINE;
-				boxDatas[levelStr][boxIdx].position.y = i * 100 + TOP_MARGINE;
+			case (char)MapCode::BOX:
+				boxDatas[levelStr][boxIdx].position.x = j * TILE_SIZE + LEFT_MARGINE;
+				boxDatas[levelStr][boxIdx].position.y = i * TILE_SIZE + TOP_MARGINE;
 				boxIdx++;
 				break;
 
-			case 'P':
-				playerPos.x = j * 100 + TILE_SIZE / 2 + LEFT_MARGINE;
-				playerPos.y = i * 100 + TILE_SIZE / 2 + TOP_MARGINE;
+			case (char)MapCode::PLAYER:
+				playerPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				playerPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
 				break;
 
 			default:
@@ -57,12 +58,12 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 		}
 	}
 
-	player.Init(playerPos, TILE_SIZE);
+	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
 		Box* box = new Box();
-		box->Init(boxdata, TILE_SIZE);
+		box->Init(boxdata, TILE_SIZE, MOVE_SECOND);
 		boxes.push_back(box);
 	}
 }
@@ -229,4 +230,9 @@ void StageScene::TranseScene(float dt)
 StageScene::~StageScene()
 {
 	Release();
+}
+
+int StageScene::GetTileSize()
+{
+	return TILE_SIZE;
 }

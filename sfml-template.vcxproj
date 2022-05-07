@@ -49,6 +49,7 @@
     <ClInclude Include="sorce\GameObj\Demon.h" />
     <ClInclude Include="sorce\GameObj\Direction.h" />
     <ClInclude Include="sorce\GameObj\Flame.h" />
+    <ClInclude Include="sorce\GameObj\MapCode.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
     <ClInclude Include="sorce\GameObj\Skull.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />

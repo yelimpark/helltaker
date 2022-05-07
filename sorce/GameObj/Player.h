@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include "./Direction.h"
 
 using namespace sf;
 
@@ -8,9 +9,9 @@ class Box;
 
 class Player {
 private:
-	const float MOVE_SECOND = 0.2;
-	const float MOVE_DURATION = 0.2;
-	float MOVE_DISTANCE;
+	float moveSecond;
+	float MOVE_DURATION = 0.2;
+	float moveDistance;
 
 	Sprite sprite;
 	Vector2f position;
@@ -18,7 +19,7 @@ private:
 	Vector2f nextPosition;
 	Vector2f prevPosition;
 	float moveTime;
-	bool isMoving;
+	Direction dir;
 
 	AnimationController animation;
 
@@ -28,7 +29,7 @@ private:
 
 public:
 
-	void Init(Vector2f pos, int tileSize);
+	void Init(Vector2f pos, int tileSize, float moveSecond);
 
 	void Update(float dt);
 
