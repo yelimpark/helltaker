@@ -11,7 +11,7 @@ class Player {
 private:
 	float moveSecond;
 	float MOVE_DURATION = 0.2;
-	float moveDistance;
+	int tileSize;
 
 	Sprite sprite;
 	Vector2f position;
@@ -36,4 +36,6 @@ public:
 	void HanddleInput(char**& map, std::vector<Box*> &boxes);
 
 	void Draw(RenderWindow& window);
+
+	const Vector2f GetPos();
 };

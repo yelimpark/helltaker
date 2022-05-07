@@ -101,6 +101,9 @@
     <ClCompile Include="sorce\GameObj\Demon.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -194,6 +197,9 @@
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\MapCode.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\stageSceneTrasition.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
   </ItemGroup>

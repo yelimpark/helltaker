@@ -29,17 +29,12 @@ private:
 	Sprite Background;
 	Sprite spriteSide1;
 	Sprite spriteSide2;
-	Sprite transition;
 	Player player;
 	Demon demon;
 
-	RectangleShape transBack;
-
 	int lastTurn;
-	int opacity;
-	float transHeight;
 
-	bool transeScene;
+	bool isClear;
 
 	void InitMap(std::string filepath, std::string level);
 
@@ -53,8 +48,6 @@ public:
 	virtual void Render();
 
 	virtual void Release();
-
-	void TranseScene(float dt);
 
 	virtual ~StageScene();
 
