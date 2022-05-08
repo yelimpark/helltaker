@@ -77,6 +77,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 
 void StageScene::Init()
 {
+	Release();
+
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameData>> flameDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;

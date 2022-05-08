@@ -12,19 +12,29 @@ void GameOver::Init(Vector2i res)
 
 	animation.SetTarget(&sprite);
 	animation.AddClip("GameOver");
-	animation.Play("GameOver");
+	animation.AddClip("huge_vfx");
+
+	animation.Play("huge_vfx", true);
+	animation.PlayQue("GameOver");
 }
 
 bool GameOver::OnGameOver(float dt, Vector2f playerPos)
 {
-	sprite.setPosition(playerPos.x - 450, playerPos.y - 950);
 	animation.Update(dt);
+	Utils::SetOrigin(sprite, Pivots::Center);
+	if (animation.NowPlaying() == "huge_vfx") {
+		sprite.setPosition(playerPos);
+		return false;
+	}
+	sprite.setPosition(playerPos.x, playerPos.y - 300);
 	return animation.IsAnimationEnd();
 }
 
 void GameOver::Draw(RenderWindow& window)
 {
-	window.draw(fadeOut);
+	if (animation.NowPlaying() == "GameOver") {
+		window.draw(fadeOut);
+	}
 	window.draw(sprite);
 }
 

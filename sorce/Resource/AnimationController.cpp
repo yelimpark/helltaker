@@ -70,6 +70,8 @@ void AnimationController::Play(std::string clipId, bool clear)
 	currentFrame = 0;
 	totalFrame = currentClip->frames.size();
 	frameDuration = 1.f / currentClip->fps;
+	sprite->setTexture(currentClip->frames[currentFrame].texture);
+	sprite->setTextureRect(currentClip->frames[currentFrame].texCoord);
 	if (clear) {
 		que.clear();
 	}
