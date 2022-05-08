@@ -46,6 +46,7 @@ void Player::Move(float dt)
 
 void Player::Kick()
 {
+	kickVfx.Init((position + nextPosition) * 0.5f);
 	animation.Play("PlayerKick");
 	animation.PlayQue("PlayerStand");
 }
@@ -111,6 +112,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 			break;
 		}
 
+		moveVfx.Init(position);
 		map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize] = 'P';
 		map[(int)position.y / tileSize][(int)position.x / tileSize] = 'E';
 		prevPosition = position;
@@ -126,13 +128,22 @@ void Player::Update(float dt)
 {
 	if (dir != Direction::None) Move(dt);
 
+	moveVfx.Update(dt);
+	kickVfx.Update(dt);
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
 }
 
 void Player::Draw(RenderWindow& window)
 {
+	moveVfx.Draw(window);
 	window.draw(sprite);
+	kickVfx.Draw(window);
+}
+
+Player::Player()
+	:moveSecond(0.f), tileSize(0), dir(Direction::None), moveTime(0.f)
+{
 }
 
 Vector2f Player::GetPos()

@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
 #include "./Direction.h"
+#include "./MoveVfx.h"
+#include "./KickVfx.h"
 
 using namespace sf;
 
@@ -23,11 +25,15 @@ private:
 
 	AnimationController animation;
 
+	MoveVfx moveVfx;
+	KickVfx kickVfx;
+
 	void Move(float dt);
 
 	void Kick();
 
 public:
+	Player();
 
 	void Init(Vector2f pos, int tileSize, float moveSecond);
 

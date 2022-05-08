@@ -24,6 +24,8 @@
     <ClCompile Include="sorce\GameObj\Demon.cpp" />
     <ClCompile Include="sorce\GameObj\Flame.cpp" />
     <ClCompile Include="sorce\GameObj\GameOver.cpp" />
+    <ClCompile Include="sorce\GameObj\KickVfx.cpp" />
+    <ClCompile Include="sorce\GameObj\MoveVfx.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
     <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp" />
     <ClCompile Include="sorce\main.cpp" />
@@ -52,7 +54,9 @@
     <ClInclude Include="sorce\GameObj\Direction.h" />
     <ClInclude Include="sorce\GameObj\Flame.h" />
     <ClInclude Include="sorce\GameObj\GameOver.h" />
+    <ClInclude Include="sorce\GameObj\KickVfx.h" />
     <ClInclude Include="sorce\GameObj\MapCode.h" />
+    <ClInclude Include="sorce\GameObj\MoveVfx.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
     <ClInclude Include="sorce\GameObj\Skull.h" />
     <ClInclude Include="sorce\GameObj\stageSceneTrasition.h" />

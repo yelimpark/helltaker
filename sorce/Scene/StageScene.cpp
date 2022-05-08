@@ -115,8 +115,7 @@ void StageScene::Init()
 	sideRight.setPosition(resolution.x, 0);
 	sideRight.setScale(-1.f, 1.f);
 
-	//ui.Init(levelData.lastTurn);
-	ui.Init(5);
+	ui.Init(levelData.lastTurn);
 	transition.Init(resolution);
 	gameOver.Init(resolution);
 

@@ -107,6 +107,12 @@
     <ClCompile Include="sorce\GameObj\GameOver.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\MoveVfx.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\KickVfx.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -206,6 +212,12 @@
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\GameOver.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MoveVfx.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\KickVfx.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
   </ItemGroup>

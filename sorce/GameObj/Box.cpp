@@ -55,6 +55,7 @@ void Box::Move(Direction dir, char**& map)
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
+	case (char)MapCode::SKULL:
 		this->dir = Direction::None;
 		return;
 

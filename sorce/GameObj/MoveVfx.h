@@ -4,13 +4,14 @@
 
 using namespace sf;
 
-class Flame {
+class MoveVfx {
 private:
 	Sprite sprite;
+
 	AnimationController animation;
 
 public:
-	Flame();
+	MoveVfx();
 
 	void Init(Vector2f pos);
 
