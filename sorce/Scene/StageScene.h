@@ -4,12 +4,15 @@
 #include "../SceneInitializer/StageSceneInitializer.h"
 #include "../GameObj/Player.h"
 #include "../GameObj/Demon.h"
+#include "../GameObj/BoneParticle.h"
 #include "../GameObj/stageSceneTrasition.h"
+#include "../GameObj/CutSceneTransition.h"
 #include "../GameObj/GameOver.h"
 #include <vector>
 
 class Flame;
 class Box;
+class Skull;
 
 class StageScene : public Scene
 {
@@ -25,6 +28,7 @@ private:
 	std::vector<Flame *> flames;
 	std::vector<Sprite *> flameBases;
 	std::vector<Box *> boxes;
+	std::vector<Skull *> skulls;
 	
 	StageUI ui;
 
@@ -33,7 +37,11 @@ private:
 	Sprite sideRight;
 	Player player;
 	Demon demon;
-	stageSceneTrasition transition;
+
+	BoneParticle boneParticle;
+	stageSceneTrasition stageTransition;
+	CutSceneTransition cutTransition;
+
 	GameOver gameOver;
 
 	bool isClear;

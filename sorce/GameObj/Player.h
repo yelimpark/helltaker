@@ -8,6 +8,7 @@
 using namespace sf;
 
 class Box;
+class Skull;
 
 class Player {
 private:
@@ -39,7 +40,7 @@ public:
 
 	void Update(float dt);
 
-	bool HanddleInput(char**& map, std::vector<Box*> &boxes);
+	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls);
 
 	void Draw(RenderWindow& window);
 

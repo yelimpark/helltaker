@@ -30,6 +30,15 @@
     <Filter Include="소스 파일\SceneInitializer">
       <UniqueIdentifier>{a00ff761-244a-4a73-933f-86644944c5c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\GameObj\Moveable">
+      <UniqueIdentifier>{5f387805-3788-4a6c-9d85-c9bf3bde479a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj\Vfx">
+      <UniqueIdentifier>{1e2bb2b1-3785-47c1-9642-4a93f006c38b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj\etc">
+      <UniqueIdentifier>{3891f42d-9df9-41c0-b9f5-6909e63ddd42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sorce\main.cpp">
@@ -74,9 +83,6 @@
     <ClCompile Include="sorce\UI\StageUI.cpp">
       <Filter>소스 파일\UI</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\GameObj\Flame.cpp">
-      <Filter>소스 파일\GameObj</Filter>
-    </ClCompile>
     <ClCompile Include="sorce\Resource\AnimationHolder.cpp">
       <Filter>소스 파일\Resource</Filter>
     </ClCompile>
@@ -93,25 +99,37 @@
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\Box.cpp">
-      <Filter>소스 파일\GameObj</Filter>
-    </ClCompile>
-    <ClCompile Include="sorce\GameObj\Player.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\Demon.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClCompile Include="sorce\GameObj\Player.cpp">
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\GameObj\GameOver.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClCompile Include="sorce\GameObj\Skull.cpp">
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\GameObj\MoveVfx.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClCompile Include="sorce\GameObj\BoneParticle.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\CutSceneTransition.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\KickVfx.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\MoveVfx.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Flame.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\GameOver.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,41 +202,50 @@
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h">
       <Filter>소스 파일\SceneInitializer</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\Flame.h">
-      <Filter>소스 파일\GameObj</Filter>
-    </ClInclude>
     <ClInclude Include="sorce\Resource\AnimationHolder.h">
       <Filter>소스 파일\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\GameObj\Box.h">
-      <Filter>소스 파일\GameObj</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\GameObj\Player.h">
-      <Filter>소스 파일\GameObj</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\GameObj\Direction.h">
-      <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\Skull.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
+    <ClInclude Include="sorce\GameObj\Box.h">
+      <Filter>소스 파일\GameObj\Moveable</Filter>
+    </ClInclude>
     <ClInclude Include="sorce\GameObj\Demon.h">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\MapCode.h">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClInclude Include="sorce\GameObj\Player.h">
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\stageSceneTrasition.h">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClInclude Include="sorce\GameObj\Skull.h">
+      <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\GameOver.h">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClInclude Include="sorce\GameObj\BoneParticle.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\MoveVfx.h">
-      <Filter>소스 파일\GameObj</Filter>
+    <ClInclude Include="sorce\GameObj\CutSceneTransition.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\KickVfx.h">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MoveVfx.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Direction.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Flame.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MapCode.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\stageSceneTrasition.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\GameOver.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

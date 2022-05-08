@@ -2,9 +2,6 @@
 #include "../Resource/TextureHolder.h"
 #include "../Utils/InputManager.h"
 #include "./MapCode.h"
-#include <sstream>
-#include <vector>
-
 
 Box::Box()
 	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond)
@@ -27,24 +24,24 @@ void Box::Move(Direction dir, char**& map)
 {
 	this->dir = dir;
 
-	char* nextPos = &map[(int)position.y / 100][(int)position.x / 100];
+	char* nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance];
 
 	switch (dir)
 	{
 	case Direction::Left:
-		nextPos = &map[(int)position.y / 100][(int)position.x / 100 - 1];
+		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance - 1];
 		break;
 
 	case Direction::Right:
-		nextPos = &map[(int)position.y / 100][(int)position.x / 100 + 1];
+		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance + 1];
 		break;
 
 	case Direction::Up:
-		nextPos = &map[(int)position.y / 100 - 1][(int)position.x / 100];
+		nextPos = &map[(int)position.y / moveDistance - 1][(int)position.x / moveDistance];
 		break;
 
 	case Direction::Down:
-		nextPos = &map[(int)position.y / 100 + 1][(int)position.x / 100];
+		nextPos = &map[(int)position.y / moveDistance + 1][(int)position.x / moveDistance];
 		break;
 
 	default:
@@ -63,7 +60,7 @@ void Box::Move(Direction dir, char**& map)
 		break;
 	}
 
-	map[(int)position.y / 100][(int)position.x / 100] = 'E';
+	map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
 	*nextPos = 'B';
 
 }

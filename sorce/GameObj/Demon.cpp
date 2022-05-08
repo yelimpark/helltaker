@@ -1,6 +1,7 @@
 #include "Demon.h"
 #include "./MapCode.h"
 #include "../Utils/Utils.h"
+#include "../Resource/TextureHolder.h"
 
 void Demon::Init(Vector2f pos)
 {
@@ -10,12 +11,30 @@ void Demon::Init(Vector2f pos)
 	animation.SetTarget(&sprite);
 	animation.AddClip("Pandemonica");
 	animation.Play("Pandemonica");
+
+	heartYPos = 55.f;
+	heart.setPosition(position.x - 55.f, position.y - heartYPos);
+	heart.setTexture(TextureHolder::GetTexture("Sprite/lovesign.png"));
 }
 
 void Demon::Update(float dt)
 {
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
+
+	heart.setPosition(position.x - 55.f, position.y - heartYPos);
+
+	static float dir = 1.f;
+	if (heartYPos > 60)
+	{
+		dir = -1.f;
+	}
+
+	if (heartYPos <= 50)
+	{
+		dir = 1.f;
+	}
+	heartYPos += dir * dt * 50;
 }
 
 bool Demon::IsClear(char**& map, int tileSize)
@@ -37,4 +56,5 @@ bool Demon::IsClear(char**& map, int tileSize)
 void Demon::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
+	window.draw(heart);
 }

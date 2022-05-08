@@ -4,24 +4,21 @@
 
 using namespace sf;
 
-class Demon
+class BoneParticle
 {
 private:
 	Sprite sprite;
-	Vector2f position;
 	AnimationController animation;
 
-	Sprite heart;
-	float heartYPos;
-	int heartDir;
-
 public:
+	BoneParticle();
+
 	void Init(Vector2f pos);
 
 	void Update(float dt);
-	
-	bool IsClear(char**& map, int tileSize);
 
 	void Draw(RenderWindow& window);
+
+	~BoneParticle();
 };
 

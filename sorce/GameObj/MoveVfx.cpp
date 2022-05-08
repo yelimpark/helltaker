@@ -16,6 +16,7 @@ void MoveVfx::Init(Vector2f pos)
 
 void MoveVfx::Update(float dt)
 {
+	if (animation.IsAnimationEnd()) return;
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
 }

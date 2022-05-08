@@ -9,11 +9,11 @@
 #include "../UI/StageUI.h"
 #include "../GameObj/Flame.h"
 #include "../GameObj/Box.h"
+#include "../GameObj/Skull.h"
 #include "../GameObj/MapCode.h"
 
 #include <sstream>
-
-using namespace sf;
+#include <algorithm>
 
 StageScene::StageScene(SceneManager& sceneManager)
 	: Scene(sceneManager), level(GameVal::level), isClear(false)
@@ -58,6 +58,16 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				DemonPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
 				break;
 
+			case (char)MapCode::SKULL: 
+			{
+				Vector2f pos;
+				pos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				pos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				Skull* skull = new Skull();
+				skull->Init(pos, TILE_SIZE, MOVE_SECOND);
+				skulls.push_back(skull);
+				break;
+			}
 			default:
 				break;
 			}
@@ -116,7 +126,8 @@ void StageScene::Init()
 	sideRight.setScale(-1.f, 1.f);
 
 	ui.Init(levelData.lastTurn);
-	transition.Init(resolution);
+	stageTransition.Init(resolution);
+	cutTransition.Init();
 	gameOver.Init(resolution);
 
 	isClear = false;
@@ -126,7 +137,8 @@ void StageScene::Update(Time& dt)
 {
 	if (ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-			Init();
+			if (cutTransition.Update(dt.asSeconds()))
+				Init();
 		}
 		return;
 	}
@@ -142,19 +154,33 @@ void StageScene::Update(Time& dt)
 
 	player.Update(dt.asSeconds());
 	if (!isClear && !ui.IsGameOver()) {
-		if (player.HanddleInput(map, boxes))
+		if (player.HanddleInput(map, boxes, skulls))
 			ui.UseTurn();
 	}
+
+	for (int i = 0; i < skulls.size(); i++) {
+		skulls[i]->Update(dt.asSeconds());
+		if (skulls[i]->IsDead()) {
+			boneParticle.Init(skulls[i]->GetPos());
+			delete skulls[i];
+			skulls.erase(skulls.begin() + i);
+		}
+	}
+
+	boneParticle.Update(dt.asSeconds());
 	
 	demon.Update(dt.asSeconds());
 	isClear = demon.IsClear(map, TILE_SIZE);
 
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
-		if (transition.OnClear(dt.asSeconds())) {
+		if (stageTransition.OnClear(dt.asSeconds())) {
 			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
 		}
 	}
+
+	//cutTransition.Update(dt.asSeconds());
+
 }
 
 void StageScene::Render()
@@ -177,13 +203,21 @@ void StageScene::Render()
 		box->Draw(window);
 	}
 
+	for (auto& skull : skulls)
+	{
+		skull->Draw(window);
+	}
+
 	player.Draw(window);
 	demon.Draw(window);
-	transition.Draw(window);
+	boneParticle.Draw(window);
+
+	stageTransition.Draw(window);
 	ui.Draw(window);
 
 	if (ui.IsGameOver()) {
 		gameOver.Draw(window);
+		cutTransition.Draw(window);
 	}
 }
 
@@ -207,6 +241,13 @@ void StageScene::Release()
 			delete box;
 	}
 	boxes.clear();
+
+	for (auto& skull : skulls)
+	{
+		if (skull != nullptr)
+			delete skull;
+	}
+	skulls.clear();
 }
 
 StageScene::~StageScene()

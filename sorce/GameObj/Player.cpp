@@ -3,6 +3,7 @@
 #include "../Utils/Utils.h"
 #include "./Box.h"
 #include "./MapCode.h"
+#include "./Skull.h"
 
 #include <iostream>
 
@@ -51,7 +52,7 @@ void Player::Kick()
 	animation.PlayQue("PlayerStand");
 }
 
-bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls)
 {
 	bool useTurn = false;
 
@@ -98,9 +99,9 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 			return useTurn;
 
 		case (char)MapCode::SKULL:
-			for (auto& box : boxes) {
-				if (box->IsBoxHere(nextPosition)) {
-					box->Move(dir, map);
+			for (auto& skull : skulls) {
+				if (skull->IsSkullHere(nextPosition)) {
+					skull->OnPushed(dir, map);
 				}
 			}
 			Kick();
