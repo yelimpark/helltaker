@@ -117,6 +117,8 @@ void Skull::OnHitted()
 {
 	int idxY = (int)position.y / tileSize;
 	int idxX = (int)position.x / tileSize;
+
+	animation.Play("SkullCrushed");
 }
 
 void Skull::Draw(RenderWindow& window)
