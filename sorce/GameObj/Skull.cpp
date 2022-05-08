@@ -1,90 +1,135 @@
 #include "Skull.h"
 #include "../Utils/InputManager.h"
+#include "../Utils/Utils.h"
+#include "./MapCode.h"
 
 
-void Skull::Init(float x, float y)
+void Skull::Init(SkullData info, int tileSize, float moveSecond)
 {
-	position.x = x;
-	position.y = y;
-
+	position = info.position;
 	sprite.setPosition(position);
 
 	animation.SetTarget(&sprite);
 	animation.AddClip("SkullStand");
 	animation.AddClip("SkullPushed");
+	animation.AddClip("SkullCrushed");
 
 	animation.Play("SkullStand");
+
+	this->tileSize = tileSize;
+	this->moveSecond = moveSecond;
+	dir = Direction::None;
 }
 
-void Skull::Update(float dt)
+void Skull::Update(float dt, char** & map)
 {
-	animation.Update(dt);
-	sprite.setOrigin(sprite.getGlobalBounds().width * 0.5f, sprite.getGlobalBounds().height * 0.5f);
+	if (dir == Direction::None) return;
 
+	moveTime -= dt;
+
+	if (moveTime <= 0)
+	{
+		moveTime = moveSecond;
+		dir = Direction::None;
+		return;
+	}
 	
-	if (InputManager::GetKeyDown(Keyboard::Left))
+	animation.Update(dt);
+	Utils::SetOrigin(sprite, Pivots::Center);
+
+	switch (dir)
 	{
-		sprite.setScale(-1.f, 1.f);
-		dir = Direction::Left;
+	case Direction::Left:
+		position.x -= moveDistance * dt / moveSecond;
+		break;
+
+	case Direction::Right:
+		position.x += moveDistance * dt / moveSecond;
+		break;
+
+	case Direction::Up:
+		position.y -= moveDistance * dt / moveSecond;
+		break;
+
+	case Direction::Down:
+		position.y += moveDistance * dt / moveSecond;
+		break;
+
+	default:
+		break;
 	}
 
-	else if (InputManager::GetKeyDown(Keyboard::Right))
-	{
-		sprite.setScale(1.f, 1.f);
-		dir = Direction::Right;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Up))
-	{
-		dir = Direction::Up;
-	}
-
-	else if (InputManager::GetKeyDown(Keyboard::Down))
-	{
-		dir = Direction::Down;
-	}
+	sprite.setPosition(position);
 }
 
-void Skull::OnPushed()
+void Skull::OnPushed(Direction dir, char**& map)
 {
+	this->dir = dir;
 
-	if (InputManager::GetKeyDown(Keyboard::Left))
+	char* nextPos = &map[(int)position.y / 100][(int)position.x / 100];
+
+	switch (dir)
 	{
-		dir = Direction::Left;
-		sprite.setScale(-1.f, 1.f);
+	case Direction::Left:
+		nextPos = &map[(int)position.y / 100][(int)position.x / 100 - 1];
 		animation.Play("SkullPushed");
 		animation.PlayQue("SkullStand");
-	}
+		break;
 
-	else if (InputManager::GetKeyDown(Keyboard::Right))
-	{
-		dir = Direction::Right;
-		sprite.setScale(1.f, 1.f);
+	case Direction::Right:
+		nextPos = &map[(int)position.y / 100][(int)position.x / 100 + 1];
 		animation.Play("SkullPushed");
 		animation.PlayQue("SkullStand");
-	}
+		break;
 
-	else if (InputManager::GetKeyDown(Keyboard::Up))
-	{
-		dir = Direction::Up;
+	case Direction::Up:
+		nextPos = &map[(int)position.y / 100 - 1][(int)position.x / 100];
 		animation.Play("SkullPushed");
 		animation.PlayQue("SkullStand");
-	}
+		break;
 
-	else if (InputManager::GetKeyDown(Keyboard::Down))
-	{
-		dir = Direction::Down;
+	case Direction::Down:
+		nextPos = &map[(int)position.y / 100 + 1][(int)position.x / 100];
 		animation.Play("SkullPushed");
 		animation.PlayQue("SkullStand");
+		break;
+
+	default:
+		break;
 	}
+
+	switch (*nextPos)
+	{
+	case (char)MapCode::WALL:
+	case (char)MapCode::SKULL:
+		this->dir = Direction::None;
+		return;
+
+	default:
+		break;
+	}
+
+	map[(int)position.y / 100][(int)position.x / 100] = 'E';
+	*nextPos = 'S';
 }
 
 void Skull::OnHitted()
 {
-	//particle
+	int idxY = (int)position.y / tileSize;
+	int idxX = (int)position.x / tileSize;
 }
 
 void Skull::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
+}
+
+const Vector2f& Skull::GetPos()
+{
+	return position;
+}
+
+const bool Skull::IsSkullHere(Vector2f pos)
+{
+	return false;
 }

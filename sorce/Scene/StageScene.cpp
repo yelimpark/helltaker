@@ -24,8 +24,11 @@ StageScene::StageScene(SceneManager& sceneManager)
 void StageScene::InitMap(std::string filepath, std::string levelStr)
 {
 	std::map<std::string, std::vector<BoxData>> boxDatas;
+	std::map<std::string, std::vector<SkullData>> skullDatas;
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
+	Utils::CsvToStructVectorMap<SkullData>(skullDatas, "./LevelInfo/SkullInfo.csv");
 	int boxIdx = 0;
+	int skullIdx = 0;
 
 	Vector2f playerPos;
 	Vector2f DemonPos;
@@ -59,6 +62,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				break;
 
 			case (char)MapCode::SKULL:
+				skullDatas[levelStr][skullIdx].position.x = j * TILE_SIZE + LEFT_MARGINE;
+				skullDatas[levelStr][skullIdx].position.y = i * TILE_SIZE + TOP_MARGINE;
 				break;
 
 			default:
@@ -76,6 +81,13 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 		box->Init(boxdata, TILE_SIZE, MOVE_SECOND);
 		boxes.push_back(box);
 	}
+
+	for (auto& skulldata : skullDatas[levelStr])
+	{
+		Skull* skull = new Skull();
+		skull->Init(skulldata, TILE_SIZE, MOVE_SECOND);
+		skulls.push_back(skull);
+	}
 }
 
 void StageScene::Init()
@@ -83,13 +95,10 @@ void StageScene::Init()
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameData>> flameDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
-	std::map<std::string, std::vector<SkullData>> skullDatas;
 
 	Utils::CsvToStruct<LevelData>(levelDatas, "./LevelInfo/LevelInfo.csv");
 	Utils::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
-	Utils::CsvToStructVectorMap<SkullData>(skullDatas, "./LevelInfo/SkullInfo.csv");
-
 
 	stringstream ss;
 	ss << level;
@@ -112,12 +121,6 @@ void StageScene::Init()
 		flameBases.push_back(flameBase);
 	}
 
-	for (int i = 0; i < skullDatas[ss.str()].size(); ++i)
-	{
-		Skull* skull = new Skull();
-		skulls.push_back(skull);
-	}
-
 	Background.setTexture(TextureHolder::GetTexture(levelData.BgFilename));
 	Background.setPosition(levelData.bgPos);
 
@@ -130,6 +133,7 @@ void StageScene::Init()
 	ui.Init();
 
 	transition.Init(resolution);
+	//cutTransition.Init();
 
 	StageUI::isMovedSide = false;
 	isClear = false;
@@ -149,7 +153,7 @@ void StageScene::Update(Time& dt)
 
 	for (auto& skull : skulls)
 	{
-		skull->Update(dt.asSeconds());
+		skull->Update(dt.asSeconds(), map);
 	}
 
 	player.Update(dt.asSeconds());
@@ -170,6 +174,8 @@ void StageScene::Update(Time& dt)
 		transition.Avtivate();
 		ui.MoveSide(dt.asSeconds());
 	}
+
+	//cutTransition.Update(dt.asSeconds());
 
 }
 
@@ -203,6 +209,7 @@ void StageScene::Render()
 	transition.Draw(window);
 
 	ui.Draw(window);
+	//cutTransition.Draw(window);
 }
 
 void StageScene::Release()

@@ -3,6 +3,7 @@
 #include "../Utils/Utils.h"
 #include "./Box.h"
 #include "./MapCode.h"
+#include "./Skull.h"
 
 #include <iostream>
 

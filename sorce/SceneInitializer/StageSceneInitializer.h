@@ -56,13 +56,12 @@ struct BoxData
 
 struct SkullData
 {
-	int x;
-	int y;
+	std::string textureFilename;
+	Vector2f position;
 
 	SkullData(std::vector<std::string>& row)
 	{
-		x = stoi(row[1]);
-		y = stoi(row[2]);
+		textureFilename = row[1];
 	}
 };
 
