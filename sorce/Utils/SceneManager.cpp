@@ -32,6 +32,11 @@ void SceneManager::Update(Time& dt)
 	scenes[(int)currScene]->Update(dt);
 }
 
+void SceneManager::Start()
+{
+	scenes[(int)currScene]->Init();
+}
+
 void SceneManager::Render()
 {
 	scenes[(int)currScene]->Render();

@@ -97,3 +97,8 @@ std::string AnimationController::NowPlaying()
 {
 	return currentClip->id;
 }
+
+bool AnimationController::OnFrame(int n)
+{
+	return currentFrame == n;
+}

@@ -28,6 +28,8 @@ public:
 
 	void Release();
 
+	void Start();
+
 	void Update(Time& dt);
 
 	void Render();

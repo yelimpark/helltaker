@@ -10,6 +10,8 @@ void GameOver::Init(Vector2i res)
 	fadeOut.setSize(Vector2f((int)res.x, (int)res.y));
 	fadeOut.setFillColor(Color::Black);
 
+	sprite.setPosition(-500, -500);
+
 	animation.SetTarget(&sprite);
 	animation.AddClip("GameOver");
 	animation.AddClip("huge_vfx");

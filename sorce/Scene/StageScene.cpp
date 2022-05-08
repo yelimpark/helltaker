@@ -125,7 +125,7 @@ void StageScene::Init()
 	sideRight.setPosition(resolution.x, 0);
 	sideRight.setScale(-1.f, 1.f);
 
-	ui.Init(levelData.lastTurn);
+	ui.Init(3);
 	stageTransition.Init(resolution);
 	cutTransition.Init();
 	gameOver.Init(resolution);
@@ -135,14 +135,6 @@ void StageScene::Init()
 
 void StageScene::Update(Time& dt)
 {
-	if (ui.IsGameOver()) {
-		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-			if (cutTransition.Update(dt.asSeconds()))
-				Init();
-		}
-		return;
-	}
-
 	for (auto flame : flames) {
 		flame->Update(dt.asSeconds());
 	}
@@ -172,15 +164,21 @@ void StageScene::Update(Time& dt)
 	demon.Update(dt.asSeconds());
 	isClear = demon.IsClear(map, TILE_SIZE);
 
+	if (!isClear && ui.IsGameOver()) {
+		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
+			if (cutTransition.Update(dt.asSeconds()))
+				Init();
+		}
+		return;
+	}
+
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
 			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
+			sceneManager.Start();
 		}
 	}
-
-	//cutTransition.Update(dt.asSeconds());
-
 }
 
 void StageScene::Render()
@@ -216,7 +214,8 @@ void StageScene::Render()
 	ui.Draw(window);
 
 	if (ui.IsGameOver()) {
-		gameOver.Draw(window);
+		if (!cutTransition.IsFull())
+			gameOver.Draw(window);
 		cutTransition.Draw(window);
 	}
 }
