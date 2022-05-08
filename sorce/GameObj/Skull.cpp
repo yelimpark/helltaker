@@ -23,8 +23,6 @@ void Skull::Init(SkullData info, int tileSize, float moveSecond)
 
 void Skull::Update(float dt, char** & map)
 {
-	if (dir == Direction::None) return;
-
 	moveTime -= dt;
 
 	if (moveTime <= 0)
