@@ -30,6 +30,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	int boxIdx = 0;
 	int skullIdx = 0;
 
+	soundEffects.backgroundMusic();
+
 	Vector2f playerPos;
 	Vector2f DemonPos;
 

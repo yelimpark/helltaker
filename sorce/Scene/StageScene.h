@@ -11,6 +11,7 @@
 #include <list>
 #include <iostream>
 #include "../GameObj/Box.h"
+#include "../GameObj/SoundEffect.h"
 
 class Flame;
 class Box;
@@ -40,6 +41,8 @@ private:
 	Demon demon;
 	stageSceneTrasition transition;
 	CutSceneTransition cutTransition;
+
+	SoundEffect soundEffects;
 
 	int lastTurn;
 

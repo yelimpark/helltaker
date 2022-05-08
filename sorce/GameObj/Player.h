@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
 #include "./Direction.h"
+#include "../GameObj/SoundEffect.h"
 
 using namespace sf;
 
@@ -22,6 +23,8 @@ private:
 	Direction dir;
 
 	AnimationController animation;
+
+	SoundEffect soundEffects;
 
 	void Move(float dt);
 

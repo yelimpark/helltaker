@@ -56,6 +56,7 @@ void TitleScriptScene::Update(Time& dt)
 
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
+		soundEffects.dialogueTextEnd();
 		textselectIndex++;
 	}
 	if (textselectIndex < MAX_NUMBER_OF_SCRIPT)

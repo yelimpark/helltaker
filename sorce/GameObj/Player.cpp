@@ -49,6 +49,7 @@ void Player::Kick()
 {
 	animation.Play("PlayerKick");
 	animation.PlayQue("PlayerStand");
+	soundEffects.kickBox();
 }
 
 void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
@@ -60,22 +61,30 @@ void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 		nextPosition.x = position.x - tileSize;
 		nextPosition.y = position.y;
 		dir = Direction::Left;
+		
+		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Right)) {
 		sprite.setScale(1.f, 1.f);
 		nextPosition.x = position.x + tileSize;
 		nextPosition.y = position.y;
 		dir = Direction::Right;
+
+		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Up)) {
 		nextPosition.x = position.x;
 		nextPosition.y = position.y - tileSize;
 		dir = Direction::Up;
+
+		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Down)) {
 		nextPosition.x = position.x;
 		nextPosition.y = position.y + tileSize;
 		dir = Direction::Down;
+
+		soundEffects.Playermoves();
 	}
 
 	if (dir != Direction::None) {
@@ -88,6 +97,8 @@ void Player::HanddleInput(char ** &map, std::vector<Box*>& boxes)
 			for(auto& box : boxes) {
 				if (box->IsBoxHere(nextPosition)) {
 					box->Move(dir, map);
+
+					soundEffects.moveBox();
 				}
 			}
 			Kick();
