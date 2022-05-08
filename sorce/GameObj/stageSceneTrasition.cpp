@@ -30,7 +30,7 @@ void stageSceneTrasition::Update(float dt)
 	if (height >= HEIGHT_MAX)
 	{
 		height = HEIGHT_MAX;
-		bg.setFillColor(Color::Black);
+		bg.setFillColor(Color(2, 2, 27));
 		return;
 	}
 

@@ -58,6 +58,9 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				DemonPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
 				break;
 
+			case (char)MapCode::SKULL:
+				break;
+
 			default:
 				break;
 			}
@@ -165,7 +168,9 @@ void StageScene::Update(Time& dt)
 
 	if (isClear) {
 		transition.Avtivate();
+		ui.MoveSide(dt.asSeconds());
 	}
+
 }
 
 void StageScene::Render()
@@ -197,8 +202,7 @@ void StageScene::Render()
 	demon.Draw(window);
 	transition.Draw(window);
 
-	//ui.Render(window);
-	
+	ui.Draw(window);
 }
 
 void StageScene::Release()
@@ -221,6 +225,13 @@ void StageScene::Release()
 			delete box;
 	}
 	boxes.clear();
+
+	for (auto& skull : skulls)
+	{
+		if (skull != nullptr)
+			delete skull;
+	}
+	skulls.clear();
 }
 
 StageScene::~StageScene()

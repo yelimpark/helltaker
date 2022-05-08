@@ -5,6 +5,7 @@
 #include "../GameObj/Player.h"
 #include "../GameObj/Demon.h"
 #include "../GameObj/stageSceneTrasition.h"
+#include "../GameObj/CutSceneTransition.h"
 #include <vector>
 #include "../GameObj/Skull.h"
 #include <list>
@@ -38,6 +39,7 @@ private:
 	Player player;
 	Demon demon;
 	stageSceneTrasition transition;
+	CutSceneTransition cutTransition;
 
 	int lastTurn;
 

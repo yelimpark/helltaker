@@ -93,7 +93,7 @@ void StageUI::MoveSide(float dt)
 		}
 }
 
-void StageUI::Render(RenderWindow& window)
+void StageUI::Draw(RenderWindow& window)
 {
 	window.draw(side1);
 	window.draw(side2);

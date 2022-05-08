@@ -25,7 +25,7 @@ public:
 	void Init();
 	void Update(int turnTimes);
 	void MoveSide(float dt);
-	void Render(RenderWindow& window);
+	void Draw(RenderWindow& window);
 	~StageUI();
 };
 
