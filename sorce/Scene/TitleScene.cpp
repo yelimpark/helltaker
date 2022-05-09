@@ -82,7 +82,7 @@ void TitleScene::Update(Time& dt)
 		textOpen1[0].setString("");
 		textOpen1[1].setString("");
 
-		textFix.setString("Beelzebub,The Great Fly");
+		textFix.setString("Beelzebub, The Great Fly");
 		Utils::SetOrigin(textFix, Pivots::Center);
 		textFix.setPosition(resolution.x * 0.5, (resolution.y * 0.5) + 150);
 
@@ -95,6 +95,9 @@ void TitleScene::Update(Time& dt)
 		}
 		
 		beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
+		Utils::SetOrigin(beel, Pivots::Center);
+		beel.setScale(0.98f, 0.98f);
+		beel.setPosition(Vector2f(resolution.x * 0.5f, resolution.y * 0.33f));
 	}
 
 	//enterCount 2 ->menu showup
