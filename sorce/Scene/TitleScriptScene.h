@@ -1,6 +1,7 @@
 #pragma once
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
+#include "../GameObj/SoundEffect.h"
 
 #define MAX_NUMBER_OF_SCRIPT 5
 
@@ -25,6 +26,8 @@ private:
 
 	int textselectIndex;
 	int enterCounter;
+
+	SoundEffect soundEffects;
 
 public:
 	TitleScriptScene(SceneManager& sceneManager);

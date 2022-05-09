@@ -73,6 +73,7 @@ void TitleScene::Update(Time& dt)
 	if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
 	{
 		enterCount++;
+		//soundEffects.dialogueTextEnd();
 	}
 
 	//enterCount 1->textFix showup
@@ -120,12 +121,13 @@ void TitleScene::Update(Time& dt)
 		}
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{
-
 			MoveUp();
+			soundEffects.menuHighlight();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Down))
 		{
 			MoveDown();
+			soundEffects.menuHighlight();
 		}
 
 		if (enterCount > 2 && InputManager::GetKeyDown(Keyboard::Enter))
@@ -133,6 +135,7 @@ void TitleScene::Update(Time& dt)
 			switch (GetPressedMenu())
 			{
 			case 0:
+				soundEffects.menuConfirm();
 				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
 				// NEW GAME -> stage (intro script)
 				break;
