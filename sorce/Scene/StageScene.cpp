@@ -219,6 +219,11 @@ void StageScene::Render()
 		flame->Draw(window);
 	}
 
+	for (auto& claw : claws)
+	{
+		claw->Draw(window);
+	}
+	
 	for (auto& box : boxes)
 	{
 		box->Draw(window);
@@ -227,11 +232,6 @@ void StageScene::Render()
 	for (auto& skull : skulls)
 	{
 		skull->Draw(window);
-	}
-
-	for (auto& claw : claws)
-	{
-		claw->Draw(window);
 	}
 
 	player.Draw(window);
