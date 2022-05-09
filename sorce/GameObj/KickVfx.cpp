@@ -5,12 +5,18 @@ KickVfx::KickVfx()
 {
 }
 
-void KickVfx::Init(Vector2f pos)
+void KickVfx::Init(Vector2f pos, bool isItMove)
 {
 	sprite.setPosition(pos);
 	animation.SetTarget(&sprite);
-	animation.AddClip("kick_vfx");
-	animation.Play("kick_vfx");
+	if (isItMove) {
+		animation.AddClip("kick_vfx");
+		animation.Play("kick_vfx");
+	}
+	else {
+		animation.AddClip("small_vfx");
+		animation.Play("small_vfx");
+	}
 }
 
 void KickVfx::Update(float dt)

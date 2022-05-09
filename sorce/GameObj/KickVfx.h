@@ -13,7 +13,7 @@ private:
 public:
 	KickVfx();
 
-	void Init(Vector2f pos);
+	void Init(Vector2f pos, bool isItMove);
 
 	void Update(float dt);
 

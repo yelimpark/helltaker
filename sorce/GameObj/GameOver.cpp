@@ -8,7 +8,7 @@ GameOver::GameOver()
 void GameOver::Init(Vector2i res)
 {
 	fadeOut.setSize(Vector2f((int)res.x, (int)res.y));
-	fadeOut.setFillColor(Color::Black);
+	fadeOut.setFillColor(Color(2, 2, 27));
 
 	sprite.setPosition(-500, -500);
 

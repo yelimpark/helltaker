@@ -45,9 +45,9 @@ void Player::Move(float dt)
 	sprite.setPosition(position);
 }
 
-void Player::Kick()
+void Player::Kick(bool isItMove)
 {
-	kickVfx.Init((position + nextPosition) * 0.5f);
+	kickVfx.Init((position + nextPosition) * 0.5f, isItMove);
 	animation.Play("PlayerKick");
 	animation.PlayQue("PlayerStand");
 }
@@ -90,10 +90,10 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		case (char)MapCode::BOX:
 			for(auto& box : boxes) {
 				if (box->IsBoxHere(nextPosition)) {
-					box->Move(dir, map);
+					Kick(box->Move(dir, map));
 				}
 			}
-			Kick();
+			
 			dir = Direction::None;
 			useTurn = true;
 			return useTurn;
@@ -104,7 +104,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 					skull->OnPushed(dir, map);
 				}
 			}
-			Kick();
+			Kick(true);
 			dir = Direction::None;
 			useTurn = true;
 			return useTurn;

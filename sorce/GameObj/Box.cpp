@@ -20,7 +20,7 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 	moveTime = moveSecond;
 }
 
-void Box::Move(Direction dir, char**& map)
+bool Box::Move(Direction dir, char**& map)
 {
 	this->dir = dir;
 
@@ -54,7 +54,7 @@ void Box::Move(Direction dir, char**& map)
 	case (char)MapCode::BOX:
 	case (char)MapCode::SKULL:
 		this->dir = Direction::None;
-		return;
+		return false;
 
 	default:
 		break;
@@ -62,7 +62,7 @@ void Box::Move(Direction dir, char**& map)
 
 	map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
 	*nextPos = 'B';
-
+	return true;
 }
 
 void Box::Update(float dt)

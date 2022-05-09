@@ -125,9 +125,11 @@ void StageScene::Init()
 	sideRight.setPosition(resolution.x, 0);
 	sideRight.setScale(-1.f, 1.f);
 
-	ui.Init(3);
+	ui.Init(levelData.lastTurn);
 	stageTransition.Init(resolution);
-	cutTransition.Init();
+	if (!cutTransition.IsFull())
+		cutTransition.Init();
+
 	gameOver.Init(resolution);
 
 	isClear = false;
@@ -166,7 +168,8 @@ void StageScene::Update(Time& dt)
 
 	if (!isClear && ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-			if (cutTransition.Update(dt.asSeconds()))
+			cutTransition.Update(dt.asSeconds());
+			if (cutTransition.IsFull())
 				Init();
 		}
 		return;
@@ -213,7 +216,7 @@ void StageScene::Render()
 	stageTransition.Draw(window);
 	ui.Draw(window);
 
-	if (ui.IsGameOver()) {
+	if (!isClear && ui.IsGameOver()) {
 		if (!cutTransition.IsFull())
 			gameOver.Draw(window);
 		cutTransition.Draw(window);

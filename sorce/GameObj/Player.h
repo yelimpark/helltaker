@@ -31,7 +31,7 @@ private:
 
 	void Move(float dt);
 
-	void Kick();
+	void Kick(bool isItMove);
 
 public:
 	Player();

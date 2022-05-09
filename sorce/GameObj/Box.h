@@ -20,7 +20,7 @@ private:
 public:
 	Box();
 	void Init(BoxData info, int tileSize, float moveSecond);
-	void Move(Direction dir, char**& map);
+	bool Move(Direction dir, char**& map);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
 
