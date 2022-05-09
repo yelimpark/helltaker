@@ -133,12 +133,12 @@ void LevelEndingScene::Update(Time& dt)
 
 			if (enterCount == 3)
 			{
+				soundEffects.badEnding();
 				death.Init(Vector2f(resolution.x/2.f , resolution.y/2.f));
 			}
 			if (enterCount >= 3)
 			{
 				death.Update(dt.asSeconds());
-				soundEffects.badEnding();
 
 				if (enterCount >= 5)
 				{

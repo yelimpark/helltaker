@@ -1,4 +1,5 @@
 #include "SoundEffect.h"
+#include <iostream>
 
 void SoundEffect::menuConfirm()
 {
@@ -77,11 +78,13 @@ void SoundEffect::backgroundMusic()
 	sound = (SoundHolder::GetSound("Sound/Vitality.wav"));
 	sound.play();
 	sound.setLoop(true);
+
+	std::cout << "Playing Vitality" << std::endl;
 }
 
 void SoundEffect::openingMusic()
 {
 	Sound sound;
-	sound = (SoundHolder::GetSound("Sound/Apropos.wav"));
+	sound = (SoundHolder::GetSound("Sound/Apropos.mp3"));
 	sound.play();
 }

@@ -28,8 +28,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
 
-	soundEffects.backgroundMusic();
-
 	Vector2f playerPos;
 	Vector2f DemonPos;
 
@@ -145,6 +143,7 @@ void StageScene::Init()
 		cutTransition.Init();
 
 	gameOver.Init(resolution);
+	//soundEffects.backgroundMusic();
 
 	isClear = false;
 }
