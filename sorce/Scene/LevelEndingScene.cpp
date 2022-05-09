@@ -25,6 +25,7 @@ void LevelEndingScene::Init()
 	Utils::SetOrigin(textFix1, Pivots::Center);
 	textFix1.setPosition(resolution.x * 0.5, (resolution.y * 0.5) + 150);
 
+	soundEffects.dialogueStart();
 
 	textFix2[0].setString("Name's Pandemonica, Hell's Cistomer Service.");
 	textFix2[1].setString("How may I serve you ?");
@@ -76,7 +77,7 @@ void LevelEndingScene::Update(Time& dt)
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		enterCount++;
-
+		soundEffects.dialogueTextEnd();
 	}
 	if (enterCount == 1)
 	{
@@ -96,12 +97,13 @@ void LevelEndingScene::Update(Time& dt)
 		}
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{
-
 			MoveUp();
+			soundEffects.menuHighlight();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Down))
 		{
 			MoveDown();
+			soundEffects.menuHighlight();
 		}
 
 		if (enterCount > 1 && InputManager::GetKeyDown(Keyboard::Enter))

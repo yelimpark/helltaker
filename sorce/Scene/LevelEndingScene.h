@@ -2,6 +2,7 @@
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
 #include "TitleScene.h"
+#include "../GameObj/SoundEffect.h"
 
 #define MAX_NUMBER_OF_ITEMS 2
 class LevelEndingScene : public Scene
@@ -24,6 +25,7 @@ private:
 	
 	Sprite bg;
 
+	SoundEffect soundEffects;
 
 	int selectIndex;
 	int enterCount;

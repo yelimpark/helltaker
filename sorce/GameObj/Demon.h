@@ -12,8 +12,9 @@ private:
 	AnimationController animation;
 
 	Sprite heart;
-	float heartYPos;
-	int heartDir;
+	float heartYPos;	
+	float dir = 1.f;
+	bool isheartmoving = false;
 
 public:
 	void Init(Vector2f pos);

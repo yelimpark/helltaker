@@ -4,6 +4,7 @@
 #include "./Direction.h"
 #include "./MoveVfx.h"
 #include "./KickVfx.h"
+#include "../GameObj/SoundEffect.h"
 
 using namespace sf;
 
@@ -28,6 +29,8 @@ private:
 
 	MoveVfx moveVfx;
 	KickVfx kickVfx;
+
+	SoundEffect soundEffects;
 
 	void Move(float dt);
 

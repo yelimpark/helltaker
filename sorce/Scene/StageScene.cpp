@@ -27,6 +27,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
 
+	soundEffects.backgroundMusic();
+
 	Vector2f playerPos;
 	Vector2f DemonPos;
 

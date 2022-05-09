@@ -29,6 +29,7 @@
     <ClCompile Include="sorce\GameObj\KickVfx.cpp" />
     <ClCompile Include="sorce\GameObj\MoveVfx.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
+    <ClCompile Include="sorce\GameObj\SoundEffect.cpp" />
     <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp" />
     <ClCompile Include="sorce\GameObj\Skull.cpp" />
     <ClCompile Include="sorce\main.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="sorce\GameObj\MoveVfx.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
     <ClInclude Include="sorce\GameObj\Skull.h" />
+    <ClInclude Include="sorce\GameObj\SoundEffect.h" />
     <ClInclude Include="sorce\GameObj\stageSceneTrasition.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
     <ClInclude Include="sorce\Resource\AnimationController.h" />

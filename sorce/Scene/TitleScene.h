@@ -1,7 +1,7 @@
 #pragma once
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
-
+#include "../GameObj/SoundEffect.h"
 
 #define MAX_NUMBER_OF_ITEMS 3
 class TitleScene : public Scene 
@@ -28,6 +28,8 @@ private:
 	int enterCount;
 
 	Sprite cloudBackground;
+
+	SoundEffect soundEffects;
 
 public:
 	TitleScene(SceneManager& sceneManager);

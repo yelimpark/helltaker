@@ -50,6 +50,7 @@ void Player::Kick(bool isItMove)
 	kickVfx.Init((position + nextPosition) * 0.5f, isItMove);
 	animation.Play("PlayerKick");
 	animation.PlayQue("PlayerStand");
+	soundEffects.kickBox();
 }
 
 bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls)
@@ -63,22 +64,30 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		nextPosition.x = position.x - tileSize;
 		nextPosition.y = position.y;
 		dir = Direction::Left;
+		
+		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Right)) {
 		sprite.setScale(1.f, 1.f);
 		nextPosition.x = position.x + tileSize;
 		nextPosition.y = position.y;
 		dir = Direction::Right;
+
+		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Up)) {
 		nextPosition.x = position.x;
 		nextPosition.y = position.y - tileSize;
 		dir = Direction::Up;
+
+		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Down)) {
 		nextPosition.x = position.x;
 		nextPosition.y = position.y + tileSize;
 		dir = Direction::Down;
+
+		soundEffects.Playermoves();
 	}
 
 	if (dir != Direction::None) {
@@ -91,6 +100,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			for(auto& box : boxes) {
 				if (box->IsBoxHere(nextPosition)) {
 					Kick(box->Move(dir, map));
+					soundEffects.moveBox();
 				}
 			}
 			

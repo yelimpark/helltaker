@@ -8,6 +8,7 @@
 #include "../GameObj/stageSceneTrasition.h"
 #include "../GameObj/CutSceneTransition.h"
 #include "../GameObj/GameOver.h"
+#include "../GameObj/SoundEffect.h"
 #include <vector>
 
 class Flame;
@@ -43,6 +44,7 @@ private:
 	CutSceneTransition cutTransition;
 
 	GameOver gameOver;
+	SoundEffect soundEffects;
 
 	bool isClear;
 
