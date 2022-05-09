@@ -7,6 +7,7 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include "../GameObj/SoundEffect.h"
 
 #define MAX_NUMBER_OF_SCRIPT 4
 class LevelEndingScene : public Scene
@@ -37,6 +38,7 @@ private:
 
 	std::vector<Sprite*> flameBases;
 
+	SoundEffect soundEffects;
 	
 	Sprite bg;
 	Sprite diebg;

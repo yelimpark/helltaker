@@ -8,7 +8,7 @@
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = (SceneType)0;
+	currScene = (SceneType)3;
 	
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
 	scenes[(int)SceneType::TITLESCRIPT] = new TitleScriptScene(*this);

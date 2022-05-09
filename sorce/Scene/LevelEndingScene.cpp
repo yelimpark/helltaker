@@ -65,7 +65,7 @@ void LevelEndingScene::Init()
 	Utils::SetOrigin(idle, Pivots::Center);
 	idle.setPosition(Vector2f(resolution.x / 2, resolution.y / 22 + 400));
 
-
+	soundEffects.dialogueStart();
 
 }
 
@@ -77,6 +77,7 @@ void LevelEndingScene::Update(Time& dt)
 	if (InputManager::GetKeyDown(Keyboard::Enter))
 	{
 		enterCount++;
+		soundEffects.dialogueTextEnd();
 	}
 
 
@@ -113,10 +114,12 @@ void LevelEndingScene::Update(Time& dt)
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{
 			MoveUp();
+			soundEffects.menuHighlight();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Down))
 		{
 			MoveDown();
+			soundEffects.menuHighlight();
 		}
 	}
 
@@ -131,10 +134,16 @@ void LevelEndingScene::Update(Time& dt)
 			if (enterCount == 3)
 			{
 				death.Init(Vector2f(resolution.x/2.f , resolution.y/2.f));
-				
 			}
-			if (enterCount >= 3) {
+			if (enterCount >= 3)
+			{
 				death.Update(dt.asSeconds());
+				soundEffects.badEnding();
+
+				if (enterCount >= 5)
+				{
+					sceneManager.ChangeScene(SceneType::STAGE);
+				}
 			}
 			break;
 		case 1: //good
@@ -147,6 +156,7 @@ void LevelEndingScene::Update(Time& dt)
 			if (enterCount >= 3)
 			{
 				success.Update(dt.asSeconds());
+				
 				if (enterCount >= 5)
 				{
 					sceneManager.ChangeScene(SceneType::STAGE);
