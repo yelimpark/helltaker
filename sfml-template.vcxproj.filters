@@ -144,7 +144,7 @@
       <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\Claw.cpp">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\etc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +275,7 @@
       <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\Claw.h">
-      <Filter>소스 파일\GameObj</Filter>
+      <Filter>소스 파일\GameObj\etc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

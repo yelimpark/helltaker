@@ -31,6 +31,7 @@ private:
 	std::vector<Sprite *> flameBases;
 	std::vector<Box *> boxes;
 	std::vector<Skull *> skulls;
+	std::vector<Claw *> claws;
 	
 	StageUI ui;
 
@@ -39,7 +40,6 @@ private:
 	Sprite sideRight;
 	Player player;
 	Demon demon;
-	Claw claw;
 
 	BoneParticle boneParticle;
 	stageSceneTrasition stageTransition;

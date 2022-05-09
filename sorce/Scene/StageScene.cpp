@@ -11,6 +11,7 @@
 #include "../GameObj/Box.h"
 #include "../GameObj/Skull.h"
 #include "../GameObj/MapCode.h"
+#include "../GameObj/Claw.h"
 
 #include <sstream>
 #include <algorithm>
@@ -70,13 +71,23 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				skulls.push_back(skull);
 				break;
 			}
+
+			case (char)MapCode::CLAW:
+			{
+				Vector2f pos;
+				pos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				pos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				Claw* claw = new Claw();
+				claw->Init(pos, TILE_SIZE);
+				claws.push_back(claw);
+				break;
+			}
 			default:
 				break;
 			}
 		}
 	}
 
-	claw.Init();
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
 
@@ -164,8 +175,11 @@ void StageScene::Update(Time& dt)
 		}
 	}
 
-	claw.Update(dt.asSeconds());
-	claw.ActivateClaw();
+	for (int i = 0; i < claws.size(); i++)
+	{
+		claws[i]->Update(dt.asSeconds());
+	}
+
 	boneParticle.Update(dt.asSeconds());
 	
 	demon.Update(dt.asSeconds());
@@ -203,8 +217,6 @@ void StageScene::Render()
 		flame->Draw(window);
 	}
 
-	claw.Draw(window);
-
 	for (auto& box : boxes)
 	{
 		box->Draw(window);
@@ -213,6 +225,11 @@ void StageScene::Render()
 	for (auto& skull : skulls)
 	{
 		skull->Draw(window);
+	}
+
+	for (auto& claw : claws)
+	{
+		claw->Draw(window);
 	}
 
 	player.Draw(window);

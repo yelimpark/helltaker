@@ -1,9 +1,11 @@
 #include "Claw.h"
+#include "./MapCode.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/Utils.h"
 
-void Claw::Init()
+void Claw::Init(Vector2f pos, int tileSize)
 {
+	position = pos;
 	sprite.setTexture(TextureHolder::GetTexture("Sprite/assets100V20116.png"));
 	sprite.setPosition(position);
 
@@ -11,7 +13,7 @@ void Claw::Init()
 	animation.AddClip("ActivateClaw"); //20-23
 	animation.AddClip("DectivateClaw"); //16-20
 
-	sprite.setPosition(980, 600);
+	animation.Play("ActivateClaw");
 }
 
 void Claw::Update(float dt)
@@ -22,7 +24,7 @@ void Claw::Update(float dt)
 
 void Claw::ActivateClaw()
 {
-	animation.Play("ActivateClaw");
+
 }
 
 void Claw::DeactivateClaw()
@@ -37,4 +39,9 @@ void Claw::Draw(RenderWindow& window)
 bool Claw::IsActive()
 {
 	return isActive;
+}
+
+bool Claw::IsPlayerInClaw(char**& map, int tileSize)
+{
+	return false;
 }

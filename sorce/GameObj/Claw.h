@@ -8,6 +8,7 @@ class Claw
 {
 private:
 	Sprite sprite;
+	Sprite spriteStop;
 	Vector2f position;
 
 	AnimationController animation;
@@ -15,12 +16,13 @@ private:
 	bool isActive;
 
 public:
-	void Init();
+	void Init(Vector2f pos, int tileSize);
 	void Update(float dt);
 	void ActivateClaw();
 	void DeactivateClaw();
 	void Draw(RenderWindow& window);
 
 	bool IsActive();
+	bool IsPlayerInClaw(char**& map, int tileSize);
 };
 
