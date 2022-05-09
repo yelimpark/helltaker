@@ -76,6 +76,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 		}
 	}
 
+	claw.Init();
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
 
@@ -163,6 +164,8 @@ void StageScene::Update(Time& dt)
 		}
 	}
 
+	claw.Update(dt.asSeconds());
+	claw.ActivateClaw();
 	boneParticle.Update(dt.asSeconds());
 	
 	demon.Update(dt.asSeconds());
@@ -199,6 +202,8 @@ void StageScene::Render()
 	for (auto flame : flames) {
 		flame->Draw(window);
 	}
+
+	claw.Draw(window);
 
 	for (auto& box : boxes)
 	{

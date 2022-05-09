@@ -143,6 +143,9 @@
     <ClCompile Include="sorce\GameObj\Success.cpp">
       <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\Claw.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -270,6 +273,9 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\Skull.h">
       <Filter>소스 파일\GameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Claw.h">
+      <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

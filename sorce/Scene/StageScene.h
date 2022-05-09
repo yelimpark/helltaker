@@ -9,6 +9,7 @@
 #include "../GameObj/CutSceneTransition.h"
 #include "../GameObj/GameOver.h"
 #include "../GameObj/SoundEffect.h"
+#include "../GameObj/Claw.h"
 #include <vector>
 
 class Flame;
@@ -38,6 +39,7 @@ private:
 	Sprite sideRight;
 	Player player;
 	Demon demon;
+	Claw claw;
 
 	BoneParticle boneParticle;
 	stageSceneTrasition stageTransition;
