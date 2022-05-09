@@ -11,3 +11,7 @@ Texture& TextureHolder::GetTexture(string filename)
 
 	return map[filename];
 }
+
+void TextureHolder::Release(string filename)
+{
+}

@@ -181,7 +181,6 @@ void StageScene::Update(Time& dt)
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
 			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
-			sceneManager.Start();
 		}
 	}
 }

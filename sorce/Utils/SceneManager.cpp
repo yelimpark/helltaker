@@ -8,11 +8,11 @@
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = (SceneType)2;
+	currScene = (SceneType)0;
 	
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
-	scenes[(int)SceneType::STAGE] = new StageScene(*this);
 	scenes[(int)SceneType::TITLESCRIPT] = new TitleScriptScene(*this);
+	scenes[(int)SceneType::STAGE] = new StageScene(*this);
 	scenes[(int)SceneType::ENDINGCUTSCENE] = new LevelEndingScene(*this);
 	//scenes[(int)SceneType::ENDINGCUTSCENE] = new EndingCutScene(*this);
 
@@ -44,7 +44,9 @@ void SceneManager::Render()
 
 void SceneManager::ChangeScene(SceneType newScene)
 {
+	scenes[(int)currScene]->Release();
 	currScene = newScene;
+	scenes[(int)currScene]->Init();
 }
 
 SceneManager::~SceneManager()

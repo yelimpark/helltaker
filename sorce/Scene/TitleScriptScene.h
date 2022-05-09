@@ -1,15 +1,15 @@
 #pragma once
 #include "./Scene.h"
 #include "../Resource/AnimationController.h"
-#include "../GameObj/SoundEffect.h"
 
-#define MAX_NUMBER_OF_SCRIPT 9
+#define MAX_NUMBER_OF_SCRIPT 5
 
 class TitleScriptScene : public Scene
 {
 private:
 	Text textintro;
-	
+	Texture* img;
+	Texture* bgChange;
 
 	Vector2f position;
 
@@ -18,13 +18,13 @@ private:
 	Sprite beelFire;
 
 	std::string script[MAX_NUMBER_OF_SCRIPT];
-	Sprite* img;
+	
 	Sprite imgMenu;
+	Sprite bgchange_s;
+	Sprite imgScript;
 
 	int textselectIndex;
 	int enterCounter;
-
-	SoundEffect soundEffects;
 
 public:
 	TitleScriptScene(SceneManager& sceneManager);
