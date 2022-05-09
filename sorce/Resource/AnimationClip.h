@@ -11,10 +11,10 @@ enum class AmimationLoopTypes {
 };
 
 struct AnimationFrame {
-	Texture texture;
+	Texture * texture;
 	IntRect texCoord;
 
-	AnimationFrame(const Texture& tex, const IntRect& coord);
+	AnimationFrame(Texture& tex, const IntRect& coord);
 
 	AnimationFrame(std::vector<std::string>& row);
 };

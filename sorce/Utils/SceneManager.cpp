@@ -3,7 +3,7 @@
 #include "../Scene/StageScene.h"
 #include "../Scene/TitleScriptScene.h"
 #include "../Scene/LevelEndingScene.h"
-
+#include "../Resource/TextureHolder.h"
 
 void SceneManager::Init()
 {
@@ -52,4 +52,5 @@ void SceneManager::ChangeScene(SceneType newScene)
 SceneManager::~SceneManager()
 {
 	Release();
+	TextureHolder::Release();
 }
