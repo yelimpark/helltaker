@@ -178,7 +178,9 @@ void StageScene::Update(Time& dt)
 	for (int i = 0; i < claws.size(); i++)
 	{
 		claws[i]->Update(dt.asSeconds());
+		claws[i]->IsPlayerInClaw(map, TILE_SIZE);
 	}
+
 
 	boneParticle.Update(dt.asSeconds());
 	

@@ -18,7 +18,7 @@ private:
 public:
 	void Init(Vector2f pos, int tileSize);
 	void Update(float dt);
-	void ActivateClaw();
+	void ActivateClaw(bool isActive);
 	void DeactivateClaw();
 	void Draw(RenderWindow& window);
 
