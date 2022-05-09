@@ -13,6 +13,8 @@ private:
 	
 	float heartYPos;
 	AnimationController animation;
+	
+	bool isheartmoving = false;
 public:
 	void Init(Vector2f pos);
 

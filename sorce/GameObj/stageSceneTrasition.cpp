@@ -22,6 +22,7 @@ void stageSceneTrasition::Init(Vector2i res)
 
 	bg.setSize(Vector2f((int)resolution.x, (int)resolution.y));
 	bg.setFillColor(Color::Transparent);
+	
 }
 
 void stageSceneTrasition::Update(float dt)

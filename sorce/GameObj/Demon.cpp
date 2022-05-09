@@ -12,7 +12,7 @@ void Demon::Init(Vector2f pos)
 	animation.AddClip("Pandemonica");
 	animation.Play("Pandemonica");
 
-	heartYPos = 50.f;
+	heartYPos = 60.f;
 	heart.setTexture(TextureHolder::GetTexture("Sprite/lovesign.png"));
 }
 
@@ -24,16 +24,23 @@ void Demon::Update(float dt)
 	heart.setPosition(position.x - 55.f, position.y - heartYPos);
 
 	static float dir = 1.f;
+
 	if (heartYPos > 60)
 	{
 		dir = -1.f;
 	}
 
-	if (heartYPos <= 50)
+	else if (heartYPos < 50)
 	{
 		dir = 1.f;
 	}
-	heartYPos += dir * dt * 50;
+
+	if (isheartmoving||heartYPos<=55)
+	{
+		heartYPos += dir * dt * 50;
+	}
+
+	isheartmoving = true;
 }
 
 bool Demon::IsClear(char**& map, int tileSize)
