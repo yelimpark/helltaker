@@ -28,14 +28,15 @@ bool stageSceneTrasition::OnClear(float dt)
 	if (height >= HEIGHT_MAX)
 	{
 		height = HEIGHT_MAX;
-		fadeOut.setFillColor(Color::Black);
+		fadeOut.setFillColor(Color(2, 2, 27));
 		return true;
 	}
 
-	fadeOut.setFillColor(Color{ 0, 0, 0, (Uint8)opacity });
-	
+	fadeOut.setFillColor(Color{ 2, 2, 27, (Uint8)opacity });
+
+	//Utils::SetOrigin(sprite, Pivots::Center);
 	sprite.setTextureRect({ 0, (int)((HEIGHT_MAX - height) * 0.5f), resolution.x, (int)height});
-	Utils::SetOrigin(sprite, Pivots::Center);
+
 
 	opacity += OPACITY_MAX * dt;
 	height += HEIGHT_MAX * dt;

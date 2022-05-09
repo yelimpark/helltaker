@@ -17,7 +17,11 @@ void TitleScene::Init()
 	Texture& tex = TextureHolder::GetTexture("Sprite/dialogueBG_abyss_s.png");
 	tex.setRepeated(true);
 	cloudBackground.setTexture(tex);
-	cloudBackground.setPosition(resolution.x * 0.0001f, resolution.y / 9);
+
+	FloatRect transRect = cloudBackground.getLocalBounds();
+	cloudBackground.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	cloudBackground.setPosition(resolution.x * 0.5f, resolution.y * 0.4f);
+	
 	bg.setTexture(TextureHolder::GetTexture("Sprite/background.png"));
 	
 	//first message 
@@ -51,7 +55,11 @@ void TitleScene::Init()
 	
 	
 	
-	beel.setPosition(resolution.x * 0.18f, resolution.y / 9); 
+	beel.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
+	beel.setPosition(resolution.x / 1.5, resolution.y * 0.4f);
+
+	//mainView.setCenter(resolution.x * 0.5f, resolution.y * 0.5f);
+	boo.Init(Vector2f(resolution.x , resolution.y ));
 }
 
 void TitleScene::Update(Time& dt)
@@ -61,13 +69,13 @@ void TitleScene::Update(Time& dt)
 	bound.left += 1;
 	cloudBackground.setTextureRect(bound);
 
-
+	
 	if (InputManager::GetKeyDown(Keyboard::Enter) || InputManager::GetKeyDown(Keyboard::A))
 	{
 		enterCount++;
-		soundEffects.dialogueTextEnd();
 	}
 
+	//enterCount 1->textFix showup
 	if (enterCount == 1)
 	{
 		textOpen1[0].setString("");
@@ -87,6 +95,8 @@ void TitleScene::Update(Time& dt)
 		
 		beel.setTexture(TextureHolder::GetTexture("Sprite/beel_fly.png"));
 	}
+
+	//enterCount 2 ->menu showup
 	else if (enterCount >= 2)
 	{
 		textOpen2[0].setString("");
@@ -110,13 +120,12 @@ void TitleScene::Update(Time& dt)
 		}
 		if (InputManager::GetKeyDown(Keyboard::Up))
 		{
+
 			MoveUp();
-			soundEffects.menuHighlight();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Down))
 		{
 			MoveDown();
-			soundEffects.menuHighlight();
 		}
 
 		if (enterCount > 2 && InputManager::GetKeyDown(Keyboard::Enter))
@@ -124,7 +133,6 @@ void TitleScene::Update(Time& dt)
 			switch (GetPressedMenu())
 			{
 			case 0:
-				soundEffects.menuConfirm();
 				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
 				// NEW GAME -> stage (intro script)
 				break;
@@ -138,7 +146,7 @@ void TitleScene::Update(Time& dt)
 
 		}
 	}
-	
+	boo.Update(dt.asSeconds());
 }
 
 void TitleScene::Render()
@@ -146,7 +154,7 @@ void TitleScene::Render()
 	window.setView(mainView);
 	window.draw(bg);
 	window.draw(cloudBackground);
-
+	
 	
 	window.draw(beel);
 	for (int i = 0; i < 2; i++)
@@ -162,6 +170,7 @@ void TitleScene::Render()
 		window.draw(menu[i]);
 		window.draw(img[i]);
 	}
+	
 }
 
 void TitleScene::MoveUp()
