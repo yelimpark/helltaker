@@ -235,10 +235,11 @@ void StageScene::Update(Time& dt)
 
 	
 	isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
-	if (isEarnedBox&&isEarnedKey)
+	if (isEarnedBox)
 	{
 		lockedBox.Clear();
 	}
+	lockedBox.Update(dt.asSeconds());
 }
 
 void StageScene::Render()

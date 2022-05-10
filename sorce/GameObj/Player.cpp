@@ -121,17 +121,16 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			return useTurn;
 
 		case (char)MapCode::LOCKEDBOX:
-			if (!isEarnedKey)
+			if (isEarnedKey)
+			{
+				std::cout << "제발요" << std::endl; //큰일났다!!!!!! dho zl dkfofhaks
+			}
+			else
 			{
 				Kick(true);
 				dir = Direction::None;
 				useTurn = true;
 				return useTurn;
-			}
-			else
-			{
-				std::cout << "제발요" << std::endl; //큰일났다!!!!!! 대각선으로 흘러감
-				return isEarnedKey;
 			}
 
 
