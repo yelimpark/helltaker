@@ -42,3 +42,5 @@ bool LockedBox::IsCapturedPlayer(char**& map, int tileSize)
 	}
 	return false;
 }
+
+

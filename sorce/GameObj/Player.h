@@ -10,6 +10,7 @@ using namespace sf;
 
 class Box;
 class Skull;
+class Key;
 
 class Player {
 private:
@@ -43,7 +44,7 @@ public:
 
 	void Update(float dt);
 
-	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls);
+	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls, bool isEarnedKey);
 
 	void Draw(RenderWindow& window);
 

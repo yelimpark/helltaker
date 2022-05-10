@@ -182,7 +182,7 @@ void StageScene::Update(Time& dt)
 
 	player.Update(dt.asSeconds());
 	if (!isClear && !ui.IsGameOver()) {
-		if (player.HanddleInput(map, boxes, skulls))
+		if (player.HanddleInput(map, boxes, skulls, isEarnedKey))
 			ui.UseTurn();
 	}
 
@@ -233,6 +233,7 @@ void StageScene::Update(Time& dt)
 	}
 	key.Update(dt.asSeconds());
 
+	
 	isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
 	if (isEarnedBox&&isEarnedKey)
 	{

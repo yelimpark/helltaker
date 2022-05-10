@@ -4,6 +4,7 @@
 #include "./Box.h"
 #include "./MapCode.h"
 #include "./Skull.h"
+#include "./Key.h"
 
 #include <iostream>
 
@@ -53,7 +54,7 @@ void Player::Kick(bool isItMove)
 	soundEffects.kickBox();
 }
 
-bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, bool isEarnedKey)
 {
 	bool useTurn = false;
 
@@ -120,11 +121,21 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			return useTurn;
 
 		case (char)MapCode::LOCKEDBOX:
-			Kick(true);
-			dir = Direction::None;
-			useTurn = true;
-			return useTurn;
-	
+			if (!isEarnedKey)
+			{
+				Kick(true);
+				dir = Direction::None;
+				useTurn = true;
+				return useTurn;
+			}
+			else
+			{
+				std::cout << "제발요" << std::endl; //큰일났다!!!!!! 대각선으로 흘러감
+				return isEarnedKey;
+			}
+
+
+			
 
 		default:
 			break;
