@@ -1,14 +1,10 @@
 #include "GetVfx.h"
 #include "../Utils/Utils.h"
 
-void GetVfx::Init(Vector2f playerPos)
+void GetVfx::Init(Vector2f keyPos)
 {
-	sprite.setPosition(playerPos);
+	sprite.setPosition(keyPos);
 	animation.SetTarget(&sprite);
-}
-
-void GetVfx::GetItem()
-{
 	animation.AddClip("huge_vfx");
 	animation.Play("huge_vfx");
 }
@@ -21,5 +17,6 @@ void GetVfx::Update(float dt)
 
 void GetVfx::Draw(RenderWindow& window)
 {
+	if (animation.IsAnimationEnd()) return;
 	window.draw(sprite);
 }

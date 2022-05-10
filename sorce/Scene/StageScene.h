@@ -11,7 +11,6 @@
 #include "../GameObj/SoundEffect.h"
 #include "../GameObj/Claw.h"
 #include "../GameObj/Key.h"
-#include "../GameObj/GetVfx.h"
 #include <vector>
 
 class Flame;
@@ -43,9 +42,9 @@ private:
 	Player player;
 	Demon demon;
 	Key key;
+	GetVfx getVfx;
 
 	BoneParticle boneParticle;
-	GetVfx getVfx;
 	stageSceneTrasition stageTransition;
 	CutSceneTransition cutTransition;
 
@@ -54,6 +53,7 @@ private:
 
 	bool isClear;
 	bool isEarnedKey;
+	bool isClearTarget;
 
 	void InitMap(std::string filepath, std::string level);
 

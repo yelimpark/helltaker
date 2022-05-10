@@ -13,8 +13,7 @@ private:
 	AnimationController animation;
 
 public:
-	void Init(Vector2f playerPos);
-	void GetItem();
+	void Init(Vector2f keyPos);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
 };
