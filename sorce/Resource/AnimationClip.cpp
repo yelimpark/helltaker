@@ -2,15 +2,15 @@
 #include "../Resource/TextureHolder.h"
 #include <iostream>
 
-AnimationFrame::AnimationFrame(const Texture& tex, const IntRect& coord)
+AnimationFrame::AnimationFrame(Texture& tex, const IntRect& coord)
 {
-	texture = tex;
+	texture = &tex;
 	texCoord = coord;
 }
 
 AnimationFrame::AnimationFrame(std::vector<std::string>& row)
 {
-	texture = TextureHolder::GetTexture(row[0]);
+	texture = &TextureHolder::GetTexture(row[0]);
 	texCoord = IntRect(stoi(row[1]), stoi(row[2]), stoi(row[3]), stoi(row[4]));
 }
 

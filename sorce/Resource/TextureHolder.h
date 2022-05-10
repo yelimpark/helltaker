@@ -14,5 +14,5 @@ private:
 public:
 	static Texture& GetTexture(string filename);
 
-	void Release(string filename);
+	static void Release();
 };
