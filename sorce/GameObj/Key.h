@@ -9,6 +9,7 @@ class Key
 {
 private:
 	Sprite sprite;
+	Sprite vfxSprite;
 	Vector2f position;
 
 	GetVfx getVfx;
