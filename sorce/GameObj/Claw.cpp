@@ -109,14 +109,12 @@ bool Claw::IsInActiveClaw(char**& map, int tileSize, std::vector<Skull*>& skulls
 		return true;
 	}
 
-	if (map[idxY][idxX] == (char)MapCode::SKULL)
-	{
-		for(auto& skull : skulls)
-			if (isActive)
-			{
-				return true;
-			}
-	}
+	for(auto& skull : skulls)
+		if (map[idxY][idxX] == (char)MapCode::SKULL)
+		{
+			return skull->IsDead();
+
+		}
 
 	return false;
 }
