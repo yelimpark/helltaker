@@ -177,8 +177,8 @@ void StageScene::Update(Time& dt)
 
 	for (int i = 0; i < claws.size(); i++)
 	{
-		claws[i]->Update(dt.asSeconds());
-		claws[i]->IsPlayerInClaw(map, TILE_SIZE);
+		claws[i]->Update(dt.asSeconds()*5);
+		claws[i]->IsInClaw(map, TILE_SIZE, skulls);
 	}
 
 

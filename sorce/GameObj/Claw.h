@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include "Skull.h"
 
 using namespace sf;
 
@@ -23,6 +24,6 @@ public:
 	void Draw(RenderWindow& window);
 
 	bool IsActive();
-	bool IsPlayerInClaw(char**& map, int tileSize);
+	bool IsInClaw(char**& map, int tileSize, std::vector<Skull*>& skulls);
 };
 
