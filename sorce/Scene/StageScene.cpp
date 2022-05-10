@@ -32,7 +32,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Vector2f playerPos;
 	Vector2f DemonPos;
 
-	rapidcsv::Document csvData(filepath);
+	rapidcsv::Document csvData(filepath, rapidcsv::LabelParams(-1, -1));
 
 	int row = resolution.y / TILE_SIZE;
 	int col = resolution.x / TILE_SIZE;
@@ -41,7 +41,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	for (int i = 0; i < row; ++i) {
 		map[i] = new char[col];
 		for (int j = 0; j < col; ++j) {
-			map[i][j] = csvData.GetCell<char>(j + 1, i + 1);
+			map[i][j] = csvData.GetCell<char>(j, i);
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
