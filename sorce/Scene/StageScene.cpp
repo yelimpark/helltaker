@@ -99,6 +99,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
 	key.Init(KeyPos, TILE_SIZE);
+	getVfx.Init(KeyPos);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
@@ -156,6 +157,7 @@ void StageScene::Init()
 	gameOver.Init(resolution);
 
 	isClear = false;
+	isEarnedKey = false;
 }
 
 void StageScene::Update(Time& dt)
@@ -195,7 +197,7 @@ void StageScene::Update(Time& dt)
 	}
 
 	boneParticle.Update(dt.asSeconds());
-	
+
 	demon.Update(dt.asSeconds());
 	isClear = demon.IsClear(map, TILE_SIZE);
 
@@ -217,10 +219,13 @@ void StageScene::Update(Time& dt)
 
 	key.Update(dt.asSeconds());
 	isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
+
 	if (isEarnedKey)
 	{
+		getVfx.GetItem();
 		key.Clear();
 	}
+	getVfx.Update(dt.asSeconds());
 }
 
 void StageScene::Render()
@@ -257,6 +262,7 @@ void StageScene::Render()
 	player.Draw(window);
 	demon.Draw(window);
 	boneParticle.Draw(window);
+	getVfx.Draw(window);
 
 	stageTransition.Draw(window);
 	ui.Draw(window);

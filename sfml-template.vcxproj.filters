@@ -152,6 +152,9 @@
     <ClCompile Include="sorce\GameObj\LockedBox.cpp">
       <Filter>소스 파일\GameObj\etc</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\GetVfx.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -288,6 +291,9 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\LockedBox.h">
       <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\GetVfx.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

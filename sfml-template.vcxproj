@@ -29,6 +29,7 @@
     <ClCompile Include="sorce\GameObj\Demon.cpp" />
     <ClCompile Include="sorce\GameObj\Flame.cpp" />
     <ClCompile Include="sorce\GameObj\GameOver.cpp" />
+    <ClCompile Include="sorce\GameObj\GetVfx.cpp" />
     <ClCompile Include="sorce\GameObj\Key.cpp" />
     <ClCompile Include="sorce\GameObj\KickVfx.cpp" />
     <ClCompile Include="sorce\GameObj\LockedBox.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="sorce\GameObj\Direction.h" />
     <ClInclude Include="sorce\GameObj\Flame.h" />
     <ClInclude Include="sorce\GameObj\GameOver.h" />
+    <ClInclude Include="sorce\GameObj\GetVfx.h" />
     <ClInclude Include="sorce\GameObj\Key.h" />
     <ClInclude Include="sorce\GameObj\KickVfx.h" />
     <ClInclude Include="sorce\GameObj\LockedBox.h" />

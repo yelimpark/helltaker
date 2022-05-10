@@ -11,6 +11,7 @@
 #include "../GameObj/SoundEffect.h"
 #include "../GameObj/Claw.h"
 #include "../GameObj/Key.h"
+#include "../GameObj/GetVfx.h"
 #include <vector>
 
 class Flame;
@@ -44,6 +45,7 @@ private:
 	Key key;
 
 	BoneParticle boneParticle;
+	GetVfx getVfx;
 	stageSceneTrasition stageTransition;
 	CutSceneTransition cutTransition;
 
