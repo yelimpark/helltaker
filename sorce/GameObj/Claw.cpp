@@ -99,7 +99,21 @@ bool Claw::IsActive()
 	return isActive;
 }
 
-bool Claw::IsInActiveClaw(char**& map, int tileSize, std::vector<Skull*>& skulls)
+bool Claw::IsSkullIn(char**& map, int tileSize, std::vector<Skull*>& skulls)
+{
+	int idxY = (int)position.y / tileSize;
+	int idxX = (int)position.x / tileSize;
+
+	for (auto& skull : skulls)
+		if (map[idxY][idxX] == (char)MapCode::SKULL)
+		{
+			std::cout << "ÇØ°ñ´â¾Æ¿ä" << std::endl;
+			return true;
+		}
+	return false;
+}
+
+bool Claw::IsPlayerIn(char**& map, int tileSize)
 {
 	int idxY = (int)position.y / tileSize;
 	int idxX = (int)position.x / tileSize;
@@ -108,13 +122,6 @@ bool Claw::IsInActiveClaw(char**& map, int tileSize, std::vector<Skull*>& skulls
 	{
 		return true;
 	}
-
-	for(auto& skull : skulls)
-		if (map[idxY][idxX] == (char)MapCode::SKULL)
-		{
-			return skull->IsDead();
-
-		}
 
 	return false;
 }

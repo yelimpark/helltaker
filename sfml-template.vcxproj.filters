@@ -155,6 +155,9 @@
     <ClCompile Include="sorce\GameObj\GetVfx.cpp">
       <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\BloodVfx.cpp">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -293,6 +296,9 @@
       <Filter>소스 파일\GameObj\etc</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\GetVfx.h">
+      <Filter>소스 파일\GameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\BloodVfx.h">
       <Filter>소스 파일\GameObj\Vfx</Filter>
     </ClInclude>
   </ItemGroup>

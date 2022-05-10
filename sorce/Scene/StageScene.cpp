@@ -198,14 +198,19 @@ void StageScene::Update(Time& dt)
 	for (int i = 0; i < claws.size(); i++)
 	{
 		claws[i]->Update(dt.asSeconds()*5);
-		if (claws[i]->IsActive())
+		claws[i]->IsActive();
+		if (claws[i]->IsPlayerIn(map, TILE_SIZE))
 		{
-			claws[i]->IsInActiveClaw(map, TILE_SIZE, skulls);
-			//skull이 파괴되게...
+			bloodVfx.Init(player.GetPos()); //자꾸 첫번째 거 나오고 멈춤
 		}
+		//boneParticle.Init(skulls[i]->GetPos());
+		//delete skulls[i];
+		//skulls.erase(skulls.begin() + i);
+		//안에 있는  skull 찾으려면 식을 어케 써야하지
 	}
 
 	boneParticle.Update(dt.asSeconds());
+	bloodVfx.Update(dt.asSeconds());
 
 	demon.Update(dt.asSeconds());
 	isClear = demon.IsClear(map, TILE_SIZE);
@@ -277,6 +282,7 @@ void StageScene::Render()
 	player.Draw(window);
 	demon.Draw(window);
 	boneParticle.Draw(window);
+	bloodVfx.Draw(window);
 
 	stageTransition.Draw(window);
 	ui.Draw(window);

@@ -2,6 +2,7 @@
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
 #include "./MapCode.h"
+#include "./Claw.h"
 
 
 void Skull::Init(Vector2f pos, int tileSize, float moveSecond)
@@ -104,7 +105,6 @@ void Skull::OnPushed(Direction dir, char**& map)
 		map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
 		return;
 	case (char)MapCode::CLAW:
-
 	default:
 		break;
 	}

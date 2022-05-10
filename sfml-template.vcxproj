@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sorce\Framework\Framework.cpp" />
+    <ClCompile Include="sorce\GameObj\BloodVfx.cpp" />
     <ClCompile Include="sorce\GameObj\BoneParticle.cpp" />
     <ClCompile Include="sorce\GameObj\booper.cpp" />
     <ClCompile Include="sorce\GameObj\Box.cpp" />
@@ -60,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Framework\Framework.h" />
+    <ClInclude Include="sorce\GameObj\BloodVfx.h" />
     <ClInclude Include="sorce\GameObj\BoneParticle.h" />
     <ClInclude Include="sorce\GameObj\booper.h" />
     <ClInclude Include="sorce\GameObj\Box.h" />

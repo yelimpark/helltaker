@@ -12,6 +12,7 @@
 #include "../GameObj/Claw.h"
 #include "../GameObj/Key.h"
 #include "../GameObj/LockedBox.h"
+#include "../GameObj/BloodVfx.h"
 #include <vector>
 
 class Flame;
@@ -47,6 +48,8 @@ private:
 
 
 	BoneParticle boneParticle;
+	BloodVfx bloodVfx;
+
 	stageSceneTrasition stageTransition;
 	CutSceneTransition cutTransition;
 

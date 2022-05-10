@@ -45,7 +45,7 @@ void LockedBox::Draw(RenderWindow& window)
 
 void LockedBox::Clear()
 {
-	sprite.setPosition(2000, 1500);
+	sprite.setPosition(2200, 1800);
 }
 
 bool LockedBox::IsCapturedPlayer(char**& map, int tileSize)
