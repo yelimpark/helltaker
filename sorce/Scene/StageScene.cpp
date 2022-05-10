@@ -178,7 +178,7 @@ void StageScene::Update(Time& dt)
 	for (int i = 0; i < claws.size(); i++)
 	{
 		claws[i]->Update(dt.asSeconds()*5);
-		claws[i]->IsInClaw(map, TILE_SIZE, skulls);
+		claws[i]->IsInActiveClaw(map, TILE_SIZE, skulls);
 	}
 
 

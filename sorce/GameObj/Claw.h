@@ -24,6 +24,6 @@ public:
 	void Draw(RenderWindow& window);
 
 	bool IsActive();
-	bool IsInClaw(char**& map, int tileSize, std::vector<Skull*>& skulls);
+	bool IsInActiveClaw(char**& map, int tileSize, std::vector<Skull*>& skulls);
 };
 
