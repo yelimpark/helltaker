@@ -17,7 +17,7 @@
 #include <algorithm>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isClearTarget(false)
+	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false)
 {
 
 }
@@ -216,21 +216,11 @@ void StageScene::Update(Time& dt)
 	}
 
 	isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
-	if (player.GetPos() == key.GetKeyPos())
-	{
-		isClearTarget = true;
-		if (isClearTarget)
-		{
-			getVfx.Init(player.GetPos());
-			isClearTarget = false;
-		}
-	}
 	if (isEarnedKey)
 	{
 		key.Clear();
 	}
 	key.Update(dt.asSeconds());
-	getVfx.Update(dt.asSeconds());
 }
 
 void StageScene::Render()
@@ -267,7 +257,6 @@ void StageScene::Render()
 	player.Draw(window);
 	demon.Draw(window);
 	boneParticle.Draw(window);
-	getVfx.Draw(window);
 
 	stageTransition.Draw(window);
 	ui.Draw(window);

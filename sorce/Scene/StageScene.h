@@ -42,7 +42,7 @@ private:
 	Player player;
 	Demon demon;
 	Key key;
-	GetVfx getVfx;
+
 
 	BoneParticle boneParticle;
 	stageSceneTrasition stageTransition;
@@ -53,7 +53,6 @@ private:
 
 	bool isClear;
 	bool isEarnedKey;
-	bool isClearTarget;
 
 	void InitMap(std::string filepath, std::string level);
 

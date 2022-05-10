@@ -39,7 +39,6 @@ void Key::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
 	if (isEarned) {
-		if (animation.IsAnimationEnd()) return;
 		window.draw(vfxSprite);
 	}
 }

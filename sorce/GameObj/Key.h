@@ -12,7 +12,6 @@ private:
 	Sprite vfxSprite;
 	Vector2f position;
 
-	GetVfx getVfx;
 	AnimationController vfxAnimation;
 
 	AnimationController animation;
