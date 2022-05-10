@@ -32,6 +32,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 
 	Vector2f playerPos;
 	Vector2f DemonPos;
+	Vector2f KeyPos;
 
 	rapidcsv::Document csvData(filepath);
 
@@ -82,6 +83,13 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				claws.push_back(claw);
 				break;
 			}
+
+			case (char)MapCode::KEY:
+			{
+				KeyPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				KeyPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+			}
 			default:
 				break;
 			}
@@ -90,6 +98,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
+	key.Init(KeyPos, TILE_SIZE);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
@@ -178,13 +187,12 @@ void StageScene::Update(Time& dt)
 	for (int i = 0; i < claws.size(); i++)
 	{
 		claws[i]->Update(dt.asSeconds()*5);
-		claws[i]->IsInActiveClaw(map, TILE_SIZE, skulls);
 		if (claws[i]->IsActive())
 		{
-			
+			claws[i]->IsInActiveClaw(map, TILE_SIZE, skulls);
+			//skullÀÌ ÆÄ±«µÇ°Ô...
 		}
 	}
-
 
 	boneParticle.Update(dt.asSeconds());
 	
@@ -206,6 +214,13 @@ void StageScene::Update(Time& dt)
 			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
 		}
 	}
+
+	key.Update(dt.asSeconds());
+	isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
+	if (isEarnedKey)
+	{
+		key.Clear();
+	}
 }
 
 void StageScene::Render()
@@ -214,6 +229,7 @@ void StageScene::Render()
 	window.draw(Background);
 	window.draw(sideLeft);
 	window.draw(sideRight);
+	key.Draw(window);
 
 	for (auto flamebase : flameBases) {
 		window.draw(*flamebase);

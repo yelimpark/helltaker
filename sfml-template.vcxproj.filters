@@ -146,6 +146,12 @@
     <ClCompile Include="sorce\GameObj\Claw.cpp">
       <Filter>소스 파일\GameObj\etc</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\Key.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\LockedBox.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -275,6 +281,12 @@
       <Filter>소스 파일\GameObj\Moveable</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\Claw.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Key.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\LockedBox.h">
       <Filter>소스 파일\GameObj\etc</Filter>
     </ClInclude>
   </ItemGroup>

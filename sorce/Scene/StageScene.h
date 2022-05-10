@@ -10,6 +10,7 @@
 #include "../GameObj/GameOver.h"
 #include "../GameObj/SoundEffect.h"
 #include "../GameObj/Claw.h"
+#include "../GameObj/Key.h"
 #include <vector>
 
 class Flame;
@@ -40,6 +41,7 @@ private:
 	Sprite sideRight;
 	Player player;
 	Demon demon;
+	Key key;
 
 	BoneParticle boneParticle;
 	stageSceneTrasition stageTransition;
@@ -49,6 +51,7 @@ private:
 	SoundEffect soundEffects;
 
 	bool isClear;
+	bool isEarnedKey;
 
 	void InitMap(std::string filepath, std::string level);
 
