@@ -17,7 +17,7 @@
 #include <algorithm>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false)
+	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isEarnedBox(false)
 {
 
 }
@@ -33,6 +33,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Vector2f playerPos;
 	Vector2f DemonPos;
 	Vector2f KeyPos;
+	Vector2f LockedBoxPos;
 
 	rapidcsv::Document csvData(filepath);
 
@@ -90,15 +91,25 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				KeyPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
 				break;
 			}
+
+			case (char)MapCode::LOCKEDBOX:
+			{
+				LockedBoxPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				LockedBoxPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+			}
+
 			default:
 				break;
 			}
+
 		}
 	}
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
 	key.Init(KeyPos, TILE_SIZE);
+	lockedBox.Init(LockedBoxPos);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
@@ -221,6 +232,12 @@ void StageScene::Update(Time& dt)
 		key.Clear();
 	}
 	key.Update(dt.asSeconds());
+
+	isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
+	if (isEarnedBox&&isEarnedKey)
+	{
+		lockedBox.Clear();
+	}
 }
 
 void StageScene::Render()
@@ -230,6 +247,7 @@ void StageScene::Render()
 	window.draw(sideLeft);
 	window.draw(sideRight);
 	key.Draw(window);
+	lockedBox.Draw(window);
 
 	for (auto flamebase : flameBases) {
 		window.draw(*flamebase);

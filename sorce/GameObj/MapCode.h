@@ -6,5 +6,6 @@ enum class MapCode {
 	DEMON = 'D',
 	SKULL = 'S',
 	CLAW = 'C',
-	KEY = 'K'
+	KEY = 'K',
+	LOCKEDBOX = 'L'
 };

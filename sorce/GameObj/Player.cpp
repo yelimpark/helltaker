@@ -94,7 +94,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		switch (map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize]) {
 		case (char)MapCode::WALL:
 			dir = Direction::None;
-			return useTurn;
+			return useTurn;	
 
 		case (char)MapCode::BOX:
 			for(auto& box : boxes) {
@@ -118,6 +118,13 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			dir = Direction::None;
 			useTurn = true;
 			return useTurn;
+
+		case (char)MapCode::LOCKEDBOX:
+			Kick(true);
+			dir = Direction::None;
+			useTurn = true;
+			return useTurn;
+	
 
 		default:
 			break;

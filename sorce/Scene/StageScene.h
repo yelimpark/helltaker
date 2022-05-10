@@ -11,6 +11,7 @@
 #include "../GameObj/SoundEffect.h"
 #include "../GameObj/Claw.h"
 #include "../GameObj/Key.h"
+#include "../GameObj/LockedBox.h"
 #include <vector>
 
 class Flame;
@@ -42,6 +43,7 @@ private:
 	Player player;
 	Demon demon;
 	Key key;
+	LockedBox lockedBox;
 
 
 	BoneParticle boneParticle;
@@ -53,6 +55,7 @@ private:
 
 	bool isClear;
 	bool isEarnedKey;
+	bool isEarnedBox;
 
 	void InitMap(std::string filepath, std::string level);
 

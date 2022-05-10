@@ -9,9 +9,14 @@ private:
 	Sprite sprite;
 	Vector2f position;
 
+	bool isEarned;
+
 public:
 	void Init(Vector2f pos);
 	void Update();
 	void Draw(RenderWindow& window);
+	void Clear();
+
+	bool IsCapturedPlayer(char**& map, int tileSize);
 };
 
