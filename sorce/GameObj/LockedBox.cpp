@@ -2,6 +2,7 @@
 #include "./MapCode.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/Utils.h"
+#include "../Utils/InputManager.h"
 
 void LockedBox::Init(Vector2f pos)
 {
@@ -14,6 +15,8 @@ void LockedBox::Init(Vector2f pos)
 	vfxAnimation.SetTarget(&vfxSprite);
 	vfxAnimation.AddClip("huge_vfx");
 	vfxAnimation.Play("huge_vfx");
+
+	velocity = Vector2f(0.f, 0.f);
 
 	isEarned = false;
 }
@@ -34,12 +37,27 @@ void LockedBox::Update(float dt)
 	}
 }
 
+void LockedBox::Shake(float dt)
+{
+	if (InputManager::GetKeyDown(Keyboard::Left) || InputManager::GetKeyDown(Keyboard::Right))
+	{
+		std::cout << "되는거냐" << std::endl;
+		sprite.setPosition(Vector2f(position.x + dt * 1200, position.y));
+	}
+	if (InputManager::GetKeyDown(Keyboard::Up) || InputManager::GetKeyDown(Keyboard::Down))
+	{
+		std::cout << "이놈아!!" << std::endl;
+		sprite.setPosition(Vector2f(position.x, position.y + dt * 1200));
+	}
+}
+
 void LockedBox::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
 	if (isEarned)
 	{
 		window.draw(vfxSprite);
+		
 	}
 }
 

@@ -11,6 +11,7 @@ private:
 	Sprite sprite;
 	Sprite vfxSprite;
 	Vector2f position;
+	Vector2f velocity;
 
 	AnimationController vfxAnimation;
 
@@ -19,6 +20,7 @@ private:
 public:
 	void Init(Vector2f pos);
 	void Update(float dt);
+	void Shake(float dt);
 	void Draw(RenderWindow& window);
 	void Clear();
 
