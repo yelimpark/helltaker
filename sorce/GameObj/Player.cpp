@@ -6,6 +6,8 @@
 #include "./Skull.h"
 #include "./Key.h"
 #include "./LockedBox.h"
+#include "../Utils/SceneManager.h"
+
 
 #include <iostream>
 
@@ -175,6 +177,7 @@ void Player::Draw(RenderWindow& window)
 Player::Player()
 	:moveSecond(0.f), tileSize(0), dir(Direction::None), moveTime(0.f)
 {
+	
 }
 
 bool Player::IsKicked()

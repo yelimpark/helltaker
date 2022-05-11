@@ -254,7 +254,12 @@ void StageScene::Update(Time& dt)
 		lockedBox.Clear();
 	}
 	lockedBox.Update(dt.asSeconds());
-
+	
+	if (InputManager::GetKeyDown(Keyboard::R))
+	{
+		cutTransition.Init();
+		Init();
+	}
 }
 
 void StageScene::Render()
