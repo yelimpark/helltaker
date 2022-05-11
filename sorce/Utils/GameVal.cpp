@@ -4,5 +4,5 @@ int GameVal::level;
 
 void GameVal::Init()
 {
-	level = 2;
+	level = 1;
 }

@@ -6,9 +6,9 @@
 #include "TitleScene.h"
 #include <vector>
 #include <list>
-#include <iostream>
 
-#define MAX_NUMBER_OF_SCRIPT 4
+#define MAX_NUMBER_OF_SCRIPT 4;
+
 class LevelEndingScene : public Scene
 {
 private:

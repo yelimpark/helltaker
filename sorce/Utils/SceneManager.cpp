@@ -4,17 +4,19 @@
 #include "../Scene/TitleScriptScene.h"
 #include "../Scene/LevelEndingScene.h"
 #include "../Resource/TextureHolder.h"
+#include "../Scene/LevelEndScene.h"
+#include "../Scene/BadEndingScene.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = (SceneType)0;
+	currScene = (SceneType)3;
 	
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
 	scenes[(int)SceneType::TITLESCRIPT] = new TitleScriptScene(*this);
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
-	scenes[(int)SceneType::ENDINGCUTSCENE] = new LevelEndingScene(*this);
-	//scenes[(int)SceneType::ENDINGCUTSCENE] = new EndingCutScene(*this);
+	scenes[(int)SceneType::LEVELENDING] = new LevelEndScene(*this);
+	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);
 
 	scenes[(int)currScene]->Init();
 }

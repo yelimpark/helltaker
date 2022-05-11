@@ -1,7 +1,7 @@
 #include "StageScene.h"
 #include <SFML/Graphics.hpp>
-#include "../Framework/Framework.h"
 
+#include "../Resource/TextureHolder.h"
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
@@ -16,7 +16,7 @@
 #include <algorithm>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false)
+	: Scene(sceneManager), isClear(false)
 {
 
 }
@@ -100,7 +100,7 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	stringstream ss;
-	ss << level;
+	ss << GameVal::level;
 	LevelData levelData = levelDatas[ss.str()];
 
 	InitMap(levelData.MapFilePath, ss.str());
@@ -180,7 +180,7 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
+			sceneManager.ChangeScene(SceneType::LEVELENDING);
 		}
 	}
 }

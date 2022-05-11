@@ -15,6 +15,7 @@ void Death::Init(Vector2f pos)
 
 void Death::Update(float dt)
 {
+	if (animation.IsAnimationEnd()) return;
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
 }

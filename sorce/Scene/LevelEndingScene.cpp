@@ -193,7 +193,7 @@ void LevelEndingScene::MoveUp()
 
 void LevelEndingScene::MoveDown()
 {
-	if (selectIndex + 1 < MAX_NUMBER_OF_SCRIPT)
+	if (selectIndex + 1 < 4)
 	{
 		menu[selectIndex].setFillColor(Color::White);
 		menu[selectIndex].setCharacterSize(30);
