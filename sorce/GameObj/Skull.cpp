@@ -104,7 +104,6 @@ void Skull::OnPushed(Direction dir, char**& map)
 		isDead = true;
 		map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
 		return;
-	case (char)MapCode::CLAW:
 	default:
 		break;
 	}

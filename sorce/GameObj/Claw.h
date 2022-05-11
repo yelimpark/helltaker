@@ -25,6 +25,6 @@ public:
 
 	bool IsActive();
 	bool IsPlayerIn(char**& map, int tileSize);
-	bool IsSkullIn(char**& map, int tileSize, std::vector<Skull*>& skulls);
+	bool IsSkullIn(char**& map, int tileSize, Skull* skull);
 };
 

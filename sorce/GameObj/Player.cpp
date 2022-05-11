@@ -133,9 +133,6 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 				return useTurn;
 			}
 
-
-			
-
 		default:
 			break;
 		}

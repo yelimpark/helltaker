@@ -22,6 +22,7 @@ private:
 	bool isDead;
 
 public:
+	bool IsMoving() { return dir != Direction::None; }
 	void Init(Vector2f pos, int tileSize, float moveSecond);
 	void Update(float dt);
 	void OnPushed(Direction dir, char**& map);

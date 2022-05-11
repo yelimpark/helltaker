@@ -2,12 +2,16 @@
 #include "../Utils/Utils.h"
 
 BloodVfx::BloodVfx()
+	:useable(true)
 {
 }
 
 void BloodVfx::Init(Vector2f playerPos)
-{
-	sprite.setPosition(playerPos);
+{	
+	if (!useable || position == playerPos) return;
+	useable = false;
+	position = playerPos;
+	sprite.setPosition(position);
 	animation.SetTarget(&sprite);
 	animation.AddClip("blood_vfx");
 	animation.Play("blood_vfx");
@@ -15,8 +19,15 @@ void BloodVfx::Init(Vector2f playerPos)
 
 void BloodVfx::Update(float dt)
 {
-	animation.Update(dt);
-	Utils::SetOrigin(sprite, Pivots::Center);
+	if (animation.IsAnimationEnd()) {
+		useable = true;
+		return;
+	}
+	else
+	{
+		animation.Update(dt);
+		Utils::SetOrigin(sprite, Pivots::Center);
+	}
 }
 
 void BloodVfx::Draw(RenderWindow& window)

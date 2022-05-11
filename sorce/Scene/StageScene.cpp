@@ -28,8 +28,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
 
-	soundEffects.backgroundMusic();
-
 	Vector2f playerPos;
 	Vector2f DemonPos;
 	Vector2f KeyPos;
@@ -192,6 +190,7 @@ void StageScene::Update(Time& dt)
 		skulls[i]->Update(dt.asSeconds());
 		if (skulls[i]->IsDead()) {
 			boneParticle.Init(skulls[i]->GetPos());
+			map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 			delete skulls[i];
 			skulls.erase(skulls.begin() + i);
 		}
@@ -201,14 +200,23 @@ void StageScene::Update(Time& dt)
 	{
 		claws[i]->Update(dt.asSeconds()*5);
 		claws[i]->IsActive();
-		if (claws[i]->IsPlayerIn(map, TILE_SIZE))
+		for (auto skull : skulls)
 		{
-			bloodVfx.Init(player.GetPos()); //자꾸 첫번째 거 나오고 멈춤
+			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
+			{
+				skulls[i]->IsDead();
+				boneParticle.Init(skulls[i]->GetPos());
+				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
+				delete skulls[i];
+				skulls.erase(skulls.begin() + i);
+				//안에 있는  skull 찾으려면 식을 어케 써야하지
+			}
 		}
-		//boneParticle.Init(skulls[i]->GetPos());
-		//delete skulls[i];
-		//skulls.erase(skulls.begin() + i);
-		//안에 있는  skull 찾으려면 식을 어케 써야하지
+
+		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
+		{
+			bloodVfx.Init(player.GetPos());
+		}
 	}
 
 	boneParticle.Update(dt.asSeconds());

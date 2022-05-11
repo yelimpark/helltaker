@@ -8,7 +8,9 @@ class BloodVfx
 {
 private:
 	Sprite sprite;
+	Vector2f position;
 	AnimationController animation;
+	bool useable;
 
 public:
 	BloodVfx();
