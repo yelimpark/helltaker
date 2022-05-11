@@ -13,10 +13,10 @@ private:
 	Vector2f position;
 
 	AnimationController vfxAnimation;
-
 	AnimationController animation;
 
 	bool isEarned;
+	bool isActive;
 
 public:
 	void Init(Vector2f pos, int tileSize);

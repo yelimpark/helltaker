@@ -56,9 +56,9 @@ bool LockedBox::IsCapturedPlayer(char**& map, int tileSize)
 	if (map[idxY][idxX] == (char)MapCode::PLAYER)
 	{
 		isEarned = true;
-		return true;
+		return isEarned;
 	}
-	return false;
+	return isEarned;
 }
 
 

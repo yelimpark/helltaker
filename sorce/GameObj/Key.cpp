@@ -16,29 +16,34 @@ void Key::Init(Vector2f pos, int tileSize)
 	vfxAnimation.SetTarget(&vfxSprite);
 	vfxAnimation.AddClip("huge_vfx");
 	vfxAnimation.Play("huge_vfx");
+
 	isEarned = false;
+	isActive = true;
 }
 
 void Key::Update(float dt)
 {
 	animation.Update(dt);
-	if (isEarned) {
-		if (vfxAnimation.IsAnimationEnd()) {
-			isEarned = false;
-		}
-		else {
-			vfxAnimation.Update(dt);
-			Utils::SetOrigin(vfxSprite, Pivots::Center);
+	Utils::SetOrigin(sprite, Pivots::Center);
+	if (isActive)	{
+		if (isEarned) {
+			if (vfxAnimation.IsAnimationEnd()) {
+				isActive = false;
+			}
+			else {
+				vfxAnimation.Update(dt);
+				Utils::SetOrigin(vfxSprite, Pivots::Center);
+			}
 		}
 	}
 
-	Utils::SetOrigin(sprite, Pivots::Center);
 }
 
 void Key::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
 	if (isEarned) {
+		if (!isActive) return;
 		window.draw(vfxSprite);
 	}
 }
@@ -53,12 +58,11 @@ bool Key::IsCapturedPlayer(char**& map, int tileSize)
 	int idxY = (int)position.y / tileSize;
 	int idxX = (int)position.x / tileSize;
 
-	if (map[idxY][idxX] == (char)MapCode::PLAYER)
+	if (map[idxY][idxX] == (char)MapCode::PLAYER && isActive)
 	{
 		isEarned = true;
-		return true;
 	}
-	return false;
+	return isEarned;
 }
 
 Vector2f Key::GetKeyPos()

@@ -167,6 +167,8 @@ void StageScene::Init()
 	gameOver.Init(resolution);
 
 	isClear = false;
+	isEarnedKey = false;
+	isEarnedBox = false;
 }
 
 void StageScene::Update(Time& dt)
