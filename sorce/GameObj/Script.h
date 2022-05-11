@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
 #include "../SceneInitializer/LevelEndingSceneInitializer.h"
+#include <vector>
 
 using namespace sf;
 
@@ -16,7 +17,7 @@ class Script {
 protected:
 	Sprite character;
 	Text name;
-	Text line;
+	std::vector<Text*> texts;
 
 public:
 	Script();
@@ -24,4 +25,8 @@ public:
 	virtual UpdateOutput Update(float dt) = 0;
 
 	virtual void Draw(RenderWindow& window) = 0;
+
+	virtual void Release() = 0;
+
+	virtual ~Script();
 };

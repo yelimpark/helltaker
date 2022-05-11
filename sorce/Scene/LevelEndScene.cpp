@@ -1,9 +1,10 @@
 #include "LevelEndScene.h"
+#include "../SceneInitializer/LevelEndingSceneInitializer.h"
 #include "../Resource/TextureHolder.h"
+#include "../Utils/Utils.h"
+
 #include "../GameObj/ScriptWithAnimation.h"
 #include "../GameObj/ScriptWithChoice.h"
-#include "../SceneInitializer/LevelEndingSceneInitializer.h"
-#include "../Utils/Utils.h"
 
 #include <sstream>
 
@@ -30,6 +31,7 @@ void LevelEndScene::Init()
 	Utils::CsvToStructVectorMap<OptionData>(optionDatas, "./LevelInfo/choiceInfo.csv");
 	std::vector<OptionData> curLevelOptions = optionDatas[ss.str()];
 
+	int idx = 0;
 	for (auto& levelEndingData : curLevelEndings)
 	{
 		if (levelEndingData.type == 'A') {
@@ -39,8 +41,9 @@ void LevelEndScene::Init()
 		}
 		else {
 			ScriptWithChoice* script = new ScriptWithChoice();
-			script->Init(levelEndingData, resolution, curLevelOptions[0], curLevelOptions[1]);
+			script->Init(levelEndingData, resolution, curLevelOptions[idx], curLevelOptions[++idx]);
 			scripts.push_back(script);
+			++idx;
 		}
 	}
 }

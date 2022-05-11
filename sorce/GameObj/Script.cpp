@@ -3,3 +3,7 @@
 Script::Script()
 {
 }
+
+Script::~Script()
+{
+}
