@@ -218,13 +218,13 @@ void StageScene::Update(Time& dt)
 				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 				delete skulls[i];
 				skulls.erase(skulls.begin() + i);
-				//안에 있는  skull 찾으려면 식을 어케 써야하지
 			}
 		}
 
 		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
 		{
 			bloodVfx.Init(player.GetPos());
+			//ui.UseTurn();
 		}
 	}
 

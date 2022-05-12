@@ -107,10 +107,13 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 					soundEffects.moveBox();
 				}
 			}
-			
+			Kick(true);
 			dir = Direction::None;
 			useTurn = true;
 			return useTurn;
+
+
+
 
 		case (char)MapCode::SKULL:
 			for (auto& skull : skulls) {
