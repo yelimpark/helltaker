@@ -1,5 +1,6 @@
 #pragma once
 #include "./Scene.h"
+#include "../GameObj/CutSceneTransition.h"
 #include <vector>
 
 class Script;
@@ -12,6 +13,8 @@ private:
 	int idxMax;
 
 	RectangleShape bgColor;
+
+	CutSceneTransition transition;
 
 public:
 	CutScene(SceneManager& sceneManager);

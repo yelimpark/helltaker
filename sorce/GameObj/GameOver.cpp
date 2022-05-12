@@ -29,7 +29,7 @@ bool GameOver::OnGameOver(float dt, Vector2f playerPos)
 		return false;
 	}
 	sprite.setPosition(playerPos.x, playerPos.y - 300);
-	return animation.IsAnimationEnd();
+	return animation.OnFrame(16);
 }
 
 void GameOver::Draw(RenderWindow& window)

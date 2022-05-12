@@ -65,15 +65,14 @@ void CutScene::Update(Time& dt)
 	switch (state)
 	{
 	case UpdateOutput::SKIP:
-		idx++;
+		++idx;
 		if (idx == idxMax) {
-			++ GameVal::level;
-			sceneManager.InitScene(SceneType::STAGE);
-			sceneManager.ChangeScene(SceneType::STAGE);
+			++GameVal::level;
+			sceneManager.ChangeScene(SceneType::STAGE, true);
+			idx = idxMax - 1;
 		}
 		break;
 	case UpdateOutput::BADEND:
-		sceneManager.InitScene(SceneType::BADENDING);
 		sceneManager.ChangeScene(SceneType::BADENDING);
 		break;
 	default:

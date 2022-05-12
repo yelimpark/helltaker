@@ -26,7 +26,6 @@ void InitLoadingScene::Update(Time& dt)
 	AnimationHolder::GetAnimation("CutTransition");
 	AnimationHolder::GetAnimation("dialogueDeath");
 	AnimationHolder::GetAnimation("success_all");
-	sceneManager.InitScene(SceneType::TITLE);
 	sceneManager.ChangeScene(SceneType::TITLE);
 }
 

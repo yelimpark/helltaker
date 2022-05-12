@@ -1,6 +1,7 @@
 #include "BadEndingScene.h"
 #include "../Utils/Utils.h"
 #include "../Utils/rapidcsv.h"
+#include "../Utils/InputManager.h"
 #include "../Resource/FontHolder.h"
 
 #include <sstream>
@@ -50,6 +51,9 @@ void BadEndingScene::Update(Time& dt)
 {
 	animation.Update(dt.asSeconds());
 	Utils::SetOrigin(sprite, Pivots::Center);
+	if (InputManager::GetKeyDown(Keyboard::Enter)) {
+		sceneManager.ChangeScene(SceneType::STAGE, true);
+	}
 }
 
 void BadEndingScene::Render()

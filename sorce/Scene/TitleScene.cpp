@@ -130,7 +130,6 @@ void TitleScene::Update(Time& dt)
 			switch (GetPressedMenu())
 			{
 			case 0:
-				sceneManager.InitScene(SceneType::CUT);
 				sceneManager.ChangeScene(SceneType::CUT);
 				// NEW GAME -> stage (intro script)
 				break;

@@ -8,7 +8,6 @@ void CutSceneTransition::Init()
 	Utils::SetOrigin(sprite, Pivots::CenterBottom);
 	sprite.setPosition(Vector2f(1920 * 0.5f, 1080));
 	animation.Play("CutTransition");
-	isFull = false;
 }
 
 bool CutSceneTransition::Update(float dt)
@@ -25,7 +24,5 @@ void CutSceneTransition::Draw(RenderWindow& window)
 
 bool CutSceneTransition::IsFull()
 {
-	if (animation.OnFrame(20)) isFull = true;
-
-	return isFull;
+	return animation.OnFrame(20);
 }

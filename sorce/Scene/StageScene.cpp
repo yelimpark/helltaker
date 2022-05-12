@@ -129,8 +129,6 @@ void StageScene::Init()
 
 	ui.Init(levelData.lastTurn);
 	stageTransition.Init(resolution);
-	if (!cutTransition.IsFull())
-		cutTransition.Init();
 
 	gameOver.Init(resolution);
 
@@ -170,9 +168,7 @@ void StageScene::Update(Time& dt)
 
 	if (!isClear && ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-			cutTransition.Update(dt.asSeconds());
-			if (cutTransition.IsFull())
-				Init();
+			sceneManager.ChangeScene(SceneType::STAGE, true);
 		}
 		return;
 	}
@@ -180,7 +176,6 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.InitScene(SceneType::CUT);
 			sceneManager.ChangeScene(SceneType::CUT);
 		}
 	}
@@ -219,9 +214,7 @@ void StageScene::Render()
 	ui.Draw(window);
 
 	if (!isClear && ui.IsGameOver()) {
-		if (!cutTransition.IsFull())
-			gameOver.Draw(window);
-		cutTransition.Draw(window);
+		gameOver.Draw(window);
 	}
 }
 
