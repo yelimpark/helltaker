@@ -18,4 +18,6 @@ public:
 	virtual UpdateOutput Update(float dt);
 
 	virtual void Draw(RenderWindow& window);
+
+	virtual ~ScriptWithChoice();
 };

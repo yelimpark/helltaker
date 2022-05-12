@@ -9,7 +9,7 @@
 #include <sstream>
 
 LevelEndScene::LevelEndScene(SceneManager& sceneManager)
-	: Scene(sceneManager), idx(0)
+	: Scene(sceneManager), idx(0), idxMax(0)
 {
 }
 
@@ -26,12 +26,20 @@ void LevelEndScene::Init()
 	std::vector<LevelEndngData> curLevelEndings = levelEndingDatas[ss.str()];
 
 	background.setTexture(TextureHolder::GetTexture(curLevelEndings[0].backgroundFileName));
+	Utils::SetOrigin(background, Pivots::CenterBottom);
+	background.setPosition(resolution.x * 0.5, 700);
+
+	bgColor.setSize(Vector2f(resolution.x, resolution.y));
+	bgColor.setFillColor(Color{2, 2, 27});
+	bgColor.setPosition(0, 0);
 
 	std::map<std::string, std::vector<OptionData>> optionDatas;
 	Utils::CsvToStructVectorMap<OptionData>(optionDatas, "./LevelInfo/choiceInfo.csv");
 	std::vector<OptionData> curLevelOptions = optionDatas[ss.str()];
 
-	int idx = 0;
+	idxMax = curLevelEndings.size();
+
+	int SCidx = 0;
 	for (auto& levelEndingData : curLevelEndings)
 	{
 		if (levelEndingData.type == 'A') {
@@ -41,9 +49,9 @@ void LevelEndScene::Init()
 		}
 		else {
 			ScriptWithChoice* script = new ScriptWithChoice();
-			script->Init(levelEndingData, resolution, curLevelOptions[idx], curLevelOptions[++idx]);
+			script->Init(levelEndingData, resolution, curLevelOptions[SCidx], curLevelOptions[SCidx + 1]);
 			scripts.push_back(script);
-			++idx;
+			SCidx += 2;
 		}
 	}
 }
@@ -56,6 +64,10 @@ void LevelEndScene::Update(Time& dt)
 	{
 	case UpdateOutput::SKIP:
 		idx++;
+		if (idx == idxMax) {
+			++ GameVal::level;
+			sceneManager.ChangeScene(SceneType::STAGE);
+		}
 		break;
 	case UpdateOutput::BADEND:
 		sceneManager.ChangeScene(SceneType::BADENDING);
@@ -68,15 +80,16 @@ void LevelEndScene::Update(Time& dt)
 
 void LevelEndScene::Render()
 {
+	window.draw(bgColor);
 	window.draw(background);
 	scripts[idx]->Draw(window);
 }
 
 void LevelEndScene::Release()
 {
-	for (auto& sa : scripts) {
-		if (sa != nullptr)
-			delete sa;
+	for (auto& script : scripts) {
+		if (script != nullptr)
+			delete script;
 	}
 	scripts.clear();
 }

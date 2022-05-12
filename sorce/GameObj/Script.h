@@ -19,14 +19,16 @@ protected:
 	Text name;
 	std::vector<Text*> texts;
 
+	void Init(LevelEndngData& data, Vector2i resolution);
+
 public:
 	Script();
 
 	virtual UpdateOutput Update(float dt) = 0;
 
-	virtual void Draw(RenderWindow& window) = 0;
+	virtual void Draw(RenderWindow& window);
 
-	virtual void Release() = 0;
+	virtual void Release();
 
 	virtual ~Script();
 };

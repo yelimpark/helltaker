@@ -16,7 +16,7 @@ void Option::Init(OptionData& data, Vector2f pos)
 	text.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
 	text.setString(data.line);
 	Utils::SetOrigin(text, Pivots::Center);
-	text.setPosition(pos);
+	text.setPosition(pos.x, pos.y-5.f);
 
 	isBad = data.isBad;
 }

@@ -9,8 +9,10 @@ class LevelEndScene : public Scene
 private:
 	std::vector<Script*> scripts;
 	int idx;
+	int idxMax;
 
 	Sprite background;
+	RectangleShape bgColor;
 
 public:
 	LevelEndScene(SceneManager& sceneManager);

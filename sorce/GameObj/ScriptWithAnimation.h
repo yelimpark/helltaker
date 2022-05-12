@@ -16,7 +16,5 @@ public:
 
 	virtual void Draw(RenderWindow& window);
 
-	virtual void Release();
-
 	virtual ~ScriptWithAnimation();
 };
