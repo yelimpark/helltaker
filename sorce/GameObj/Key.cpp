@@ -17,6 +17,8 @@ void Key::Init(Vector2f pos, int tileSize)
 	vfxAnimation.AddClip("huge_vfx");
 	vfxAnimation.Play("huge_vfx");
 
+	this->tileSize = tileSize;
+
 	isEarned = false;
 	isActive = true;
 }

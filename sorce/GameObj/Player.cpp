@@ -28,8 +28,6 @@ void Player::Init(Vector2f pos, int tileSize, float moveSecond)
 	this->moveSecond = moveSecond;
 	moveTime = moveSecond + MOVE_DURATION;
 	dir = Direction::None;
-
-	isKicked = false;
 }
 
 void Player::Move(float dt)
@@ -49,7 +47,6 @@ void Player::Move(float dt)
 	position += (nextPosition - prevPosition) * dt / (moveSecond + MOVE_DURATION);
 
 	sprite.setPosition(position);
-	isKicked = false;
 }
 
 void Player::Kick(bool isItMove)
@@ -60,7 +57,7 @@ void Player::Kick(bool isItMove)
 	soundEffects.kickBox();
 }
 
-bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox lockedbox, bool isEarnedKey, float dt)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox, bool isEarnedKey, float dt)
 {
 	bool useTurn = false;
 
@@ -134,8 +131,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			else
 			{
 				Kick(true);
-				if(IsKicked())
-					lockedbox.Shake(dt);
+				lockedbox.Shake(dir);
 				dir = Direction::None;
 				useTurn = true;
 				return useTurn;
@@ -178,16 +174,6 @@ Player::Player()
 	:moveSecond(0.f), tileSize(0), dir(Direction::None), moveTime(0.f)
 {
 	
-}
-
-bool Player::IsKicked()
-{
-	if (animation.NowPlaying() == "PlayerKick")
-		isKicked = true;
-	else
-		isKicked = false;
-
-	return isKicked;
 }
 
 Vector2f Player::GetPos()

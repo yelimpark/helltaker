@@ -37,6 +37,7 @@ private:
 	std::vector<Claw *> claws;
 	
 	StageUI ui;
+	Text text;
 
 	Sprite Background;
 	Sprite sideLeft;

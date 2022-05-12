@@ -38,18 +38,14 @@ private:
 
 	void Kick(bool isItMove);
 
-	bool isKicked;
-
 public:
 	Player();
-
-	bool IsKicked();
 
 	void Init(Vector2f pos, int tileSize, float moveSecond);
 
 	void Update(float dt);
 
-	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls, LockedBox lockedbox, bool isEarnedKey, float dt);
+	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox, bool isEarnedKey, float dt);
 
 	void Draw(RenderWindow& window);
 

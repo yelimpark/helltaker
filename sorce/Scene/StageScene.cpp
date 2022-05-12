@@ -5,6 +5,7 @@
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
+#include "../Resource/FontHolder.h"
 
 #include "../UI/StageUI.h"
 #include "../GameObj/Flame.h"
@@ -153,9 +154,17 @@ void StageScene::Init()
 
 	sideLeft.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	sideRight.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	sideLeft.setPosition(0, 0);
-	sideRight.setPosition(resolution.x, 0);
+	sideLeft.setPosition(resolution.x*0.03f, 0);
+	sideRight.setPosition(resolution.x*0.97f, 0);
 	sideRight.setScale(-1.f, 1.f);
+
+	text.setFont(FontHolder::GetFont("Font/CrimsonPro-Bold.ttf"));
+	text.setCharacterSize(35);
+	text.setStyle(Text::Bold);
+	text.setString("LIFE ADVICE [L or LB]               RESTART [R or RB]");
+	Utils::SetOrigin(text, Pivots::Center);
+	text.setPosition(Vector2f(resolution.x * 0.5f, resolution.y * 0.95f));
+
 
 	ui.Init(levelData.lastTurn);
 	stageTransition.Init(resolution);
@@ -300,6 +309,7 @@ void StageScene::Render()
 	bloodVfx.Draw(window);
 
 	stageTransition.Draw(window);
+	window.draw(text);
 	ui.Draw(window);
 
 	if (!isClear && ui.IsGameOver()) {

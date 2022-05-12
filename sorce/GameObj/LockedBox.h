@@ -13,14 +13,18 @@ private:
 	Vector2f position;
 	Vector2f velocity;
 
+	float playtime;
+
 	AnimationController vfxAnimation;
 
 	bool isEarned;
+	bool isSideShake;
+	bool isUpShake;
 
 public:
 	void Init(Vector2f pos);
 	void Update(float dt);
-	void Shake(float dt);
+	void Shake(Direction dir);
 	void Draw(RenderWindow& window);
 	void Clear();
 

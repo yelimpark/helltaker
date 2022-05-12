@@ -11,6 +11,7 @@ private:
 	Sprite sprite;
 	Sprite vfxSprite;
 	Vector2f position;
+	int tileSize;
 
 	AnimationController vfxAnimation;
 	AnimationController animation;

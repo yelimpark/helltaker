@@ -19,10 +19,22 @@ void LockedBox::Init(Vector2f pos)
 	velocity = Vector2f(0.f, 0.f);
 
 	isEarned = false;
+	isSideShake = false;
+	isUpShake = false;
+	playtime = 2.f;
 }
 
 void LockedBox::Update(float dt)
 {
+	if (isSideShake)
+	{
+		sprite.setPosition(position.x + dt * 800, position.y);
+	}
+	if (isUpShake)
+	{
+		sprite.setPosition(position.x, position.y + dt * 800);
+	}
+
 	if (isEarned)
 	{
 		if (vfxAnimation.IsAnimationEnd())
@@ -35,20 +47,24 @@ void LockedBox::Update(float dt)
 			Utils::SetOrigin(vfxSprite, Pivots::Center);
 		}
 	}
+
+	playtime -= dt * 10;
+
+	if (playtime < 0.0f)
+	{
+		isSideShake = false;
+		isUpShake = false;
+		playtime = 2.f;
+		sprite.setPosition(position);
+	}
 }
 
-void LockedBox::Shake(float dt)
+void LockedBox::Shake(Direction dir)
 {
-	if (InputManager::GetKeyDown(Keyboard::Left) || InputManager::GetKeyDown(Keyboard::Right))
-	{
-		std::cout << "되는거냐" << std::endl;
-		sprite.setPosition(Vector2f(position.x + dt * 1200, position.y));
-	}
-	if (InputManager::GetKeyDown(Keyboard::Up) || InputManager::GetKeyDown(Keyboard::Down))
-	{
-		std::cout << "이놈아!!" << std::endl;
-		sprite.setPosition(Vector2f(position.x, position.y + dt * 1200));
-	}
+	if (dir == Direction::Left || dir == Direction::Right)
+		isSideShake = true;
+	if (dir == Direction::Up || dir == Direction::Down)
+		isUpShake = true;
 }
 
 void LockedBox::Draw(RenderWindow& window)
