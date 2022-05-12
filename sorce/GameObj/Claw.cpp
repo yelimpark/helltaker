@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 void Claw::Init(Vector2f pos, int tileSize)
 {
 	position = pos;
@@ -106,7 +107,6 @@ bool Claw::IsSkullIn(char**& map, int tileSize, Skull* skull)
 
 	if (map[idxY][idxX] == (char)MapCode::SKULL)
 	{
-		std::cout << "ÇØ°ñ´â¾Æ¿ä" << std::endl;
 		return true;
 	}
 	return false;

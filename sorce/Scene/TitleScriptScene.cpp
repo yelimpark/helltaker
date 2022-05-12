@@ -32,7 +32,6 @@ void TitleScriptScene::Init()
 	beelFire.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
 	beelFire.setPosition(resolution.x / 1.3, resolution.y * 0.4f);
 
-
 	img = new Texture[9];
 	img[0] = (TextureHolder::GetTexture("Sprite/cutscene_0002_Group-2.png")); 
 	img[1] = (TextureHolder::GetTexture("Sprite/cutscene_0003_Group-3-copy-2.png")); 
@@ -63,6 +62,7 @@ void TitleScriptScene::Init()
 
 void TitleScriptScene::Update(Time& dt)
 {
+	soundEffects.openingMusic();
 	IntRect bound = bgchange_s.getTextureRect();
 	bound.left += 1;
 	bgchange_s.setTextureRect(bound);

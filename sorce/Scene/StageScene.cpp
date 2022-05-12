@@ -34,6 +34,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Vector2f KeyPos;
 	Vector2f LockedBoxPos;
 
+	soundEffects.backgroundMusic();
+
 	rapidcsv::Document csvData(filepath);
 
 	int row = resolution.y / TILE_SIZE;
@@ -199,6 +201,7 @@ void StageScene::Update(Time& dt)
 		skulls[i]->Update(dt.asSeconds());
 		if (skulls[i]->IsDead()) {
 			boneParticle.Init(skulls[i]->GetPos());
+			soundEffects.crushSkull();
 			map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 			delete skulls[i];
 			skulls.erase(skulls.begin() + i);
@@ -214,6 +217,7 @@ void StageScene::Update(Time& dt)
 			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
 			{
 				skulls[i]->IsDead();
+				soundEffects.crushSkull();
 				boneParticle.Init(skulls[i]->GetPos());
 				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 				delete skulls[i];
@@ -223,7 +227,9 @@ void StageScene::Update(Time& dt)
 
 		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
 		{
+			soundEffects.PlayerInClaw();
 			bloodVfx.Init(player.GetPos());
+
 			//ui.UseTurn();
 		}
 	}
@@ -237,8 +243,11 @@ void StageScene::Update(Time& dt)
 	if (!isClear && ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
 			cutTransition.Update(dt.asSeconds());
-			if (cutTransition.IsFull())
+			soundEffects.cutTransition1();
+			if (cutTransition.IsFull()) {
 				Init();
+				soundEffects.cutTransition2();
+			}
 		}
 		return;
 	}
@@ -254,6 +263,7 @@ void StageScene::Update(Time& dt)
 	if (isEarnedKey)
 	{
 		key.Clear();
+		soundEffects.getKey();
 	}
 	key.Update(dt.asSeconds());
 

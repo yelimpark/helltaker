@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
 #include "Skull.h"
+#include "Player.h"
 
 using namespace sf;
 
