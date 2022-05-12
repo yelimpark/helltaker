@@ -1,21 +1,20 @@
 #include "./SceneManager.h"
 #include "../Scene/TitleScene.h"
 #include "../Scene/StageScene.h"
-#include "../Scene/TitleScriptScene.h"
-#include "../Scene/LevelEndingScene.h"
 #include "../Resource/TextureHolder.h"
-#include "../Scene/LevelEndScene.h"
+#include "../Scene/CutScene.h"
 #include "../Scene/BadEndingScene.h"
+#include "../Scene/InitLoadingScene.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = (SceneType)3;
-	
+	currScene = (SceneType)0;
+
+	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
-	scenes[(int)SceneType::TITLESCRIPT] = new TitleScriptScene(*this);
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
-	scenes[(int)SceneType::LEVELENDING] = new LevelEndScene(*this);
+	scenes[(int)SceneType::CUT] = new CutScene(*this);
 	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);
 
 	scenes[(int)currScene]->Init();
@@ -34,9 +33,9 @@ void SceneManager::Update(Time& dt)
 	scenes[(int)currScene]->Update(dt);
 }
 
-void SceneManager::Start()
+void SceneManager::InitScene(SceneType newScene)
 {
-	scenes[(int)currScene]->Init();
+	scenes[(int)newScene]->Init();
 }
 
 void SceneManager::Render()
@@ -48,7 +47,6 @@ void SceneManager::ChangeScene(SceneType newScene)
 {
 	scenes[(int)currScene]->Release();
 	currScene = newScene;
-	scenes[(int)currScene]->Init();
 }
 
 SceneManager::~SceneManager()

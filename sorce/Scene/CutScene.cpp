@@ -1,19 +1,20 @@
-#include "LevelEndScene.h"
+#include "CutScene.h"
 #include "../SceneInitializer/LevelEndingSceneInitializer.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/Utils.h"
 
 #include "../GameObj/ScriptWithAnimation.h"
 #include "../GameObj/ScriptWithChoice.h"
+#include "../GameObj/ScriptWithCG.h"
 
 #include <sstream>
 
-LevelEndScene::LevelEndScene(SceneManager& sceneManager)
+CutScene::CutScene(SceneManager& sceneManager)
 	: Scene(sceneManager), idx(0), idxMax(0)
 {
 }
 
-void LevelEndScene::Init()
+void CutScene::Init()
 {
 	Release();
 
@@ -22,12 +23,8 @@ void LevelEndScene::Init()
 	ss << GameVal::level;
 
 	std::map<std::string, std::vector<LevelEndngData>> levelEndingDatas;
-	Utils::CsvToStructVectorMap<LevelEndngData>(levelEndingDatas, "./LevelInfo/LevelEnding.csv");
+	Utils::CsvToStructVectorMap<LevelEndngData>(levelEndingDatas, "./LevelInfo/cutInfo.csv");
 	std::vector<LevelEndngData> curLevelEndings = levelEndingDatas[ss.str()];
-
-	background.setTexture(TextureHolder::GetTexture(curLevelEndings[0].backgroundFileName));
-	Utils::SetOrigin(background, Pivots::CenterBottom);
-	background.setPosition(resolution.x * 0.5, 700);
 
 	bgColor.setSize(Vector2f(resolution.x, resolution.y));
 	bgColor.setFillColor(Color{2, 2, 27});
@@ -47,16 +44,21 @@ void LevelEndScene::Init()
 			script->Init(levelEndingData, resolution);
 			scripts.push_back(script);
 		}
-		else {
+		else if (levelEndingData.type == 'C') {
 			ScriptWithChoice* script = new ScriptWithChoice();
 			script->Init(levelEndingData, resolution, curLevelOptions[SCidx], curLevelOptions[SCidx + 1]);
 			scripts.push_back(script);
 			SCidx += 2;
 		}
+		else {
+			ScriptWithCG* script = new ScriptWithCG();
+			script->Init(levelEndingData, resolution);
+			scripts.push_back(script);
+		}
 	}
 }
 
-void LevelEndScene::Update(Time& dt)
+void CutScene::Update(Time& dt)
 {
 	UpdateOutput state = scripts[idx]->Update(dt.asSeconds());
 
@@ -66,10 +68,12 @@ void LevelEndScene::Update(Time& dt)
 		idx++;
 		if (idx == idxMax) {
 			++ GameVal::level;
+			sceneManager.InitScene(SceneType::STAGE);
 			sceneManager.ChangeScene(SceneType::STAGE);
 		}
 		break;
 	case UpdateOutput::BADEND:
+		sceneManager.InitScene(SceneType::BADENDING);
 		sceneManager.ChangeScene(SceneType::BADENDING);
 		break;
 	default:
@@ -78,14 +82,13 @@ void LevelEndScene::Update(Time& dt)
 
 }
 
-void LevelEndScene::Render()
+void CutScene::Render()
 {
 	window.draw(bgColor);
-	window.draw(background);
 	scripts[idx]->Draw(window);
 }
 
-void LevelEndScene::Release()
+void CutScene::Release()
 {
 	for (auto& script : scripts) {
 		if (script != nullptr)
@@ -94,6 +97,6 @@ void LevelEndScene::Release()
 	scripts.clear();
 }
 
-LevelEndScene::~LevelEndScene()
+CutScene::~CutScene()
 {
 }

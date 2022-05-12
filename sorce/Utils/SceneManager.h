@@ -8,10 +8,10 @@ using namespace sf;
 class Scene;
 
 enum class SceneType {
+	INITLOADING,
 	TITLE,
-	TITLESCRIPT,
 	STAGE,
-	LEVELENDING,
+	CUT,
 	BADENDING,
 	COUNT
 };
@@ -29,7 +29,7 @@ public:
 
 	void Release();
 
-	void Start();
+	void InitScene(SceneType newScene);
 
 	void Update(Time& dt);
 

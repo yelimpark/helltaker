@@ -20,6 +20,10 @@ void BadEndingScene::Init()
 	Utils::SetOrigin(sprite, Pivots::Center);
 	sprite.setPosition(resolution.x * 0.5, resolution.y * 0.5);
 
+	bgColor.setSize(Vector2f(resolution.x, resolution.y));
+	bgColor.setFillColor(Color{ 2, 2, 27 });
+	bgColor.setPosition(0, 0);
+
 	std::stringstream ss;
 	ss << GameVal::level;
 
@@ -50,6 +54,7 @@ void BadEndingScene::Update(Time& dt)
 
 void BadEndingScene::Render()
 {
+	window.draw(bgColor);
 	window.draw(sprite);
 	for (auto& text : texts) {
 		window.draw(*text);

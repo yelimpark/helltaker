@@ -18,6 +18,7 @@ protected:
 	Sprite character;
 	Text name;
 	std::vector<Text*> texts;
+	Sprite background;
 
 	void Init(LevelEndngData& data, Vector2i resolution);
 

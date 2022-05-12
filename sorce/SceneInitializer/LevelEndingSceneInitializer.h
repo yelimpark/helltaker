@@ -12,6 +12,7 @@ struct LevelEndngData {
 	std::string backgroundFileName;
 	std::string characterFileName;
 	std::string animationClipName;
+	std::string CGFileName;
 
 	LevelEndngData(std::vector<std::string>& row) {
 		type = row[1][0];
@@ -20,6 +21,7 @@ struct LevelEndngData {
 		backgroundFileName = row[4];
 		characterFileName = row[5];
 		animationClipName = row[6];
+		CGFileName = row[7];
 	}
 };
 

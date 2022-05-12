@@ -11,6 +11,10 @@ void Script::Init(LevelEndngData& data, Vector2i resolution)
 {
 	Release();
 
+	background.setTexture(TextureHolder::GetTexture(data.backgroundFileName));
+	Utils::SetOrigin(background, Pivots::CenterBottom);
+	background.setPosition(resolution.x * 0.5, 700);
+
 	character.setTexture(TextureHolder::GetTexture(data.characterFileName));
 	Utils::SetOrigin(character, Pivots::CenterBottom);
 	character.setPosition(resolution.x * 0.5, 700);
@@ -41,6 +45,7 @@ void Script::Init(LevelEndngData& data, Vector2i resolution)
 
 void Script::Draw(RenderWindow& window)
 {
+	window.draw(background);
 	window.draw(character);
 	for (auto& text : texts) {
 		window.draw(*text);

@@ -53,12 +53,9 @@ void TitleScene::Init()
 	textFix.setCharacterSize(40);
 	textFix.setFillColor(Color{ 230,77,81 });
 	
-	
-	
 	beel.setOrigin((transRect.left + transRect.width) * 0.5, (transRect.top + transRect.height) * 0.5f);
 	beel.setPosition(resolution.x / 1.5, resolution.y * 0.4f);
 
-	//mainView.setCenter(resolution.x * 0.5f, resolution.y * 0.5f);
 	boo.Init(Vector2f(resolution.x , resolution.y ));
 }
 
@@ -133,7 +130,8 @@ void TitleScene::Update(Time& dt)
 			switch (GetPressedMenu())
 			{
 			case 0:
-				sceneManager.ChangeScene(SceneType::TITLESCRIPT);
+				sceneManager.InitScene(SceneType::CUT);
+				sceneManager.ChangeScene(SceneType::CUT);
 				// NEW GAME -> stage (intro script)
 				break;
 			case 1:

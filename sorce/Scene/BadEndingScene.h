@@ -11,6 +11,7 @@ private:
 	Sprite sprite;
 	AnimationController animation;
 	std::vector<Text *> texts;
+	RectangleShape bgColor;
 
 public:
 	BadEndingScene(SceneManager& sceneManager);

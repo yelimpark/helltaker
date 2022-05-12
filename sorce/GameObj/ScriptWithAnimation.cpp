@@ -4,7 +4,6 @@
 #include "../Utils/InputManager.h"
 
 ScriptWithAnimation::ScriptWithAnimation()
-	:Script()
 {
 }
 

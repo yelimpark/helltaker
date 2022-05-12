@@ -4,18 +4,17 @@
 
 class Script;
 
-class LevelEndScene : public Scene 
+class CutScene : public Scene 
 {
 private:
 	std::vector<Script*> scripts;
 	int idx;
 	int idxMax;
 
-	Sprite background;
 	RectangleShape bgColor;
 
 public:
-	LevelEndScene(SceneManager& sceneManager);
+	CutScene(SceneManager& sceneManager);
 
 	virtual void Init();
 
@@ -25,5 +24,5 @@ public:
 
 	virtual void Release();
 
-	virtual ~LevelEndScene();
+	virtual ~CutScene();
 };

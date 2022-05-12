@@ -180,7 +180,8 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.ChangeScene(SceneType::LEVELENDING);
+			sceneManager.InitScene(SceneType::CUT);
+			sceneManager.ChangeScene(SceneType::CUT);
 		}
 	}
 }
