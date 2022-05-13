@@ -41,6 +41,7 @@
     <ClCompile Include="sorce\GameObj\ScriptWithAnimation.cpp" />
     <ClCompile Include="sorce\GameObj\ScriptWithChoice.cpp" />
     <ClCompile Include="sorce\GameObj\SoundEffect.cpp" />
+    <ClCompile Include="sorce\GameObj\SoundType.cpp" />
     <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp" />
     <ClCompile Include="sorce\GameObj\Skull.cpp" />
     <ClCompile Include="sorce\GameObj\Success.cpp" />
@@ -52,6 +53,7 @@
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
     <ClCompile Include="sorce\Scene\BadEndingScene.cpp" />
+    <ClCompile Include="sorce\Scene\ChapterSelect.cpp" />
     <ClCompile Include="sorce\Scene\LevelEndingScene.cpp" />
     <ClCompile Include="sorce\Scene\LevelEndScene.cpp" />
     <ClCompile Include="sorce\Scene\PauseMenu.cpp" />
@@ -91,6 +93,7 @@
     <ClInclude Include="sorce\GameObj\ScriptWithChoice.h" />
     <ClInclude Include="sorce\GameObj\Skull.h" />
     <ClInclude Include="sorce\GameObj\SoundEffect.h" />
+    <ClInclude Include="sorce\GameObj\SoundType.h" />
     <ClInclude Include="sorce\GameObj\stageSceneTrasition.h" />
     <ClInclude Include="sorce\GameObj\Success.h" />
     <ClInclude Include="sorce\Resource\AnimationClip.h" />
@@ -103,6 +106,7 @@
     <ClInclude Include="sorce\SceneInitializer\LevelEndingSceneInitializer.h" />
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h" />
     <ClInclude Include="sorce\Scene\BadEndingScene.h" />
+    <ClInclude Include="sorce\Scene\ChapterSelect.h" />
     <ClInclude Include="sorce\Scene\LevelEndingScene.h" />
     <ClInclude Include="sorce\Scene\LevelEndScene.h" />
     <ClInclude Include="sorce\Scene\PauseMenu.h" />

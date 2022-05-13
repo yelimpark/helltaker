@@ -18,7 +18,7 @@
 #include <algorithm>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isEarnedBox(false)
+	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isEarnedBox(false), pmenu(window, sceneManager)
 {
 
 }
@@ -121,6 +121,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 void StageScene::Init()
 {
 	Release();
+	paused = false;
 
 	soundEffects.backgroundMusic();
 	std::map<std::string, LevelData> levelDatas;
@@ -179,104 +180,143 @@ void StageScene::Init()
 	isEarnedBox = false;
 }
 
-void StageScene::Update(Time& dt)
+void StageScene::PausedState()
 {
-	for (auto flame : flames) {
-		flame->Update(dt.asSeconds());
-	}
+	paused = true;
+	pmenu.UpInit();
 
-	for (auto& box : boxes)
+}
+
+void StageScene::UnPausedState()
+{
+	paused = false;
+}
+
+void StageScene::UpdatePauseInput(Time& dt)
+{
+	if (InputManager::GetKeyDown(Keyboard::Escape))
 	{
-		box->Update(dt.asSeconds());
-	}
-
-	player.Update(dt.asSeconds());
-	if (!isClear && !ui.IsGameOver()) {
-		if (player.HanddleInput(map, boxes, skulls, lockedBox, isEarnedKey, dt.asSeconds()))
-			ui.UseTurn();
-	}
-
-	for (int i = 0; i < skulls.size(); i++) {
-		skulls[i]->Update(dt.asSeconds());
-		if (skulls[i]->IsDead()) {
-			boneParticle.Init(skulls[i]->GetPos());
-			soundEffects.crushSkull();
-			map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
-			delete skulls[i];
-			skulls.erase(skulls.begin() + i);
+		if (!paused)
+		{
+			PausedState();
+		}
+		else
+		{
+			UnPausedState();
 		}
 	}
+}
 
-	for (int i = 0; i < claws.size(); i++)
+void StageScene::Update(Time& dt)
+{
+	UpdatePauseInput(dt);
+	
+	if (!paused) //Unpaused update
 	{
-		claws[i]->Update(dt.asSeconds()*5);
-		claws[i]->IsActive();
-		for (auto skull : skulls)
+
+		for (auto flame : flames) {
+			flame->Update(dt.asSeconds());
+		}
+
+		for (auto& box : boxes)
 		{
-			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
-			{
-				skulls[i]->IsDead();
-				soundEffects.crushSkull();
+			box->Update(dt.asSeconds());
+		}
+
+		player.Update(dt.asSeconds());
+		if (!isClear && !ui.IsGameOver()) {
+			if (player.HanddleInput(map, boxes, skulls, lockedBox, isEarnedKey, dt.asSeconds()))
+				ui.UseTurn();
+		}
+
+		for (int i = 0; i < skulls.size(); i++) {
+			skulls[i]->Update(dt.asSeconds());
+			if (skulls[i]->IsDead()) {
 				boneParticle.Init(skulls[i]->GetPos());
+				soundEffects.crushSkull();
 				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 				delete skulls[i];
 				skulls.erase(skulls.begin() + i);
 			}
 		}
 
-		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
+		for (int i = 0; i < claws.size(); i++)
 		{
-			soundEffects.PlayerInClaw();
-			bloodVfx.Init(player.GetPos());
+			claws[i]->Update(dt.asSeconds() * 5);
+			claws[i]->IsActive();
+			for (auto skull : skulls)
+			{
+				if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
+				{
+					skulls[i]->IsDead();
+					soundEffects.crushSkull();
+					boneParticle.Init(skulls[i]->GetPos());
+					map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
+					delete skulls[i];
+					skulls.erase(skulls.begin() + i);
+				}
+			}
 
-			//ui.UseTurn();
-		}
-	}
+			if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
+			{
+				soundEffects.PlayerInClaw();
+				bloodVfx.Init(player.GetPos());
 
-	boneParticle.Update(dt.asSeconds());
-	bloodVfx.Update(dt.asSeconds());
-
-	demon.Update(dt.asSeconds());
-	isClear = demon.IsClear(map, TILE_SIZE);
-
-	if (!isClear && ui.IsGameOver()) {
-		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-			cutTransition.Update(dt.asSeconds());
-			if (cutTransition.IsFull()) {
-				Init();
-
+				//ui.UseTurn();
 			}
 		}
-		return;
-	}
 
-	if (isClear) {
-		ui.OnClear(dt.asSeconds());
-		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.ChangeScene(SceneType::LEVELENDING);
+		boneParticle.Update(dt.asSeconds());
+		bloodVfx.Update(dt.asSeconds());
+
+		demon.Update(dt.asSeconds());
+		isClear = demon.IsClear(map, TILE_SIZE);
+
+		if (!isClear && ui.IsGameOver()) {
+			if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
+				cutTransition.Update(dt.asSeconds());
+				if (cutTransition.IsFull()) {
+					Init();
+
+				}
+			}
+			return;
+		}
+
+		if (isClear) {
+			ui.OnClear(dt.asSeconds());
+			if (stageTransition.OnClear(dt.asSeconds())) {
+				sceneManager.ChangeScene(SceneType::LEVELENDING);
+			}
+		}
+
+		isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
+		if (isEarnedKey)
+		{
+			key.Clear();
+			soundEffects.getKey();
+		}
+		key.Update(dt.asSeconds());
+
+		isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
+		if (isEarnedBox)
+		{
+			lockedBox.Clear();
+		}
+		lockedBox.Update(dt.asSeconds());
+
+		if (InputManager::GetKeyDown(Keyboard::R))
+		{
+			cutTransition.Init();
+			Init();
 		}
 	}
 
-	isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
-	if (isEarnedKey)
+	else //paused update
 	{
-		key.Clear();
-		soundEffects.getKey();
+		pmenu.Update();
 	}
-	key.Update(dt.asSeconds());
 
-	isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
-	if (isEarnedBox)
-	{
-		lockedBox.Clear();
-	}
-	lockedBox.Update(dt.asSeconds());
-	
-	if (InputManager::GetKeyDown(Keyboard::R))
-	{
-		cutTransition.Init();
-		Init();
-	}
 }
 
 void StageScene::Render()
@@ -324,6 +364,11 @@ void StageScene::Render()
 		if (!cutTransition.IsFull())
 			gameOver.Draw(window);
 		cutTransition.Draw(window);
+	}
+
+	if (paused) //paused menu render
+	{
+		pmenu.Render(window);
 	}
 }
 

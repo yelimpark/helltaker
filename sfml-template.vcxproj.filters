@@ -164,20 +164,26 @@
     <ClCompile Include="sorce\Scene\BadEndingScene.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\BloodVfx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="sorce\GameObj\Claw.cpp">
-      <Filter>소스 파일\GameObj\etc</Filter>
-    </ClCompile>
-    <ClCompile Include="sorce\GameObj\Key.cpp">
-      <Filter>소스 파일\GameObj\etc</Filter>
-    </ClCompile>
-    <ClCompile Include="sorce\GameObj\LockedBox.cpp">
-      <Filter>소스 파일\GameObj\etc</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="sorce\GameObj\GetVfx.cpp">
-      <Filter>소스 파일\GameObj\Vfx</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\GameObj\BloodVfx.cpp">
-      <Filter>소스 파일\GameObj\Vfx</Filter>
+    <ClCompile Include="sorce\GameObj\Key.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\LockedBox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\SoundType.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\ChapterSelect.cpp">
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -328,20 +334,16 @@
     <ClInclude Include="sorce\Scene\BadEndingScene.h">
       <Filter>소스 파일\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\Claw.h">
-      <Filter>소스 파일\GameObj\etc</Filter>
+    <ClInclude Include="sorce\GameObj\BloodVfx.h" />
+    <ClInclude Include="sorce\GameObj\Claw.h" />
+    <ClInclude Include="sorce\GameObj\GetVfx.h" />
+    <ClInclude Include="sorce\GameObj\Key.h" />
+    <ClInclude Include="sorce\GameObj\LockedBox.h" />
+    <ClInclude Include="sorce\GameObj\SoundType.h">
+      <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\GameObj\Key.h">
-      <Filter>소스 파일\GameObj\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\GameObj\LockedBox.h">
-      <Filter>소스 파일\GameObj\etc</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\GameObj\GetVfx.h">
-      <Filter>소스 파일\GameObj\Vfx</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\GameObj\BloodVfx.h">
-      <Filter>소스 파일\GameObj\Vfx</Filter>
+    <ClInclude Include="sorce\Scene\ChapterSelect.h">
+      <Filter>소스 파일\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

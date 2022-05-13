@@ -12,6 +12,7 @@
 #include "../GameObj/Key.h"
 #include "../GameObj/LockedBox.h"
 #include "../GameObj/BloodVfx.h"
+#include "PauseMenu.h"
 #include <vector>
 
 class Flame;
@@ -56,6 +57,10 @@ private:
 	GameOver gameOver;
 	SoundEffect soundEffects;
 
+	PauseMenu pmenu;
+	bool paused;
+
+
 	bool isClear;
 	bool isEarnedKey;
 	bool isEarnedBox;
@@ -66,6 +71,13 @@ public:
 	StageScene(SceneManager& sceneManager);
 
 	virtual void Init();
+
+	virtual void PausedState();
+
+	virtual void UnPausedState();
+
+	virtual void UpdatePauseInput(Time& dt);
+
 
 	virtual void Update(Time& dt);
 
