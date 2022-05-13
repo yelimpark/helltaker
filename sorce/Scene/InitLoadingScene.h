@@ -6,6 +6,7 @@ class InitLoadingScene : public Scene {
 private:
 	Sprite sprite;
 	RectangleShape bgColor;
+	Text text;
 
 	bool firstRender;
 
