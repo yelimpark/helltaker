@@ -13,7 +13,7 @@ private:
 public:
 	static void SoundEffectPlay(std::string soundName);
 
-	static void changebgm();
+	//static void changebgm(Music music);
 
 	static void menuConfirm();
 	static void menuHighlight();

@@ -6,12 +6,13 @@ void SoundEffect::SoundEffectPlay(std::string soundName)
 	(SoundHolder::GetSound(soundName)).play();
 }
 
-//void SoundEffect::changebgm()
+//void SoundEffect::changebgm(Music music)
 //{
-//	if (*curbgm == ) { // 지금비지엠이현재재생비지엠과같다면
-//
+//	if (*curbgm == music) { // 지금비지엠이현재재생비지엠과같다면
+//		return;
 //	}
-//	curbgm = ;
+//	curbgm = music;
+//
 //}
 
 void SoundEffect::menuConfirm()
