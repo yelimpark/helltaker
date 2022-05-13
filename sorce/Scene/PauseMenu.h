@@ -25,16 +25,13 @@ private:
 	RectangleShape background;
 	RectangleShape container;
 
-	SceneManager sceneManager;
-
-
+	SceneManager& sceneManager;
 
 	Sprite img[MAX_NUMBER_OF_MENU];
 	Sprite circle[2];
 	Sprite menuline;
 
 	int selectIndex;
-
 
 public:
 
