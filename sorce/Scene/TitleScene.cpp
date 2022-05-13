@@ -61,7 +61,6 @@ void TitleScene::Init()
 
 void TitleScene::Update(Time& dt)
 {
-	
 	IntRect bound = cloudBackground.getTextureRect();
 	bound.left += 1;
 	cloudBackground.setTextureRect(bound);

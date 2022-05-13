@@ -6,11 +6,12 @@
 #include "../Scene/BadEndingScene.h"
 #include "../Scene/InitLoadingScene.h"
 #include "../Framework/Framework.h"
+#include "../Scene/JudgementScene.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = (SceneType)0;
+	currScene = (SceneType)5;
 	holdScene = SceneType::COUNT;
 
 	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);
@@ -18,6 +19,7 @@ void SceneManager::Init()
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
 	scenes[(int)SceneType::CUT] = new CutScene(*this);
 	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);
+	scenes[(int)SceneType::JUDJEMENT] = new JudgementScene(*this);
 
 	scenes[(int)currScene]->Init();
 }

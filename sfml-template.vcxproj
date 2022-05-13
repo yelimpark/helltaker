@@ -50,6 +50,7 @@
     <ClCompile Include="sorce\Scene\BadEndingScene.cpp" />
     <ClCompile Include="sorce\Scene\InitLoadingScene.cpp" />
     <ClCompile Include="sorce\Scene\CutScene.cpp" />
+    <ClCompile Include="sorce\Scene\JudgementScene.cpp" />
     <ClCompile Include="sorce\Scene\PauseMenu.cpp" />
     <ClCompile Include="sorce\Scene\Scene.cpp" />
     <ClCompile Include="sorce\Scene\StageScene.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="sorce\Scene\BadEndingScene.h" />
     <ClInclude Include="sorce\Scene\InitLoadingScene.h" />
     <ClInclude Include="sorce\Scene\CutScene.h" />
+    <ClInclude Include="sorce\Scene\JudgementScene.h" />
     <ClInclude Include="sorce\Scene\PauseMenu.h" />
     <ClInclude Include="sorce\Scene\Scene.h" />
     <ClInclude Include="sorce\Scene\StageScene.h" />

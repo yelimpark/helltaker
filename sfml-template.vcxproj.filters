@@ -173,6 +173,9 @@
     <ClCompile Include="sorce\GameObj\SoundEffect.cpp">
       <Filter>소스 파일\GameObj\etc</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\Scene\JudgementScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -321,6 +324,9 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\SoundEffect.h">
       <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\JudgementScene.h">
+      <Filter>소스 파일\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
