@@ -84,15 +84,20 @@ void LockedBox::Clear()
 
 bool LockedBox::IsCapturedPlayer(char**& map, int tileSize)
 {
-	int idxY = (int)position.y / tileSize;
-	int idxX = (int)position.x / tileSize;
-
-	if (map[idxY][idxX] == (char)MapCode::PLAYER)
+	if (this != nullptr)
 	{
-		isEarned = true;
+		int idxY = (int)position.y / tileSize;
+		int idxX = (int)position.x / tileSize;
+
+		if (map[idxY][idxX] == (char)MapCode::PLAYER)
+		{
+			isEarned = true;
+			return isEarned;
+		}
 		return isEarned;
 	}
-	return isEarned;
+	else
+		return false;
 }
 
 

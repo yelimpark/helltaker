@@ -78,7 +78,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				Vector2f pos;
 				pos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
 				pos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
-				Claw* claw = new Claw();
+				Claw* claw = nullptr;
+				claw = new Claw();
 				claw->Init(pos, TILE_SIZE);
 				claws.push_back(claw);
 				break;
@@ -88,6 +89,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 			{
 				KeyPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
 				KeyPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				key.Init(KeyPos, TILE_SIZE);
+
 				break;
 			}
 
@@ -95,6 +98,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 			{
 				LockedBoxPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
 				LockedBoxPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				lockedBox.Init(LockedBoxPos);
+
 				break;
 			}
 
@@ -107,8 +112,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
-	key.Init(KeyPos, TILE_SIZE);
-	lockedBox.Init(LockedBoxPos);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
@@ -134,6 +137,8 @@ void StageScene::Init()
 	stringstream ss;
 	ss << GameVal::level;
 	LevelData levelData = levelDatas[ss.str()];
+
+	lockedBox.Init(Vector2f(-500, -500));
 
 	InitMap(levelData.MapFilePath, ss.str());
 
