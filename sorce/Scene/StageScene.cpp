@@ -11,6 +11,7 @@
 #include "../GameObj/Box.h"
 #include "../GameObj/Skull.h"
 #include "../GameObj/MapCode.h"
+#include "../GameObj/Claw.h"
 
 #include <sstream>
 #include <algorithm>
@@ -26,8 +27,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	std::map<std::string, std::vector<BoxData>> boxDatas;
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
-
-	soundEffects.backgroundMusic();
 
 	Vector2f playerPos;
 	Vector2f DemonPos;
@@ -70,6 +69,17 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				Skull* skull = new Skull();
 				skull->Init(pos, TILE_SIZE, MOVE_SECOND);
 				skulls.push_back(skull);
+				break;
+			}
+
+			case (char)MapCode::CLAW:
+			{
+				Vector2f pos;
+				pos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				pos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				Claw* claw = new Claw();
+				claw->Init(pos, TILE_SIZE);
+				claws.push_back(claw);
 				break;
 			}
 			default:
@@ -135,6 +145,7 @@ void StageScene::Init()
 		cutTransition.Init();
 
 	gameOver.Init(resolution);
+	//soundEffects.backgroundMusic();
 
 	isClear = false;
 }
@@ -164,6 +175,13 @@ void StageScene::Update(Time& dt)
 			skulls.erase(skulls.begin() + i);
 		}
 	}
+
+	for (int i = 0; i < claws.size(); i++)
+	{
+		claws[i]->Update(dt.asSeconds());
+		claws[i]->IsPlayerInClaw(map, TILE_SIZE);
+	}
+
 
 	boneParticle.Update(dt.asSeconds());
 	
@@ -210,6 +228,11 @@ void StageScene::Render()
 	for (auto& skull : skulls)
 	{
 		skull->Draw(window);
+	}
+
+	for (auto& claw : claws)
+	{
+		claw->Draw(window);
 	}
 
 	player.Draw(window);

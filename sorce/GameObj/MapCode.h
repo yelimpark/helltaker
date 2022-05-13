@@ -4,5 +4,6 @@ enum class MapCode {
 	WALL = 'W',
 	PLAYER = 'P',
 	DEMON = 'D',
-	SKULL = 'S'
+	SKULL = 'S',
+	CLAW = 'C'
 };

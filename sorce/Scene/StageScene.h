@@ -9,6 +9,7 @@
 #include "../GameObj/CutSceneTransition.h"
 #include "../GameObj/GameOver.h"
 #include "../GameObj/SoundEffect.h"
+#include "../GameObj/Claw.h"
 #include <vector>
 
 class Flame;
@@ -30,6 +31,7 @@ private:
 	std::vector<Sprite *> flameBases;
 	std::vector<Box *> boxes;
 	std::vector<Skull *> skulls;
+	std::vector<Claw *> claws;
 	
 	StageUI ui;
 

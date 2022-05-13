@@ -23,6 +23,7 @@
     <ClCompile Include="sorce\GameObj\BoneParticle.cpp" />
     <ClCompile Include="sorce\GameObj\booper.cpp" />
     <ClCompile Include="sorce\GameObj\Box.cpp" />
+    <ClCompile Include="sorce\GameObj\Claw.cpp" />
     <ClCompile Include="sorce\GameObj\CutSceneTransition.cpp" />
     <ClCompile Include="sorce\GameObj\Death.cpp" />
     <ClCompile Include="sorce\GameObj\Demon.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="sorce\GameObj\BoneParticle.h" />
     <ClInclude Include="sorce\GameObj\booper.h" />
     <ClInclude Include="sorce\GameObj\Box.h" />
+    <ClInclude Include="sorce\GameObj\Claw.h" />
     <ClInclude Include="sorce\GameObj\CutSceneTransition.h" />
     <ClInclude Include="sorce\GameObj\Death.h" />
     <ClInclude Include="sorce\GameObj\Demon.h" />

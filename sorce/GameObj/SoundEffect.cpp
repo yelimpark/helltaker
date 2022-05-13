@@ -1,4 +1,5 @@
 #include "SoundEffect.h"
+#include <iostream>
 
 void SoundEffect::menuConfirm()
 {
@@ -80,6 +81,6 @@ void SoundEffect::backgroundMusic()
 void SoundEffect::openingMusic()
 {
 	Sound sound;
-	sound = (SoundHolder::GetSound("Sound/Apropos.wav"));
+	sound = (SoundHolder::GetSound("Sound/Apropos.mp3"));
 	sound.play();
 }
