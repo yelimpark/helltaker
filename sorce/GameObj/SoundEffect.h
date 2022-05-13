@@ -4,7 +4,8 @@
 class SoundEffect
 {
 private:
-	Music music;
+	Music stageMusic;
+	Music openMusic;
 
 public:
 	void menuConfirm();

@@ -22,6 +22,7 @@ class Skull;
 class StageScene : public Scene
 {
 private:
+	int level;
 	char ** map;
 
 	const int TILE_SIZE = 100; 

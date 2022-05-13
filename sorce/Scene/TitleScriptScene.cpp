@@ -62,7 +62,6 @@ void TitleScriptScene::Init()
 
 void TitleScriptScene::Update(Time& dt)
 {
-	soundEffects.openingMusic();
 	IntRect bound = bgchange_s.getTextureRect();
 	bound.left += 1;
 	bgchange_s.setTextureRect(bound);

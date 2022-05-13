@@ -86,15 +86,16 @@ void SoundEffect::catchDemon()
 	(SoundHolder::GetSound("Sound/succub_capture_01.wav")).play();
 }
 
-void SoundEffect::backgroundMusic()
-{
-	music.openFromFile("Sound/Vitality.wav");
-	music.play();
-}
-
 void SoundEffect::openingMusic()
 {
-	Sound sound;
-	sound = (SoundHolder::GetSound("Sound/Apropos.mp3"));
-	sound.play();
+	openMusic.openFromFile("Sound/Apropos.wav");
+	openMusic.play();
+}
+
+
+void SoundEffect::backgroundMusic()
+{
+	stageMusic.openFromFile("Sound/Vitality.wav");
+	stageMusic.setLoop(true);
+	stageMusic.play();
 }
