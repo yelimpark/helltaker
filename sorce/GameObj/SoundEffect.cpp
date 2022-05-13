@@ -73,10 +73,8 @@ void SoundEffect::catchDemon()
 
 void SoundEffect::backgroundMusic()
 {
-	Sound sound;
-	sound = (SoundHolder::GetSound("Sound/Vitality.wav"));
-	sound.play();
-	sound.setLoop(true);
+	music.openFromFile("Sound/Vitality.wav");
+	music.play();
 }
 
 void SoundEffect::openingMusic()

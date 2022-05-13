@@ -32,7 +32,9 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Vector2f playerPos;
 	Vector2f DemonPos;
 
-	rapidcsv::Document csvData(filepath);
+	soundEffects.backgroundMusic();
+
+	rapidcsv::Document csvData(filepath, rapidcsv::LabelParams(-1, -1));
 
 	int row = resolution.y / TILE_SIZE;
 	int col = resolution.x / TILE_SIZE;
