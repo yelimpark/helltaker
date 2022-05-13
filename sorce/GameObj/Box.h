@@ -28,6 +28,7 @@ public:
 	void Shake(Direction dir);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
+
 	const Vector2f& GetPos();
 	const bool IsBoxHere(Vector2f pos);
 
