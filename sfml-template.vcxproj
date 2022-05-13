@@ -35,7 +35,11 @@
     <ClCompile Include="sorce\GameObj\KickVfx.cpp" />
     <ClCompile Include="sorce\GameObj\LockedBox.cpp" />
     <ClCompile Include="sorce\GameObj\MoveVfx.cpp" />
+    <ClCompile Include="sorce\GameObj\Option.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
+    <ClCompile Include="sorce\GameObj\Script.cpp" />
+    <ClCompile Include="sorce\GameObj\ScriptWithAnimation.cpp" />
+    <ClCompile Include="sorce\GameObj\ScriptWithChoice.cpp" />
     <ClCompile Include="sorce\GameObj\SoundEffect.cpp" />
     <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp" />
     <ClCompile Include="sorce\GameObj\Skull.cpp" />
@@ -47,7 +51,9 @@
     <ClCompile Include="sorce\Resource\FontHolder.cpp" />
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
+    <ClCompile Include="sorce\Scene\BadEndingScene.cpp" />
     <ClCompile Include="sorce\Scene\LevelEndingScene.cpp" />
+    <ClCompile Include="sorce\Scene\LevelEndScene.cpp" />
     <ClCompile Include="sorce\Scene\PauseMenu.cpp" />
     <ClCompile Include="sorce\Scene\Scene.cpp" />
     <ClCompile Include="sorce\Scene\StageScene.cpp" />
@@ -78,7 +84,11 @@
     <ClInclude Include="sorce\GameObj\LockedBox.h" />
     <ClInclude Include="sorce\GameObj\MapCode.h" />
     <ClInclude Include="sorce\GameObj\MoveVfx.h" />
+    <ClInclude Include="sorce\GameObj\Option.h" />
     <ClInclude Include="sorce\GameObj\Player.h" />
+    <ClInclude Include="sorce\GameObj\Script.h" />
+    <ClInclude Include="sorce\GameObj\ScriptWithAnimation.h" />
+    <ClInclude Include="sorce\GameObj\ScriptWithChoice.h" />
     <ClInclude Include="sorce\GameObj\Skull.h" />
     <ClInclude Include="sorce\GameObj\SoundEffect.h" />
     <ClInclude Include="sorce\GameObj\stageSceneTrasition.h" />
@@ -90,8 +100,11 @@
     <ClInclude Include="sorce\Resource\ResorceHolder.h" />
     <ClInclude Include="sorce\Resource\SoundHolder.h" />
     <ClInclude Include="sorce\Resource\TextureHolder.h" />
+    <ClInclude Include="sorce\SceneInitializer\LevelEndingSceneInitializer.h" />
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h" />
+    <ClInclude Include="sorce\Scene\BadEndingScene.h" />
     <ClInclude Include="sorce\Scene\LevelEndingScene.h" />
+    <ClInclude Include="sorce\Scene\LevelEndScene.h" />
     <ClInclude Include="sorce\Scene\PauseMenu.h" />
     <ClInclude Include="sorce\Scene\Scene.h" />
     <ClInclude Include="sorce\Scene\StageScene.h" />

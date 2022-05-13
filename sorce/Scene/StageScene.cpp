@@ -1,7 +1,7 @@
 #include "StageScene.h"
 #include <SFML/Graphics.hpp>
-#include "../Framework/Framework.h"
 
+#include "../Resource/TextureHolder.h"
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
@@ -37,6 +37,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	soundEffects.backgroundMusic();
 
 	rapidcsv::Document csvData(filepath);
+	rapidcsv::Document csvData(filepath, rapidcsv::LabelParams(-1, -1));
 
 	int row = resolution.y / TILE_SIZE;
 	int col = resolution.x / TILE_SIZE;
@@ -45,7 +46,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	for (int i = 0; i < row; ++i) {
 		map[i] = new char[col];
 		for (int j = 0; j < col; ++j) {
-			map[i][j] = csvData.GetCell<char>(j + 1, i + 1);
+			map[i][j] = csvData.GetCell<char>(j, i);
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
@@ -133,7 +134,7 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	stringstream ss;
-	ss << level;
+	ss << GameVal::level;
 	LevelData levelData = levelDatas[ss.str()];
 
 	InitMap(levelData.MapFilePath, ss.str());
@@ -255,7 +256,7 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
+			sceneManager.ChangeScene(SceneType::LEVELENDING);
 		}
 	}
 
