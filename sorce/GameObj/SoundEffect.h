@@ -2,7 +2,7 @@
 #include "../Resource/SoundHolder.h"
 #include "../Utils/Singleton.h"
 
-class SoundEffect : public Singleton<SoundEffect>
+class SoundEffect 
 {
 private:
 	Music stageMusic;
@@ -13,7 +13,7 @@ private:
 public:
 	static void SoundEffectPlay(std::string soundName);
 
-	static void changebgm();
+	//static void changebgm();
 
 	static void menuConfirm();
 	static void menuHighlight();

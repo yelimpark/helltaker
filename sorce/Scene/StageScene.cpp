@@ -122,6 +122,7 @@ void StageScene::Init()
 {
 	Release();
 
+	soundEffects.backgroundMusic();
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameData>> flameDatas;
 	std::map<std::string, std::vector<FlameBaseData>> flameBaseDatas;
