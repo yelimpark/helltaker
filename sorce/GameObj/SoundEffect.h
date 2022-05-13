@@ -3,6 +3,9 @@
 
 class SoundEffect
 {
+private:
+	Music music;
+
 public:
 	void menuConfirm();
 	void menuHighlight();
