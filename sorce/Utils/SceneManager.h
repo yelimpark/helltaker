@@ -1,6 +1,7 @@
 #pragma once
 #include "./GameVal.h"
 #include "./Singleton.h"
+#include "../GameObj/SoundEffect.h"
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -16,7 +17,7 @@ enum class SceneType {
 	COUNT
 };
 
-class SceneManager : public Singleton<SceneManager> 
+class SceneManager : public Singleton<SceneManager>
 {
 private:
 	SceneType currScene;

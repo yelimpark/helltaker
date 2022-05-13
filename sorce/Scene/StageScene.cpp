@@ -34,8 +34,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	Vector2f KeyPos;
 	Vector2f LockedBoxPos;
 
-	soundEffects.backgroundMusic();
-
 	rapidcsv::Document csvData(filepath, rapidcsv::LabelParams(-1, -1));
 
 	int row = resolution.y / TILE_SIZE;
@@ -174,7 +172,6 @@ void StageScene::Init()
 		cutTransition.Init();
 
 	gameOver.Init(resolution);
-	//soundEffects.backgroundMusic();
 
 	isClear = false;
 	isEarnedKey = false;
@@ -244,10 +241,9 @@ void StageScene::Update(Time& dt)
 	if (!isClear && ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
 			cutTransition.Update(dt.asSeconds());
-			soundEffects.cutTransition1();
 			if (cutTransition.IsFull()) {
 				Init();
-				soundEffects.cutTransition2();
+
 			}
 		}
 		return;

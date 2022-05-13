@@ -64,8 +64,6 @@ void TitleScene::Init()
 
 void TitleScene::Update(Time& dt)
 {
-	soundEffects.openingMusic();
-
 	IntRect bound = cloudBackground.getTextureRect();
 	bound.left += 1;
 	cloudBackground.setTextureRect(bound);

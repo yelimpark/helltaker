@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include "./SoundEffect.h"
 
 using namespace sf;
 
@@ -8,6 +9,7 @@ class GameOver {
 private:
 	Sprite sprite;
 	RectangleShape fadeOut;
+	SoundEffect soundEffects;
 
 	AnimationController animation;
 

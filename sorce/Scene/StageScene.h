@@ -8,7 +8,6 @@
 #include "../GameObj/stageSceneTrasition.h"
 #include "../GameObj/CutSceneTransition.h"
 #include "../GameObj/GameOver.h"
-#include "../GameObj/SoundEffect.h"
 #include "../GameObj/Claw.h"
 #include "../GameObj/Key.h"
 #include "../GameObj/LockedBox.h"

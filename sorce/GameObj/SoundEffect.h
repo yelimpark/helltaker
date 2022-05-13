@@ -1,33 +1,41 @@
 #pragma once
 #include "../Resource/SoundHolder.h"
+#include "../Utils/Singleton.h"
 
-class SoundEffect
+class SoundEffect : public Singleton<SoundEffect>
 {
 private:
 	Music stageMusic;
 	Music openMusic;
 
+	Music* curbgm;
+
 public:
-	void menuConfirm();
-	void menuHighlight();
-	void dialogueTextEnd();
-	void cutTransition1();
-	void cutTransition2();
+	static void SoundEffectPlay(std::string soundName);
 
-	void Playermoves();
-	void PlayerInClaw();
-	void kickSkull();
-	void kickBox();
-	void moveBox();
-	void crushSkull();
-	void getKey();
+	static void changebgm();
 
-	void dialogueStart();
-	void dialogueSuccess();
-	void dialogueConfirm();
+	static void menuConfirm();
+	static void menuHighlight();
+	static void dialogueTextEnd();
+	static void cutTransition1();
+	static void cutTransition2();
 
-	void badEnding();
-	void catchDemon();
+	static void Playermoves();
+	static void PlayerInClaw();
+	static void kickSkull();
+	static void kickBox();
+	static void moveBox();
+	static void crushSkull();
+	static void getKey();
+
+	static void dialogueStart();
+	static void dialogueSuccess();
+	static void dialogueConfirm();
+
+	static void turnOver();
+	static void badEnding();
+	static void catchDemon();
 
 	void backgroundMusic();
 	void openingMusic();

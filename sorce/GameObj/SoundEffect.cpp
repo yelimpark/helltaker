@@ -1,6 +1,19 @@
 #include "SoundEffect.h"
 #include <iostream>
 
+void SoundEffect::SoundEffectPlay(std::string soundName)
+{
+	(SoundHolder::GetSound(soundName)).play();
+}
+
+//void SoundEffect::changebgm()
+//{
+//	if (*curbgm == ) { // 지금비지엠이현재재생비지엠과같다면
+//
+//	}
+//	curbgm = ;
+//}
+
 void SoundEffect::menuConfirm()
 {
 	(SoundHolder::GetSound("Sound/button_menu_confirm_01.wav")).play();
@@ -74,6 +87,11 @@ void SoundEffect::dialogueSuccess()
 void SoundEffect::dialogueConfirm()
 {
 	(SoundHolder::GetSound("Sound/button_dialogue_confirm_01.wav")).play();
+}
+
+void SoundEffect::turnOver()
+{
+	(SoundHolder::GetSound("Sound/player_death_01.wav")).play();
 }
 
 void SoundEffect::badEnding()

@@ -112,9 +112,6 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			useTurn = true;
 			return useTurn;
 
-
-
-
 		case (char)MapCode::SKULL:
 			for (auto& skull : skulls) {
 				if (skull->IsSkullHere(nextPosition)) {
@@ -129,7 +126,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		case (char)MapCode::LOCKEDBOX:
 			if (isEarnedKey)
 			{
-				std::cout << "제발요" << std::endl; //큰일났다!!!!!! dho zl dkfofhaks
+
 			}
 			else
 			{
