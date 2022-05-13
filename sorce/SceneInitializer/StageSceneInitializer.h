@@ -10,6 +10,7 @@ struct LevelData {
 	Vector2f bgPos;
 	int lastTurn;
 	std::string MapFilePath;
+	std::string chapter;
 
 	LevelData() {
 		lastTurn = 0;
@@ -21,6 +22,7 @@ struct LevelData {
 		bgPos.y = stoi(row[3]);
 		lastTurn = stoi(row[4]);
 		MapFilePath = row[5];
+		chapter = row[6];
 	};
 };
 

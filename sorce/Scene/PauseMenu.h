@@ -1,16 +1,23 @@
 #pragma once
 #include "./Scene.h"
 #include "../Utils/SceneManager.h"
+#include "../GameObj/SoundType.h"
+
 
 using namespace sf;
 using namespace std;
 #include <map>
 
-#define MAX_NUMBER_OF_MENU 6
-class PauseMenu 
-{
+class SoundType;
 
+#define MAX_NUMBER_OF_MENU 5
+
+class PauseMenu
+{
 private:
+
+	SoundType soundtype;
+
 	Text menuText;
 
 	Text addMenuText[MAX_NUMBER_OF_MENU];
@@ -18,19 +25,39 @@ private:
 	RectangleShape background;
 	RectangleShape container;
 
+	SceneManager& sceneManager;
 
-	//private functions
+	Sprite img[MAX_NUMBER_OF_MENU];
+	Sprite circle[2];
+	Sprite menuline;
+
+	int selectIndex;
 
 public:
-	PauseMenu(RenderWindow& window);
+
+	PauseMenu(RenderWindow& window, SceneManager& sceneManager);
+
 	virtual ~PauseMenu();
 
-	//Accessor
+	virtual void ContainerInit(RenderWindow& window);
+
+	virtual void UpInit();
+
+	virtual void CircleInit();
+
+	virtual void InputButton();
+	virtual int GetPressedMenu();
+
+	virtual void MovingMenu();
+	virtual void MovingMenuChange();
+	virtual void MoveUp();
+	virtual void MoveDown();
 
 
-	//functions
-	void Addbutton();
-	void Update();
-	void Render(RenderWindow& window); 
+	//Functions
+	virtual void Update();
+	virtual void Render(RenderWindow& window);
+
+
+
 };
-

@@ -9,8 +9,8 @@ void Death::Init(Vector2f pos)
 {
 	sprite.setPosition(pos);
 	animation.SetTarget(&sprite);
-	animation.AddClip("dialogueDeathExport0002_s");
-	animation.Play("dialogueDeathExport0002_s");
+	animation.AddClip("dialogueDeath");
+	animation.Play("dialogueDeath");
 }
 
 void Death::Update(float dt)

@@ -1,10 +1,14 @@
 #pragma once
 
 class GameVal {
-private:	
+private:
 
 public:
 	static int level;
+
+	static int musicSound;
+
+	static int effectSound;
 
 	static void Init();
 
