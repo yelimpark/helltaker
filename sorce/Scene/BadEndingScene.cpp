@@ -11,8 +11,8 @@ BadEndingScene::BadEndingScene(SceneManager& sceneManager)
 void BadEndingScene::Init()
 {
 	animation.SetTarget(&sprite);
-	animation.AddClip("dialogueDeathExport0002_s");
-	animation.Play("dialogueDeathExport0002_s");
+	animation.AddClip("dialogueDeath");
+	animation.Play("dialogueDeath");
 	Utils::SetOrigin(sprite, Pivots::Center);
 	sprite.setPosition(resolution.x * 0.5, resolution.y * 0.5);
 
