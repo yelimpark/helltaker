@@ -1,31 +1,32 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
-#include "Skull.h"
-#include "Player.h"
+#include "./GetVfx.h"
 
 using namespace sf;
 
-class Claw
+class Key
 {
 private:
 	Sprite sprite;
-	Sprite spriteStop;
+	Sprite vfxSprite;
 	Vector2f position;
+	int tileSize;
 
+	AnimationController vfxAnimation;
 	AnimationController animation;
 
+	bool isEarned;
 	bool isActive;
 
 public:
 	void Init(Vector2f pos, int tileSize);
 	void Update(float dt);
-	void ActivateClaw(bool isActive);
-	void DeactivateClaw();
 	void Draw(RenderWindow& window);
+	void Clear();
 
-	bool IsActive();
-	bool IsPlayerIn(char**& map, int tileSize);
-	bool IsSkullIn(char**& map, int tileSize, Skull* skull);
+	bool IsCapturedPlayer(char**& map, int tileSize);
+
+	Vector2f GetKeyPos();
 };
 

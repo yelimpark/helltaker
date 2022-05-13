@@ -4,6 +4,10 @@
 #include "./Box.h"
 #include "./MapCode.h"
 #include "./Skull.h"
+#include "./Key.h"
+#include "./LockedBox.h"
+#include "../Utils/SceneManager.h"
+
 
 #include <iostream>
 
@@ -53,7 +57,7 @@ void Player::Kick(bool isItMove)
 	soundEffects.kickBox();
 }
 
-bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox, bool isEarnedKey, float dt)
 {
 	bool useTurn = false;
 
@@ -94,7 +98,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		switch (map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize]) {
 		case (char)MapCode::WALL:
 			dir = Direction::None;
-			return useTurn;
+			return useTurn;	
 
 		case (char)MapCode::BOX:
 			for(auto& box : boxes) {
@@ -103,10 +107,13 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 					soundEffects.moveBox();
 				}
 			}
-			
+			Kick(true);
 			dir = Direction::None;
 			useTurn = true;
 			return useTurn;
+
+
+
 
 		case (char)MapCode::SKULL:
 			for (auto& skull : skulls) {
@@ -118,6 +125,20 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			dir = Direction::None;
 			useTurn = true;
 			return useTurn;
+
+		case (char)MapCode::LOCKEDBOX:
+			if (isEarnedKey)
+			{
+				std::cout << "제발요" << std::endl; //큰일났다!!!!!! dho zl dkfofhaks
+			}
+			else
+			{
+				Kick(true);
+				lockedbox.Shake(dir);
+				dir = Direction::None;
+				useTurn = true;
+				return useTurn;
+			}
 
 		default:
 			break;
@@ -155,6 +176,7 @@ void Player::Draw(RenderWindow& window)
 Player::Player()
 	:moveSecond(0.f), tileSize(0), dir(Direction::None), moveTime(0.f)
 {
+	
 }
 
 Vector2f Player::GetPos()

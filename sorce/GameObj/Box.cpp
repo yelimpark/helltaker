@@ -2,9 +2,10 @@
 #include "../Resource/TextureHolder.h"
 #include "../Utils/InputManager.h"
 #include "./MapCode.h"
+#include <iostream>
 
 Box::Box()
-	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond)
+	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), isSideShake(false), isUpShake(false), playTime(2.f)
 {
 }
 
@@ -18,6 +19,11 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 	moveDistance = tileSize;
 	this->moveSecond = moveSecond;
 	moveTime = moveSecond;
+
+	isSideShake = false;
+	isUpShake = false;
+
+	playTime = 2.f;
 }
 
 bool Box::Move(Direction dir, char**& map)
@@ -52,8 +58,11 @@ bool Box::Move(Direction dir, char**& map)
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
+	case (char)MapCode::LOCKEDBOX:
+	case (char)MapCode::DEMON:
 	case (char)MapCode::SKULL:
 		this->dir = Direction::None;
+		Shake(dir);
 		return false;
 
 	default:
@@ -65,9 +74,44 @@ bool Box::Move(Direction dir, char**& map)
 	return true;
 }
 
+void Box::Shake(Direction dir)
+{
+	if (this->dir == Direction::None)
+	{
+		if (dir == Direction::Left || dir == Direction::Right)
+		{
+			isSideShake = true;
+		}
+
+		if (dir == Direction::Up || dir == Direction::Down)
+		{
+			isUpShake = true;
+		}
+	}
+}
+
 void Box::Update(float dt)
 {
-	if (dir == Direction::None) return;
+	if (isSideShake)
+	{
+		sprite.setPosition(position.x + dt * 800, position.y);
+	}
+	if (isUpShake)
+	{
+		sprite.setPosition(position.x, position.y + dt * 800);
+	}
+
+	playTime -= dt * 10;
+
+	if (playTime < 0.0f)
+	{
+		isSideShake = false;
+		isUpShake = false;
+		playTime = 2.f;
+		sprite.setPosition(position);
+	}
+
+	if (dir == Direction::None)		return;
 
 	moveTime -= dt;
 

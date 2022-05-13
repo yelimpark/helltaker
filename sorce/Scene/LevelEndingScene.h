@@ -9,7 +9,6 @@
 #include <iostream>
 #include "../GameObj/SoundEffect.h"
 
-#define MAX_NUMBER_OF_SCRIPT 4
 class LevelEndingScene : public Scene
 {
 private:

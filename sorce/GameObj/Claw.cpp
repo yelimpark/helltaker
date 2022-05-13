@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+
 void Claw::Init(Vector2f pos, int tileSize)
 {
 	position = pos;
@@ -16,7 +17,7 @@ void Claw::Init(Vector2f pos, int tileSize)
 	animation.AddClip("ActivateClaw"); //20-23
 	animation.AddClip("DectivateClaw"); //16-20\
 
-	isActive = false;
+	isActive = true;
 }
 
 void Claw::Update(float dt)
@@ -24,7 +25,7 @@ void Claw::Update(float dt)
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
 
-	if (InputManager::GetKey(Keyboard::Left))
+	if (InputManager::GetKeyDown(Keyboard::Left))
 	{
 		if (!isActive)
 		{
@@ -33,6 +34,49 @@ void Claw::Update(float dt)
 		}
 		else
 		{
+			animation.Play("DectivateClaw");
+			isActive = false;
+		}
+	}
+
+	if (InputManager::GetKeyDown(Keyboard::Right))
+	{
+		if (!isActive)
+		{
+			animation.Play("ActivateClaw");
+			isActive = true;
+		}
+		else
+		{
+			animation.Play("DectivateClaw");
+			isActive = false;
+		}
+	}
+
+	if (InputManager::GetKeyDown(Keyboard::Up))
+	{
+		if (!isActive)
+		{
+			animation.Play("ActivateClaw");
+			isActive = true;
+		}
+		else
+		{
+			animation.Play("DectivateClaw");
+			isActive = false;
+		}
+	}
+
+	if (InputManager::GetKeyDown(Keyboard::Down))
+	{
+		if (!isActive)
+		{
+			animation.Play("ActivateClaw");
+			isActive = true;
+		}
+		else
+		{
+			animation.Play("DectivateClaw");
 			isActive = false;
 		}
 	}
@@ -40,7 +84,6 @@ void Claw::Update(float dt)
 
 void Claw::ActivateClaw(bool isActive)
 {
-	animation.Play("ActivateClaw");
 }
 
 void Claw::DeactivateClaw()
@@ -57,7 +100,19 @@ bool Claw::IsActive()
 	return isActive;
 }
 
-bool Claw::IsPlayerInClaw(char**& map, int tileSize)
+bool Claw::IsSkullIn(char**& map, int tileSize, Skull* skull)
+{
+	int idxY = (int)position.y / tileSize;
+	int idxX = (int)position.x / tileSize;
+
+	if (map[idxY][idxX] == (char)MapCode::SKULL)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Claw::IsPlayerIn(char**& map, int tileSize)
 {
 	int idxY = (int)position.y / tileSize;
 	int idxX = (int)position.x / tileSize;

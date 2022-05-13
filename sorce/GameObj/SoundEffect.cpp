@@ -16,15 +16,24 @@ void SoundEffect::dialogueTextEnd()
 	(SoundHolder::GetSound("Sound/dialogue_text_end_01.wav")).play();
 }
 
-void SoundEffect::screenTransition()
+void SoundEffect::cutTransition1()
 {
 	(SoundHolder::GetSound("Sound/screen_changer_part1_01.wav")).play();
-	//(SoundHolder::GetSound("Sound/screen_changer_part2_01.wav")).play(); 몇 초 뒤 재생?
+}
+
+void SoundEffect::cutTransition2()
+{
+	(SoundHolder::GetSound("Sound/screen_changer_part2_01.wav")).play();
 }
 
 void SoundEffect::Playermoves()
 {
 	(SoundHolder::GetSound("Sound/character_move_01.wav")).play();
+}
+
+void SoundEffect::PlayerInClaw()
+{
+	(SoundHolder::GetSound("Sound/spikes_damage_01.wav")).play();
 }
 
 void SoundEffect::kickSkull()
@@ -45,6 +54,11 @@ void SoundEffect::moveBox()
 void SoundEffect::crushSkull()
 {
 	(SoundHolder::GetSound("Sound/enemy_die_01.wav")).play();
+}
+
+void SoundEffect::getKey()
+{
+	(SoundHolder::GetSound("Sound/key_pick_up_01.wav")).play();
 }
 
 void SoundEffect::dialogueStart()

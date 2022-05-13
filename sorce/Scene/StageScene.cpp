@@ -1,10 +1,11 @@
 #include "StageScene.h"
 #include <SFML/Graphics.hpp>
-#include "../Framework/Framework.h"
 
+#include "../Resource/TextureHolder.h"
 #include "../Utils/rapidcsv.h"
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
+#include "../Resource/FontHolder.h"
 
 #include "../UI/StageUI.h"
 #include "../GameObj/Flame.h"
@@ -17,7 +18,7 @@
 #include <algorithm>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false)
+	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isEarnedBox(false)
 {
 
 }
@@ -30,6 +31,8 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 
 	Vector2f playerPos;
 	Vector2f DemonPos;
+	Vector2f KeyPos;
+	Vector2f LockedBoxPos;
 
 	soundEffects.backgroundMusic();
 
@@ -42,7 +45,7 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	for (int i = 0; i < row; ++i) {
 		map[i] = new char[col];
 		for (int j = 0; j < col; ++j) {
-			map[i][j] = csvData.GetCell<char>(j + 1, i + 1);
+			map[i][j] = csvData.GetCell<char>(j, i);
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
@@ -82,14 +85,32 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 				claws.push_back(claw);
 				break;
 			}
+
+			case (char)MapCode::KEY:
+			{
+				KeyPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				KeyPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+			}
+
+			case (char)MapCode::LOCKEDBOX:
+			{
+				LockedBoxPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
+				LockedBoxPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				break;
+			}
+
 			default:
 				break;
 			}
+
 		}
 	}
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 	demon.Init(DemonPos);
+	key.Init(KeyPos, TILE_SIZE);
+	lockedBox.Init(LockedBoxPos);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
@@ -112,7 +133,7 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	stringstream ss;
-	ss << level;
+	ss << GameVal::level;
 	LevelData levelData = levelDatas[ss.str()];
 
 	InitMap(levelData.MapFilePath, ss.str());
@@ -135,9 +156,17 @@ void StageScene::Init()
 
 	sideLeft.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	sideRight.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	sideLeft.setPosition(0, 0);
-	sideRight.setPosition(resolution.x, 0);
+	sideLeft.setPosition(resolution.x*0.03f, 0);
+	sideRight.setPosition(resolution.x*0.97f, 0);
 	sideRight.setScale(-1.f, 1.f);
+
+	text.setFont(FontHolder::GetFont("Font/CrimsonPro-Bold.ttf"));
+	text.setCharacterSize(35);
+	text.setStyle(Text::Bold);
+	text.setString("LIFE ADVICE [L or LB]               RESTART [R or RB]");
+	Utils::SetOrigin(text, Pivots::Center);
+	text.setPosition(Vector2f(resolution.x * 0.5f, resolution.y * 0.95f));
+
 
 	ui.Init(levelData.lastTurn);
 	stageTransition.Init(resolution);
@@ -148,6 +177,8 @@ void StageScene::Init()
 	//soundEffects.backgroundMusic();
 
 	isClear = false;
+	isEarnedKey = false;
+	isEarnedBox = false;
 }
 
 void StageScene::Update(Time& dt)
@@ -163,7 +194,7 @@ void StageScene::Update(Time& dt)
 
 	player.Update(dt.asSeconds());
 	if (!isClear && !ui.IsGameOver()) {
-		if (player.HanddleInput(map, boxes, skulls))
+		if (player.HanddleInput(map, boxes, skulls, lockedBox, isEarnedKey, dt.asSeconds()))
 			ui.UseTurn();
 	}
 
@@ -171,6 +202,8 @@ void StageScene::Update(Time& dt)
 		skulls[i]->Update(dt.asSeconds());
 		if (skulls[i]->IsDead()) {
 			boneParticle.Init(skulls[i]->GetPos());
+			soundEffects.crushSkull();
+			map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 			delete skulls[i];
 			skulls.erase(skulls.begin() + i);
 		}
@@ -178,21 +211,44 @@ void StageScene::Update(Time& dt)
 
 	for (int i = 0; i < claws.size(); i++)
 	{
-		claws[i]->Update(dt.asSeconds());
-		claws[i]->IsPlayerInClaw(map, TILE_SIZE);
+		claws[i]->Update(dt.asSeconds()*5);
+		claws[i]->IsActive();
+		for (auto skull : skulls)
+		{
+			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
+			{
+				skulls[i]->IsDead();
+				soundEffects.crushSkull();
+				boneParticle.Init(skulls[i]->GetPos());
+				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
+				delete skulls[i];
+				skulls.erase(skulls.begin() + i);
+			}
+		}
+
+		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
+		{
+			soundEffects.PlayerInClaw();
+			bloodVfx.Init(player.GetPos());
+
+			//ui.UseTurn();
+		}
 	}
 
-
 	boneParticle.Update(dt.asSeconds());
-	
+	bloodVfx.Update(dt.asSeconds());
+
 	demon.Update(dt.asSeconds());
 	isClear = demon.IsClear(map, TILE_SIZE);
 
 	if (!isClear && ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
 			cutTransition.Update(dt.asSeconds());
-			if (cutTransition.IsFull())
+			soundEffects.cutTransition1();
+			if (cutTransition.IsFull()) {
 				Init();
+				soundEffects.cutTransition2();
+			}
 		}
 		return;
 	}
@@ -200,8 +256,29 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.ChangeScene(SceneType::ENDINGCUTSCENE);
+			sceneManager.ChangeScene(SceneType::LEVELENDING);
 		}
+	}
+
+	isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
+	if (isEarnedKey)
+	{
+		key.Clear();
+		soundEffects.getKey();
+	}
+	key.Update(dt.asSeconds());
+
+	isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
+	if (isEarnedBox)
+	{
+		lockedBox.Clear();
+	}
+	lockedBox.Update(dt.asSeconds());
+	
+	if (InputManager::GetKeyDown(Keyboard::R))
+	{
+		cutTransition.Init();
+		Init();
 	}
 }
 
@@ -211,6 +288,8 @@ void StageScene::Render()
 	window.draw(Background);
 	window.draw(sideLeft);
 	window.draw(sideRight);
+	key.Draw(window);
+	lockedBox.Draw(window);
 
 	for (auto flamebase : flameBases) {
 		window.draw(*flamebase);
@@ -220,6 +299,11 @@ void StageScene::Render()
 		flame->Draw(window);
 	}
 
+	for (auto& claw : claws)
+	{
+		claw->Draw(window);
+	}
+	
 	for (auto& box : boxes)
 	{
 		box->Draw(window);
@@ -230,16 +314,13 @@ void StageScene::Render()
 		skull->Draw(window);
 	}
 
-	for (auto& claw : claws)
-	{
-		claw->Draw(window);
-	}
-
 	player.Draw(window);
 	demon.Draw(window);
 	boneParticle.Draw(window);
+	bloodVfx.Draw(window);
 
 	stageTransition.Draw(window);
+	window.draw(text);
 	ui.Draw(window);
 
 	if (!isClear && ui.IsGameOver()) {

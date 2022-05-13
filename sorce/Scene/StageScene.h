@@ -10,6 +10,9 @@
 #include "../GameObj/GameOver.h"
 #include "../GameObj/SoundEffect.h"
 #include "../GameObj/Claw.h"
+#include "../GameObj/Key.h"
+#include "../GameObj/LockedBox.h"
+#include "../GameObj/BloodVfx.h"
 #include <vector>
 
 class Flame;
@@ -19,7 +22,6 @@ class Skull;
 class StageScene : public Scene
 {
 private:
-	int level;
 	char ** map;
 
 	const int TILE_SIZE = 100; 
@@ -34,14 +36,20 @@ private:
 	std::vector<Claw *> claws;
 	
 	StageUI ui;
+	Text text;
 
 	Sprite Background;
 	Sprite sideLeft;
 	Sprite sideRight;
 	Player player;
 	Demon demon;
+	Key key;
+	LockedBox lockedBox;
+
 
 	BoneParticle boneParticle;
+	BloodVfx bloodVfx;
+
 	stageSceneTrasition stageTransition;
 	CutSceneTransition cutTransition;
 
@@ -49,6 +57,8 @@ private:
 	SoundEffect soundEffects;
 
 	bool isClear;
+	bool isEarnedKey;
+	bool isEarnedBox;
 
 	void InitMap(std::string filepath, std::string level);
 

@@ -16,15 +16,21 @@ private:
 
 	Direction dir;
 	float moveTime;
+	float playTime;
+
+	bool isSideShake;
+	bool isUpShake;
 
 public:
 	Box();
 	void Init(BoxData info, int tileSize, float moveSecond);
 	bool Move(Direction dir, char**& map);
+	void Shake(Direction dir);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
 
 	const Vector2f& GetPos();
 	const bool IsBoxHere(Vector2f pos);
+
 };
 

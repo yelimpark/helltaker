@@ -3,7 +3,9 @@
 #include "../Scene/StageScene.h"
 #include "../Scene/TitleScriptScene.h"
 #include "../Scene/LevelEndingScene.h"
-
+#include "../Resource/TextureHolder.h"
+#include "../Scene/LevelEndScene.h"
+#include "../Scene/BadEndingScene.h"
 
 void SceneManager::Init()
 {
@@ -13,8 +15,8 @@ void SceneManager::Init()
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
 	scenes[(int)SceneType::TITLESCRIPT] = new TitleScriptScene(*this);
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
-	scenes[(int)SceneType::ENDINGCUTSCENE] = new LevelEndingScene(*this);
-	//scenes[(int)SceneType::ENDINGCUTSCENE] = new EndingCutScene(*this);
+	scenes[(int)SceneType::LEVELENDING] = new LevelEndScene(*this);
+	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);
 
 	scenes[(int)currScene]->Init();
 }
@@ -52,4 +54,5 @@ void SceneManager::ChangeScene(SceneType newScene)
 SceneManager::~SceneManager()
 {
 	Release();
+	TextureHolder::Release();
 }

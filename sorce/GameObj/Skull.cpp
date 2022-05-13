@@ -2,6 +2,7 @@
 #include "../Utils/InputManager.h"
 #include "../Utils/Utils.h"
 #include "./MapCode.h"
+#include "./Claw.h"
 
 
 void Skull::Init(Vector2f pos, int tileSize, float moveSecond)
@@ -97,6 +98,8 @@ void Skull::OnPushed(Direction dir, char**& map)
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
+	case (char)MapCode::LOCKEDBOX:
+	case (char)MapCode::DEMON:
 	case (char)MapCode::SKULL:
 		isDead = true;
 		map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';

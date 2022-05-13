@@ -15,7 +15,7 @@ void AnimationController::SetTarget(Sprite* sprite)
 
 void AnimationController::AddClip(std::string id)
 {
-	AnimationClip newClip = AnimationHolder::GetAnimation(id);
+	AnimationClip &newClip = AnimationHolder::GetAnimation(id);
 	if (clips.find(newClip.id) == clips.end()) {
 		clips[newClip.id] = newClip;
 	}
@@ -52,7 +52,7 @@ void AnimationController::Update(float dt)
 		}
 	}
 
-	sprite->setTexture(currentClip->frames[currentFrame].texture);
+	sprite->setTexture(*(currentClip->frames[currentFrame].texture));
 	sprite->setTextureRect(currentClip->frames[currentFrame].texCoord);
 }
 
@@ -70,7 +70,7 @@ void AnimationController::Play(std::string clipId, bool clear)
 	currentFrame = 0;
 	totalFrame = currentClip->frames.size();
 	frameDuration = 0.8f / currentClip->fps;
-	sprite->setTexture(currentClip->frames[currentFrame].texture);
+	sprite->setTexture(*(currentClip->frames[currentFrame].texture));
 	sprite->setTextureRect(currentClip->frames[currentFrame].texCoord);
 	if (clear) {
 		que.clear();
