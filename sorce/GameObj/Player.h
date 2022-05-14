@@ -45,7 +45,7 @@ public:
 
 	void Update(float dt);
 
-	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox, bool isEarnedKey, float dt);
+	bool HanddleInput(char**& map, std::vector<Box*> &boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox);
 
 	void Draw(RenderWindow& window);
 

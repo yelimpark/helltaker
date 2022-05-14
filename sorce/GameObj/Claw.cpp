@@ -15,7 +15,7 @@ void Claw::Init(Vector2f pos, int tileSize)
 
 	animation.SetTarget(&sprite);
 	animation.AddClip("ActivateClaw"); //20-23
-	animation.AddClip("DectivateClaw"); //16-20\
+	animation.AddClip("DeactivateClaw"); //16-20\
 
 	isActive = true;
 }
@@ -25,7 +25,10 @@ void Claw::Update(float dt)
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
 
-	if (InputManager::GetKeyDown(Keyboard::Left))
+	if (InputManager::GetKeyDown(Keyboard::Left) ||
+		InputManager::GetKeyDown(Keyboard::Right) ||
+		InputManager::GetKeyDown(Keyboard::Up) ||
+		InputManager::GetKeyDown(Keyboard::Down))
 	{
 		if (!isActive)
 		{
@@ -34,49 +37,7 @@ void Claw::Update(float dt)
 		}
 		else
 		{
-			animation.Play("DectivateClaw");
-			isActive = false;
-		}
-	}
-
-	if (InputManager::GetKeyDown(Keyboard::Right))
-	{
-		if (!isActive)
-		{
-			animation.Play("ActivateClaw");
-			isActive = true;
-		}
-		else
-		{
-			animation.Play("DectivateClaw");
-			isActive = false;
-		}
-	}
-
-	if (InputManager::GetKeyDown(Keyboard::Up))
-	{
-		if (!isActive)
-		{
-			animation.Play("ActivateClaw");
-			isActive = true;
-		}
-		else
-		{
-			animation.Play("DectivateClaw");
-			isActive = false;
-		}
-	}
-
-	if (InputManager::GetKeyDown(Keyboard::Down))
-	{
-		if (!isActive)
-		{
-			animation.Play("ActivateClaw");
-			isActive = true;
-		}
-		else
-		{
-			animation.Play("DectivateClaw");
+			animation.Play("DeactivateClaw");
 			isActive = false;
 		}
 	}

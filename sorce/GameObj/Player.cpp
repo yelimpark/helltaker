@@ -57,7 +57,7 @@ void Player::Kick(bool isItMove)
 	soundEffects.kickBox();
 }
 
-bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox, bool isEarnedKey, float dt)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox)
 {
 	bool useTurn = false;
 
@@ -68,30 +68,22 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		nextPosition.x = position.x - tileSize;
 		nextPosition.y = position.y;
 		dir = Direction::Left;
-		
-		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Right)) {
 		sprite.setScale(1.f, 1.f);
 		nextPosition.x = position.x + tileSize;
 		nextPosition.y = position.y;
 		dir = Direction::Right;
-
-		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Up)) {
 		nextPosition.x = position.x;
 		nextPosition.y = position.y - tileSize;
 		dir = Direction::Up;
-
-		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Down)) {
 		nextPosition.x = position.x;
 		nextPosition.y = position.y + tileSize;
 		dir = Direction::Down;
-
-		soundEffects.Playermoves();
 	}
 
 	if (dir != Direction::None) {
@@ -124,13 +116,8 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			return useTurn;
 
 		case (char)MapCode::LOCKEDBOX:
-			if (isEarnedKey)
-			{
-
-			}
-			else
-			{
-				Kick(true);
+			if (!lockedbox.IsOpen()) {
+				Kick(false);
 				lockedbox.Shake(dir);
 				dir = Direction::None;
 				useTurn = true;
@@ -141,6 +128,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			break;
 		}
 
+		soundEffects.Playermoves();
 		moveVfx.Init(position);
 		map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize] = 'P';
 		map[(int)position.y / tileSize][(int)position.x / tileSize] = 'E';

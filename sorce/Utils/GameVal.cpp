@@ -7,7 +7,7 @@ int GameVal::effectSound;
 
 void GameVal::Init()
 {
-	level = 1;
+	level = 4;
 
 	cutSceneIdx = 0;
 

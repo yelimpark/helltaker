@@ -1,6 +1,7 @@
 #include "Box.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/InputManager.h"
+#include "../Utils/Utils.h"
 #include "./MapCode.h"
 #include <iostream>
 
@@ -13,6 +14,7 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 {
 	position = info.position;
 	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
+	Utils::SetOrigin(sprite, Pivots::Center);
 	sprite.setPosition(position);
 
 	dir = Direction::None;

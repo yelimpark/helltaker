@@ -11,7 +11,6 @@ private:
 	Sprite sprite;
 	Sprite vfxSprite;
 	Vector2f position;
-	int tileSize;
 
 	AnimationController vfxAnimation;
 	AnimationController animation;
@@ -20,13 +19,12 @@ private:
 	bool isActive;
 
 public:
-	void Init(Vector2f pos, int tileSize);
-	void Update(float dt);
+	Key();
+
+	void Init(Vector2f pos);
+	void Update(float dt, Vector2f playerpos, int tileSize);
 	void Draw(RenderWindow& window);
-	void Clear();
 
-	bool IsCapturedPlayer(char**& map, int tileSize);
-
-	Vector2f GetKeyPos();
+	bool IsCapturedPlayer();
 };
 

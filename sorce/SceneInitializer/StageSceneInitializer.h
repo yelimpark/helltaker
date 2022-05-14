@@ -11,9 +11,13 @@ struct LevelData {
 	int lastTurn;
 	std::string MapFilePath;
 	std::string chapter;
+	int marginLeft;
+	int marginTop;
 
 	LevelData() {
 		lastTurn = 0;
+		marginLeft = 0;
+		marginTop = 0;
 	};
 
 	LevelData(std::vector<std::string>& row) {
@@ -23,6 +27,8 @@ struct LevelData {
 		lastTurn = stoi(row[4]);
 		MapFilePath = row[5];
 		chapter = row[6];
+		marginLeft = stoi(row[7]);
+		marginTop = stoi(row[8]);
 	};
 };
 
