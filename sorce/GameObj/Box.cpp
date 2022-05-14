@@ -6,7 +6,7 @@
 #include <iostream>
 
 Box::Box()
-	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), isSideShake(false), isUpShake(false), playTime(2.f)
+	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), playTime(2.f)
 {
 }
 
@@ -22,9 +22,6 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 	this->moveSecond = moveSecond;
 	moveTime = moveSecond;
 
-	isSideShake = false;
-	isUpShake = false;
-
 	playTime = 2.f;
 }
 
@@ -32,31 +29,30 @@ bool Box::Move(Direction dir, char**& map)
 {
 	this->dir = dir;
 
-	char* nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance];
-
+	nextPosition = position;
 	switch (dir)
 	{
 	case Direction::Left:
-		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance - 1];
+		nextPosition.x = position.x - moveDistance;
 		break;
 
 	case Direction::Right:
-		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance + 1];
+		nextPosition.x = position.x + moveDistance;
 		break;
 
 	case Direction::Up:
-		nextPos = &map[(int)position.y / moveDistance - 1][(int)position.x / moveDistance];
+		nextPosition.y = position.y - moveDistance;
 		break;
 
 	case Direction::Down:
-		nextPos = &map[(int)position.y / moveDistance + 1][(int)position.x / moveDistance];
+		nextPosition.y = position.y + moveDistance;
 		break;
 
 	default:
 		break;
 	}
 
-	switch (*nextPos)
+	switch (map[(int)nextPosition.y / moveDistance][(int)nextPosition.x / moveDistance])
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
@@ -64,7 +60,7 @@ bool Box::Move(Direction dir, char**& map)
 	case (char)MapCode::DEMON:
 	case (char)MapCode::SKULL:
 		this->dir = Direction::None;
-		Shake(dir);
+		shakeDir = dir;
 		return false;
 
 	default:
@@ -72,43 +68,31 @@ bool Box::Move(Direction dir, char**& map)
 	}
 
 	map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
-	*nextPos = 'B';
+	map[(int)nextPosition.y / moveDistance][(int)nextPosition.x / moveDistance] = 'B';
 	return true;
-}
-
-void Box::Shake(Direction dir)
-{
-	if (this->dir == Direction::None)
-	{
-		if (dir == Direction::Left || dir == Direction::Right)
-		{
-			isSideShake = true;
-		}
-
-		if (dir == Direction::Up || dir == Direction::Down)
-		{
-			isUpShake = true;
-		}
-	}
 }
 
 void Box::Update(float dt)
 {
-	if (isSideShake)
+	switch (shakeDir)
 	{
+	case Direction::Left:
+	case Direction::Right:
 		sprite.setPosition(position.x + dt * 800, position.y);
-	}
-	if (isUpShake)
-	{
+		break;
+	case Direction::Down:
+	case Direction::Up:
 		sprite.setPosition(position.x, position.y + dt * 800);
+		break;
+	default:
+		break;
 	}
 
 	playTime -= dt * 10;
 
 	if (playTime < 0.0f)
 	{
-		isSideShake = false;
-		isUpShake = false;
+		shakeDir = Direction::None;
 		playTime = 2.f;
 		sprite.setPosition(position);
 	}
@@ -120,6 +104,8 @@ void Box::Update(float dt)
 	if (moveTime <= 0)
 	{
 		moveTime = moveSecond;
+		position = nextPosition;
+		sprite.setPosition(position);
 		dir = Direction::None;
 		return;
 	}

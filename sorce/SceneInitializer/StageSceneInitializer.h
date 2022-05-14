@@ -13,6 +13,7 @@ struct LevelData {
 	std::string chapter;
 	int marginLeft;
 	int marginTop;
+	std::string demonName;
 
 	LevelData() {
 		lastTurn = 0;
@@ -29,6 +30,7 @@ struct LevelData {
 		chapter = row[6];
 		marginLeft = stoi(row[7]);
 		marginTop = stoi(row[8]);
+		demonName = row[9];
 	};
 };
 

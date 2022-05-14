@@ -24,6 +24,8 @@ void CutScene::Init()
 	Utils::CsvToStructVectorMap<CutSceneData>(cutSceneDatas, "./LevelInfo/cutInfo.csv");
 	std::vector<CutSceneData> curSceneDatas = cutSceneDatas[to_string(GameVal::cutSceneIdx)];
 
+	std::cout << GameVal::cutSceneIdx << std::endl;
+
 	bgColor.setSize(Vector2f(resolution.x, resolution.y));
 	bgColor.setFillColor(Color{2, 2, 27});
 	bgColor.setPosition(0, 0);
@@ -63,7 +65,6 @@ void CutScene::Update(Time& dt)
 			sceneManager.ChangeScene(SceneType::BADENDING);
 		}
 		else if (nextNode.compare("S") == 0) {
-			//++GameVal::level;
 			sceneManager.ChangeScene(SceneType::STAGE, true);
 		}
 		else {

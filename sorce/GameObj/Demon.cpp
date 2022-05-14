@@ -3,14 +3,14 @@
 #include "../Utils/Utils.h"
 #include "../Resource/TextureHolder.h"
 
-void Demon::Init(Vector2f pos)
+void Demon::Init(Vector2f pos, std::string demonName)
 {
 	position = pos;
 	sprite.setPosition(position);
 
 	animation.SetTarget(&sprite);
-	animation.AddClip("Pandemonica");
-	animation.Play("Pandemonica");
+	animation.AddClip(demonName);
+	animation.Play(demonName);
 
 	heartYPos = 60.f;
 	heart.setTexture(TextureHolder::GetTexture("Sprite/lovesign.png"));

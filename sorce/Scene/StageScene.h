@@ -21,7 +21,6 @@ class LockedBox;
 class StageScene : public Scene
 {
 private:
-	int level;
 	char ** map;
 
 	const int TILE_SIZE = 100; 
@@ -60,7 +59,7 @@ private:
 
 	Vector2f IndexToPos(int j, int i);
 
-	void InitMap(std::string filepath);
+	void InitMap(std::string filepath, std::string demonName);
 
 public:
 	StageScene(SceneManager& sceneManager);
@@ -72,7 +71,6 @@ public:
 	virtual void UnPausedState();
 
 	virtual void UpdatePauseInput(Time& dt);
-
 
 	virtual void Update(Time& dt);
 

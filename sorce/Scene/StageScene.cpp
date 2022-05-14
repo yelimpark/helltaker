@@ -21,7 +21,7 @@
 #include<string>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false), pmenu(window, sceneManager), 
+	: Scene(sceneManager), isClear(false), pmenu(window, sceneManager), 
 	key(nullptr), lockedBox(nullptr), leftMargin(0), topMargin(0)
 {
 
@@ -36,7 +36,7 @@ Vector2f StageScene::IndexToPos(int j, int i)
 	return pos;
 }
 
-void StageScene::InitMap(std::string filepath)
+void StageScene::InitMap(std::string filepath, std::string demonName)
 {
 	std::string levelStr = to_string(GameVal::level);
 
@@ -71,7 +71,7 @@ void StageScene::InitMap(std::string filepath)
 			case (char)MapCode::DEMON:
 			{
 				Demon* demon = new Demon();
-				demon->Init(IndexToPos(j, i));
+				demon->Init(IndexToPos(j, i), demonName);
 				demons.push_back(demon);
 				break;
 			}
@@ -146,7 +146,7 @@ void StageScene::Init()
 	key = new Key();
 	lockedBox = new LockedBox();
 
-	InitMap(levelData.MapFilePath);
+	InitMap(levelData.MapFilePath, levelData.demonName);
 
 	for (int i = 0; i < flameDatas[to_string(GameVal::level)].size(); ++i) {
 		Flame* flame = new Flame();
@@ -253,12 +253,7 @@ void StageScene::Update(Time& dt)
 		{
 			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
 			{
-				skulls[i]->IsDead();
-				soundEffects.crushSkull();
-				boneParticle.Init(skulls[i]->GetPos());
-				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
-				delete skulls[i];
-				skulls.erase(skulls.begin() + i);
+
 			}
 		}
 
@@ -282,8 +277,9 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			GameVal::cutSceneIdx = level;
+			GameVal::cutSceneIdx = GameVal::level;
 			sceneManager.ChangeScene(SceneType::CUT);
+			++GameVal::level;
 		}
 	}
 	else {

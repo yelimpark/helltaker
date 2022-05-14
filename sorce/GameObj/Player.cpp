@@ -63,25 +63,22 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 
 	if (animation.NowPlaying() != "PlayerStand" || dir != Direction::None) return useTurn;
 
+	nextPosition = position;
 	if (InputManager::GetKey(Keyboard::Left)) {
 		sprite.setScale(-1.f, 1.f);
 		nextPosition.x = position.x - tileSize;
-		nextPosition.y = position.y;
 		dir = Direction::Left;
 	}
 	if (InputManager::GetKey(Keyboard::Right)) {
 		sprite.setScale(1.f, 1.f);
 		nextPosition.x = position.x + tileSize;
-		nextPosition.y = position.y;
 		dir = Direction::Right;
 	}
 	if (InputManager::GetKey(Keyboard::Up)) {
-		nextPosition.x = position.x;
 		nextPosition.y = position.y - tileSize;
 		dir = Direction::Up;
 	}
 	if (InputManager::GetKey(Keyboard::Down)) {
-		nextPosition.x = position.x;
 		nextPosition.y = position.y + tileSize;
 		dir = Direction::Down;
 	}

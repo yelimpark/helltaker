@@ -17,7 +17,7 @@ private:
 	bool isheartmoving = false;
 
 public:
-	void Init(Vector2f pos);
+	void Init(Vector2f pos, std::string demonName);
 
 	void Update(float dt);
 	
