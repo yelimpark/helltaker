@@ -42,7 +42,7 @@ PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
 		addMenuText[i].setCharacterSize(35);
 		Utils::SetOrigin(addMenuText[i], Pivots::Center);
 
-		img[i].setTexture(TextureHolder::GetTexture("Sprite/button_small_s.png"));
+		//img[i].setTexture(TextureHolder::GetTexture("Sprite/button_small_s.png"));
 		img[i].setColor({ 99, 61, 74, 225 });
 		Utils::SetOrigin(img[i], Pivots::Center);
 		img[i].setPosition(
@@ -76,7 +76,7 @@ PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
 				container.getPosition().x + container.getSize().x / 2.f,
 				container.getPosition().y / 0.5 * i + 200
 			);
-			img[i].setTexture(TextureHolder::GetTexture("Sprite/button_small_s.png"));
+			//img[i].setTexture(TextureHolder::GetTexture("Sprite/button_small_s.png"));
 			img[i].setColor({ 99, 61, 74, 225 });
 			Utils::SetOrigin(img[i], Pivots::Center);
 			img[i].setPosition(
@@ -86,7 +86,7 @@ PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
 
 		}
 	}
-	menuline.setTexture(TextureHolder::GetTexture("Sprite/escmenu.png"));
+	//menuline.setTexture(TextureHolder::GetTexture("Sprite/escmenu.png"));
 	Utils::SetOrigin(menuline, Pivots::Center);
 	menuline.setPosition(
 		container.getPosition().x + container.getSize().x / 2.0f,

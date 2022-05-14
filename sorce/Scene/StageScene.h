@@ -65,7 +65,7 @@ private:
 	bool isEarnedKey;
 	bool isEarnedBox;
 
-	void InitMap(std::string filepath, std::string level);
+	void InitMap(std::string filepath);
 
 public:
 	StageScene(SceneManager& sceneManager);

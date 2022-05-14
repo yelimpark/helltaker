@@ -19,7 +19,7 @@ void InitLoadingScene::Init()
 	bgColor.setPosition(0, 0);
 
 	text.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-	text.setString("made by SFML");
+	text.setString("Made by SFML");
 	text.setCharacterSize(50);
 	text.setFillColor(Color::White);
 	Utils::SetOrigin(text, Pivots::Center);

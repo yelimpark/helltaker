@@ -1,17 +1,18 @@
 #include "./SceneManager.h"
+#include "../Framework/Framework.h"
+#include "../Resource/TextureHolder.h"
+
 #include "../Scene/TitleScene.h"
 #include "../Scene/StageScene.h"
-#include "../Resource/TextureHolder.h"
 #include "../Scene/CutScene.h"
 #include "../Scene/BadEndingScene.h"
 #include "../Scene/InitLoadingScene.h"
-#include "../Framework/Framework.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = (SceneType)0;
-	holdScene = SceneType::COUNT;
+	currScene = SceneType::INITLOADING;
+	holdScene = SceneType::INITLOADING;
 
 	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
@@ -35,6 +36,7 @@ void SceneManager::Update(Time& dt)
 	if (transitionActive) {
 		if (transition.Update(dt.asSeconds())) {
 			transitionActive = false;
+			holdScene = SceneType::INITLOADING;
 		}
 		if (transition.IsFull()) {
 			scenes[(int)currScene]->Release();
@@ -42,12 +44,8 @@ void SceneManager::Update(Time& dt)
 			scenes[(int)currScene]->Init();
 		}
 	}
-	scenes[(int)currScene]->Update(dt);
-}
 
-void SceneManager::InitScene(SceneType newScene)
-{
-	scenes[(int)newScene]->Init();
+	scenes[(int)currScene]->Update(dt);
 }
 
 void SceneManager::Render()
@@ -75,5 +73,4 @@ void SceneManager::ChangeScene(SceneType newScene, bool transitionActive)
 SceneManager::~SceneManager()
 {
 	Release();
-	TextureHolder::Release();
 }

@@ -4,7 +4,7 @@
 #include "../Utils/InputManager.h"
 #include "../Resource/FontHolder.h"
 
-#include <sstream>
+#include<string>
 
 BadEndingScene::BadEndingScene(SceneManager& sceneManager)
 	: Scene(sceneManager)
@@ -25,11 +25,9 @@ void BadEndingScene::Init()
 	bgColor.setFillColor(Color{ 2, 2, 27 });
 	bgColor.setPosition(0, 0);
 
-	std::stringstream ss;
-	ss << GameVal::level;
-
 	rapidcsv::Document csvData("./LevelInfo/BadEndInfo.csv", rapidcsv::LabelParams(0, 0));
-	std::string line = csvData.GetCell<std::string>("line",ss.str());
+	std::string line = csvData.GetCell<std::string>("line", to_string(GameVal::cutSceneIdx));
+	NextScene = csvData.GetCell<std::string>("NextScene", to_string(GameVal::cutSceneIdx));
 	
 	std::istringstream iss(line);
 	float top = 900.f;
@@ -52,7 +50,10 @@ void BadEndingScene::Update(Time& dt)
 	animation.Update(dt.asSeconds());
 	Utils::SetOrigin(sprite, Pivots::Center);
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
-		sceneManager.ChangeScene(SceneType::STAGE, true);
+		if (NextScene[0] == 'S')
+			sceneManager.ChangeScene(SceneType::STAGE, true);
+		else
+			sceneManager.ChangeScene(SceneType::CUT, true);
 	}
 }
 

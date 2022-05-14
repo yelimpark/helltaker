@@ -10,9 +10,9 @@ private:
 public:
 	ScriptWithAnimation();
 
-	void Init(LevelEndngData& data, Vector2i resolution);
+	void Init(CutSceneData& data, Vector2i resolution);
 
-	virtual UpdateOutput Update(float dt);
+	virtual bool Update(float dt);
 
 	virtual void Draw(RenderWindow& window);
 

@@ -1,5 +1,5 @@
 #include "CutScene.h"
-#include "../SceneInitializer/LevelEndingSceneInitializer.h"
+#include "../SceneInitializer/CutSceneInitializer.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/Utils.h"
 
@@ -7,10 +7,10 @@
 #include "../GameObj/ScriptWithChoice.h"
 #include "../GameObj/ScriptWithCG.h"
 
-#include <sstream>
+#include<string>
 
 CutScene::CutScene(SceneManager& sceneManager)
-	: Scene(sceneManager), idx(0), idxMax(0)
+	: Scene(sceneManager), idx(0)
 {
 }
 
@@ -19,12 +19,10 @@ void CutScene::Init()
 	Release();
 
 	idx = 0;
-	stringstream ss;
-	ss << GameVal::level;
 
-	std::map<std::string, std::vector<LevelEndngData>> levelEndingDatas;
-	Utils::CsvToStructVectorMap<LevelEndngData>(levelEndingDatas, "./LevelInfo/cutInfo.csv");
-	std::vector<LevelEndngData> curLevelEndings = levelEndingDatas[ss.str()];
+	std::map<std::string, std::vector<CutSceneData>> cutSceneDatas;
+	Utils::CsvToStructVectorMap<CutSceneData>(cutSceneDatas, "./LevelInfo/cutInfo.csv");
+	std::vector<CutSceneData> curSceneDatas = cutSceneDatas[to_string(GameVal::cutSceneIdx)];
 
 	bgColor.setSize(Vector2f(resolution.x, resolution.y));
 	bgColor.setFillColor(Color{2, 2, 27});
@@ -32,27 +30,26 @@ void CutScene::Init()
 
 	std::map<std::string, std::vector<OptionData>> optionDatas;
 	Utils::CsvToStructVectorMap<OptionData>(optionDatas, "./LevelInfo/choiceInfo.csv");
-	std::vector<OptionData> curLevelOptions = optionDatas[ss.str()];
-
-	idxMax = curLevelEndings.size();
+	std::vector<OptionData> curLevelOptions = optionDatas[to_string(GameVal::cutSceneIdx)];
 
 	int SCidx = 0;
-	for (auto& levelEndingData : curLevelEndings)
+
+	for (auto& curSceneData : curSceneDatas)
 	{
-		if (levelEndingData.type == 'A') {
+		if (curSceneData.type == 'A') {
 			ScriptWithAnimation* script = new ScriptWithAnimation();
-			script->Init(levelEndingData, resolution);
+			script->Init(curSceneData, resolution);
 			scripts.push_back(script);
 		}
-		else if (levelEndingData.type == 'C') {
+		else if (curSceneData.type == 'C') {
 			ScriptWithChoice* script = new ScriptWithChoice();
-			script->Init(levelEndingData, resolution, curLevelOptions[SCidx], curLevelOptions[SCidx + 1]);
+			script->Init(curSceneData, resolution, curLevelOptions[SCidx], curLevelOptions[SCidx + 1]);
 			scripts.push_back(script);
 			SCidx += 2;
 		}
 		else {
 			ScriptWithCG* script = new ScriptWithCG();
-			script->Init(levelEndingData, resolution);
+			script->Init(curSceneData, resolution);
 			scripts.push_back(script);
 		}
 	}
@@ -60,25 +57,19 @@ void CutScene::Init()
 
 void CutScene::Update(Time& dt)
 {
-	UpdateOutput state = scripts[idx]->Update(dt.asSeconds());
-
-	switch (state)
-	{
-	case UpdateOutput::SKIP:
-		++idx;
-		if (idx == idxMax) {
-			++GameVal::level;
-			sceneManager.ChangeScene(SceneType::STAGE, true);
-			idx = idxMax - 1;
+	if (scripts[idx]->Update(dt.asSeconds())) {
+		std::string& nextNode = scripts[idx]->GetNextNode();
+		if (nextNode.compare("B") == 0) {
+			sceneManager.ChangeScene(SceneType::BADENDING);
 		}
-		break;
-	case UpdateOutput::BADEND:
-		sceneManager.ChangeScene(SceneType::BADENDING);
-		break;
-	default:
-		break;
+		else if (nextNode.compare("S") == 0) {
+			//++GameVal::level;
+			sceneManager.ChangeScene(SceneType::STAGE, true);
+		}
+		else {
+			idx += stoi(nextNode);
+		}
 	}
-
 }
 
 void CutScene::Render()

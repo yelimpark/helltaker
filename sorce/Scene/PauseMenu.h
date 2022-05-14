@@ -1,6 +1,5 @@
 #pragma once
 #include "./Scene.h"
-#include "../Utils/SceneManager.h"
 #include "../GameObj/SoundType.h"
 
 
@@ -9,6 +8,7 @@ using namespace std;
 #include <map>
 
 class SoundType;
+class SceneManager;
 
 #define MAX_NUMBER_OF_MENU 5
 

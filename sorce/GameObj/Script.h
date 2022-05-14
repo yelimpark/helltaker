@@ -2,16 +2,10 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
-#include "../SceneInitializer/LevelEndingSceneInitializer.h"
+#include "../SceneInitializer/CutSceneInitializer.h"
 #include <vector>
 
 using namespace sf;
-
-enum class UpdateOutput {
-	HOLD,
-	SKIP,
-	BADEND
-};
 
 class Script {
 protected:
@@ -19,17 +13,20 @@ protected:
 	Text name;
 	std::vector<Text*> texts;
 	Sprite background;
+	std::string nextNode;
 
-	void Init(LevelEndngData& data, Vector2i resolution);
+	void Init(CutSceneData& data, Vector2i resolution);
 
 public:
 	Script();
 
-	virtual UpdateOutput Update(float dt) = 0;
+	virtual bool Update(float dt) = 0;
 
 	virtual void Draw(RenderWindow& window);
 
 	virtual void Release();
 
 	virtual ~Script();
+
+	std::string& GetNextNode();
 };

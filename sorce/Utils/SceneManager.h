@@ -1,7 +1,7 @@
 #pragma once
 #include "./GameVal.h"
 #include "./Singleton.h"
-#include "../GameObj/SoundEffect.h"
+#include "../GameObj/CutSceneTransition.h"
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -33,8 +33,6 @@ public:
 	void Init();
 
 	void Release();
-
-	void InitScene(SceneType newScene);
 
 	void Update(Time& dt);
 

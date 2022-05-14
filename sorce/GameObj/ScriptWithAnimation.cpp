@@ -7,7 +7,7 @@ ScriptWithAnimation::ScriptWithAnimation()
 {
 }
 
-void ScriptWithAnimation::Init(LevelEndngData& data, Vector2i resolution)
+void ScriptWithAnimation::Init(CutSceneData& data, Vector2i resolution)
 {
 	Script::Init(data, resolution);
 
@@ -19,15 +19,15 @@ void ScriptWithAnimation::Init(LevelEndngData& data, Vector2i resolution)
 	animation.Play(data.animationClipName);
 }
 
-UpdateOutput ScriptWithAnimation::Update(float dt)
+bool ScriptWithAnimation::Update(float dt)
 {
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
 
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
-		return UpdateOutput::SKIP;
+		return true;
 	}
-	return UpdateOutput::HOLD;
+	return false;
 }
 
 void ScriptWithAnimation::Draw(RenderWindow& window)

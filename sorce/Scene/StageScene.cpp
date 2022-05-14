@@ -14,8 +14,8 @@
 #include "../GameObj/MapCode.h"
 #include "../GameObj/Claw.h"
 
-#include <sstream>
 #include <algorithm>
+#include<string>
 
 StageScene::StageScene(SceneManager& sceneManager)
 	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isEarnedBox(false), pmenu(window, sceneManager)
@@ -23,8 +23,10 @@ StageScene::StageScene(SceneManager& sceneManager)
 
 }
 
-void StageScene::InitMap(std::string filepath, std::string levelStr)
+void StageScene::InitMap(std::string filepath)
 {
+	std::string levelStr = to_string(GameVal::level);
+
 	std::map<std::string, std::vector<BoxData>> boxDatas;
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
@@ -135,24 +137,22 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
-	stringstream ss;
-	ss << GameVal::level;
-	LevelData levelData = levelDatas[ss.str()];
+	LevelData levelData = levelDatas[to_string(GameVal::level)];
 
 	lockedBox.Init(Vector2f(-500, -500));
 
-	InitMap(levelData.MapFilePath, ss.str());
+	InitMap(levelData.MapFilePath);
 
-	for (int i = 0; i < flameDatas[ss.str()].size(); ++i) {
+	for (int i = 0; i < flameDatas[to_string(GameVal::level)].size(); ++i) {
 		Flame* flame = new Flame();
-		flame->Init(flameDatas[ss.str()][i].position);
+		flame->Init(flameDatas[to_string(GameVal::level)][i].position);
 		flames.push_back(flame);
 	}
 
-	for (int i = 0; i < flameBaseDatas[ss.str()].size(); ++i) {
+	for (int i = 0; i < flameBaseDatas[to_string(GameVal::level)].size(); ++i) {
 		Sprite * flameBase = new Sprite();
-		flameBase->setTexture(TextureHolder::GetTexture(flameBaseDatas[ss.str()][i].texturefile));
-		flameBase->setPosition(flameBaseDatas[ss.str()][i].position);
+		flameBase->setTexture(TextureHolder::GetTexture(flameBaseDatas[to_string(GameVal::level)][i].texturefile));
+		flameBase->setPosition(flameBaseDatas[to_string(GameVal::level)][i].position);
 		flameBases.push_back(flameBase);
 	}
 
@@ -277,6 +277,7 @@ void StageScene::Update(Time& dt)
 
 	if (!isClear && ui.IsGameOver()) {
 		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
+			std::cout << GameVal::cutSceneIdx << std::endl;
 			sceneManager.ChangeScene(SceneType::STAGE, true);
 		}
 		return;
@@ -285,6 +286,7 @@ void StageScene::Update(Time& dt)
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
+			GameVal::cutSceneIdx = level;
 			sceneManager.ChangeScene(SceneType::CUT);
 		}
 	}

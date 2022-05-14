@@ -10,11 +10,8 @@ class CutScene : public Scene
 private:
 	std::vector<Script*> scripts;
 	int idx;
-	int idxMax;
 
 	RectangleShape bgColor;
-
-	CutSceneTransition transition;
 
 public:
 	CutScene(SceneManager& sceneManager);

@@ -3,7 +3,7 @@
 
 void AnimationHolder::Init()
 {
-	Utils::CsvToStruct<AnimationClip>(Instance()->mapClip, "./AnimationInfo/AnmationInfo.csv");
+	Utils::CsvToStruct<AnimationClip>(Instance()->mapClip, "./AnimationInfo/AnimationInfo.csv");
 }
 
 AnimationClip& AnimationHolder::GetAnimation(std::string id)

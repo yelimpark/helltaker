@@ -7,7 +7,7 @@ ScriptWithCG::ScriptWithCG()
 {
 }
 
-void ScriptWithCG::Init(LevelEndngData& data, Vector2i resolution)
+void ScriptWithCG::Init(CutSceneData& data, Vector2i resolution)
 {
 	effectTime = 0;
 	ScriptWithAnimation::Init(data, resolution);
@@ -23,7 +23,7 @@ void ScriptWithCG::Init(LevelEndngData& data, Vector2i resolution)
 	redRect.setPosition(resolution.x * 0.5, 400);
 }
 
-UpdateOutput ScriptWithCG::Update(float dt)
+bool ScriptWithCG::Update(float dt)
 {
 	if (effectTime < EFFECT_TIME_MAX) {
 		redRect.setScale(effectTime / EFFECT_TIME_MAX, effectTime / EFFECT_TIME_MAX);

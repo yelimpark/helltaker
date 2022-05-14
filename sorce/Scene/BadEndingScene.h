@@ -13,6 +13,8 @@ private:
 	std::vector<Text *> texts;
 	RectangleShape bgColor;
 
+	std::string NextScene;
+
 public:
 	BadEndingScene(SceneManager& sceneManager);
 

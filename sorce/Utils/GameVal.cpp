@@ -1,12 +1,15 @@
 #include "./GameVal.h"
 
 int GameVal::level;
+int GameVal::cutSceneIdx;
 int GameVal::musicSound;
 int GameVal::effectSound;
 
 void GameVal::Init()
 {
-	level = 0;
+	level = 1;
+
+	cutSceneIdx = 0;
 
 	musicSound = 1;
 

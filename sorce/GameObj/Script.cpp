@@ -4,12 +4,15 @@
 #include <sstream>
 
 Script::Script()
+	:nextNode("")
 {
 }
 
-void Script::Init(LevelEndngData& data, Vector2i resolution)
+void Script::Init(CutSceneData& data, Vector2i resolution)
 {
 	Release();
+
+	nextNode = data.nextNode;
 
 	background.setTexture(TextureHolder::GetTexture(data.backgroundFileName));
 	Utils::SetOrigin(background, Pivots::CenterBottom);
@@ -65,4 +68,9 @@ void Script::Release()
 Script::~Script()
 {
 	Release();
+}
+
+std::string& Script::GetNextNode()
+{
+	return nextNode;
 }

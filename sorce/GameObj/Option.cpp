@@ -3,12 +3,14 @@
 #include "../Utils/Utils.h"
 
 Option::Option()
-	:active(false), isBad(false)
+	:active(false)
 {
 }
 
 void Option::Init(OptionData& data, Vector2f pos)
 {
+	nextNode = data.nextNode;
+
 	sprite.setTexture(TextureHolder::GetTexture("Sprite/button0004.png"));
 	Utils::SetOrigin(sprite, Pivots::Center);
 	sprite.setPosition(pos);
@@ -18,8 +20,6 @@ void Option::Init(OptionData& data, Vector2f pos)
 	Utils::SetOrigin(text, Pivots::Center);
 	text.setPosition(pos.x, pos.y-7.f);
 	sprite.setColor(Color{ 255, 255, 255, 100 });
-
-	isBad = data.isBad;
 }
 
 void Option::SetActive(bool active)
@@ -48,7 +48,12 @@ void Option::Draw(RenderWindow& window)
 	window.draw(text);
 }
 
-bool Option::IsBad()
+bool Option::IsActive()
 {
-	return isBad;
+	return active;
+}
+
+std::string& Option::GetNextNode()
+{
+	return nextNode;
 }

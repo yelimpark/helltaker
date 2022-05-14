@@ -8,14 +8,13 @@ using namespace sf;
 class ScriptWithChoice : public Script {
 private:
 	Option option[2];
-	int cursor;
 
 public:
 	ScriptWithChoice();
 
-	void Init(LevelEndngData& data, Vector2i resolution, OptionData& option1Data, OptionData& option2Data);
+	void Init(CutSceneData& data, Vector2i resolution, OptionData& option1Data, OptionData& option2Data);
 
-	virtual UpdateOutput Update(float dt);
+	virtual bool Update(float dt);
 
 	virtual void Draw(RenderWindow& window);
 
