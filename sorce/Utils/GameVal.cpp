@@ -6,7 +6,7 @@ int GameVal::effectSound;
 
 void GameVal::Init()
 {
-	level = 1;
+	level = 0;
 
 	musicSound = 1;
 

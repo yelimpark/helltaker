@@ -1,18 +1,20 @@
-#include "LevelEndScene.h"
+#include "CutScene.h"
+#include "../SceneInitializer/LevelEndingSceneInitializer.h"
 #include "../Resource/TextureHolder.h"
+#include "../Utils/Utils.h"
+
 #include "../GameObj/ScriptWithAnimation.h"
 #include "../GameObj/ScriptWithChoice.h"
-#include "../SceneInitializer/LevelEndingSceneInitializer.h"
-#include "../Utils/Utils.h"
+#include "../GameObj/ScriptWithCG.h"
 
 #include <sstream>
 
-LevelEndScene::LevelEndScene(SceneManager& sceneManager)
-	: Scene(sceneManager), idx(0)
+CutScene::CutScene(SceneManager& sceneManager)
+	: Scene(sceneManager), idx(0), idxMax(0)
 {
 }
 
-void LevelEndScene::Init()
+void CutScene::Init()
 {
 	Release();
 
@@ -21,15 +23,20 @@ void LevelEndScene::Init()
 	ss << GameVal::level;
 
 	std::map<std::string, std::vector<LevelEndngData>> levelEndingDatas;
-	Utils::CsvToStructVectorMap<LevelEndngData>(levelEndingDatas, "./LevelInfo/LevelEnding.csv");
+	Utils::CsvToStructVectorMap<LevelEndngData>(levelEndingDatas, "./LevelInfo/cutInfo.csv");
 	std::vector<LevelEndngData> curLevelEndings = levelEndingDatas[ss.str()];
 
-	background.setTexture(TextureHolder::GetTexture(curLevelEndings[0].backgroundFileName));
+	bgColor.setSize(Vector2f(resolution.x, resolution.y));
+	bgColor.setFillColor(Color{2, 2, 27});
+	bgColor.setPosition(0, 0);
 
 	std::map<std::string, std::vector<OptionData>> optionDatas;
 	Utils::CsvToStructVectorMap<OptionData>(optionDatas, "./LevelInfo/choiceInfo.csv");
 	std::vector<OptionData> curLevelOptions = optionDatas[ss.str()];
 
+	idxMax = curLevelEndings.size();
+
+	int SCidx = 0;
 	for (auto& levelEndingData : curLevelEndings)
 	{
 		if (levelEndingData.type == 'A') {
@@ -37,22 +44,33 @@ void LevelEndScene::Init()
 			script->Init(levelEndingData, resolution);
 			scripts.push_back(script);
 		}
-		else {
+		else if (levelEndingData.type == 'C') {
 			ScriptWithChoice* script = new ScriptWithChoice();
-			script->Init(levelEndingData, resolution, curLevelOptions[0], curLevelOptions[1]);
+			script->Init(levelEndingData, resolution, curLevelOptions[SCidx], curLevelOptions[SCidx + 1]);
+			scripts.push_back(script);
+			SCidx += 2;
+		}
+		else {
+			ScriptWithCG* script = new ScriptWithCG();
+			script->Init(levelEndingData, resolution);
 			scripts.push_back(script);
 		}
 	}
 }
 
-void LevelEndScene::Update(Time& dt)
+void CutScene::Update(Time& dt)
 {
 	UpdateOutput state = scripts[idx]->Update(dt.asSeconds());
 
 	switch (state)
 	{
 	case UpdateOutput::SKIP:
-		idx++;
+		++idx;
+		if (idx == idxMax) {
+			++GameVal::level;
+			sceneManager.ChangeScene(SceneType::STAGE, true);
+			idx = idxMax - 1;
+		}
 		break;
 	case UpdateOutput::BADEND:
 		sceneManager.ChangeScene(SceneType::BADENDING);
@@ -63,21 +81,21 @@ void LevelEndScene::Update(Time& dt)
 
 }
 
-void LevelEndScene::Render()
+void CutScene::Render()
 {
-	window.draw(background);
+	window.draw(bgColor);
 	scripts[idx]->Draw(window);
 }
 
-void LevelEndScene::Release()
+void CutScene::Release()
 {
-	for (auto& sa : scripts) {
-		if (sa != nullptr)
-			delete sa;
+	for (auto& script : scripts) {
+		if (script != nullptr)
+			delete script;
 	}
 	scripts.clear();
 }
 
-LevelEndScene::~LevelEndScene()
+CutScene::~CutScene()
 {
 }

@@ -8,7 +8,7 @@ private:
 	const float HEIGHT_MAX = 544.f;
 	const int OPACITY_MAX = 255;
 
-	Sprite sprite;
+	Sprite * sprite;
 	RectangleShape fadeOut;
 	int opacity;
 	float height;
@@ -22,4 +22,8 @@ public:
 	bool OnClear(float dt);
 
 	void Draw(RenderWindow& window);
+
+	void Release();
+
+	~stageSceneTrasition();
 };

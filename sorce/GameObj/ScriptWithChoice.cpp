@@ -1,6 +1,7 @@
 #include "ScriptWithChoice.h"
 #include "../Resource/ResorceHolder.h"
 #include "../Utils/InputManager.h"
+#include "../Utils/Utils.h"
 
 ScriptWithChoice::ScriptWithChoice()
 	:cursor(0)
@@ -10,18 +11,11 @@ ScriptWithChoice::ScriptWithChoice()
 void ScriptWithChoice::Init(LevelEndngData& data, Vector2i resolution, OptionData& option1Data, OptionData& option2Data)
 {
 	cursor = 0;
-	character.setTexture(TextureHolder::GetTexture(data.characterFileName));
-	//Utils::SetOrigin(character, Pivots::CenterBottom);
+	Script::Init(data, resolution);
 
-	name.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-	name.setString(data.name);
-	name.setCharacterSize(40);
-	name.setFillColor(Color{ 230,77,81 });
-	name.setPosition(resolution.x * 0.5, 900.f);
-
-	option[0].Init(option1Data, Vector2f(500, 200));
+	option[0].Init(option1Data, Vector2f(resolution.x * 0.5, 900));
 	option[0].SetActive(true);
-	option[1].Init(option2Data, Vector2f(500, 300));
+	option[1].Init(option2Data, Vector2f(resolution.x * 0.5, 1000));
 }
 
 UpdateOutput ScriptWithChoice::Update(float dt)
@@ -37,6 +31,7 @@ UpdateOutput ScriptWithChoice::Update(float dt)
 		option[1].SetActive(true);
 	}
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
+		std::cout << option[cursor].IsBad() << std::endl;
 		if (option[cursor].IsBad()) {
 			return UpdateOutput::BADEND;
 		}
@@ -47,9 +42,11 @@ UpdateOutput ScriptWithChoice::Update(float dt)
 
 void ScriptWithChoice::Draw(RenderWindow& window)
 {
-	window.draw(character);
-	window.draw(line);
-	window.draw(name);
+	Script::Draw(window);
 	option[0].Draw(window);
 	option[1].Draw(window);
+}
+
+ScriptWithChoice::~ScriptWithChoice()
+{
 }

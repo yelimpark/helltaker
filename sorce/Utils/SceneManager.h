@@ -9,10 +9,10 @@ using namespace sf;
 class Scene;
 
 enum class SceneType {
+	INITLOADING,
 	TITLE,
-	TITLESCRIPT,
 	STAGE,
-	LEVELENDING,
+	CUT,
 	BADENDING,
 	COUNT
 };
@@ -21,22 +21,26 @@ class SceneManager : public Singleton<SceneManager>
 {
 private:
 	SceneType currScene;
+	SceneType holdScene;
 	Scene* scenes[(int)SceneType::COUNT];
 
 	GameVal gameVal;
+	
+	CutSceneTransition transition;
+	bool transitionActive;
 
 public:
 	void Init();
 
 	void Release();
 
-	void Start();
+	void InitScene(SceneType newScene);
 
 	void Update(Time& dt);
 
 	void Render();
 
-	void ChangeScene(SceneType newScene);
+	void ChangeScene(SceneType newScene, bool transitionActive = false);
 
 	virtual ~SceneManager();
 };

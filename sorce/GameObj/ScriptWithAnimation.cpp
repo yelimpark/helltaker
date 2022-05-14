@@ -4,27 +4,16 @@
 #include "../Utils/InputManager.h"
 
 ScriptWithAnimation::ScriptWithAnimation()
-	:Script()
 {
 }
 
 void ScriptWithAnimation::Init(LevelEndngData& data, Vector2i resolution)
 {
-	character.setTexture(TextureHolder::GetTexture(data.characterFileName));
-	//Utils::SetOrigin(character, Pivots::CenterBottom);
-	
-	name.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-	name.setString(data.name);
-	name.setCharacterSize(40);
-	name.setFillColor(Color{ 230,77,81 });
-	name.setPosition(resolution.x * 0.5, 900.f);
-	std::cout << data.name << std::endl;
+	Script::Init(data, resolution);
 
-	line.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-	line.setString(data.line);
-	line.setCharacterSize(30);
-	line.setFillColor(Color::White);
-	
+	sprite.setPosition(resolution.x * 0.5, 940);
+	Utils::SetOrigin(sprite, Pivots::Center);
+
 	animation.SetTarget(&sprite);
 	animation.AddClip(data.animationClipName);
 	animation.Play(data.animationClipName);
@@ -33,6 +22,8 @@ void ScriptWithAnimation::Init(LevelEndngData& data, Vector2i resolution)
 UpdateOutput ScriptWithAnimation::Update(float dt)
 {
 	animation.Update(dt);
+	Utils::SetOrigin(sprite, Pivots::Center);
+
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
 		return UpdateOutput::SKIP;
 	}
@@ -41,8 +32,10 @@ UpdateOutput ScriptWithAnimation::Update(float dt)
 
 void ScriptWithAnimation::Draw(RenderWindow& window)
 {
-	window.draw(character);
 	window.draw(sprite);
-	window.draw(line);
-	window.draw(name);
+	Script::Draw(window);
+}
+
+ScriptWithAnimation::~ScriptWithAnimation()
+{
 }

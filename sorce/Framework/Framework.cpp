@@ -2,7 +2,7 @@
 #include "../Utils/InputManager.h"
 
 Vector2i Framework::resolution(1920, 1080);
-RenderWindow Framework::window(VideoMode(resolution.x, resolution.y), "Helltaker", Style::Default);
+RenderWindow Framework::window(VideoMode(resolution.x, resolution.y), "Helltaker", Style::Default, sf::ContextSettings(24, 8, 4));
 
 RenderWindow& Framework::Getwindow()
 {
@@ -44,9 +44,7 @@ int Framework::Run()
                 window.close();
 
             if (event.type == Event::Resized)
-            {
                 window.setSize(Vector2u(event.size.width, event.size.width*9/16));
-            }
 
             InputManager::ProcessInput(event);
         }
