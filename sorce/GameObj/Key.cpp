@@ -29,10 +29,7 @@ void Key::Update(float dt, Vector2f playerpos, int tileSize)
 {
 	if (!isActive) return;
 
-	bool sameY = (int)position.y / tileSize == (int)playerpos.y / tileSize;
-	bool sameX = (int)position.x / tileSize == (int)playerpos.x / tileSize;
-
-	if (sameY && sameX)	isEarned = true;
+	if (Utils::PosToIdx(position) == Utils::PosToIdx(playerpos)) isEarned = true;
 
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
@@ -51,8 +48,8 @@ void Key::Update(float dt, Vector2f playerpos, int tileSize)
 void Key::Draw(RenderWindow& window)
 {
 	if (!isActive) return;
-	window.draw(sprite);
 	if (isEarned) window.draw(vfxSprite);
+	else window.draw(sprite);
 }
 
 bool Key::IsCapturedPlayer()

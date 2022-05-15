@@ -16,6 +16,7 @@ private:
 	Vector2f position;
 	AnimationController animation;
 	
+	Vector2f nextPosition;
 	Direction dir;
 	float moveTime;
 

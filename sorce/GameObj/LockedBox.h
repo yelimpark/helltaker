@@ -9,12 +9,11 @@ class LockedBox
 {
 private:
 	Sprite sprite;
-	Sprite vfxSprite;
 	Vector2f position;
-	Vector2f velocity;
-	Direction dir;
+	Sprite vfxSprite;
 
-	float playtime;
+	Direction shakeDir;
+	float shakeTime;
 
 	AnimationController vfxAnimation;
 

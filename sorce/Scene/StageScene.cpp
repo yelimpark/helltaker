@@ -22,18 +22,9 @@
 
 StageScene::StageScene(SceneManager& sceneManager)
 	: Scene(sceneManager), isClear(false), pmenu(window, sceneManager), 
-	key(nullptr), lockedBox(nullptr), leftMargin(0), topMargin(0)
+	key(nullptr), lockedBox(nullptr)
 {
 
-}
-
-
-Vector2f StageScene::IndexToPos(int j, int i)
-{
-	Vector2f pos;
-	pos.x = j * TILE_SIZE + TILE_SIZE / 2 + leftMargin;
-	pos.y = i * TILE_SIZE + TILE_SIZE / 2 + topMargin;
-	return pos;
 }
 
 void StageScene::InitMap(std::string filepath, std::string demonName)
@@ -57,21 +48,22 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 
 		for (int j = 0; j < csvData.GetColumnCount(); ++j) {
 			map[i][j] = csvData.GetCell<char>(j, i);
+			std::cout << map[i][j];
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
-				boxDatas[levelStr][boxIdx].position = IndexToPos(j, i);
+				boxDatas[levelStr][boxIdx].position = Utils::IdxToPos(i, j);
 				boxIdx++;
 				break;
 
 			case (char)MapCode::PLAYER:
-				playerPos = IndexToPos(j, i);
+				playerPos = Utils::IdxToPos(i, j);
 				break;
 
 			case (char)MapCode::DEMON:
 			{
 				Demon* demon = new Demon();
-				demon->Init(IndexToPos(j, i), demonName);
+				demon->Init(Utils::IdxToPos(i, j), demonName);
 				demons.push_back(demon);
 				break;
 			}
@@ -79,7 +71,7 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 			case (char)MapCode::SKULL: 
 			{
 				Skull* skull = new Skull();
-				skull->Init(IndexToPos(j, i), TILE_SIZE, MOVE_SECOND);
+				skull->Init(Utils::IdxToPos(i, j), TILE_SIZE, MOVE_SECOND);
 				skulls.push_back(skull);
 				break;
 			}
@@ -87,21 +79,21 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 			case (char)MapCode::CLAW:
 			{
 				Claw* claw = new Claw();
-				claw->Init(IndexToPos(j, i), TILE_SIZE);
+				claw->Init(Utils::IdxToPos(i, j), TILE_SIZE);
 				claws.push_back(claw);
 				break;
 			}
 
 			case (char)MapCode::KEY:
 			{
-				KeyPos = IndexToPos(j, i);
+				KeyPos = Utils::IdxToPos(i, j);
 				key->Init(KeyPos);
 				break;
 			}
 
 			case (char)MapCode::LOCKEDBOX:
 			{
-				LockedBoxPos = IndexToPos(j, i);
+				LockedBoxPos = Utils::IdxToPos(i, j);
 				lockedBox->Init(LockedBoxPos);
 				break;
 			}
@@ -111,6 +103,7 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 			}
 
 		}
+		std::cout << std::endl;
 	}
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
@@ -139,9 +132,6 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	LevelData levelData = levelDatas[to_string(GameVal::level)];
-
-	leftMargin = levelData.marginLeft;
-	topMargin = levelData.marginTop;
 
 	key = new Key();
 	lockedBox = new LockedBox();

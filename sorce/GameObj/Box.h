@@ -17,8 +17,8 @@ private:
 	Vector2f nextPosition;
 	Direction dir;
 	float moveTime;
-	float playTime;
 
+	float shakeTime;
 	Direction shakeDir;
 
 public:

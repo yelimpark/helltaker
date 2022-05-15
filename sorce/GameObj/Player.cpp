@@ -8,9 +8,6 @@
 #include "./LockedBox.h"
 #include "../Utils/SceneManager.h"
 
-
-#include <iostream>
-
 void Player::Init(Vector2f pos, int tileSize, float moveSecond)
 {
 	position = pos;
@@ -83,8 +80,10 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 		dir = Direction::Down;
 	}
 
+	Vector2i nextIdx = Utils::PosToIdx(nextPosition);
+
 	if (dir != Direction::None) {
-		switch (map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize]) {
+		switch (map[nextIdx.y][nextIdx.x]) {
 		case (char)MapCode::WALL:
 			dir = Direction::None;
 			return useTurn;	
@@ -127,8 +126,12 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 
 		soundEffects.Playermoves();
 		moveVfx.Init(position);
-		map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize] = 'P';
-		map[(int)position.y / tileSize][(int)position.x / tileSize] = 'E';
+
+		Vector2i curIdx = Utils::PosToIdx(position);
+		map[curIdx.y][curIdx.x] = 'E';
+
+		map[nextIdx.y][nextIdx.x] = 'P';
+
 		prevPosition = position;
 		animation.Play("PlayerMove");
 		animation.PlayQue("PlayerStand");

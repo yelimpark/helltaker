@@ -6,7 +6,7 @@
 #include <iostream>
 
 Box::Box()
-	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), playTime(2.f)
+	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), shakeTime(2.f), shakeDir(Direction::None)
 {
 }
 
@@ -22,7 +22,7 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 	this->moveSecond = moveSecond;
 	moveTime = moveSecond;
 
-	playTime = 2.f;
+	shakeTime = 2.f;
 }
 
 bool Box::Move(Direction dir, char**& map)
@@ -52,7 +52,10 @@ bool Box::Move(Direction dir, char**& map)
 		break;
 	}
 
-	switch (map[(int)nextPosition.y / moveDistance][(int)nextPosition.x / moveDistance])
+	Vector2i curIdx = Utils::PosToIdx(position);
+	Vector2i nextIdx = Utils::PosToIdx(nextPosition);
+
+	switch (map[nextIdx.y][nextIdx.x])
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
@@ -67,13 +70,16 @@ bool Box::Move(Direction dir, char**& map)
 		break;
 	}
 
-	map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
-	map[(int)nextPosition.y / moveDistance][(int)nextPosition.x / moveDistance] = 'B';
+	map[curIdx.y][curIdx.x] = 'E';
+	map[nextIdx.y][nextIdx.x] = 'B';
 	return true;
 }
 
 void Box::Update(float dt)
 {
+
+	if (shakeDir != Direction::None) shakeTime -= dt * 10;
+
 	switch (shakeDir)
 	{
 	case Direction::Left:
@@ -88,16 +94,14 @@ void Box::Update(float dt)
 		break;
 	}
 
-	playTime -= dt * 10;
-
-	if (playTime < 0.0f)
+	if (shakeTime < 0.0f)
 	{
 		shakeDir = Direction::None;
-		playTime = 2.f;
+		shakeTime = 2.f;
 		sprite.setPosition(position);
 	}
 
-	if (dir == Direction::None)		return;
+	if (dir == Direction::None)	return;
 
 	moveTime -= dt;
 
@@ -105,9 +109,7 @@ void Box::Update(float dt)
 	{
 		moveTime = moveSecond;
 		position = nextPosition;
-		sprite.setPosition(position);
 		dir = Direction::None;
-		return;
 	}
 
 	switch (dir)
@@ -147,6 +149,5 @@ const Vector2f& Box::GetPos()
 
 const bool Box::IsBoxHere(Vector2f pos)
 {
-	return (int)(pos.x / moveDistance) == (int)(position.x / moveDistance) &&
-		(int)(pos.y / moveDistance) == (int)(position.y / moveDistance);
+	return Utils::PosToIdx(position) == Utils::PosToIdx(pos);
 }

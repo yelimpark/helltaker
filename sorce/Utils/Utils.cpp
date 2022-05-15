@@ -1,4 +1,7 @@
 #include "Utils.h"
+#include "../SceneInitializer/StageSceneInitializer.h"
+#include "../Utils/GameVal.h"
+#include <string>
 
 void Utils::SetOrigin(Sprite& sprite, Pivots preset)
 {
@@ -49,4 +52,32 @@ void Utils::SetOrigin(Transformable& tr, FloatRect bounds, Pivots preset)
 	default:
 		break;
 	}
+}
+
+Vector2i Utils::PosToIdx(Vector2f& pos)
+{
+	rapidcsv::Document csvData("./LevelInfo/LevelInfo.csv", rapidcsv::LabelParams(1, 0));
+
+	int leftMargin = csvData.GetCell<int>("marginLeft", std::to_string(GameVal::level));
+	int topMargin = csvData.GetCell<int>("marginTop", std::to_string(GameVal::level));
+	int TILE_SIZE = 100;
+
+	Vector2i idx;
+	idx.x = (pos.x - leftMargin - TILE_SIZE / 20) / TILE_SIZE;
+	idx.y = (pos.y - topMargin - TILE_SIZE / 20) / TILE_SIZE;
+	return idx;
+}
+
+Vector2f Utils::IdxToPos(int i, int j)
+{
+	rapidcsv::Document csvData("./LevelInfo/LevelInfo.csv", rapidcsv::LabelParams(1, 0));
+
+	int leftMargin = csvData.GetCell<int>("marginLeft", std::to_string(GameVal::level));
+	int topMargin = csvData.GetCell<int>("marginTop", std::to_string(GameVal::level));
+	int TILE_SIZE = 100;
+
+	Vector2f pos;
+	pos.x = j * TILE_SIZE + TILE_SIZE / 2 + leftMargin;
+	pos.y = i * TILE_SIZE + TILE_SIZE / 2 + topMargin;
+	return pos;
 }

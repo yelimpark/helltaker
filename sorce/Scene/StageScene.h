@@ -24,8 +24,6 @@ private:
 	char ** map;
 
 	const int TILE_SIZE = 100; 
-	int leftMargin;
-	int topMargin;
 	const float MOVE_SECOND = 0.1f;
 
 	std::vector<Flame *> flames;
@@ -56,8 +54,6 @@ private:
 	bool paused;
 
 	bool isClear;
-
-	Vector2f IndexToPos(int j, int i);
 
 	void InitMap(std::string filepath, std::string demonName);
 
