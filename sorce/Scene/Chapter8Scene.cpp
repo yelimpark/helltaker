@@ -46,6 +46,7 @@ void Chapter8Scene::Init()
 	}
 
 	background.setTexture(TextureHolder::GetTexture("Sprite/chapterSketches_EXPORT_throne.png"));
+	background.setPosition(0, 0);
 	sideLeft.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	sideRight.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 

@@ -31,6 +31,7 @@ void StageScene::InitMap(std::string filepath, std::string clawFilePath, std::st
 {
 	std::string levelStr = to_string(GameVal::level);
 
+
 	std::map<std::string, std::vector<BoxData>> boxDatas;
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
@@ -134,6 +135,11 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
 	LevelData levelData = levelDatas[to_string(GameVal::level)];
+	
+	if (GameVal::level == 8)
+	{
+		sceneManager.ChangeScene(SceneType::STAGE8, true);
+	}
 
 	key = new Key();
 	lockedBox = new LockedBox();
