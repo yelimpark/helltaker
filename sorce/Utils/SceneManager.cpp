@@ -23,6 +23,8 @@ void SceneManager::Init()
 	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);
 
 	scenes[(int)currScene]->Init();
+
+	soundEffects.backgroundMusic();
 }
 
 void SceneManager::Release()

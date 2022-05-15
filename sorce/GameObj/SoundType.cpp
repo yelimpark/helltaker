@@ -96,6 +96,15 @@ void SoundType::MoveLeft()
 
 void SoundType::Update(VolumeType type)
 {
+	switch (type)
+	{
+	case VolumeType::HIGH:
+		soundEffects.makeMusicVolumeHigh();
+	case VolumeType::MEDIUM:
+		soundEffects.makeMusicVolumeMedium();
+	case VolumeType::LOW:
+		soundEffects.makeMusicVolumeLow();
+	}
 
 }
 

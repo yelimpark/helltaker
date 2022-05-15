@@ -2,12 +2,14 @@
 #include "./Script.h"
 #include <SFML/Graphics.hpp>
 #include "./Option.h"
+#include "./SoundEffect.h"
 
 using namespace sf;
 
 class ScriptWithChoice : public Script {
 private:
 	Option option[2];
+	SoundEffect soundEffects;
 
 public:
 	ScriptWithChoice();

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "./SoundEffect.h"
 
 using namespace sf;
 
@@ -29,6 +30,7 @@ private:
 
 	int sideselectIndex;
 
+	SoundEffect soundEffects;
 	VolumeType type;
 
 public:

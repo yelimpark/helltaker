@@ -123,9 +123,7 @@ void StageScene::InitMap(std::string filepath, std::string clawFilePath, std::st
 void StageScene::Init()
 {
 	Release();
-	
 	paused = false;
-	soundEffects.backgroundMusic();
 
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameData>> flameDatas;
@@ -233,7 +231,7 @@ void StageScene::Update(Time& dt)
 		skulls[i]->Update(dt.asSeconds());
 		if (skulls[i]->IsDead()) {
 			boneParticle.Init(skulls[i]->GetPos());
-			soundEffects.crushSkull();
+			soundEffects.SoundEffectPlay("Sound/enemy_die_01.wav");
 			map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 			delete skulls[i];
 			skulls.erase(skulls.begin() + i);

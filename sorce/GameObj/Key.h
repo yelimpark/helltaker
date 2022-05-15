@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
 #include "./GetVfx.h"
+#include "./SoundEffect.h"
 
 using namespace sf;
 
@@ -14,6 +15,7 @@ private:
 
 	AnimationController vfxAnimation;
 	AnimationController animation;
+	SoundEffect soundEffects;
 
 	bool isEarned;
 	bool isActive;

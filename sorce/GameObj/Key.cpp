@@ -35,6 +35,7 @@ void Key::Update(float dt, Vector2f playerpos, int tileSize)
 	Utils::SetOrigin(sprite, Pivots::Center);
 
 	if (isEarned) {
+		soundEffects.SoundEffectPlay("Sound/key_pick_up_01.wav");
 		if (vfxAnimation.IsAnimationEnd()) {
 			isActive = false;
 		}

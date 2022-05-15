@@ -11,6 +11,7 @@ void Death::Init(Vector2f pos)
 	animation.SetTarget(&sprite);
 	animation.AddClip("dialogueDeath");
 	animation.Play("dialogueDeath");
+	soundEffects.SoundEffectPlay("Sound/bad_end_screen_01.wav");
 }
 
 void Death::Update(float dt)

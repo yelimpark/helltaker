@@ -1,6 +1,7 @@
 #pragma once
 #include "../Utils/SceneManager.h"
 #include "../GameObj/SoundType.h"
+#include "../GameObj/SoundEffect.h"
 
 using namespace sf;
 using namespace std;
@@ -24,6 +25,7 @@ private:
 	RectangleShape container;
 
 	SceneManager& sceneManager;
+	SoundEffect soundEffects;
 
 	Sprite img[MAX_NUMBER_OF_MENU];
 	Sprite circle[2];

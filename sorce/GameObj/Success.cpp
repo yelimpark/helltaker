@@ -17,6 +17,7 @@ void Success::Init(Vector2f pos)
 void Success::Update(float dt)
 {
 	animation.Update(dt);
+	soundEffects.SoundEffectPlay("Sound/dialogue_success_01.wav");
 	Utils::SetOrigin(sprite, Pivots::Center);
 }
 

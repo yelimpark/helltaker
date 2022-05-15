@@ -118,18 +118,22 @@ void PauseMenu::InputButton()
 
 
 	if (InputManager::GetKeyDown(Keyboard::Up)) {
+		soundEffects.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 		MoveUp();
 	}
 	if (InputManager::GetKeyDown(Keyboard::Down)) {
+		soundEffects.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 		MoveDown();
 	}
 
 	if (selectIndex == 2) {
 		if (InputManager::GetKeyDown(Keyboard::Left)) {
+			soundEffects.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 			soundtype.MoveLeft();
 			soundtype.MusicInputButton();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Right)) {
+			soundEffects.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 			soundtype.MoveRight();
 			soundtype.MusicInputButton();
 		}
@@ -137,10 +141,12 @@ void PauseMenu::InputButton()
 
 	if (selectIndex == 3) {
 		if (InputManager::GetKeyDown(Keyboard::Left)) {
+			soundEffects.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 			soundtype.MoveLeft();
 			soundtype.EffectInputButton();
 		}
 		if (InputManager::GetKeyDown(Keyboard::Right)) {
+			soundEffects.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 			soundtype.MoveRight();
 			soundtype.EffectInputButton();
 		}
@@ -150,10 +156,12 @@ void PauseMenu::InputButton()
 		switch (GetPressedMenu())
 		{
 		case 0:
+			soundEffects.SoundEffectPlay("Sound/button_menu_confirm_01.wav");
 			//RESUME
 			break;
 		case 1:
 			//"SKIP PUZZLE"
+			soundEffects.SoundEffectPlay("Sound/button_menu_confirm_01.wav");
 			GameVal::cutSceneIdx = GameVal::level;
 			sceneManager.ChangeScene(SceneType::CUT);
 			break;
@@ -164,6 +172,7 @@ void PauseMenu::InputButton()
 			//"sound"
 			break;
 		case 4:
+			soundEffects.SoundEffectPlay("Sound/button_menu_confirm_01.wav");
 			GameVal::Init();
 			sceneManager.ChangeScene(SceneType::TITLE);
 			break;

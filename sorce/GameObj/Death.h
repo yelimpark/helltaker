@@ -2,6 +2,7 @@
 #include "../Resource/AnimationController.h"
 #include <SFML/Graphics.hpp>
 #include <math.h>
+#include "../GameObj/SoundEffect.h"
 
 using namespace sf;
 
@@ -11,6 +12,7 @@ private:
 	Sprite sprite;
 	AnimationController animation;
 
+	SoundEffect soundEffects;
 public:
 	Death();
 	void Init(Vector2f pos);

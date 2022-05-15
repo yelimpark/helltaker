@@ -19,10 +19,12 @@ void ScriptWithChoice::Init(CutSceneData& data, Vector2i resolution, OptionData&
 bool ScriptWithChoice::Update(float dt)
 {
 	if (InputManager::GetKeyDown(Keyboard::Up)) {
+		soundEffects.SoundEffectPlay("Sound/button_dialogue_highlight_01.wav");
 		option[0].SetActive(true);
 		option[1].SetActive(false);
 	}
 	if (InputManager::GetKeyDown(Keyboard::Down)) {
+		soundEffects.SoundEffectPlay("Sound/button_dialogue_highlight_01.wav");
 		option[0].SetActive(false);
 		option[1].SetActive(true);
 	}

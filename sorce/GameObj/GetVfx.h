@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include "./SoundEffect.h"
 
 using namespace sf;
 
@@ -11,6 +12,7 @@ private:
 	Vector2f position;
 
 	AnimationController animation;
+	SoundEffect soundEffects;
 
 public:
 	void Init(Vector2f keyPos);

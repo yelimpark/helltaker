@@ -37,14 +37,17 @@ bool MainMenu::HandleInput(RenderWindow& window, SceneManager& sm)
 	if (InputManager::GetKeyDown(Keyboard::Up) && cursor > 0) {
 		options[cursor].SetActive(false);
 		--cursor;
+		soundEffect.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 		options[cursor].SetActive(true);
 	}
 	if (InputManager::GetKeyDown(Keyboard::Down) && cursor < OPTION_COUNT - 1) {
 		options[cursor].SetActive(false);
 		++cursor;
+		soundEffect.SoundEffectPlay("Sound/button_menu_highlight_01.wav");
 		options[cursor].SetActive(true);
 	}
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
+		soundEffect.SoundEffectPlay("Sound/button_menu_confirm_01.wav");
 		switch (cursor)
 		{
 		case 0:

@@ -25,6 +25,7 @@ bool ScriptWithAnimation::Update(float dt)
 	Utils::SetOrigin(sprite, Pivots::Center);
 
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
+		soundEffects.SoundEffectPlay("Sound/dialogue_text_end_01.wav");
 		return true;
 	}
 	return false;

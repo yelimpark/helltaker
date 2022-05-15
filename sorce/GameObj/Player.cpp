@@ -51,7 +51,6 @@ void Player::Kick(bool isItMove)
 	kickVfx.Init((position + nextPosition) * 0.5f, isItMove);
 	animation.Play("PlayerKick");
 	animation.PlayQue("PlayerStand");
-	soundEffects.kickBox();
 }
 
 bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox)
@@ -92,7 +91,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			for(auto& box : boxes) {
 				if (box->IsBoxHere(nextPosition)) {
 					Kick(box->Move(dir, map));
-					soundEffects.moveBox();
+					soundEffects.SoundEffectPlay("Sound/stone_move_01.wav");
 				}
 			}
 			Kick(true);
@@ -104,6 +103,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			for (auto& skull : skulls) {
 				if (skull->IsSkullHere(nextPosition)) {
 					skull->OnPushed(dir, map);
+					soundEffects.SoundEffectPlay("Sound/enemy_kick_01.wav");
 				}
 			}
 			Kick(true);
@@ -124,7 +124,7 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			break;
 		}
 
-		soundEffects.Playermoves();
+		soundEffects.SoundEffectPlay("Sound/character_move_01.wav");
 		moveVfx.Init(position);
 
 		Vector2i curIdx = Utils::PosToIdx(position);

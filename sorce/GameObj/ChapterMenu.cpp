@@ -49,6 +49,7 @@ void ChapterMenu::HandleInput(SceneManager& sm)
 	if (InputManager::GetKeyDown(Keyboard::Left) && cursor > 0) {
 		options[cursor]->SetActive(false);
 		--cursor;
+		soundEffects.SoundEffectPlay("Sound/button_chapter_highlight_01.wav");
 		options[cursor]->SetActive(true);
 		text.setString(chapters[cursor]);
 		Utils::SetOrigin(text, Pivots::Center);
@@ -57,12 +58,14 @@ void ChapterMenu::HandleInput(SceneManager& sm)
 	if (InputManager::GetKeyDown(Keyboard::Right) && cursor < 7) {
 		options[cursor]->SetActive(false);
 		++cursor;
+		soundEffects.SoundEffectPlay("Sound/button_chapter_highlight_01.wav");
 		options[cursor]->SetActive(true);
 		text.setString(chapters[cursor]);
 		Utils::SetOrigin(text, Pivots::Center);
 	}
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
 		GameVal::level = cursor + 1;
+		soundEffects.SoundEffectPlay("Sound/button_chapter_confirm_01.wav");
 		sm.ChangeScene(SceneType::STAGE, true);
 	}
 }

@@ -26,6 +26,7 @@ bool GameOver::OnGameOver(float dt, Vector2f playerPos)
 	Utils::SetOrigin(sprite, Pivots::Center);
 	if (animation.NowPlaying() == "huge_vfx") {
 		sprite.setPosition(playerPos);
+		soundEffects.SoundEffectPlay("Sound/player_death_01.wav");
 		return false;
 	}
 	sprite.setPosition(playerPos.x, playerPos.y - 300);

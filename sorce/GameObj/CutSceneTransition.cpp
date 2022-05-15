@@ -6,6 +6,7 @@ void CutSceneTransition::Init()
 	animation.SetTarget(&sprite);
 	animation.AddClip("CutTransition");
 	Utils::SetOrigin(sprite, Pivots::CenterBottom);
+	soundEffects.SoundEffectPlay("Sound/screen_changer_part1_01.wav");
 	sprite.setPosition(Vector2f(1920 * 0.5f, 1080));
 	animation.Play("CutTransition");
 }
@@ -24,5 +25,6 @@ void CutSceneTransition::Draw(RenderWindow& window)
 
 bool CutSceneTransition::IsFull()
 {
+	soundEffects.SoundEffectPlay("Sound/screen_changer_part2_01.wav");
 	return animation.OnFrame(20);
 }

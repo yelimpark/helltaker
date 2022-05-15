@@ -1,11 +1,14 @@
 #pragma once
 #include "./Script.h"
 #include "../Resource/AnimationController.h"
+#include "./SoundEffect.h"
 
 class ScriptWithAnimation : public Script {
 private:
 	Sprite sprite;
 	AnimationController animation;
+
+	SoundEffect soundEffects;
 
 public:
 	ScriptWithAnimation();
