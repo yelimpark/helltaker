@@ -158,7 +158,6 @@ void Chapter8Scene::Update(Time& dt)
 			GameVal::level = 9;
 		}
 	}
-
 	//else {
 	//	if (ui.IsGameOver()) {
 	//		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
