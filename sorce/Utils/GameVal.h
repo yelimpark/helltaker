@@ -13,6 +13,8 @@ public:
 
 	static int effectSound;
 
+	static std::string language;
+
 	static void Init();
 
 };

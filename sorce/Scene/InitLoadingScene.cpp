@@ -33,6 +33,8 @@ void InitLoadingScene::Update(Time& dt)
 	AnimationHolder::GetAnimation("CutTransition");
 	AnimationHolder::GetAnimation("dialogueDeath");
 	AnimationHolder::GetAnimation("success_all");
+
+	GameVal::cutSceneIdx = -1;
 	sceneManager.ChangeScene(SceneType::CUT);
 }
 

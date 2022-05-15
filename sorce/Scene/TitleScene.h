@@ -12,6 +12,8 @@ private:
 	Sprite bg;
 	Sprite chara;
 
+	Sprite leng;
+
 	MainMenu mainM;
 	ChapterMenu chapM;
 	bool IsChapMActive;

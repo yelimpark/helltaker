@@ -53,7 +53,8 @@ void ChapterMenu::HandleInput(SceneManager& sm)
 		text.setString(chapters[cursor]);
 		Utils::SetOrigin(text, Pivots::Center);
 	}
-	if (InputManager::GetKeyDown(Keyboard::Right) && cursor < options.size() - 1) {
+	//if (InputManager::GetKeyDown(Keyboard::Right) && cursor < options.size() - 1) {
+	if (InputManager::GetKeyDown(Keyboard::Right) && cursor < 7) {
 		options[cursor]->SetActive(false);
 		++cursor;
 		options[cursor]->SetActive(true);
@@ -83,6 +84,7 @@ void ChapterMenu::Release()
 		if (option != nullptr)
 			delete option;
 	}
+	options.clear();
 }
 
 ChapterMenu::~ChapterMenu()

@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include "../Utils/Utils.h"
 #include "../Resource/TextureHolder.h"
+#include "../Utils/InputManager.h"
 
 TitleScene::TitleScene(SceneManager& sceneManager)
 	:Scene(sceneManager), IsChapMActive(false)
@@ -19,6 +20,11 @@ void TitleScene::Init()
 	Utils::SetOrigin(chara, Pivots::CenterBottom);
 	chara.setPosition(resolution.x * 0.5, 700);
 
+	leng.setTexture(TextureHolder::GetTexture("Sprite/leng.png"));
+	leng.setScale(0.3f, 0.3f);
+	Utils::SetOrigin(leng, Pivots::RightBottom);
+	leng.setPosition(resolution.x - 50.f, resolution.y - 50.f);
+
 	mainM.Init(resolution);
 	chapM.Init(resolution);
 }
@@ -31,12 +37,17 @@ void TitleScene::Update(Time& dt)
 	else {
 		if (mainM.HandleInput(window, sceneManager)) IsChapMActive = true;
 	}
+
+	if (InputManager::GetKeyDown(Keyboard::L)) {
+
+	}
 }
 
 void TitleScene::Render()
 {
 	window.draw(bg);
 	window.draw(chara);
+	window.draw(leng);
 	if (IsChapMActive) {
 		chapM.Draw(window);
 	}

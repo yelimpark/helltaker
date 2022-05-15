@@ -1,12 +1,10 @@
 #pragma once
-#include "./Scene.h"
 #include "../Utils/SceneManager.h"
 #include "../GameObj/SoundType.h"
-#include "TitleScene.h"
-
 
 using namespace sf;
 using namespace std;
+
 #include <map>
 
 class SoundType;
@@ -16,7 +14,6 @@ class SoundType;
 class PauseMenu
 {
 private:
-
 	SoundType soundtype;
 
 	Text menuText;
