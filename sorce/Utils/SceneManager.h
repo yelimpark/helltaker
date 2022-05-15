@@ -13,6 +13,7 @@ enum class SceneType {
 	TITLE,
 	STAGE,
 	CUT,
+	STAGE8,
 	BADENDING,
 	COUNT
 };

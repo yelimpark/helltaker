@@ -54,6 +54,7 @@
     <ClCompile Include="sorce\Resource\SoundHolder.cpp" />
     <ClCompile Include="sorce\Resource\TextureHolder.cpp" />
     <ClCompile Include="sorce\Scene\BadEndingScene.cpp" />
+    <ClCompile Include="sorce\Scene\Chapter8Scene.cpp" />
     <ClCompile Include="sorce\Scene\InitLoadingScene.cpp" />
     <ClCompile Include="sorce\Scene\CutScene.cpp" />
     <ClCompile Include="sorce\Scene\ChapterSelect.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="sorce\SceneInitializer\CutSceneInitializer.h" />
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h" />
     <ClInclude Include="sorce\Scene\BadEndingScene.h" />
+    <ClInclude Include="sorce\Scene\Chapter8Scene.h" />
     <ClInclude Include="sorce\Scene\InitLoadingScene.h" />
     <ClInclude Include="sorce\Scene\CutScene.h" />
     <ClInclude Include="sorce\Scene\ChapterSelect.h" />

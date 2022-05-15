@@ -194,6 +194,9 @@
     <ClCompile Include="sorce\GameObj\GetVfx.cpp">
       <Filter>소스 파일\StageGameObj\Vfx</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\Scene\Chapter8Scene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -363,6 +366,9 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\GetVfx.h">
       <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\Chapter8Scene.h">
+      <Filter>소스 파일\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

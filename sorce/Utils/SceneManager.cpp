@@ -7,17 +7,19 @@
 #include "../Scene/CutScene.h"
 #include "../Scene/BadEndingScene.h"
 #include "../Scene/InitLoadingScene.h"
+#include "../Scene/Chapter8Scene.h"
 
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = SceneType::STAGE;
+	currScene = SceneType::STAGE8;
 	holdScene = SceneType::INITLOADING;
 
 	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
 	scenes[(int)SceneType::CUT] = new CutScene(*this);
+	scenes[(int)SceneType::STAGE8] = new Chapter8Scene(*this);
 	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);
 
 	scenes[(int)currScene]->Init();
