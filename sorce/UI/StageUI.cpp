@@ -50,7 +50,7 @@ void StageUI::Init(int lastTurn, const Vector2i& res)
 	bottomMenu.setStyle(Text::Bold);
 	bottomMenu.setString("LIFE ADVICE [L or LB]               RESTART [R or RB]");
 	Utils::SetOrigin(bottomMenu, Pivots::Center);
-	bottomMenu.setPosition(Vector2f(res.x * 0.5f, res.y * 0.95f));
+	bottomMenu.setPosition(Vector2f(res.x * 0.5f, res.y * 0.9f));
 }
 
 void StageUI::UseTurn()

@@ -9,6 +9,7 @@
 #include "../GameObj/Flame.h"
 #include "../GameObj/MapCode.h"
 #include "../GameObj/Skull.h"
+#include "../GameObj/Demon.h"
 
 Chapter8Scene::Chapter8Scene(SceneManager& sceneManager)
 	:Scene(sceneManager), playerView(Framework::GetPlayerView()), pmenu(window, sceneManager), isClear(false)
@@ -29,20 +30,20 @@ void Chapter8Scene::Init()
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 	LevelData levelData = levelDatas[to_string(8)];
 
-	InitMap(levelData.MapFilePath);
+	InitMap(levelData.MapFilePath, levelData.demonName);
 
-	//for (int i = 0; i < 8; ++i) {
-	//	Flame* flame = new Flame();
-	//	flame->Init(flameDatas[to_string(GameVal::level)][i].position);
-	//	flames.push_back(flame);
-	//}
+	for (int i = 0; i < flameBaseDatas[to_string(8)].size(); ++i) {
+		Flame* flame = new Flame();
+		flame->Init(flameDatas[to_string(8)][i].position);
+		flames.push_back(flame);
+	}
 
-	//for (int i = 0; i < 8; ++i) {
-	//	Sprite* flameBase = new Sprite();
-	//	flameBase->setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
-	//	flameBase->setPosition(flameBaseDatas[to_string(GameVal::level)][i].position);
-	//	flameBases.push_back(flameBase);
-	//}
+	for (int i = 0; i < flameBaseDatas[to_string(8)].size(); ++i) {
+		Sprite* flameBase = new Sprite();
+		flameBase->setTexture(TextureHolder::GetTexture("Sprite/FLAMEbase0001.png"));
+		flameBase->setPosition(flameBaseDatas[to_string(8)][i].position);
+		flameBases.push_back(flameBase);
+	}
 
 	background.setTexture(TextureHolder::GetTexture("Sprite/chapterSketches_EXPORT_throne.png"));
 	sideLeft.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
@@ -62,7 +63,7 @@ void Chapter8Scene::Init()
 	isClear = false;
 }
 
-void Chapter8Scene::InitMap(std::string filepath)
+void Chapter8Scene::InitMap(std::string filepath, std::string demonName)
 {
 	Vector2f playerPos;
 
@@ -97,6 +98,13 @@ void Chapter8Scene::InitMap(std::string filepath)
 				skulls.push_back(skull);
 				break;
 			}
+			case (char)MapCode::DEMON:
+			{
+				Demon* demon = new Demon();
+				demon->Init(Utils::IdxToPos(i, j), demonName);
+				demons.push_back(demon);
+				break;
+			}
 			default:
 				break;
 			}
@@ -112,6 +120,10 @@ void Chapter8Scene::Update(Time& dt)
 	if (paused) {
 		pmenu.Update();
 		return;
+	}
+	
+	for (auto flame : flames) {
+		flame->Update(dt.asSeconds());
 	}
 
 	player.Update(dt.asSeconds());
@@ -133,6 +145,11 @@ void Chapter8Scene::Update(Time& dt)
 
 	boneParticle.Update(dt.asSeconds());
 
+	for (auto& demon : demons) {
+		demon->Update(dt.asSeconds());
+		if (demon->IsClear(map, TILE_SIZE)) isClear = true;
+	}
+
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
@@ -141,6 +158,7 @@ void Chapter8Scene::Update(Time& dt)
 			GameVal::level = 9;
 		}
 	}
+
 	//else {
 	//	if (ui.IsGameOver()) {
 	//		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
@@ -190,9 +208,22 @@ void Chapter8Scene::Render()
 	window.setView(playerView);
 	window.draw(background);
 
+	for (auto flamebase : flameBases) {
+		window.draw(*flamebase);
+	}
+
+	for (auto flame : flames) {
+		flame->Draw(window);
+	}
+
 	for (auto& skull : skulls)
 	{
 		skull->Draw(window);
+	}
+
+	for (auto& demon : demons)
+	{
+		demon->Draw(window);
 	}
 
 	player.Draw(window);
@@ -216,17 +247,17 @@ void Chapter8Scene::Render()
 
 void Chapter8Scene::Release()
 {
-	//for (auto flame : flames) {
-	//	if (flame != nullptr)
-	//		delete flame;
-	//}
-	//flames.clear();
+	for (auto flame : flames) {
+		if (flame != nullptr)
+			delete flame;
+	}
+	flames.clear();
 
-	//for (auto flamebase : flameBases) {
-	//	if (flamebase != nullptr)
-	//		delete flamebase;
-	//}
-	//flameBases.clear();
+	for (auto flamebase : flameBases) {
+		if (flamebase != nullptr)
+			delete flamebase;
+	}
+	flameBases.clear();
 
 	for (auto& skull : skulls)
 	{
@@ -234,6 +265,14 @@ void Chapter8Scene::Release()
 			delete skull;
 	}
 	skulls.clear();
+
+	for (auto& demon : demons)
+	{
+		if (demon != nullptr)
+			delete demon;
+	}
+	demons.clear();
+
 }
 
 Chapter8Scene::~Chapter8Scene()

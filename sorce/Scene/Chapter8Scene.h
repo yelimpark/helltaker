@@ -33,7 +33,7 @@ private:
 
 	Player player;
 
-
+	std::vector<Demon*> demons;
 	std::vector<Skull*> skulls;
 	std::vector<Flame*> flames;
 	std::vector<Sprite*> flameBases;
@@ -53,7 +53,7 @@ private:
 
 	View& playerView;
 
-	void InitMap(std::string filepath);
+	void InitMap(std::string filepath, std::string demonName);
 
 public:
 	Chapter8Scene(SceneManager& sceneManager);
