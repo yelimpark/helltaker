@@ -11,7 +11,6 @@ class Scene;
 enum class SceneType {
 	INITLOADING,
 	TITLE,
-	CHAPTER,
 	STAGE,
 	CUT,
 	BADENDING,

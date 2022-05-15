@@ -31,6 +31,10 @@ struct OptionData {
 	std::string line;
 	std::string nextNode;
 
+	OptionData() {
+
+	};
+
 	OptionData(std::vector<std::string>& row) {
 		line = row[1];
 		nextNode = row[2];

@@ -194,6 +194,15 @@
     <ClCompile Include="sorce\GameObj\GetVfx.cpp">
       <Filter>소스 파일\StageGameObj\Vfx</Filter>
     </ClCompile>
+    <ClCompile Include="sorce\GameObj\MainMenu.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ChapterMenuOption.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ChapterMenu.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sorce\Utils\Singleton.h">
@@ -363,6 +372,15 @@
     </ClInclude>
     <ClInclude Include="sorce\UI\StageUI.h">
       <Filter>소스 파일\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MainMenu.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ChapterMenu.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ChapterMenuOption.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

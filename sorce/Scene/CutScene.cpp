@@ -67,6 +67,9 @@ void CutScene::Update(Time& dt)
 		else if (nextNode.compare("S") == 0) {
 			sceneManager.ChangeScene(SceneType::STAGE, true);
 		}
+		else if (nextNode.compare("T") == 0) {
+			sceneManager.ChangeScene(SceneType::TITLE);
+		}
 		else {
 			idx += stoi(nextNode);
 		}
