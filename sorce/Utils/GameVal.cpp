@@ -4,7 +4,7 @@ int GameVal::level;
 int GameVal::cutSceneIdx;
 int GameVal::musicSound;
 int GameVal::effectSound;
-std::string GameVal::language;
+std::string GameVal::language = "";
 
 void GameVal::Init()
 {
@@ -15,6 +15,4 @@ void GameVal::Init()
 	musicSound = 1;
 
 	effectSound = 1;
-
-	language = "";
 }

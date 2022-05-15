@@ -1,12 +1,21 @@
 #include "Script.h"
 #include "../Resource/ResorceHolder.h"
 #include "../Utils/Utils.h"
+#include "../Utils/GameVal.h"
 #include <sstream>
 
 Script::Script()
 	:nextNode("")
 {
 }
+
+std::string w2s(const std::wstring& var)
+{
+	static std::locale loc("");
+	auto& facet = std::use_facet<std::codecvt<wchar_t, char, std::mbstate_t>>(loc);
+	return std::wstring_convert<std::remove_reference<decltype(facet)>::type, wchar_t>(&facet).to_bytes(var);
+}
+
 
 void Script::Init(CutSceneData& data, Vector2i resolution)
 {
@@ -35,8 +44,8 @@ void Script::Init(CutSceneData& data, Vector2i resolution)
 	std::string token;
 	while (getline(iss, token, '-')) {
 		Text* text = new Text();
-		text->setString(token);
 		text->setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
+		text->setString(token);
 		text->setFillColor(Color::White);
 		Utils::SetOrigin(*text, Pivots::Center);
 		text->setPosition(resolution.x * 0.5, top + 40.f * idx);

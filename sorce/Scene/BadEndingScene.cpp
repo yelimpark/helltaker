@@ -25,7 +25,11 @@ void BadEndingScene::Init()
 	bgColor.setFillColor(Color{ 2, 2, 27 });
 	bgColor.setPosition(0, 0);
 
-	rapidcsv::Document csvData("./LevelInfo/BadEndInfo.csv", rapidcsv::LabelParams(0, 0));
+	std::string path = "./LevelInfo/BadEndInfo";
+	path += GameVal::language;
+	path += ".csv";
+
+	rapidcsv::Document csvData(path.c_str(), rapidcsv::LabelParams(0, 0));
 	std::string line = csvData.GetCell<std::string>("line", to_string(GameVal::cutSceneIdx));
 	NextScene = csvData.GetCell<std::string>("NextScene", to_string(GameVal::cutSceneIdx));
 	
