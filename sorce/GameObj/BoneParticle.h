@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include "./SoundEffect.h"
 
 using namespace sf;
 
@@ -10,6 +11,7 @@ private:
 	Sprite sprite;
 	AnimationController animation;
 
+	SoundEffect soundEffects;
 public:
 	BoneParticle();
 

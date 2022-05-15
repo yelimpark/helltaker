@@ -48,8 +48,6 @@ private:
 	stageSceneTrasition stageTransition;
 	GameOver gameOver;
 
-	SoundEffect soundEffects;
-
 	PauseMenu pmenu;
 	bool paused;
 

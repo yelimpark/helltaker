@@ -156,7 +156,6 @@ void Chapter8Scene::Update(Time& dt)
 		if (stageTransition.OnClear(dt.asSeconds())) {
 			GameVal::cutSceneIdx = 8;
 			sceneManager.ChangeScene(SceneType::CUT);
-			GameVal::level = 9;
 		}
 	}
 	else {

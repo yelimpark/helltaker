@@ -11,6 +11,7 @@ void BoneParticle::Init(Vector2f pos)
 	animation.SetTarget(&sprite);
 	animation.AddClip("SkullCrushed");
 	animation.Play("SkullCrushed");
+	soundEffects.SoundEffectPlay("Sound/enemy_die_01.wav");
 }
 
 void BoneParticle::Update(float dt)

@@ -237,7 +237,6 @@ void StageScene::Update(Time& dt)
 		skulls[i]->Update(dt.asSeconds());
 		if (skulls[i]->IsDead()) {
 			boneParticle.Init(skulls[i]->GetPos());
-			soundEffects.SoundEffectPlay("Sound/enemy_die_01.wav");
 			map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
 			delete skulls[i];
 			skulls.erase(skulls.begin() + i);
