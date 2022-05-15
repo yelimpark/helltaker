@@ -8,9 +8,6 @@
 #include "./LockedBox.h"
 #include "../Utils/SceneManager.h"
 
-
-#include <iostream>
-
 void Player::Init(Vector2f pos, int tileSize, float moveSecond)
 {
 	position = pos;
@@ -57,45 +54,36 @@ void Player::Kick(bool isItMove)
 	soundEffects.kickBox();
 }
 
-bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox, bool isEarnedKey, float dt)
+bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Skull*>& skulls, LockedBox &lockedbox)
 {
 	bool useTurn = false;
 
 	if (animation.NowPlaying() != "PlayerStand" || dir != Direction::None) return useTurn;
 
+	nextPosition = position;
 	if (InputManager::GetKey(Keyboard::Left)) {
 		sprite.setScale(-1.f, 1.f);
 		nextPosition.x = position.x - tileSize;
-		nextPosition.y = position.y;
 		dir = Direction::Left;
-		
-		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Right)) {
 		sprite.setScale(1.f, 1.f);
 		nextPosition.x = position.x + tileSize;
-		nextPosition.y = position.y;
 		dir = Direction::Right;
-
-		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Up)) {
-		nextPosition.x = position.x;
 		nextPosition.y = position.y - tileSize;
 		dir = Direction::Up;
-
-		soundEffects.Playermoves();
 	}
 	if (InputManager::GetKey(Keyboard::Down)) {
-		nextPosition.x = position.x;
 		nextPosition.y = position.y + tileSize;
 		dir = Direction::Down;
-
-		soundEffects.Playermoves();
 	}
 
+	Vector2i nextIdx = Utils::PosToIdx(nextPosition);
+
 	if (dir != Direction::None) {
-		switch (map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize]) {
+		switch (map[nextIdx.y][nextIdx.x]) {
 		case (char)MapCode::WALL:
 			dir = Direction::None;
 			return useTurn;	
@@ -124,13 +112,8 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			return useTurn;
 
 		case (char)MapCode::LOCKEDBOX:
-			if (isEarnedKey)
-			{
-
-			}
-			else
-			{
-				Kick(true);
+			if (!lockedbox.IsOpen()) {
+				Kick(false);
 				lockedbox.Shake(dir);
 				dir = Direction::None;
 				useTurn = true;
@@ -141,9 +124,14 @@ bool Player::HanddleInput(char ** &map, std::vector<Box*>& boxes, std::vector<Sk
 			break;
 		}
 
+		soundEffects.Playermoves();
 		moveVfx.Init(position);
-		map[(int)nextPosition.y / tileSize][(int)nextPosition.x / tileSize] = 'P';
-		map[(int)position.y / tileSize][(int)position.x / tileSize] = 'E';
+
+		Vector2i curIdx = Utils::PosToIdx(position);
+		map[curIdx.y][curIdx.x] = 'E';
+
+		map[nextIdx.y][nextIdx.x] = 'P';
+
 		prevPosition = position;
 		animation.Play("PlayerMove");
 		animation.PlayQue("PlayerStand");

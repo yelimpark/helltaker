@@ -1,8 +1,12 @@
 #include "LockedBox.h"
-#include "./MapCode.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/Utils.h"
-#include "../Utils/InputManager.h"
+
+LockedBox::LockedBox()
+	:isActive(false), isEarned(false), isopen(false), position(-500, -500), shakeDir(Direction::None), shakeTime(2.f)
+{
+	sprite.setPosition(position);
+}
 
 void LockedBox::Init(Vector2f pos)
 {
@@ -16,30 +20,26 @@ void LockedBox::Init(Vector2f pos)
 	vfxAnimation.AddClip("huge_vfx");
 	vfxAnimation.Play("huge_vfx");
 
-	velocity = Vector2f(0.f, 0.f);
-
+	isActive = true;
 	isEarned = false;
-	isSideShake = false;
-	isUpShake = false;
-	playtime = 2.f;
+	isopen = false;
+	shakeDir = Direction::None;
+	shakeTime = 2.f;
 }
 
-void LockedBox::Update(float dt)
+void LockedBox::Update(float dt, bool isopen, Vector2f playerpos, int tileSize)
 {
-	if (isSideShake)
-	{
-		sprite.setPosition(position.x + dt * 800, position.y);
-	}
-	if (isUpShake)
-	{
-		sprite.setPosition(position.x, position.y + dt * 800);
-	}
+	if (!isActive) return;
+
+	this->isopen = isopen;
+
+	if (Utils::PosToIdx(position) == Utils::PosToIdx(playerpos)) isEarned = true;
 
 	if (isEarned)
 	{
 		if (vfxAnimation.IsAnimationEnd())
 		{
-			isEarned = false;
+			isActive = false;
 		}
 		else
 		{
@@ -48,51 +48,43 @@ void LockedBox::Update(float dt)
 		}
 	}
 
-	playtime -= dt * 10;
-
-	if (playtime < 0.0f)
+	switch (shakeDir)
 	{
-		isSideShake = false;
-		isUpShake = false;
-		playtime = 2.f;
+	case Direction::Left:
+	case Direction::Right:
+		sprite.setPosition(position.x + dt * 800, position.y);
+		shakeTime -= dt * 10;
+		break;
+	case Direction::Down:
+	case Direction::Up:
+		sprite.setPosition(position.x, position.y + dt * 800);
+		shakeTime -= dt * 10;
+		break;
+	default:
+		break;
+	}
+
+	if (shakeTime < 0.0f)
+	{
+		shakeDir = Direction::None;
+		shakeTime = 2.f;
 		sprite.setPosition(position);
 	}
 }
 
 void LockedBox::Shake(Direction dir)
 {
-	if (dir == Direction::Left || dir == Direction::Right)
-		isSideShake = true;
-	if (dir == Direction::Up || dir == Direction::Down)
-		isUpShake = true;
+	this->shakeDir = dir;
 }
 
 void LockedBox::Draw(RenderWindow& window)
 {
-	window.draw(sprite);
-	if (isEarned)
-	{
-		window.draw(vfxSprite);
-		
-	}
+	if (!isActive) return;
+	if (isEarned) window.draw(vfxSprite);
+	else window.draw(sprite);
 }
 
-void LockedBox::Clear()
+bool LockedBox::IsOpen()
 {
-	sprite.setPosition(2200, 1800);
+	return isopen;
 }
-
-bool LockedBox::IsCapturedPlayer(char**& map, int tileSize)
-{
-	int idxY = (int)position.y / tileSize;
-	int idxX = (int)position.x / tileSize;
-
-	if (map[idxY][idxX] == (char)MapCode::PLAYER)
-	{
-		isEarned = true;
-		return isEarned;
-	}
-	return isEarned;
-}
-
-

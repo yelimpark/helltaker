@@ -3,14 +3,14 @@
 #include "../Utils/Utils.h"
 #include "../Resource/TextureHolder.h"
 
-void Demon::Init(Vector2f pos)
+void Demon::Init(Vector2f pos, std::string demonName)
 {
 	position = pos;
 	sprite.setPosition(position);
 
 	animation.SetTarget(&sprite);
-	animation.AddClip("Pandemonica");
-	animation.Play("Pandemonica");
+	animation.AddClip(demonName);
+	animation.Play(demonName);
 
 	heartYPos = 60.f;
 	heart.setTexture(TextureHolder::GetTexture("Sprite/lovesign.png"));
@@ -25,17 +25,16 @@ void Demon::Update(float dt)
 
 	if (heartYPos > 60)
 	{
-		dir = -1.f;
+		heartDir = -1.f;
 	}
-
 	else if (heartYPos < 50)
 	{
-		dir = 1.f;
+		heartDir = 1.f;
 	}
 
 	if (isheartmoving || heartYPos <= 55)
 	{
-		heartYPos += dir * dt * 50;
+		heartYPos += heartDir * dt * 50;
 	}
 
 	isheartmoving = true;
@@ -43,13 +42,12 @@ void Demon::Update(float dt)
 
 bool Demon::IsClear(char**& map, int tileSize)
 {
-	int idxY = (int)position.y / tileSize;
-	int idxX = (int)position.x / tileSize;
+	Vector2i idx = Utils::PosToIdx(position);
 
-	if (map[idxY + 1][idxX] == (char)MapCode::PLAYER ||
-		map[idxY - 1][idxX] == (char)MapCode::PLAYER ||
-		map[idxY][idxX + 1] == (char)MapCode::PLAYER ||
-		map[idxY][idxX - 1] == (char)MapCode::PLAYER ) 
+	if (map[idx.y + 1][idx.x] == (char)MapCode::PLAYER ||
+		map[idx.y - 1][idx.x] == (char)MapCode::PLAYER ||
+		map[idx.y][idx.x + 1] == (char)MapCode::PLAYER ||
+		map[idx.y][idx.x - 1] == (char)MapCode::PLAYER )
 	{
 		return true;
 	}

@@ -10,8 +10,8 @@ void booper::Init(Vector2f pos)
 {
 	sprite.setPosition(pos);
 	animation.SetTarget(&sprite);
-	animation.AddClip("booper0006_s");
-	animation.Play("booper0006_s");
+	animation.AddClip("booper");
+	animation.Play("booper");
 }
 
 void booper::Update(float dt)

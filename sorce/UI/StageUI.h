@@ -11,6 +11,7 @@ private:
 
 	Text turn;
 	Text stageNum;
+	Text bottomMenu;
 
 	int lastTurn;
 
@@ -20,7 +21,7 @@ private:
 	void MoveObj(float x, float y, Transformable& obj);
 public:
 	StageUI();
-	void Init(int lastTurn);
+	void Init(int lastTurn, const Vector2i& res);
 	void UseTurn();
 	void OnClear(float dt);
 	void Draw(RenderWindow& window);

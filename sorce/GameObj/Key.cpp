@@ -1,9 +1,13 @@
 #include "Key.h"
-#include "./MapCode.h"
 #include "../Utils/Utils.h"
 
+Key::Key()
+	:isActive(false), isEarned(false), position(-500, -500)
+{
+	sprite.setPosition(position);
+}
 
-void Key::Init(Vector2f pos, int tileSize)
+void Key::Init(Vector2f pos)
 {
 	position = pos;
 	sprite.setPosition(position);
@@ -17,57 +21,38 @@ void Key::Init(Vector2f pos, int tileSize)
 	vfxAnimation.AddClip("huge_vfx");
 	vfxAnimation.Play("huge_vfx");
 
-	this->tileSize = tileSize;
-
 	isEarned = false;
 	isActive = true;
 }
 
-void Key::Update(float dt)
+void Key::Update(float dt, Vector2f playerpos, int tileSize)
 {
+	if (!isActive) return;
+
+	if (Utils::PosToIdx(position) == Utils::PosToIdx(playerpos)) isEarned = true;
+
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
-	if (isActive)	{
-		if (isEarned) {
-			if (vfxAnimation.IsAnimationEnd()) {
-				isActive = false;
-			}
-			else {
-				vfxAnimation.Update(dt);
-				Utils::SetOrigin(vfxSprite, Pivots::Center);
-			}
+
+	if (isEarned) {
+		if (vfxAnimation.IsAnimationEnd()) {
+			isActive = false;
+		}
+		else {
+			vfxAnimation.Update(dt);
+			Utils::SetOrigin(vfxSprite, Pivots::Center);
 		}
 	}
-
 }
 
 void Key::Draw(RenderWindow& window)
 {
-	window.draw(sprite);
-	if (isEarned) {
-		if (!isActive) return;
-		window.draw(vfxSprite);
-	}
+	if (!isActive) return;
+	if (isEarned) window.draw(vfxSprite);
+	else window.draw(sprite);
 }
 
-void Key::Clear()
+bool Key::IsCapturedPlayer()
 {
-	sprite.setPosition(2000, 1500);
-}
-
-bool Key::IsCapturedPlayer(char**& map, int tileSize)
-{
-	int idxY = (int)position.y / tileSize;
-	int idxX = (int)position.x / tileSize;
-
-	if (map[idxY][idxX] == (char)MapCode::PLAYER && isActive)
-	{
-		isEarned = true;
-	}
 	return isEarned;
-}
-
-Vector2f Key::GetKeyPos()
-{
-	return position;
 }

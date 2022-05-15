@@ -13,88 +13,93 @@
 #include "../GameObj/Skull.h"
 #include "../GameObj/MapCode.h"
 #include "../GameObj/Claw.h"
+#include "../GameObj/Demon.h"
+#include "../GameObj/Key.h"
+#include "../GameObj/LockedBox.h"
 
-#include <sstream>
 #include <algorithm>
+#include<string>
 
 StageScene::StageScene(SceneManager& sceneManager)
-	: Scene(sceneManager), level(GameVal::level), isClear(false), isEarnedKey(false), isEarnedBox(false)
+	: Scene(sceneManager), isClear(false), pmenu(window, sceneManager), 
+	key(nullptr), lockedBox(nullptr)
 {
 
 }
 
-void StageScene::InitMap(std::string filepath, std::string levelStr)
+void StageScene::InitMap(std::string filepath, std::string clawFilePath, std::string demonName)
 {
+	std::string levelStr = to_string(GameVal::level);
+
 	std::map<std::string, std::vector<BoxData>> boxDatas;
 	Utils::CsvToStructVectorMap<BoxData>(boxDatas, "./LevelInfo/BoxInfo.csv");
 	int boxIdx = 0;
 
 	Vector2f playerPos;
-	Vector2f DemonPos;
 	Vector2f KeyPos;
 	Vector2f LockedBoxPos;
 
 	rapidcsv::Document csvData(filepath, rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document csvDataC(clawFilePath, rapidcsv::LabelParams(-1, -1));
 
-	int row = resolution.y / TILE_SIZE;
-	int col = resolution.x / TILE_SIZE;
+	map = new char* [csvData.GetRowCount()];
 
-	map = new char* [row];
-	for (int i = 0; i < row; ++i) {
-		map[i] = new char[col];
-		for (int j = 0; j < col; ++j) {
+	for (int i = 0; i < csvData.GetRowCount(); ++i) {
+		map[i] = new char[csvData.GetColumnCount() - 1];
+
+		for (int j = 0; j < csvData.GetColumnCount() - 1; ++j) {
 			map[i][j] = csvData.GetCell<char>(j, i);
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
-				boxDatas[levelStr][boxIdx].position.x = j * TILE_SIZE + LEFT_MARGINE;
-				boxDatas[levelStr][boxIdx].position.y = i * TILE_SIZE + TOP_MARGINE;
+				boxDatas[levelStr][boxIdx].position = Utils::IdxToPos(i, j);
 				boxIdx++;
 				break;
 
 			case (char)MapCode::PLAYER:
-				playerPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
-				playerPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				playerPos = Utils::IdxToPos(i, j);
 				break;
 
 			case (char)MapCode::DEMON:
-				DemonPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
-				DemonPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
-				break;
-
-			case (char)MapCode::SKULL: 
 			{
-				Vector2f pos;
-				pos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
-				pos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
-				Skull* skull = new Skull();
-				skull->Init(pos, TILE_SIZE, MOVE_SECOND);
-				skulls.push_back(skull);
+				Demon* demon = new Demon();
+				demon->Init(Utils::IdxToPos(i, j), demonName);
+				demons.push_back(demon);
 				break;
 			}
 
-			case (char)MapCode::CLAW:
+			case (char)MapCode::SKULL: 
 			{
-				Vector2f pos;
-				pos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
-				pos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
-				Claw* claw = new Claw();
-				claw->Init(pos, TILE_SIZE);
-				claws.push_back(claw);
+				Skull* skull = new Skull();
+				skull->Init(Utils::IdxToPos(i, j), TILE_SIZE, MOVE_SECOND);
+				skulls.push_back(skull);
 				break;
 			}
 
 			case (char)MapCode::KEY:
 			{
-				KeyPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
-				KeyPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				KeyPos = Utils::IdxToPos(i, j);
+				key->Init(KeyPos);
 				break;
 			}
 
 			case (char)MapCode::LOCKEDBOX:
 			{
-				LockedBoxPos.x = j * TILE_SIZE + TILE_SIZE / 2 + LEFT_MARGINE;
-				LockedBoxPos.y = i * TILE_SIZE + TILE_SIZE / 2 + TOP_MARGINE;
+				LockedBoxPos = Utils::IdxToPos(i, j);
+				lockedBox->Init(LockedBoxPos);
+				break;
+			}
+
+			default:
+				break;
+			}
+
+			switch (csvDataC.GetCell<char>(j, i)) {
+			case (char)MapCode::CLAW:
+			{
+				Claw* claw = new Claw();
+				claw->Init(Utils::IdxToPos(i, j));
+				claws.push_back(claw);
 				break;
 			}
 
@@ -106,9 +111,6 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 	}
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
-	demon.Init(DemonPos);
-	key.Init(KeyPos, TILE_SIZE);
-	lockedBox.Init(LockedBoxPos);
 
 	for (auto& boxdata : boxDatas[levelStr])
 	{
@@ -121,6 +123,9 @@ void StageScene::InitMap(std::string filepath, std::string levelStr)
 void StageScene::Init()
 {
 	Release();
+	
+	paused = false;
+	soundEffects.backgroundMusic();
 
 	std::map<std::string, LevelData> levelDatas;
 	std::map<std::string, std::vector<FlameData>> flameDatas;
@@ -130,22 +135,23 @@ void StageScene::Init()
 	Utils::CsvToStructVectorMap<FlameData>(flameDatas, "./LevelInfo/FlameInfo.csv");
 	Utils::CsvToStructVectorMap<FlameBaseData>(flameBaseDatas, "./LevelInfo/FlameBaseInfo.csv");
 
-	stringstream ss;
-	ss << GameVal::level;
-	LevelData levelData = levelDatas[ss.str()];
+	LevelData levelData = levelDatas[to_string(GameVal::level)];
 
-	InitMap(levelData.MapFilePath, ss.str());
+	key = new Key();
+	lockedBox = new LockedBox();
 
-	for (int i = 0; i < flameDatas[ss.str()].size(); ++i) {
+	InitMap(levelData.MapFilePath, levelData.ClawMapFilePath, levelData.demonName);
+
+	for (int i = 0; i < flameDatas[to_string(GameVal::level)].size(); ++i) {
 		Flame* flame = new Flame();
-		flame->Init(flameDatas[ss.str()][i].position);
+		flame->Init(flameDatas[to_string(GameVal::level)][i].position);
 		flames.push_back(flame);
 	}
 
-	for (int i = 0; i < flameBaseDatas[ss.str()].size(); ++i) {
+	for (int i = 0; i < flameBaseDatas[to_string(GameVal::level)].size(); ++i) {
 		Sprite * flameBase = new Sprite();
-		flameBase->setTexture(TextureHolder::GetTexture(flameBaseDatas[ss.str()][i].texturefile));
-		flameBase->setPosition(flameBaseDatas[ss.str()][i].position);
+		flameBase->setTexture(TextureHolder::GetTexture(flameBaseDatas[to_string(GameVal::level)][i].texturefile));
+		flameBase->setPosition(flameBaseDatas[to_string(GameVal::level)][i].position);
 		flameBases.push_back(flameBase);
 	}
 
@@ -154,32 +160,54 @@ void StageScene::Init()
 
 	sideLeft.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
 	sideRight.setTexture(TextureHolder::GetTexture("Sprite/mainUIexport_bUI2.png"));
-	sideLeft.setPosition(resolution.x*0.03f, 0);
-	sideRight.setPosition(resolution.x*0.97f, 0);
+	Utils::SetOrigin(sideLeft, Pivots::LeftTop);
+	Utils::SetOrigin(sideRight, Pivots::LeftTop);
+	sideLeft.setPosition(0, 0);
+	sideRight.setPosition(resolution.x, 0);
 	sideRight.setScale(-1.f, 1.f);
 
-	text.setFont(FontHolder::GetFont("Font/CrimsonPro-Bold.ttf"));
-	text.setCharacterSize(35);
-	text.setStyle(Text::Bold);
-	text.setString("LIFE ADVICE [L or LB]               RESTART [R or RB]");
-	Utils::SetOrigin(text, Pivots::Center);
-	text.setPosition(Vector2f(resolution.x * 0.5f, resolution.y * 0.95f));
-
-
-	ui.Init(levelData.lastTurn);
+	ui.Init(levelData.lastTurn, resolution);
 	stageTransition.Init(resolution);
-	if (!cutTransition.IsFull())
-		cutTransition.Init();
-
 	gameOver.Init(resolution);
 
 	isClear = false;
-	isEarnedKey = false;
-	isEarnedBox = false;
+}
+
+void StageScene::PausedState()
+{
+	paused = true;
+	pmenu.UpInit();
+}
+
+void StageScene::UnPausedState()
+{
+	paused = false;
+}
+
+void StageScene::UpdatePauseInput(Time& dt)
+{
+	if (InputManager::GetKeyDown(Keyboard::Escape))
+	{
+		if (!paused)
+		{
+			PausedState();
+		}
+		else
+		{
+			UnPausedState();
+		}
+	}
 }
 
 void StageScene::Update(Time& dt)
 {
+	UpdatePauseInput(dt);
+
+	if (paused) {
+		pmenu.Update();
+		return;
+	}
+
 	for (auto flame : flames) {
 		flame->Update(dt.asSeconds());
 	}
@@ -189,9 +217,15 @@ void StageScene::Update(Time& dt)
 		box->Update(dt.asSeconds());
 	}
 
+	key->Update(dt.asSeconds(), player.GetPos(), TILE_SIZE);
+
+	bool isOpen = key->IsCapturedPlayer();
+	lockedBox->Update(dt.asSeconds(), isOpen, player.GetPos(), TILE_SIZE);
+
 	player.Update(dt.asSeconds());
+
 	if (!isClear && !ui.IsGameOver()) {
-		if (player.HanddleInput(map, boxes, skulls, lockedBox, isEarnedKey, dt.asSeconds()))
+		if (player.HanddleInput(map, boxes, skulls, *lockedBox))
 			ui.UseTurn();
 	}
 
@@ -206,76 +240,42 @@ void StageScene::Update(Time& dt)
 		}
 	}
 
-	for (int i = 0; i < claws.size(); i++)
-	{
-		claws[i]->Update(dt.asSeconds()*5);
-		claws[i]->IsActive();
-		for (auto skull : skulls)
-		{
-			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
-			{
-				skulls[i]->IsDead();
-				soundEffects.crushSkull();
-				boneParticle.Init(skulls[i]->GetPos());
-				map[(int)skulls[i]->GetPos().y / TILE_SIZE][(int)skulls[i]->GetPos().x / TILE_SIZE] = 'E';
-				delete skulls[i];
-				skulls.erase(skulls.begin() + i);
-			}
-		}
-
-		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
-		{
-			soundEffects.PlayerInClaw();
+	for (auto& claw : claws) {
+		if (claw->Update(dt.asSeconds(), skulls, player)) {
 			bloodVfx.Init(player.GetPos());
-
-			//ui.UseTurn();
+			ui.UseTurn();
 		}
 	}
 
 	boneParticle.Update(dt.asSeconds());
 	bloodVfx.Update(dt.asSeconds());
 
-	demon.Update(dt.asSeconds());
-	isClear = demon.IsClear(map, TILE_SIZE);
-
-	if (!isClear && ui.IsGameOver()) {
-		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-			cutTransition.Update(dt.asSeconds());
-			if (cutTransition.IsFull()) {
-				Init();
-
-			}
-		}
-		return;
+	for (auto& demon : demons) {
+		demon->Update(dt.asSeconds());
+		if (demon->IsClear(map, TILE_SIZE)) isClear = true;
 	}
 
 	if (isClear) {
 		ui.OnClear(dt.asSeconds());
 		if (stageTransition.OnClear(dt.asSeconds())) {
-			sceneManager.ChangeScene(SceneType::LEVELENDING);
+			GameVal::cutSceneIdx = GameVal::level;
+			sceneManager.ChangeScene(SceneType::CUT);
+		}
+	}
+	else {
+		if (ui.IsGameOver()) {
+			if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
+				sceneManager.ChangeScene(SceneType::STAGE, true);
+			}
+			return;
 		}
 	}
 
-	isEarnedKey = key.IsCapturedPlayer(map, TILE_SIZE);
-	if (isEarnedKey)
-	{
-		key.Clear();
-		soundEffects.getKey();
-	}
-	key.Update(dt.asSeconds());
-
-	isEarnedBox = lockedBox.IsCapturedPlayer(map, TILE_SIZE);
-	if (isEarnedBox)
-	{
-		lockedBox.Clear();
-	}
-	lockedBox.Update(dt.asSeconds());
-	
 	if (InputManager::GetKeyDown(Keyboard::R))
 	{
-		cutTransition.Init();
-		Init();
+		sceneManager.ChangeScene(SceneType::STAGE, true);
 	}
+
 }
 
 void StageScene::Render()
@@ -284,8 +284,8 @@ void StageScene::Render()
 	window.draw(Background);
 	window.draw(sideLeft);
 	window.draw(sideRight);
-	key.Draw(window);
-	lockedBox.Draw(window);
+	key->Draw(window);
+	lockedBox->Draw(window);
 
 	for (auto flamebase : flameBases) {
 		window.draw(*flamebase);
@@ -310,19 +310,24 @@ void StageScene::Render()
 		skull->Draw(window);
 	}
 
+	for (auto& demon : demons)
+	{
+		demon->Draw(window);
+	}
+
 	player.Draw(window);
-	demon.Draw(window);
 	boneParticle.Draw(window);
 	bloodVfx.Draw(window);
-
 	stageTransition.Draw(window);
-	window.draw(text);
 	ui.Draw(window);
 
 	if (!isClear && ui.IsGameOver()) {
-		if (!cutTransition.IsFull())
-			gameOver.Draw(window);
-		cutTransition.Draw(window);
+		gameOver.Draw(window);
+	}
+
+	if (paused) //paused menu render
+	{
+		pmenu.Render(window);
 	}
 }
 
@@ -353,6 +358,25 @@ void StageScene::Release()
 			delete skull;
 	}
 	skulls.clear();
+
+	for (auto& demon : demons)
+	{
+		if (demon != nullptr)
+			delete demon;
+	}
+	demons.clear();
+
+	for (auto& claw : claws)
+	{
+		if (claw != nullptr)
+			delete claw;
+	}
+	claws.clear();
+
+	delete key;
+	key = nullptr;
+	delete lockedBox;
+	lockedBox = nullptr;
 }
 
 StageScene::~StageScene()

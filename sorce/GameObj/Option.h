@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "../SceneInitializer/LevelEndingSceneInitializer.h"
+#include "../SceneInitializer/CutSceneInitializer.h"
 
 using namespace sf;
 
@@ -8,8 +8,8 @@ class Option {
 private:
 	Sprite sprite;
 	Text text;
-	bool isBad;
 	bool active;
+	std::string nextNode;
 
 public:
 	Option();
@@ -20,5 +20,7 @@ public:
 
 	void Draw(RenderWindow& window);
 
-	bool IsBad();
+	bool IsActive();
+
+	std::string& GetNextNode();
 };

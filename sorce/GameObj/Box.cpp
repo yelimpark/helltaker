@@ -1,11 +1,12 @@
 #include "Box.h"
 #include "../Resource/TextureHolder.h"
 #include "../Utils/InputManager.h"
+#include "../Utils/Utils.h"
 #include "./MapCode.h"
 #include <iostream>
 
 Box::Box()
-	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), isSideShake(false), isUpShake(false), playTime(2.f)
+	: moveSecond(0), dir(Direction::None), moveDistance(0.f), moveTime(moveSecond), shakeTime(2.f), shakeDir(Direction::None)
 {
 }
 
@@ -13,6 +14,7 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 {
 	position = info.position;
 	sprite.setTexture(TextureHolder::GetTexture(info.textureFilename));
+	Utils::SetOrigin(sprite, Pivots::Center);
 	sprite.setPosition(position);
 
 	dir = Direction::None;
@@ -20,41 +22,40 @@ void Box::Init(BoxData info, int tileSize, float moveSecond)
 	this->moveSecond = moveSecond;
 	moveTime = moveSecond;
 
-	isSideShake = false;
-	isUpShake = false;
-
-	playTime = 2.f;
+	shakeTime = 2.f;
 }
 
 bool Box::Move(Direction dir, char**& map)
 {
 	this->dir = dir;
 
-	char* nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance];
-
+	nextPosition = position;
 	switch (dir)
 	{
 	case Direction::Left:
-		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance - 1];
+		nextPosition.x = position.x - moveDistance;
 		break;
 
 	case Direction::Right:
-		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance + 1];
+		nextPosition.x = position.x + moveDistance;
 		break;
 
 	case Direction::Up:
-		nextPos = &map[(int)position.y / moveDistance - 1][(int)position.x / moveDistance];
+		nextPosition.y = position.y - moveDistance;
 		break;
 
 	case Direction::Down:
-		nextPos = &map[(int)position.y / moveDistance + 1][(int)position.x / moveDistance];
+		nextPosition.y = position.y + moveDistance;
 		break;
 
 	default:
 		break;
 	}
 
-	switch (*nextPos)
+	Vector2i curIdx = Utils::PosToIdx(position);
+	Vector2i nextIdx = Utils::PosToIdx(nextPosition);
+
+	switch (map[nextIdx.y][nextIdx.x])
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
@@ -62,64 +63,53 @@ bool Box::Move(Direction dir, char**& map)
 	case (char)MapCode::DEMON:
 	case (char)MapCode::SKULL:
 		this->dir = Direction::None;
-		Shake(dir);
+		shakeDir = dir;
 		return false;
 
 	default:
 		break;
 	}
 
-	map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
-	*nextPos = 'B';
+	map[curIdx.y][curIdx.x] = 'E';
+	map[nextIdx.y][nextIdx.x] = 'B';
 	return true;
-}
-
-void Box::Shake(Direction dir)
-{
-	if (this->dir == Direction::None)
-	{
-		if (dir == Direction::Left || dir == Direction::Right)
-		{
-			isSideShake = true;
-		}
-
-		if (dir == Direction::Up || dir == Direction::Down)
-		{
-			isUpShake = true;
-		}
-	}
 }
 
 void Box::Update(float dt)
 {
-	if (isSideShake)
+
+	if (shakeDir != Direction::None) shakeTime -= dt * 10;
+
+	switch (shakeDir)
 	{
+	case Direction::Left:
+	case Direction::Right:
 		sprite.setPosition(position.x + dt * 800, position.y);
-	}
-	if (isUpShake)
-	{
+		break;
+	case Direction::Down:
+	case Direction::Up:
 		sprite.setPosition(position.x, position.y + dt * 800);
+		break;
+	default:
+		break;
 	}
 
-	playTime -= dt * 10;
-
-	if (playTime < 0.0f)
+	if (shakeTime < 0.0f)
 	{
-		isSideShake = false;
-		isUpShake = false;
-		playTime = 2.f;
+		shakeDir = Direction::None;
+		shakeTime = 2.f;
 		sprite.setPosition(position);
 	}
 
-	if (dir == Direction::None)		return;
+	if (dir == Direction::None)	return;
 
 	moveTime -= dt;
 
 	if (moveTime <= 0)
 	{
 		moveTime = moveSecond;
+		position = nextPosition;
 		dir = Direction::None;
-		return;
 	}
 
 	switch (dir)
@@ -159,6 +149,5 @@ const Vector2f& Box::GetPos()
 
 const bool Box::IsBoxHere(Vector2f pos)
 {
-	return (int)(pos.x / moveDistance) == (int)(position.x / moveDistance) &&
-		(int)(pos.y / moveDistance) == (int)(position.y / moveDistance);
+	return Utils::PosToIdx(position) == Utils::PosToIdx(pos);
 }

@@ -16,6 +16,7 @@ private:
 	Vector2f position;
 	AnimationController animation;
 	
+	Vector2f nextPosition;
 	Direction dir;
 	float moveTime;
 
@@ -30,6 +31,7 @@ public:
 
 	const Vector2f& GetPos();
 	const bool IsSkullHere(Vector2f pos);
+	void Kill();
 	const bool IsDead();
 };
 

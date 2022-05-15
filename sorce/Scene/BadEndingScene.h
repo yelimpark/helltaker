@@ -2,6 +2,7 @@
 #include "./Scene.h"
 #include <SFML/Graphics.hpp>
 #include "../Resource/AnimationController.h"
+#include <vector>
 
 using namespace sf;
 
@@ -9,6 +10,10 @@ class BadEndingScene : public Scene {
 private:
 	Sprite sprite;
 	AnimationController animation;
+	std::vector<Text *> texts;
+	RectangleShape bgColor;
+
+	std::string NextScene;
 
 public:
 	BadEndingScene(SceneManager& sceneManager);

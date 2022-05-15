@@ -9,25 +9,26 @@ class LockedBox
 {
 private:
 	Sprite sprite;
-	Sprite vfxSprite;
 	Vector2f position;
-	Vector2f velocity;
+	Sprite vfxSprite;
 
-	float playtime;
+	Direction shakeDir;
+	float shakeTime;
 
 	AnimationController vfxAnimation;
 
+	bool isopen;
 	bool isEarned;
-	bool isSideShake;
-	bool isUpShake;
+	bool isActive;
 
 public:
+	LockedBox();
+
 	void Init(Vector2f pos);
-	void Update(float dt);
+	void Update(float dt, bool isopen, Vector2f playerpos, int tileSize);
 	void Shake(Direction dir);
 	void Draw(RenderWindow& window);
-	void Clear();
 
-	bool IsCapturedPlayer(char**& map, int tileSize);
+	bool IsOpen();
 };
 

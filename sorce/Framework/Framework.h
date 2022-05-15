@@ -12,6 +12,7 @@ private:
     static RenderWindow window;
 
     View mainView;
+    static View playerView;
 
     TextureHolder textureHolder;
     FontHolder fontHolder;
@@ -28,6 +29,8 @@ public:
     static const Vector2i& GetResolution();
 
     const static View& GetMainView();
+
+    static View& GetPlayerView();
 
     void Init();
 

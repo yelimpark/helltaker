@@ -35,8 +35,8 @@ void Skull::Update(float dt)
 	if (moveTime <= 0)
 	{
 		moveTime = moveSecond;
+		position = nextPosition;
 		dir = Direction::None;
-		return;
 	}
 
 	switch (dir)
@@ -70,31 +70,33 @@ void Skull::OnPushed(Direction dir, char**& map)
 	animation.Play("SkullPushed");
 	animation.PlayQue("SkullStand");
 
-	char* nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance];
-
+	nextPosition = position;
 	switch (dir)
 	{
 	case Direction::Left:
-		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance - 1];
+		nextPosition.x = position.x - moveDistance;
 		break;
 
 	case Direction::Right:
-		nextPos = &map[(int)position.y / moveDistance][(int)position.x / moveDistance + 1];
+		nextPosition.x = position.x + moveDistance;
 		break;
 
 	case Direction::Up:
-		nextPos = &map[(int)position.y / moveDistance - 1][(int)position.x / moveDistance];
+		nextPosition.y = position.y - moveDistance;
 		break;
 
 	case Direction::Down:
-		nextPos = &map[(int)position.y / moveDistance + 1][(int)position.x / moveDistance];
+		nextPosition.y = position.y + moveDistance;
 		break;
 
 	default:
 		break;
 	}
 
-	switch (*nextPos)
+	Vector2i curIdx = Utils::PosToIdx(position);
+	Vector2i nextIdx = Utils::PosToIdx(nextPosition);
+
+	switch (map[nextIdx.y][nextIdx.x])
 	{
 	case (char)MapCode::WALL:
 	case (char)MapCode::BOX:
@@ -102,14 +104,14 @@ void Skull::OnPushed(Direction dir, char**& map)
 	case (char)MapCode::DEMON:
 	case (char)MapCode::SKULL:
 		isDead = true;
-		map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
+		map[curIdx.y][curIdx.x] = 'E';
 		return;
 	default:
 		break;
 	}
 
-	map[(int)position.y / moveDistance][(int)position.x / moveDistance] = 'E';
-	*nextPos = 'S';
+	map[curIdx.y][curIdx.x] = 'E';
+	map[nextIdx.y][nextIdx.x] = 'S';
 }
 
 void Skull::Draw(RenderWindow& window)
@@ -126,6 +128,11 @@ const bool Skull::IsSkullHere(Vector2f pos)
 {
 	return (int)(pos.x / moveDistance) == (int)(position.x / moveDistance) &&
 		(int)(pos.y / moveDistance) == (int)(position.y / moveDistance);
+}
+
+void Skull::Kill()
+{
+	isDead = true;
 }
 
 const bool Skull::IsDead()

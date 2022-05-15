@@ -1,39 +1,22 @@
 #pragma once
 #include "./Scene.h"
-#include "../Resource/AnimationController.h"
-#include "../GameObj/booper.h"
-#include "../GameObj/SoundEffect.h"
+#include <SFML/Graphics.hpp>
+#include "../GameObj/MainMenu.h"
+#include "../GameObj/ChapterMenu.h"
 
+using namespace sf;
 
-#define MAX_NUMBER_OF_ITEMS 3
-class TitleScene : public Scene 
+class TitleScene : public Scene
 {
 private:
-	Text textFix;
-	Text textOpen1[2];
-	Text textOpen2[2];
-	Text textOpen3;
-
-	booper boo;
-	
-	Text menu[MAX_NUMBER_OF_ITEMS];
-
-	Sprite img[MAX_NUMBER_OF_ITEMS];
-	Sprite munuwhite[MAX_NUMBER_OF_ITEMS];
-	Sprite munured[MAX_NUMBER_OF_ITEMS];
-
-	std::string script[2];
-	Vector2f position;
-
 	Sprite bg;
-	Sprite beel;
+	Sprite chara;
 
-	int selectIndex;
-	int enterCount;
+	Sprite leng;
 
-	Sprite cloudBackground;
-	
-	SoundEffect soundEffects;
+	MainMenu mainM;
+	ChapterMenu chapM;
+	bool IsChapMActive;
 
 public:
 	TitleScene(SceneManager& sceneManager);
@@ -43,12 +26,6 @@ public:
 	virtual void Update(Time& dt);
 
 	virtual void Render();
-
-	virtual void MoveUp();
-
-	virtual void MoveDown();
-
-	virtual int GetPressedMenu();
 
 	virtual void Release();
 

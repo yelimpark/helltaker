@@ -14,7 +14,7 @@ StageUI::StageUI()
 
 }
 
-void StageUI::Init(int lastTurn)
+void StageUI::Init(int lastTurn, const Vector2i& res)
 {
 	turn.setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
 	stageNum.setFont(FontHolder::GetFont("Font/Amiri-Regular.ttf"));
@@ -39,9 +39,18 @@ void StageUI::Init(int lastTurn)
 	stageNum.setString(ss.str());
 	Utils::SetOrigin(stageNum, Pivots::Center); 
 
-	sideLeft.setPosition(0, 392);
-	sideRight.setPosition(1920, 392);
+	Utils::SetOrigin(sideLeft, Pivots::LeftBottom);
+	sideLeft.setPosition(0, res.y);
+	Utils::SetOrigin(sideRight, Pivots::LeftBottom);
+	sideRight.setPosition(res.x, res.y);
 	sideRight.setScale(-1.f, 1.f);
+
+	bottomMenu.setFont(FontHolder::GetFont("Font/CrimsonPro-Bold.ttf"));
+	bottomMenu.setCharacterSize(35);
+	bottomMenu.setStyle(Text::Bold);
+	bottomMenu.setString("LIFE ADVICE [L or LB]               RESTART [R or RB]");
+	Utils::SetOrigin(bottomMenu, Pivots::Center);
+	bottomMenu.setPosition(Vector2f(res.x * 0.5f, res.y * 0.9f));
 }
 
 void StageUI::UseTurn()
@@ -79,6 +88,7 @@ void StageUI::Draw(RenderWindow& window)
 	window.draw(sideRight);
 	window.draw(turn);
 	window.draw(stageNum);
+	window.draw(bottomMenu);
 }
 
 StageUI::~StageUI()
