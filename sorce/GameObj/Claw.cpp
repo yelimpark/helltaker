@@ -7,20 +7,20 @@
 #include <iostream>
 
 
-void Claw::Init(Vector2f pos, int tileSize)
+void Claw::Init(Vector2f pos)
 {
 	position = pos;
 	sprite.setTexture(TextureHolder::GetTexture("Sprite/assets100V20116.png"));
 	sprite.setPosition(position);
 
 	animation.SetTarget(&sprite);
-	animation.AddClip("ActivateClaw"); //20-23
-	animation.AddClip("DeactivateClaw"); //16-20\
+	animation.AddClip("ActivateClaw"); 
+	animation.AddClip("DeactivateClaw"); 
 
 	isActive = true;
 }
 
-void Claw::Update(float dt)
+bool Claw::Update(float dt, std::vector<Skull*>& skulls, Player& player)
 {
 	animation.Update(dt);
 	Utils::SetOrigin(sprite, Pivots::Center);
@@ -40,48 +40,25 @@ void Claw::Update(float dt)
 			animation.Play("DeactivateClaw");
 			isActive = false;
 		}
+
+		for (auto& skull : skulls) {
+			if (skull->IsSkullHere(position)) {
+				skull->Kill();
+			}
+		}
+
+		Vector2i curIdx = Utils::PosToIdx(position);
+		Vector2f playerPos = player.GetPos();
+
+		if (Utils::PosToIdx(playerPos) == curIdx) {
+			return true;
+		}
 	}
-}
 
-void Claw::ActivateClaw(bool isActive)
-{
-}
-
-void Claw::DeactivateClaw()
-{
+	return false;
 }
 
 void Claw::Draw(RenderWindow& window)
 {
 	window.draw(sprite);
-}
-
-bool Claw::IsActive()
-{
-	return isActive;
-}
-
-bool Claw::IsSkullIn(char**& map, int tileSize, Skull* skull)
-{
-	int idxY = (int)position.y / tileSize;
-	int idxX = (int)position.x / tileSize;
-
-	if (map[idxY][idxX] == (char)MapCode::SKULL)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool Claw::IsPlayerIn(char**& map, int tileSize)
-{
-	int idxY = (int)position.y / tileSize;
-	int idxX = (int)position.x / tileSize;
-
-	if (map[idxY][idxX] == (char)MapCode::PLAYER)
-	{
-		return true;
-	}
-
-	return false;
 }

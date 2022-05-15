@@ -31,6 +31,7 @@ public:
 
 	const Vector2f& GetPos();
 	const bool IsSkullHere(Vector2f pos);
+	void Kill();
 	const bool IsDead();
 };
 

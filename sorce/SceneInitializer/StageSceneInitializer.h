@@ -14,6 +14,7 @@ struct LevelData {
 	int marginLeft;
 	int marginTop;
 	std::string demonName;
+	std::string ClawMapFilePath;
 
 	LevelData() {
 		lastTurn = 0;
@@ -31,6 +32,7 @@ struct LevelData {
 		marginLeft = stoi(row[7]);
 		marginTop = stoi(row[8]);
 		demonName = row[9];
+		ClawMapFilePath = row[10];
 	};
 };
 
