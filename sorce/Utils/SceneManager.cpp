@@ -7,6 +7,7 @@
 #include "../Scene/CutScene.h"
 #include "../Scene/BadEndingScene.h"
 #include "../Scene/InitLoadingScene.h"
+#include "../Scene/ChapterSelect.h"
 
 void SceneManager::Init()
 {
@@ -16,6 +17,7 @@ void SceneManager::Init()
 
 	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);
 	scenes[(int)SceneType::TITLE] = new TitleScene(*this);
+	scenes[(int)SceneType::CHAPTER] = new ChapterSelect(*this);
 	scenes[(int)SceneType::STAGE] = new StageScene(*this);
 	scenes[(int)SceneType::CUT] = new CutScene(*this);
 	scenes[(int)SceneType::BADENDING] = new BadEndingScene(*this);

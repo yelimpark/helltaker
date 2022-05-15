@@ -3,19 +3,23 @@
 #include "../Resource/AnimationController.h"
 #include "../GameObj/booper.h"
 #include "../GameObj/SoundEffect.h"
+#include "ChapterSelect.h"
 
 
 #define MAX_NUMBER_OF_ITEMS 3
-class TitleScene : public Scene 
+class TitleScene : public Scene
 {
 private:
+
+	ChapterSelect chapterselect;
+
 	Text textFix;
 	Text textOpen1[2];
 	Text textOpen2[2];
 	Text textOpen3;
 
 	booper boo;
-	
+
 	Text menu[MAX_NUMBER_OF_ITEMS];
 
 	Sprite img[MAX_NUMBER_OF_ITEMS];
@@ -32,7 +36,7 @@ private:
 	int enterCount;
 
 	Sprite cloudBackground;
-	
+
 	SoundEffect soundEffects;
 
 public:
@@ -40,13 +44,22 @@ public:
 
 	virtual void Init();
 
-	virtual void Update(Time& dt);
 
-	virtual void Render();
+	virtual void InitMenu();
+
+	virtual void MenuUpdate();
+
+	virtual void Update(Time& dt);
 
 	virtual void MoveUp();
 
 	virtual void MoveDown();
+
+	virtual void MovingMenu();
+
+	virtual void MovingMenuChange();
+
+	virtual void Render();
 
 	virtual int GetPressedMenu();
 

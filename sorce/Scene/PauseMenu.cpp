@@ -6,8 +6,9 @@
 #include "../Utils/InputManager.h"
 #include "../Utils/SceneManager.h"
 
+
 PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
-	: sceneManager(sceneManager), soundtype(VolumeType::COUNT)
+	: sceneManager(sceneManager), soundtype(VolumeType::COUNT), levelMove(1)
 {
 
 	ContainerInit(window);
@@ -34,8 +35,11 @@ PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
 	addMenuText[3].setString("SOUND");
 	addMenuText[4].setString("MAIN MENU");
 
-	for (int i = 0; i < 5; i++)
-	{
+	for (int i = 0; i < 5; i++) {
+
+		float xpos, ypos;
+		xpos = (container.getPosition().x + container.getSize().x / 2.f);
+		ypos = (container.getPosition().y / 0.5);
 
 		addMenuText[i].setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
 		addMenuText[i].setFillColor(Color{ 255, 255, 255, 128 });
@@ -45,47 +49,25 @@ PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
 		img[i].setTexture(TextureHolder::GetTexture("Sprite/button_small_s.png"));
 		img[i].setColor({ 99, 61, 74, 225 });
 		Utils::SetOrigin(img[i], Pivots::Center);
-		img[i].setPosition(
-			container.getPosition().x + container.getSize().x / 2.0f,
-			container.getPosition().y / 0.5 * i + 216
-		);
+		img[i].setPosition(xpos, ypos * i + 216);
 
 		if (i == 3) {
-			addMenuText[i].setPosition(
-				container.getPosition().x + container.getSize().x / 2.f,
-				container.getPosition().y / 0.5 * 4 + 200
-			);
-
-			img[i].setPosition(
-				container.getPosition().x + container.getSize().x / 2.0f,
-				container.getPosition().y / 0.5 * 4 + 216
-			);
+			addMenuText[i].setPosition(xpos, ypos * 4 + 200);
+			img[i].setPosition(xpos, ypos * 4 + 216);
 		}
 		else if (i == 4) {
-			addMenuText[i].setPosition(
-				container.getPosition().x + container.getSize().x / 2.f,
-				container.getPosition().y / 0.5 * 6 + 200
-			);
-			img[i].setPosition(
-				container.getPosition().x + container.getSize().x / 2.0f,
-				container.getPosition().y / 0.5 * 6 + 216
-			);
+			addMenuText[i].setPosition(xpos, ypos * 6 + 200);
+			img[i].setPosition(xpos, ypos * 6 + 216);
 		}
 		else {
-			addMenuText[i].setPosition(
-				container.getPosition().x + container.getSize().x / 2.f,
-				container.getPosition().y / 0.5 * i + 200
-			);
+			addMenuText[i].setPosition(xpos, ypos * i + 200);
 			img[i].setTexture(TextureHolder::GetTexture("Sprite/button_small_s.png"));
 			img[i].setColor({ 99, 61, 74, 225 });
 			Utils::SetOrigin(img[i], Pivots::Center);
-			img[i].setPosition(
-				container.getPosition().x + container.getSize().x / 2.0f,
-				container.getPosition().y / 0.5 * i + 216
-			);
-
+			img[i].setPosition(xpos, ypos * i + 216);
 		}
 	}
+
 	menuline.setTexture(TextureHolder::GetTexture("Sprite/escmenu.png"));
 	Utils::SetOrigin(menuline, Pivots::Center);
 	menuline.setPosition(
@@ -98,8 +80,7 @@ PauseMenu::PauseMenu(RenderWindow& window, SceneManager& sceneManager)
 
 void PauseMenu::CircleInit()
 {
-	for (int i = 0; i < 2; i++)
-	{
+	for (int i = 0; i < 2; i++) {
 		circle[i].setTexture(TextureHolder::GetTexture("Sprite/whiteCircle.png"));
 		circle[i].setColor(Color{ 230,77,81 });
 		circle[i].setScale(Vector2f(0.1, 0.1));
@@ -110,7 +91,6 @@ void PauseMenu::CircleInit()
 		);
 	}
 }
-
 
 void PauseMenu::ContainerInit(RenderWindow& window)
 {
@@ -126,43 +106,65 @@ void PauseMenu::ContainerInit(RenderWindow& window)
 
 void PauseMenu::UpInit()
 {
+
 	MovingMenu();
 	selectIndex = 0;
 	MovingMenuChange();
 }
 
+
 void PauseMenu::InputButton()
 {
-	if (InputManager::GetKeyDown(Keyboard::Up))
-	{
+
+
+	if (InputManager::GetKeyDown(Keyboard::Up)) {
 		MoveUp();
 	}
-	if (InputManager::GetKeyDown(Keyboard::Down))
-	{
+	if (InputManager::GetKeyDown(Keyboard::Down)) {
 		MoveDown();
 	}
-	if (InputManager::GetKeyDown(Keyboard::Left))
-	{
-		soundtype.MoveLeft();
+
+	if (selectIndex == 2) {
+		if (InputManager::GetKeyDown(Keyboard::Left)) {
+			soundtype.MoveLeft();
+			soundtype.MusicInputButton();
+		}
+		if (InputManager::GetKeyDown(Keyboard::Right)) {
+			soundtype.MoveRight();
+			soundtype.MusicInputButton();
+		}
 	}
-	if (InputManager::GetKeyDown(Keyboard::Right))
-	{
-		soundtype.MoveRight();
+
+	if (selectIndex == 3) {
+		if (InputManager::GetKeyDown(Keyboard::Left)) {
+			soundtype.MoveLeft();
+			soundtype.EffectInputButton();
+		}
+		if (InputManager::GetKeyDown(Keyboard::Right)) {
+			soundtype.MoveRight();
+			soundtype.EffectInputButton();
+		}
 	}
-	if (InputManager::GetKeyDown(Keyboard::Enter))
-	{
+
+	if (InputManager::GetKeyDown(Keyboard::Enter)) {
 		switch (GetPressedMenu())
 		{
 		case 0:
-
+			//RESUME
 			break;
 		case 1:
+			//"SKIP PUZZLE"
 			break;
 		case 2:
+			//"MUSIC"
 			break;
 		case 3:
+			//"sound"
 			break;
 		case 4:
+			GameVal::level = levelMove;
+			levelMove = 1;
+			sceneManager.ChangeScene(SceneType::TITLE);
 			break;
 		}
 	}
@@ -236,4 +238,5 @@ void PauseMenu::Render(RenderWindow& window)
 }
 PauseMenu::~PauseMenu()
 {
+
 }

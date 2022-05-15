@@ -253,9 +253,6 @@
     <ClInclude Include="sorce\Scene\StageScene.h">
       <Filter>소스 파일\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\UI\StageUI.h">
-      <Filter>소스 파일\UI</Filter>
-    </ClInclude>
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h">
       <Filter>소스 파일\SceneInitializer</Filter>
     </ClInclude>
@@ -363,6 +360,9 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\GetVfx.h">
       <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\UI\StageUI.h">
+      <Filter>소스 파일\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

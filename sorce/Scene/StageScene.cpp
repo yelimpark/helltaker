@@ -206,6 +206,7 @@ void StageScene::UpdatePauseInput(Time& dt)
 void StageScene::Update(Time& dt)
 {
 	UpdatePauseInput(dt);
+
 	if (paused) {
 		pmenu.Update();
 		return;
