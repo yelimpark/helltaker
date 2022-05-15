@@ -39,8 +39,11 @@ void BadEndingScene::Init()
 	std::string token;
 	while (getline(iss, token, '-')) {
 		Text * text = new Text();
-		text->setString(token);
+		text->setString(Utils::s2w(token));
 		text->setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
+		if (GameVal::language.compare("Kor") == 0) {
+			text->setFont(FontHolder::GetFont("Font/NotoSerifKR-Medium.otf"));
+		}
 		text->setFillColor(Color{ 230,77,81 });
 		Utils::SetOrigin(*text, Pivots::Center);
 		text->setPosition(resolution.x * 0.5, top + 40.f * idx);

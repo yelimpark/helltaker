@@ -20,7 +20,7 @@ void TitleScene::Init()
 	Utils::SetOrigin(chara, Pivots::CenterBottom);
 	chara.setPosition(resolution.x * 0.5, 700);
 
-	leng.setTexture(TextureHolder::GetTexture("Sprite/EN_Icon.png"));
+	leng.setTexture(TextureHolder::GetTexture("Sprite/Eng.png"));
 	leng.setScale(0.2f, 0.2f);
 	Utils::SetOrigin(leng, Pivots::RightBottom);
 	leng.setPosition(resolution.x - 50.f, resolution.y - 50.f);
@@ -33,6 +33,9 @@ void TitleScene::Init()
 void TitleScene::Update(Time& dt)
 {
 	if (IsChapMActive) {
+		if (InputManager::GetKeyDown(Keyboard::Escape)) {
+			IsChapMActive = false;
+		}
 		chapM.HandleInput(sceneManager);
 	}
 	else {
@@ -40,13 +43,13 @@ void TitleScene::Update(Time& dt)
 	}
 
 	if (InputManager::GetKeyDown(Keyboard::L)) {
-		if (GameVal::language.compare("Es") == 0) {
-			leng.setTexture(TextureHolder::GetTexture("Sprite/EN_Icon.png"));
+		if (GameVal::language.compare("Kor") == 0) {
+			leng.setTexture(TextureHolder::GetTexture("Sprite/Eng.png"));
 			GameVal::language = "";
 		}
 		else {
-			leng.setTexture(TextureHolder::GetTexture("Sprite/ES_Icon.png"));
-			GameVal::language = "Es";
+			leng.setTexture(TextureHolder::GetTexture("Sprite/Kor.png"));
+			GameVal::language = "Kor";
 		}
 	}
 }

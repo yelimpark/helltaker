@@ -1,12 +1,12 @@
 #include "Option.h"
 #include "../Resource/ResorceHolder.h"
 #include "../Utils/Utils.h"
+#include "../Utils/GameVal.h"
 
 Option::Option()
 	:active(false)
 {
 }
-
 void Option::Init(OptionData& data, Vector2f pos)
 {
 	nextNode = data.nextNode;
@@ -16,7 +16,10 @@ void Option::Init(OptionData& data, Vector2f pos)
 	sprite.setPosition(pos);
 
 	text.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-	text.setString(data.line);
+	if (GameVal::language.compare("Kor") == 0) {
+		text.setFont(FontHolder::GetFont("Font/NotoSerifKR-Medium.otf"));
+	}
+	text.setString(Utils::s2w(data.line));
 	Utils::SetOrigin(text, Pivots::Center);
 	text.setPosition(pos.x, pos.y-7.f);
 	sprite.setColor(Color{ 255, 255, 255, 100 });

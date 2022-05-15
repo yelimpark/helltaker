@@ -44,14 +44,11 @@ void StageScene::InitMap(std::string filepath, std::string clawFilePath, std::st
 
 	map = new char* [csvData.GetRowCount()];
 
-	std::cout << csvData.GetRowCount() << " " << csvData.GetColumnCount();
-
 	for (int i = 0; i < csvData.GetRowCount(); ++i) {
 		map[i] = new char[csvData.GetColumnCount() - 1];
 
 		for (int j = 0; j < csvData.GetColumnCount() - 1; ++j) {
 			map[i][j] = csvData.GetCell<char>(j, i);
-			//std::cout << i << " " << j << std::endl;
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
@@ -111,7 +108,6 @@ void StageScene::InitMap(std::string filepath, std::string clawFilePath, std::st
 			}
 
 		}
-		std::cout << std::endl;
 	}
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
@@ -264,7 +260,6 @@ void StageScene::Update(Time& dt)
 		if (stageTransition.OnClear(dt.asSeconds())) {
 			GameVal::cutSceneIdx = GameVal::level;
 			sceneManager.ChangeScene(SceneType::CUT);
-			++GameVal::level;
 		}
 	}
 	else {

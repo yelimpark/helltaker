@@ -72,6 +72,7 @@ void CutScene::Update(Time& dt)
 			sceneManager.ChangeScene(SceneType::BADENDING);
 		}
 		else if (nextNode.compare("S") == 0) {
+			GameVal::level = GameVal::cutSceneIdx + 1;
 			sceneManager.ChangeScene(SceneType::STAGE, true);
 		}
 		else if (nextNode.compare("T") == 0) {

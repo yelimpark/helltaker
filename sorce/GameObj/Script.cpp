@@ -16,7 +16,6 @@ std::string w2s(const std::wstring& var)
 	return std::wstring_convert<std::remove_reference<decltype(facet)>::type, wchar_t>(&facet).to_bytes(var);
 }
 
-
 void Script::Init(CutSceneData& data, Vector2i resolution)
 {
 	Release();
@@ -32,7 +31,10 @@ void Script::Init(CutSceneData& data, Vector2i resolution)
 	character.setPosition(resolution.x * 0.5, 700);
 
 	name.setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-	name.setString(data.name);
+	if (GameVal::language.compare("Kor") == 0) {
+		name.setFont(FontHolder::GetFont("Font/NotoSerifKR-Medium.otf"));
+	}
+	name.setString(Utils::s2w(data.name));
 	name.setCharacterSize(40);
 	name.setFillColor(Color{ 230,77,81 });
 	name.setPosition(resolution.x * 0.5, 720.f);
@@ -45,7 +47,10 @@ void Script::Init(CutSceneData& data, Vector2i resolution)
 	while (getline(iss, token, '-')) {
 		Text* text = new Text();
 		text->setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
-		text->setString(token);
+		if (GameVal::language.compare("Kor") == 0) {
+			text->setFont(FontHolder::GetFont("Font/NotoSerifKR-Medium.otf"));
+		}
+		text->setString(Utils::s2w(token));
 		text->setFillColor(Color::White);
 		Utils::SetOrigin(*text, Pivots::Center);
 		text->setPosition(resolution.x * 0.5, top + 40.f * idx);

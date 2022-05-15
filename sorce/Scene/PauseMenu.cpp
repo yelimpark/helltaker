@@ -154,6 +154,8 @@ void PauseMenu::InputButton()
 			break;
 		case 1:
 			//"SKIP PUZZLE"
+			GameVal::cutSceneIdx = GameVal::level;
+			sceneManager.ChangeScene(SceneType::CUT);
 			break;
 		case 2:
 			//"MUSIC"
