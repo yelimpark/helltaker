@@ -176,9 +176,6 @@
     <ClCompile Include="sorce\GameObj\SoundType.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\Scene\ChapterSelect.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="sorce\GameObj\Key.cpp">
       <Filter>소스 파일\StageGameObj\Moveable</Filter>
     </ClCompile>
@@ -351,9 +348,6 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\SoundType.h">
       <Filter>소스 파일\GameObj</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\Scene\ChapterSelect.h">
-      <Filter>소스 파일\Scene</Filter>
     </ClInclude>
     <ClInclude Include="sorce\GameObj\Claw.h">
       <Filter>소스 파일\StageGameObj\Moveable</Filter>
