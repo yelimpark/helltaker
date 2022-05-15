@@ -55,7 +55,7 @@ private:
 
 	bool isClear;
 
-	void InitMap(std::string filepath, std::string demonName);
+	void InitMap(std::string filepath, std::string clawFilePath, std::string demonName);
 
 public:
 	StageScene(SceneManager& sceneManager);

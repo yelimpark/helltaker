@@ -12,8 +12,6 @@ void Demon::Init(Vector2f pos, std::string demonName)
 	animation.AddClip(demonName);
 	animation.Play(demonName);
 
-	heartDir = 1.f;
-	isheartmoving = false;
 	heartYPos = 60.f;
 	heart.setTexture(TextureHolder::GetTexture("Sprite/lovesign.png"));
 }

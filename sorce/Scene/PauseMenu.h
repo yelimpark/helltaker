@@ -1,21 +1,19 @@
 #pragma once
-#include "./Scene.h"
+#include "../Utils/SceneManager.h"
 #include "../GameObj/SoundType.h"
-
 
 using namespace sf;
 using namespace std;
+
 #include <map>
 
 class SoundType;
-class SceneManager;
 
 #define MAX_NUMBER_OF_MENU 5
 
 class PauseMenu
 {
 private:
-
 	SoundType soundtype;
 
 	Text menuText;
@@ -32,8 +30,10 @@ private:
 	Sprite menuline;
 
 	int selectIndex;
+	int levelMove;
 
 public:
+
 
 	PauseMenu(RenderWindow& window, SceneManager& sceneManager);
 
@@ -57,7 +57,5 @@ public:
 	//Functions
 	virtual void Update();
 	virtual void Render(RenderWindow& window);
-
-
 
 };

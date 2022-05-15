@@ -12,7 +12,7 @@
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = SceneType::STAGE8;
+	currScene = SceneType::INITLOADING;
 	holdScene = SceneType::INITLOADING;
 
 	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);

@@ -81,3 +81,10 @@ Vector2f Utils::IdxToPos(int i, int j)
 	pos.y = i * TILE_SIZE + TILE_SIZE / 2 + topMargin;
 	return pos;
 }
+
+std::wstring Utils::s2w(const std::string& var)
+{
+	static std::locale loc("");
+	auto& facet = std::use_facet<std::codecvt<wchar_t, char, std::mbstate_t>>(loc);
+	return std::wstring_convert<std::remove_reference<decltype(facet)>::type, wchar_t>(&facet).from_bytes(var);
+}

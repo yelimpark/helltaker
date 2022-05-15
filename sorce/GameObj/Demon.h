@@ -13,8 +13,8 @@ private:
 
 	Sprite heart;
 	float heartYPos;	
-	float heartDir;
-	bool isheartmoving;
+	float heartDir = 1.f;
+	bool isheartmoving = false;
 
 public:
 	void Init(Vector2f pos, std::string demonName);

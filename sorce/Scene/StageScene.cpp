@@ -27,7 +27,7 @@ StageScene::StageScene(SceneManager& sceneManager)
 
 }
 
-void StageScene::InitMap(std::string filepath, std::string demonName)
+void StageScene::InitMap(std::string filepath, std::string clawFilePath, std::string demonName)
 {
 	std::string levelStr = to_string(GameVal::level);
 
@@ -40,15 +40,15 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 	Vector2f LockedBoxPos;
 
 	rapidcsv::Document csvData(filepath, rapidcsv::LabelParams(-1, -1));
+	rapidcsv::Document csvDataC(clawFilePath, rapidcsv::LabelParams(-1, -1));
 
 	map = new char* [csvData.GetRowCount()];
 
 	for (int i = 0; i < csvData.GetRowCount(); ++i) {
-		map[i] = new char[csvData.GetColumnCount()];
+		map[i] = new char[csvData.GetColumnCount() - 1];
 
-		for (int j = 0; j < csvData.GetColumnCount(); ++j) {
+		for (int j = 0; j < csvData.GetColumnCount() - 1; ++j) {
 			map[i][j] = csvData.GetCell<char>(j, i);
-			std::cout << map[i][j];
 
 			switch (map[i][j]) {
 			case (char)MapCode::BOX:
@@ -76,14 +76,6 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 				break;
 			}
 
-			case (char)MapCode::CLAW:
-			{
-				Claw* claw = new Claw();
-				claw->Init(Utils::IdxToPos(i, j), TILE_SIZE);
-				claws.push_back(claw);
-				break;
-			}
-
 			case (char)MapCode::KEY:
 			{
 				KeyPos = Utils::IdxToPos(i, j);
@@ -102,8 +94,20 @@ void StageScene::InitMap(std::string filepath, std::string demonName)
 				break;
 			}
 
+			switch (csvDataC.GetCell<char>(j, i)) {
+			case (char)MapCode::CLAW:
+			{
+				Claw* claw = new Claw();
+				claw->Init(Utils::IdxToPos(i, j));
+				claws.push_back(claw);
+				break;
+			}
+
+			default:
+				break;
+			}
+
 		}
-		std::cout << std::endl;
 	}
 
 	player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
@@ -136,7 +140,7 @@ void StageScene::Init()
 	key = new Key();
 	lockedBox = new LockedBox();
 
-	InitMap(levelData.MapFilePath, levelData.demonName);
+	InitMap(levelData.MapFilePath, levelData.ClawMapFilePath, levelData.demonName);
 
 	for (int i = 0; i < flameDatas[to_string(GameVal::level)].size(); ++i) {
 		Flame* flame = new Flame();
@@ -198,6 +202,7 @@ void StageScene::UpdatePauseInput(Time& dt)
 void StageScene::Update(Time& dt)
 {
 	UpdatePauseInput(dt);
+
 	if (paused) {
 		pmenu.Update();
 		return;
@@ -235,24 +240,10 @@ void StageScene::Update(Time& dt)
 		}
 	}
 
-	for (int i = 0; i < claws.size(); i++)
-	{
-		claws[i]->Update(dt.asSeconds() * 5);
-		claws[i]->IsActive();
-		for (auto skull : skulls)
-		{
-			if (!skull->IsMoving() && claws[i]->IsActive() && claws[i]->IsSkullIn(map, TILE_SIZE, skull))
-			{
-
-			}
-		}
-
-		if (claws[i]->IsActive() && claws[i]->IsPlayerIn(map, TILE_SIZE))
-		{
-			soundEffects.PlayerInClaw();
+	for (auto& claw : claws) {
+		if (claw->Update(dt.asSeconds(), skulls, player)) {
 			bloodVfx.Init(player.GetPos());
-
-			//ui.UseTurn();
+			ui.UseTurn();
 		}
 	}
 
@@ -269,7 +260,6 @@ void StageScene::Update(Time& dt)
 		if (stageTransition.OnClear(dt.asSeconds())) {
 			GameVal::cutSceneIdx = GameVal::level;
 			sceneManager.ChangeScene(SceneType::CUT);
-			++GameVal::level;
 		}
 	}
 	else {
@@ -375,6 +365,13 @@ void StageScene::Release()
 			delete demon;
 	}
 	demons.clear();
+
+	for (auto& claw : claws)
+	{
+		if (claw != nullptr)
+			delete claw;
+	}
+	claws.clear();
 
 	delete key;
 	key = nullptr;

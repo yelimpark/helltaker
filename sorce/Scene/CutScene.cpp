@@ -12,6 +12,15 @@
 CutScene::CutScene(SceneManager& sceneManager)
 	: Scene(sceneManager), idx(0)
 {
+
+}
+
+std::string ToFullFilePath(const char* filePath) {
+	std::string path = "";
+	path += filePath;
+	path += GameVal::language;
+	path += ".csv";
+	return path;
 }
 
 void CutScene::Init()
@@ -21,17 +30,15 @@ void CutScene::Init()
 	idx = 0;
 
 	std::map<std::string, std::vector<CutSceneData>> cutSceneDatas;
-	Utils::CsvToStructVectorMap<CutSceneData>(cutSceneDatas, "./LevelInfo/cutInfo.csv");
+	Utils::CsvToStructVectorMap<CutSceneData>(cutSceneDatas, ToFullFilePath("./LevelInfo/cutInfo").c_str());
 	std::vector<CutSceneData> curSceneDatas = cutSceneDatas[to_string(GameVal::cutSceneIdx)];
-
-	std::cout << GameVal::cutSceneIdx << std::endl;
 
 	bgColor.setSize(Vector2f(resolution.x, resolution.y));
 	bgColor.setFillColor(Color{2, 2, 27});
 	bgColor.setPosition(0, 0);
 
 	std::map<std::string, std::vector<OptionData>> optionDatas;
-	Utils::CsvToStructVectorMap<OptionData>(optionDatas, "./LevelInfo/choiceInfo.csv");
+	Utils::CsvToStructVectorMap<OptionData>(optionDatas, ToFullFilePath("./LevelInfo/choiceInfo").c_str());
 	std::vector<OptionData> curLevelOptions = optionDatas[to_string(GameVal::cutSceneIdx)];
 
 	int SCidx = 0;
@@ -65,7 +72,11 @@ void CutScene::Update(Time& dt)
 			sceneManager.ChangeScene(SceneType::BADENDING);
 		}
 		else if (nextNode.compare("S") == 0) {
+			GameVal::level = GameVal::cutSceneIdx + 1;
 			sceneManager.ChangeScene(SceneType::STAGE, true);
+		}
+		else if (nextNode.compare("T") == 0) {
+			sceneManager.ChangeScene(SceneType::TITLE);
 		}
 		else {
 			idx += stoi(nextNode);

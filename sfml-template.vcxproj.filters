@@ -176,9 +176,6 @@
     <ClCompile Include="sorce\GameObj\SoundType.cpp">
       <Filter>소스 파일\GameObj</Filter>
     </ClCompile>
-    <ClCompile Include="sorce\Scene\ChapterSelect.cpp">
-      <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="sorce\GameObj\Key.cpp">
       <Filter>소스 파일\StageGameObj\Moveable</Filter>
     </ClCompile>
@@ -193,6 +190,15 @@
     </ClCompile>
     <ClCompile Include="sorce\GameObj\GetVfx.cpp">
       <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\MainMenu.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ChapterMenuOption.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ChapterMenu.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
     </ClCompile>
     <ClCompile Include="sorce\Scene\Chapter8Scene.cpp">
       <Filter>소스 파일\Scene</Filter>
@@ -255,9 +261,6 @@
     </ClInclude>
     <ClInclude Include="sorce\Scene\StageScene.h">
       <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="sorce\UI\StageUI.h">
-      <Filter>소스 파일\UI</Filter>
     </ClInclude>
     <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h">
       <Filter>소스 파일\SceneInitializer</Filter>
@@ -349,9 +352,6 @@
     <ClInclude Include="sorce\GameObj\SoundType.h">
       <Filter>소스 파일\GameObj</Filter>
     </ClInclude>
-    <ClInclude Include="sorce\Scene\ChapterSelect.h">
-      <Filter>소스 파일\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="sorce\GameObj\Claw.h">
       <Filter>소스 파일\StageGameObj\Moveable</Filter>
     </ClInclude>
@@ -366,6 +366,18 @@
     </ClInclude>
     <ClInclude Include="sorce\GameObj\GetVfx.h">
       <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\UI\StageUI.h">
+      <Filter>소스 파일\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MainMenu.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ChapterMenu.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ChapterMenuOption.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
     </ClInclude>
     <ClInclude Include="sorce\Scene\Chapter8Scene.h">
       <Filter>소스 파일\Scene</Filter>

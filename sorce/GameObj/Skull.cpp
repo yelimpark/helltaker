@@ -130,6 +130,11 @@ const bool Skull::IsSkullHere(Vector2f pos)
 		(int)(pos.y / moveDistance) == (int)(position.y / moveDistance);
 }
 
+void Skull::Kill()
+{
+	isDead = true;
+}
+
 const bool Skull::IsDead()
 {
 	return isDead;

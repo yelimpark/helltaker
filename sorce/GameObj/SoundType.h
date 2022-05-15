@@ -36,14 +36,14 @@ public:
 	SoundType(VolumeType type);
 
 	virtual void SideInit();
-	virtual void MovingSideMenu();
-	virtual void MovingSideMenuChange();
 
-	virtual void InputButton();
+	virtual void MusicInputButton();
+
+	virtual void EffectInputButton();
 
 	virtual void MoveRight();
+
 	virtual void MoveLeft();
-	virtual int GetPressedMenu();
 
 	void Update(VolumeType type);
 

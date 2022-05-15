@@ -29,6 +29,8 @@ public:
     static Vector2i PosToIdx(Vector2f& pos);
     static Vector2f IdxToPos(int i, int j);
 
+    static std::wstring s2w(const std::string& var);
+
     template < typename T > static void CsvToStruct(std::vector<T>& structVector, const char* filename);
     template < typename T > static void CsvToStruct(std::map<std::string, T>& structMap, const char* filename);
     template < typename T> static void CsvToStructVectorMap(std::map<std::string, std::vector<T>>& structVectorMap, const char* filename);

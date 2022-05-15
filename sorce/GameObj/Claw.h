@@ -4,13 +4,15 @@
 #include "Skull.h"
 #include "Player.h"
 
+class Player;
+class Skull;
+
 using namespace sf;
 
 class Claw
 {
 private:
 	Sprite sprite;
-	Sprite spriteStop;
 	Vector2f position;
 
 	AnimationController animation;
@@ -18,14 +20,8 @@ private:
 	bool isActive;
 
 public:
-	void Init(Vector2f pos, int tileSize);
-	void Update(float dt);
-	void ActivateClaw(bool isActive);
-	void DeactivateClaw();
+	void Init(Vector2f pos);
+	bool Update(float dt, std::vector<Skull*>& skulls, Player& player);
 	void Draw(RenderWindow& window);
-
-	bool IsActive();
-	bool IsPlayerIn(char**& map, int tileSize);
-	bool IsSkullIn(char**& map, int tileSize, Skull* skull);
 };
 

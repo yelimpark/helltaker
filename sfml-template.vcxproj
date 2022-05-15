@@ -24,6 +24,8 @@
     <ClCompile Include="sorce\GameObj\BoneParticle.cpp" />
     <ClCompile Include="sorce\GameObj\booper.cpp" />
     <ClCompile Include="sorce\GameObj\Box.cpp" />
+    <ClCompile Include="sorce\GameObj\ChapterMenu.cpp" />
+    <ClCompile Include="sorce\GameObj\ChapterMenuOption.cpp" />
     <ClCompile Include="sorce\GameObj\Claw.cpp" />
     <ClCompile Include="sorce\GameObj\CutSceneTransition.cpp" />
     <ClCompile Include="sorce\GameObj\Death.cpp" />
@@ -34,6 +36,7 @@
     <ClCompile Include="sorce\GameObj\Key.cpp" />
     <ClCompile Include="sorce\GameObj\KickVfx.cpp" />
     <ClCompile Include="sorce\GameObj\LockedBox.cpp" />
+    <ClCompile Include="sorce\GameObj\MainMenu.cpp" />
     <ClCompile Include="sorce\GameObj\MoveVfx.cpp" />
     <ClCompile Include="sorce\GameObj\Option.cpp" />
     <ClCompile Include="sorce\GameObj\Player.cpp" />
@@ -57,7 +60,6 @@
     <ClCompile Include="sorce\Scene\Chapter8Scene.cpp" />
     <ClCompile Include="sorce\Scene\InitLoadingScene.cpp" />
     <ClCompile Include="sorce\Scene\CutScene.cpp" />
-    <ClCompile Include="sorce\Scene\ChapterSelect.cpp" />
     <ClCompile Include="sorce\Scene\PauseMenu.cpp" />
     <ClCompile Include="sorce\Scene\Scene.cpp" />
     <ClCompile Include="sorce\Scene\StageScene.cpp" />
@@ -74,6 +76,8 @@
     <ClInclude Include="sorce\GameObj\BoneParticle.h" />
     <ClInclude Include="sorce\GameObj\booper.h" />
     <ClInclude Include="sorce\GameObj\Box.h" />
+    <ClInclude Include="sorce\GameObj\ChapterMenu.h" />
+    <ClInclude Include="sorce\GameObj\ChapterMenuOption.h" />
     <ClInclude Include="sorce\GameObj\Claw.h" />
     <ClInclude Include="sorce\GameObj\CutSceneTransition.h" />
     <ClInclude Include="sorce\GameObj\Death.h" />
@@ -85,6 +89,7 @@
     <ClInclude Include="sorce\GameObj\Key.h" />
     <ClInclude Include="sorce\GameObj\KickVfx.h" />
     <ClInclude Include="sorce\GameObj\LockedBox.h" />
+    <ClInclude Include="sorce\GameObj\MainMenu.h" />
     <ClInclude Include="sorce\GameObj\MapCode.h" />
     <ClInclude Include="sorce\GameObj\MoveVfx.h" />
     <ClInclude Include="sorce\GameObj\Option.h" />
@@ -111,7 +116,6 @@
     <ClInclude Include="sorce\Scene\Chapter8Scene.h" />
     <ClInclude Include="sorce\Scene\InitLoadingScene.h" />
     <ClInclude Include="sorce\Scene\CutScene.h" />
-    <ClInclude Include="sorce\Scene\ChapterSelect.h" />
     <ClInclude Include="sorce\Scene\PauseMenu.h" />
     <ClInclude Include="sorce\Scene\Scene.h" />
     <ClInclude Include="sorce\Scene\StageScene.h" />

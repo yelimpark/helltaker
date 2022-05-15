@@ -25,7 +25,11 @@ void BadEndingScene::Init()
 	bgColor.setFillColor(Color{ 2, 2, 27 });
 	bgColor.setPosition(0, 0);
 
-	rapidcsv::Document csvData("./LevelInfo/BadEndInfo.csv", rapidcsv::LabelParams(0, 0));
+	std::string path = "./LevelInfo/BadEndInfo";
+	path += GameVal::language;
+	path += ".csv";
+
+	rapidcsv::Document csvData(path.c_str(), rapidcsv::LabelParams(0, 0));
 	std::string line = csvData.GetCell<std::string>("line", to_string(GameVal::cutSceneIdx));
 	NextScene = csvData.GetCell<std::string>("NextScene", to_string(GameVal::cutSceneIdx));
 	
@@ -35,8 +39,11 @@ void BadEndingScene::Init()
 	std::string token;
 	while (getline(iss, token, '-')) {
 		Text * text = new Text();
-		text->setString(token);
+		text->setString(Utils::s2w(token));
 		text->setFont(FontHolder::GetFont("Font/CrimsonPro-Medium.ttf"));
+		if (GameVal::language.compare("Kor") == 0) {
+			text->setFont(FontHolder::GetFont("Font/NotoSerifKR-Medium.otf"));
+		}
 		text->setFillColor(Color{ 230,77,81 });
 		Utils::SetOrigin(*text, Pivots::Center);
 		text->setPosition(resolution.x * 0.5, top + 40.f * idx);
