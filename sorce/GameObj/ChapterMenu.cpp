@@ -62,7 +62,7 @@ void ChapterMenu::HandleInput(SceneManager& sm)
 	}
 	if (InputManager::GetKeyDown(Keyboard::Enter)) {
 		GameVal::level = cursor + 1;
-		sm.ChangeScene(SceneType::STAGE);
+		sm.ChangeScene(SceneType::STAGE, true);
 	}
 }
 

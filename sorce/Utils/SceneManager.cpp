@@ -11,7 +11,7 @@
 void SceneManager::Init()
 {
 	GameVal::Init();
-	currScene = SceneType::TITLE;
+	currScene = SceneType::INITLOADING;
 	holdScene = SceneType::INITLOADING;
 
 	scenes[(int)SceneType::INITLOADING] = new InitLoadingScene(*this);

@@ -162,8 +162,7 @@ void PauseMenu::InputButton()
 			//"sound"
 			break;
 		case 4:
-			GameVal::level = levelMove;
-			levelMove = 1;
+			GameVal::Init();
 			sceneManager.ChangeScene(SceneType::TITLE);
 			break;
 		}
