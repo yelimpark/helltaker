@@ -158,14 +158,14 @@ void Chapter8Scene::Update(Time& dt)
 			GameVal::level = 9;
 		}
 	}
-	//else {
-	//	if (ui.IsGameOver()) {
-	//		if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
-	//			sceneManager.ChangeScene(SceneType::STAGE8, true);
-	//		}
-	//		return;
-	//	}
-	//}
+	else {
+		if (ui.IsGameOver()) {
+			if (gameOver.OnGameOver(dt.asSeconds(), player.GetPos())) {
+				sceneManager.ChangeScene(SceneType::STAGE8, true);
+			}
+			return;
+		}
+	}
 
 	if (InputManager::GetKeyDown(Keyboard::R))
 	{
@@ -227,16 +227,17 @@ void Chapter8Scene::Render()
 
 	player.Draw(window);
 
+	if (!isClear && ui.IsGameOver()) {
+		gameOver.Draw(window);
+	}
+	boneParticle.Draw(window);
 
 	window.setView(mainView);
 	
 	window.draw(sideLeft);
 	window.draw(sideRight);
 	ui.Draw(window);
-	
-	//if (!isClear && ui.IsGameOver()) {
-	//	gameOver.Draw(window);
-	//}
+
 
 	if (paused)
 	{
