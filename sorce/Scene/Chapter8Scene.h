@@ -50,6 +50,7 @@ private:
 
 	stageSceneTrasition stageTransition;
 	GameOver gameOver;
+
 	View& playerView;
 
 	void InitMap(std::string filepath);

@@ -11,8 +11,7 @@
 #include "../GameObj/Skull.h"
 
 Chapter8Scene::Chapter8Scene(SceneManager& sceneManager)
-	:Scene(sceneManager),
-	playerView(Framework::GetPlayerView()), pmenu(window, sceneManager), isClear(false)
+	:Scene(sceneManager), playerView(Framework::GetPlayerView()), pmenu(window, sceneManager), isClear(false)
 {
 
 }
@@ -55,6 +54,9 @@ void Chapter8Scene::Init()
 	sideRight.setPosition(resolution.x, 0);
 	sideRight.setScale(-1.f, 1.f);
 
+	ui.Init(levelData.lastTurn, resolution);
+	stageTransition.Init(resolution);
+	gameOver.Init(resolution);
 
 	paused = false;
 	isClear = false;
@@ -95,12 +97,13 @@ void Chapter8Scene::InitMap(std::string filepath)
 				skulls.push_back(skull);
 				break;
 			}
+			default:
+				break;
 			}
 
 			player.Init(playerPos, TILE_SIZE, MOVE_SECOND);
 		}
 	}
-
 }
 
 void Chapter8Scene::Update(Time& dt)
@@ -151,6 +154,8 @@ void Chapter8Scene::Update(Time& dt)
 	{
 		sceneManager.ChangeScene(SceneType::STAGE8, true);
 	}
+
+	playerView.setCenter(Vector2f(resolution.x*0.5f, player.GetPos().y-250));
 }
 
 void Chapter8Scene::PausedState()
