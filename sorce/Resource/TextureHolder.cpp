@@ -11,3 +11,9 @@ Texture& TextureHolder::GetTexture(string filename)
 
 	return map[filename];
 }
+
+void TextureHolder::Release()
+{
+	auto& map = Instance()->mapTexture;
+	map.clear();
+}

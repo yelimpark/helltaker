@@ -1,9 +1,20 @@
 #pragma once
+#include <iostream>
 
 class GameVal {
 private:
-	// 여러 씬에서 사용되는 변수들
 
 public:
+	static int level;
+
+	static int cutSceneIdx;
+
+	static int musicSound;
+
+	static int effectSound;
+
+	static std::string language;
+
 	static void Init();
+
 };

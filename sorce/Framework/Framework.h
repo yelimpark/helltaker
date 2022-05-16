@@ -12,10 +12,13 @@ private:
     static RenderWindow window;
 
     View mainView;
+    static View playerView;
 
     TextureHolder textureHolder;
     FontHolder fontHolder;
     SoundHolder soundHolder;
+    AnimationHolder animationholder;
+
     SceneManager sceneManager;
 
     Clock clock;
@@ -25,7 +28,9 @@ public:
 
     static const Vector2i& GetResolution();
 
-    static const View& GetMainView();
+    const static View& GetMainView();
+
+    static View& GetPlayerView();
 
     void Init();
 

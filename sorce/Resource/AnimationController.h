@@ -1,22 +1,23 @@
 #pragma once
 #include "AnimationClip.h"
 #include <list>
+#include <string>
 
 using namespace sf;
 
 class AnimationController {
 private:
 	std::map<std::string, AnimationClip> clips;
+
 	bool isPlaying;
 	int currentFrame;
 	int totalFrame;
 	float frameDuration;
-
 	float accumTime;
 
 	Sprite* sprite;
 
-	AnimationClip* currentCltp;
+	AnimationClip* currentClip;
 
 	std::list<std::string> que;
 
@@ -25,7 +26,7 @@ public:
 
 	void SetTarget(Sprite* sprite);
 
-	void AddClip(const AnimationClip& newClip);
+	void AddClip(std::string);
 
 	void Update(float dt);
 
@@ -37,8 +38,9 @@ public:
 
 	bool IsPlaying();
 
-	void changeSpeed(float speed);
-
 	bool IsAnimationEnd();
 
+	std::string NowPlaying();
+
+	bool OnFrame(int n);
 };

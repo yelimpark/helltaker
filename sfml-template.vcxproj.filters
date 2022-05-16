@@ -21,11 +21,35 @@
     <Filter Include="소스 파일\Framework">
       <UniqueIdentifier>{be006b1d-c784-4ac5-882d-a5767efbebb2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\GameObj">
+    <Filter Include="소스 파일\UI">
+      <UniqueIdentifier>{8685a669-3847-4bfe-bb7f-7ba42de77b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\SceneInitializer">
+      <UniqueIdentifier>{a00ff761-244a-4a73-933f-86644944c5c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\StageGameObj">
       <UniqueIdentifier>{42e6f0f7-0443-48da-943b-00c3af0d795b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\UIObj">
-      <UniqueIdentifier>{7435b8e0-1463-4aa2-b818-90eb318aaaf7}</UniqueIdentifier>
+    <Filter Include="소스 파일\StageGameObj\Moveable">
+      <UniqueIdentifier>{5f387805-3788-4a6c-9d85-c9bf3bde479a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\StageGameObj\Vfx">
+      <UniqueIdentifier>{1e2bb2b1-3785-47c1-9642-4a93f006c38b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\StageGameObj\etc">
+      <UniqueIdentifier>{3891f42d-9df9-41c0-b9f5-6909e63ddd42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj">
+      <UniqueIdentifier>{f44f528d-241e-4031-8053-8e02d2d66cc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj\vfx">
+      <UniqueIdentifier>{d03b017d-741d-4409-b813-b302fa651166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj\script">
+      <UniqueIdentifier>{a2deedb0-37b4-4f01-8d3f-4583ced4b725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObj\etc">
+      <UniqueIdentifier>{6e6cb3f7-bc08-4f55-b801-5f2937a6ff71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +88,120 @@
     </ClCompile>
     <ClCompile Include="sorce\Resource\AnimationController.cpp">
       <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\StageScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\UI\StageUI.cpp">
+      <Filter>소스 파일\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Resource\AnimationHolder.cpp">
+      <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Utils\Utils.cpp">
+      <Filter>소스 파일\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\PauseMenu.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Box.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Demon.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Player.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Skull.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\BoneParticle.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\KickVfx.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\MoveVfx.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Flame.cpp">
+      <Filter>소스 파일\StageGameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\GameOver.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\CutScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\BadEndingScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\InitLoadingScene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\booper.cpp">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Death.cpp">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\CutSceneTransition.cpp">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\stageSceneTrasition.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Success.cpp">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Option.cpp">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Script.cpp">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ScriptWithAnimation.cpp">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ScriptWithCG.cpp">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ScriptWithChoice.cpp">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\SoundEffect.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\SoundType.cpp">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Key.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\Claw.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\LockedBox.cpp">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\BloodVfx.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\GetVfx.cpp">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\MainMenu.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ChapterMenuOption.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\GameObj\ChapterMenu.cpp">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="sorce\Scene\Chapter8Scene.cpp">
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +249,138 @@
     </ClInclude>
     <ClInclude Include="sorce\Utils\Utils.h">
       <Filter>소스 파일\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationClip.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationController.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\PauseMenu.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\StageScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\SceneInitializer\StageSceneInitializer.h">
+      <Filter>소스 파일\SceneInitializer</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Resource\AnimationHolder.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Box.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Demon.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Player.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Skull.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\BoneParticle.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\KickVfx.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MoveVfx.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Direction.h">
+      <Filter>소스 파일\StageGameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Flame.h">
+      <Filter>소스 파일\StageGameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MapCode.h">
+      <Filter>소스 파일\StageGameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\GameOver.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Skull.h">
+      <Filter>소스 파일\GameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\CutScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\SceneInitializer\CutSceneInitializer.h">
+      <Filter>소스 파일\SceneInitializer</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\BadEndingScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\InitLoadingScene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Death.h">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\booper.h">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\CutSceneTransition.h">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\stageSceneTrasition.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Success.h">
+      <Filter>소스 파일\GameObj\vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Option.h">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Script.h">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ScriptWithAnimation.h">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ScriptWithCG.h">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ScriptWithChoice.h">
+      <Filter>소스 파일\GameObj\script</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\SoundEffect.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\SoundType.h">
+      <Filter>소스 파일\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Claw.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\Key.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\LockedBox.h">
+      <Filter>소스 파일\StageGameObj\Moveable</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\BloodVfx.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\GetVfx.h">
+      <Filter>소스 파일\StageGameObj\Vfx</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\UI\StageUI.h">
+      <Filter>소스 파일\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\MainMenu.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ChapterMenu.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\GameObj\ChapterMenuOption.h">
+      <Filter>소스 파일\GameObj\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="sorce\Scene\Chapter8Scene.h">
+      <Filter>소스 파일\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

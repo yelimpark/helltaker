@@ -1,10 +1,22 @@
 #pragma once
 #include "./Scene.h"
+#include <SFML/Graphics.hpp>
+#include "../GameObj/MainMenu.h"
+#include "../GameObj/ChapterMenu.h"
 
-class TitleScene : public Scene 
+using namespace sf;
+
+class TitleScene : public Scene
 {
 private:
-	
+	Sprite bg;
+	Sprite chara;
+
+	Sprite leng;
+
+	MainMenu mainM;
+	ChapterMenu chapM;
+	bool IsChapMActive;
 
 public:
 	TitleScene(SceneManager& sceneManager);
