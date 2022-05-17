@@ -50,8 +50,6 @@ void BadEndingScene::Init()
 		texts.push_back(text);
 		++idx;
 	}
-
-	--GameVal::level;
 }
 
 void BadEndingScene::Update(Time& dt)

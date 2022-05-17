@@ -8,7 +8,7 @@ std::string GameVal::language = "";
 
 void GameVal::Init()
 {
-	level = 9;
+	level = 1;
 
 	cutSceneIdx = 0;
 
